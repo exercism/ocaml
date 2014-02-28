@@ -1,0 +1,6 @@
+*.beam
+*.swp
+.DS_Store
+tmp
+*.native
+_build/
