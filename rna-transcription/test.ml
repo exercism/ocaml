@@ -7,16 +7,18 @@ let printer l = List.map ~f:char_of_variant l |> String.of_char_list
 let ae exp got _test_ctxt = assert_equal ~printer exp got
 
 let tests =
-  ["transcribes cytidine unchanged">::
-    ae [`C] (Dna.to_rna [`C]);
-   "transcribes guanosine unchanged">::
-    ae [`G] (Dna.to_rna [`G]);
-   "transcribes adenosie unchanged">::
-    ae [`A] (Dna.to_rna [`A]);
-   "transcribes thymidine to uracil">::
-    ae [`U] (Dna.to_rna [`T]);
-   "transcribes all occurences of thymidine to uracil">::
-    ae [`A; `C; `G; `U; `G; `G; `U; `C; `U; `U; `A; `A]
+  ["transcribes empty list">::
+    ae [] (DNA.to_rna []);
+   "transcribes cytidine">::
+    ae [`G] (Dna.to_rna [`C]);
+   "transcribes guanosine">::
+    ae [`C] (Dna.to_rna [`G]);
+   "transcribes adenosie">::
+    ae [`U] (Dna.to_rna [`A]);
+   "transcribes thymidine">::
+    ae [`A] (Dna.to_rna [`T]);
+   "transcribes multiple">::
+    ae [`U; `G; `C; `A; `C; `C; `A; `G; `A; `A; `U; `U]
        (Dna.to_rna [`A; `C; `G; `T; `G; `G; `T; `C; `T; `T; `A; `A])
   ]
 
