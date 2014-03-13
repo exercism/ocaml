@@ -8,7 +8,7 @@ let ae exp got _test_ctxt = assert_equal ~printer exp got
 
 let tests =
   ["transcribes empty list">::
-    ae [] (DNA.to_rna []);
+    ae [] (Dna.to_rna []);
    "transcribes cytidine">::
     ae [`G] (Dna.to_rna [`C]);
    "transcribes guanosine">::
