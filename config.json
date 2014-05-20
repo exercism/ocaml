@@ -19,5 +19,8 @@
     "prime-factors",
     "zipper",
     "hangman"
+  ],
+  "ignore": [
+
   ]
 }
