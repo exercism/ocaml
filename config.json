@@ -20,6 +20,9 @@
     "zipper",
     "hangman"
   ],
+  "deprecated": [
+
+  ],
   "ignore": [
 
   ]
