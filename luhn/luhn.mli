@@ -1,0 +1,1 @@
+val valid : string -> bool
