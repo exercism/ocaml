@@ -16,4 +16,4 @@ val grade : int -> school -> string list
 val sort : school -> school
 
 (** Return the list of grades and students as a map *)
-val to_map : school -> (int, string list, Int.comparator) Map.t
+val to_map : school -> string list Int.Map.t
