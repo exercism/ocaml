@@ -59,13 +59,14 @@ let tests =
        let got = School.create ()
                  |> School.add "Christopher" 4
                  |> School.add "Jennifer" 4
+                 |> School.add "Aaron" 4
                  |> School.add "Kareem" 6
                  |> School.add "Kyle" 3
                  |> School.sort in
        ame (IMap.of_alist_exn [(3, ["Kyle"]);
-                               (4, ["Christopher"; "Jennifer"]);
+                               (4, ["Aaron"; "Christopher"; "Jennifer"]);
                                (6, ["Kareem"])])
-           (School.to_map got |> Map.map ~f:(List.sort ~cmp:compare)));
+           (School.to_map got));
   ]
 
 let () =
