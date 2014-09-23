@@ -8,7 +8,7 @@ let tests =
   ["something">::
      ae "Whatever." (response_for "Tom-ay-to, tom-aaaah-to.");
    "shouts">::
-     ae "Woah, chill out!" (response_for "WATCH OUT!");
+     ae "Whoa, chill out!" (response_for "WATCH OUT!");
    "questions">::
      ae "Sure." (response_for "Does this cryogenic chamber make me look fat?");
    "forceful talking">::
@@ -16,12 +16,12 @@ let tests =
    "acronyms">::
      ae "Whatever." (response_for "It's ok if you don't want to go to the DMV.");
    "forceful questions">::
-     ae "Woah, chill out!" (response_for "WHAT THE HELL WERE YOU THINKING?");
+     ae "Whoa, chill out!" (response_for "WHAT THE HELL WERE YOU THINKING?");
    "shouting with special characters">::
-     ae "Woah, chill out!"
+     ae "Whoa, chill out!"
        (response_for "ZOMG THE %^*@#$(*^ ZOMBIES ARE COMING!!11!!1!");
    "shouting numbers">::
-     ae "Woah, chill out!" (response_for "1, 2, 3, GO!");
+     ae "Whoa, chill out!" (response_for "1, 2, 3, GO!");
    "statement containing question mark">::
      ae "Whatever." (response_for "Ending with ? means a question.");
    "silence">::
