@@ -13,17 +13,17 @@ let ame exp got =
   assert_equal exp got ~cmp:(CMap.equal (=)) ~printer
 
 let tests =
-  ["empty dna string has no adenosine">::
+  ["empty dna string has no adenine">::
     aie 0 (Dna.count "" 'A');
    "empty dna string has no nucleotides">:: (fun _ ->
     let exp = CMap.empty in
     ame exp (Dna.nucleotide_counts ""));
-   "repetitive cytidine gets counted">::
+   "repetitive cytosine gets counted">::
     aie 5 (Dna.count "CCCCC" 'C');
-   "repetitive sequence has only guanosine">:: (fun _ ->
+   "repetitive sequence has only guanine">:: (fun _ ->
     let exp = CMap.singleton 'G' 8 in
     ame exp (Dna.nucleotide_counts "GGGGGGGG"));
-   "counts only thymidine">::
+   "counts only thymine">::
     aie 1 (Dna.count "GGGGGTAACCCGG" 'T');
    "dna has no uracil">::
     aie 0 (Dna.count "GATTACA" 'U');
