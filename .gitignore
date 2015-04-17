@@ -4,3 +4,5 @@
 tmp
 *.native
 _build/
+bin/configlet
+bin/configlet.exe
