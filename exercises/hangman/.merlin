@@ -1,0 +1,6 @@
+PKG findlib
+PKG core
+PKG ounit
+PKG react
+S *
+B *
