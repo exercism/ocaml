@@ -4,7 +4,7 @@ open OUnit2
 let ae exp got _test_ctxt = assert_equal ~printer:Int.to_string exp got
 
 let dna_of_string s =
-    let open Dna in
+    let open Hamming in
     let f = function
         | 'A' -> A
         | 'C' -> C
@@ -13,13 +13,13 @@ let dna_of_string s =
         | _   -> failwith "Big news! New nucleotide discovered" in
     String.to_list s |> List.map ~f
 
-let hamdist a b = Dna.hamming_distance (dna_of_string a) (dna_of_string b)
+let hamdist a b = Hamming.hamming_distance (dna_of_string a) (dna_of_string b)
 
 let tests =
   ["no difference between empty strands">::
      ae 0 (hamdist "" "");
    "no difference between identical strands">::
-     ae 0 (hamdist "GGACTAGA" 
+     ae 0 (hamdist "GGACTAGA"
                    "GGACTAGA");
    "hamming distance in off by one strand">::
      ae 19 (hamdist "GGACGGATTCTGACCTGGACTAATTTTGGGG"

@@ -12,7 +12,7 @@
     "beer-song",
     "nucleotide-count",
     "rna-transcription",
-    "point-mutations",
+    "hamming",
     "phone-number",
     "grade-school",
     "space-age",
@@ -25,7 +25,7 @@
     "hangman"
   ],
   "deprecated": [
-
+    "point-mutations"
   ],
   "ignored": [
     "docs"
