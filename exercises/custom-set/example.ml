@@ -1,3 +1,5 @@
+open Core.Std
+
 module type ELEMENT = sig
     type t
     val compare : t -> t -> int
@@ -13,18 +15,11 @@ module Make(El: ELEMENT) = struct
     
     type el = El.t
     
-    let compare a b =
-        let rec comp = function
-            | [], [] -> 0
-            | (_::_), [] -> -1
-            | [], (_::_) -> 1
-            | (h1::t1), (h2::t2) ->
-                match compare h1 h2 with
-                | 0 -> comp (t1, t2)
-                | v -> v
-        in comp (a, b)
+    let is_empty = List.is_empty
 
-    let equal a b = compare a b == 0
+    let rec is_member l n = List.find l ~f:(El.equal n) |> Option.is_some
+
+    let equal a b = List.equal a b ~equal:El.equal
     
     let to_string l = 
         let rec print_els = function
@@ -35,7 +30,7 @@ module Make(El: ELEMENT) = struct
 
     let empty = []
     
-    let of_list l = List.sort_uniq El.compare l
+    let of_list l = List.dedup ~compare:El.compare l |> List.sort ~cmp:El.compare
     
     let to_list l = l 
 
@@ -81,3 +76,4 @@ module Make(El: ELEMENT) = struct
     let intersect = diff_filter (function `Both -> true | _ -> false)
     let union = diff_filter (fun _ -> true)
 end
+
