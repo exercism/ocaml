@@ -24,7 +24,7 @@ module CSet : EXPECTED = Custom_set.Make(struct
 end)
 
 let rec int_list_eq l1 l2 = match (l1, l2) with
-  | (h1::t1), (h2::t2) -> h1 == h2 && int_list_eq t1 t2
+  | (h1::t1), (h2::t2) -> h1 = h2 && int_list_eq t1 t2
   | [], [] -> true
   | _, _ -> false
 
@@ -75,8 +75,13 @@ let tests = [
     ae_repr "{1 2 3}" (CSet.of_list [2;3;1]);
   "of_list - duplicates">::
     ae_repr "{1 2 3}" (CSet.of_list [2;3;2;1;1]);
-  "of_list - no duplicates using the provided equal method">::
-    ae_repr "{1 2 3}" (CSet.of_list [2;3;1;11;13;12]);
+  "of_list - no duplicates using the provided equal method">::(fun _test_context ->
+    let s = (CSet.of_list [2;3;1;11;13;12]) in
+    assert_bool "1 (= 11 mod 10) in the set" (CSet.is_member s 1);
+    assert_bool "2 (= 12 mod 10) in the intersection" (CSet.is_member s 2);
+    assert_bool "3 (= 13 mod 10) in the intersection" (CSet.is_member s 3);
+    assert_equal 3 (CSet.to_list s |> List.length);
+    );
   "to_list">::
     ae_list [-2; 1; 3] (CSet.to_list (CSet.of_list [3;1;-2]));
   "add non-duplicate">::
