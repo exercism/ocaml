@@ -61,43 +61,66 @@ let tests = [
     assert_not_equal (CSet.of_list [2]) (CSet.of_list [3]);
   "equal - equal non-empty sets">::
     ae_set (CSet.of_list [2]) (CSet.of_list [2]);
+  "equal - equal sets using the provided equal method">::
+    ae_set (CSet.of_list [2]) (CSet.of_list [12]);
   "is_member false on the empty set">::
     assert_false (CSet.is_member CSet.empty 3);
   "is_member false if not a member">::
     assert_false (CSet.is_member (CSet.of_list [1;2;5]) 3);
   "is_member true if a member">::
     assert_true (CSet.is_member (CSet.of_list [1;3;5]) 3);
+  "is_member true if a member using the provided equal method">::
+    assert_true (CSet.is_member (CSet.of_list [1;3;5]) 13);
   "of_list - no duplicates">::
     ae_repr "{1 2 3}" (CSet.of_list [2;3;1]);
   "of_list - duplicates">::
     ae_repr "{1 2 3}" (CSet.of_list [2;3;2;1;1]);
+  "of_list - no duplicates using the provided equal method">::
+    ae_repr "{1 2 3}" (CSet.of_list [2;3;1;11;13;12]);
   "to_list">::
     ae_list [-2; 1; 3] (CSet.to_list (CSet.of_list [3;1;-2]));
   "add non-duplicate">::
     ae_repr "{1 3 4}" (CSet.add (CSet.of_list [1;4]) 3);
   "add duplicate">::
     ae_repr "{1 3 4}" (CSet.add (CSet.of_list [1;4;3]) 3);
+  "add duplicate with respect to the provided equal method">::
+    ae_repr "{1 3 4}" (CSet.add (CSet.of_list [1;4;3]) 14);
   "add onto empty set">::
     ae_repr "{3}" (CSet.add CSet.empty 3);
   "remove found">::
     ae_repr "{1 4}" (CSet.remove (CSet.of_list [1;3;4]) 3);
+  "remove found with respect to the provided equal method">::
+    ae_repr "{1 4}" (CSet.remove (CSet.of_list [1;3;4]) 13);
   "remove not found">::
     ae_repr "{1 4}" (CSet.remove (CSet.of_list [1;4]) 3);
   "remove from empty set">::
     ae_repr "{}" (CSet.remove CSet.empty 3);
-  "custom compare">::
-    ae_list [1; 2; 3]
-      (List.map (fun x -> x mod 10) (CSet.to_list
-        (CSet.remove (CSet.add (CSet.of_list [103; 11; 22; 404]) 53) 14)));
   "difference">::
     ae_repr "{1 3 5}"
       (CSet.difference (CSet.of_list [1; 2; 3; 4; 5]) (CSet.of_list [2; 4]));
+  "difference using the provided equal method">::
+    ae_repr "{1 3 5}"
+      (CSet.difference (CSet.of_list [1; 2; 3; 4; 5]) (CSet.of_list [12; 14]));
   "intersect">::
     ae_repr "{1 3}"
       (CSet.intersect (CSet.of_list [1; 2; 3]) (CSet.of_list [3; 5; 1]));
+  "intersect using the provided equal method">::(fun _test_context ->
+    let intersection = CSet.intersect (CSet.of_list [1; 2; 3]) (CSet.of_list [23; 15; 11]) in
+    assert_bool "1 (= 11 mod 10) in the intersection" (CSet.is_member intersection 1);
+    assert_bool "3 (= 23 mod 10) in the intersection" (CSet.is_member intersection 3);
+    assert_equal 2 (CSet.to_list intersection |> List.length);
+    );
   "union">::
     ae_repr "{1 2 3 5}"
       (CSet.union (CSet.of_list [1; 2; 3]) (CSet.of_list [3; 5; 1]));
+  "union using the provided equal method">::(fun _test_context ->
+    let union = CSet.union (CSet.of_list [1; 2; 3]) (CSet.of_list [3; 5; 21]) in
+    assert_bool "1 (= 11 mod 10) in the union" (CSet.is_member union 1);
+    assert_bool "2 in the union" (CSet.is_member union 2);
+    assert_bool "3 (= 23 mod 10) in the union" (CSet.is_member union 3);
+    assert_bool "5 in the union" (CSet.is_member union 5);
+    assert_equal 4 (CSet.to_list union |> List.length);
+    );
   ]
 
 let () =
