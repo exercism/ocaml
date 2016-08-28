@@ -16,4 +16,4 @@ let frame_scores =
 
 let new_game = []
 let roll pins g = pins :: g
-let score g = frame_scores g |> List.fold ~init:0 ~f:(+)
+let score g = frame_scores (List.rev g) |> List.fold ~init:0 ~f:(+)

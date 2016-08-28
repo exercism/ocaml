@@ -2,7 +2,7 @@ open Core.Std
 open OUnit2
 module B = Bowling
 
-let (>>) = Fn.compose
+let (>>) = Fn.flip Fn.compose
 
 let assert_score e g _test_context =
   assert_equal ~printer:Int.to_string e (B.new_game |> g |> B.score)
