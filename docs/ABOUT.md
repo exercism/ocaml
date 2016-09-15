@@ -4,5 +4,5 @@ supporting functional, imperative and object-oriented styles. It is used as a
 [type system](https://en.wikipedia.org/wiki/Type_system) that allows the
 compiler to catch some mistakes early on saving the developer a huge amount of
 frustration. [Type inference](https://en.wikipedia.org/wiki/Type_inference)
-reliefs the developer from the tedium of providing all the type signatures by
-them selves.
+relieves the developer from the tedium of providing all the type signatures by
+themselves.
