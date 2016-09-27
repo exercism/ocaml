@@ -26,6 +26,108 @@
     "zipper",
     "hangman"
   ],
+  "exercises": [
+    {
+      "slug": "bob",
+      "difficulty": 1,
+      "topics": []
+    },
+    {
+      "slug": "list-ops",
+      "difficulty": 1,
+      "topics": []
+    },
+    {
+      "slug": "leap",
+      "difficulty": 1,
+      "topics": []
+    },
+    {
+      "slug": "word-count",
+      "difficulty": 1,
+      "topics": []
+    },
+    {
+      "slug": "anagram",
+      "difficulty": 1,
+      "topics": []
+    },
+    {
+      "slug": "beer-song",
+      "difficulty": 1,
+      "topics": []
+    },
+    {
+      "slug": "nucleotide-count",
+      "difficulty": 1,
+      "topics": []
+    },
+    {
+      "slug": "rna-transcription",
+      "difficulty": 1,
+      "topics": []
+    },
+    {
+      "slug": "hamming",
+      "difficulty": 1,
+      "topics": []
+    },
+    {
+      "slug": "phone-number",
+      "difficulty": 1,
+      "topics": []
+    },
+    {
+      "slug": "grade-school",
+      "difficulty": 1,
+      "topics": []
+    },
+    {
+      "slug": "space-age",
+      "difficulty": 1,
+      "topics": []
+    },
+    {
+      "slug": "custom-set",
+      "difficulty": 1,
+      "topics": []
+    },
+    {
+      "slug": "bowling",
+      "difficulty": 1,
+      "topics": []
+    },
+    {
+      "slug": "minesweeper",
+      "difficulty": 1,
+      "topics": []
+    },
+    {
+      "slug": "prime-factors",
+      "difficulty": 1,
+      "topics": []
+    },
+    {
+      "slug": "hexadecimal",
+      "difficulty": 1,
+      "topics": []
+    },
+    {
+      "slug": "luhn",
+      "difficulty": 1,
+      "topics": []
+    },
+    {
+      "slug": "zipper",
+      "difficulty": 1,
+      "topics": []
+    },
+    {
+      "slug": "hangman",
+      "difficulty": 1,
+       "topics": []
+    }
+  ],
   "deprecated": [
     "point-mutations"
   ],
