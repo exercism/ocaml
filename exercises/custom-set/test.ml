@@ -18,7 +18,6 @@ module CSet : EXPECTED = Custom_set.Make(struct
   type t = int
   let compare a b = compare (a mod 10) (b mod 10)
   let equal a b = compare a b = 0
-  let to_string v = string_of_int v
 end)
 
 let assert_true exp _text_ctxt = assert_equal exp true

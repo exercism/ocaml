@@ -2,7 +2,6 @@ module type ELEMENT = sig
     type t
     val compare : t -> t -> int
     val equal : t -> t -> bool
-    val to_string : t -> string
 end
 
 module Make(El: ELEMENT) = struct
@@ -19,24 +18,25 @@ module Make(El: ELEMENT) = struct
 
     let is_member l n = List.filter (El.equal n) l |> is_empty |> not
 
+    let rec is_subset x y = match (x, y) with
+      | ([], []) -> true
+      | ([], _)  -> true
+      | (_, [])  -> false
+      | ((x::xs), y) -> (is_member y x) && (is_subset xs y)
+
+    let rec is_disjoint x y = match (x, y) with
+      | ([], []) -> true
+      | ([], _)  -> true
+      | (_, [])  -> true
+      | ((x::xs), y) -> (not (is_member y x)) && (is_disjoint xs y)
+
     let rec equal x y = match (x, y) with
       | ([], []) -> true
       | ([], _) -> false
       | (_, []) -> false
       | ((x::xs), (y::ys)) -> El.equal x y && equal xs ys
 
-    let to_string l =
-        let rec print_els = function
-            | (h1::h2::t) -> El.to_string h1 ^ " " ^ print_els (h2::t)
-            | (h1::t) -> El.to_string h1 ^ print_els t
-            | [] -> "" in
-        "{" ^ print_els l ^ "}"
-
-    let empty = []
-
     let of_list = List.sort_uniq El.compare
-
-    let to_list l = l
 
     let add l x =
         let rec go acc = function
@@ -46,16 +46,6 @@ module Make(El: ELEMENT) = struct
                 else if r < 0 then List.rev_append acc (x :: h :: t)
                 else go (h::acc) t
             | [] -> List.rev (x::acc)
-        in go [] l
-
-    let remove l x =
-        let rec go acc = function
-            | h :: t ->
-                let r = El.compare x h in
-                if r = 0 then List.rev_append acc t
-                else if r < 0 then l
-                else go (h::acc) t
-            | [] -> l
         in go [] l
 
     type status = [
