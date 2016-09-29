@@ -2,19 +2,15 @@ open OUnit2
 
 module type EXPECTED = sig
   type t
-  val empty : t
-  val equal : t -> t -> bool
+  val of_list : int list -> t
   val is_empty : t -> bool
   val is_member : t -> int -> bool
   val is_subset : t -> t -> bool
   val is_disjoint: t -> t -> bool
-  val to_string : t -> string
-  val of_list : int list -> t
-  val to_list : t -> int list
+  val equal : t -> t -> bool
   val add : t -> int -> t
-  val remove : t -> int -> t
-  val difference : t -> t -> t
   val intersect : t -> t -> t
+  val difference : t -> t -> t
   val union : t -> t -> t
 end
 
