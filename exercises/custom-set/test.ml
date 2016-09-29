@@ -37,13 +37,8 @@ let int_list_printer l =
     | [] -> "" in
   "[" ^ print_els l ^ "]"
 
-let ae_set exp got _test_ctxt = assert_equal ~cmp:CSet.equal ~printer:CSet.to_string exp got
-let ae_list exp got _test_ctxt = assert_equal ~cmp:int_list_eq ~printer:int_list_printer exp got
-let ae_repr exp set _test_ctxt = assert_equal ~cmp:(=) ~printer:(fun x -> x) exp (CSet.to_string set)
 let assert_true exp _text_ctxt = assert_equal exp true
 let assert_false exp _text_ctxt = assert_equal exp false
-let assert_not_equal exp got _test_ctxt = assert_equal ~cmp:(fun x y -> (CSet.equal x y) |> not) exp got
-
 let tests = [
   "sets with no elements are empty">::
     assert_true (CSet.is_empty (CSet.of_list []));
