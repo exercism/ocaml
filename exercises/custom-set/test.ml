@@ -25,18 +25,6 @@ module CSet : EXPECTED = Custom_set.Make(struct
   let to_string v = string_of_int v
 end)
 
-let rec int_list_eq l1 l2 = match (l1, l2) with
-  | (h1::t1), (h2::t2) -> h1 = h2 && int_list_eq t1 t2
-  | [], [] -> true
-  | _, _ -> false
-
-let int_list_printer l =
-  let rec print_els = function
-    | (h1::h2::t) -> string_of_int h1 ^ " " ^ print_els (h2::t)
-    | (h1::t) -> string_of_int h1 ^ print_els t
-    | [] -> "" in
-  "[" ^ print_els l ^ "]"
-
 let assert_true exp _text_ctxt = assert_equal exp true
 let assert_false exp _text_ctxt = assert_equal exp false
 let tests = [
