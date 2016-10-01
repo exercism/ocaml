@@ -4,6 +4,7 @@
   "repository": "https://github.com/exercism/xocaml",
   "active": true,
   "problems": [
+    "hello-world",
     "bob",
     "list-ops",
     "leap",
@@ -27,6 +28,11 @@
     "hangman"
   ],
   "exercises": [
+    {
+      "slug": "hello-world",
+      "difficulty": 1,
+      "topics": []
+    },
     {
       "slug": "bob",
       "difficulty": 1,
