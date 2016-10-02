@@ -23,6 +23,7 @@
     "prime-factors",
     "hexadecimal",
     "luhn",
+    "say",  
     "zipper",
     "hangman"
   ],
@@ -119,6 +120,11 @@
     },
     {
       "slug": "luhn",
+      "difficulty": 1,
+      "topics": []
+    },
+    {
+      "slug": "say",
       "difficulty": 1,
       "topics": []
     },
