@@ -14,23 +14,23 @@ let ame exp got =
 
 let tests =
   ["empty dna string has no adenine">::
-    aie 0 (Dna.count "" 'A');
+    aie 0 (Nucleotide_count.count "" 'A');
    "empty dna string has no nucleotides">:: (fun _ ->
     let exp = CMap.empty in
-    ame exp (Dna.nucleotide_counts ""));
+    ame exp (Nucleotide_count.nucleotide_counts ""));
    "repetitive cytosine gets counted">::
-    aie 5 (Dna.count "CCCCC" 'C');
+    aie 5 (Nucleotide_count.count "CCCCC" 'C');
    "repetitive sequence has only guanine">:: (fun _ ->
     let exp = CMap.singleton 'G' 8 in
-    ame exp (Dna.nucleotide_counts "GGGGGGGG"));
+    ame exp (Nucleotide_count.nucleotide_counts "GGGGGGGG"));
    "counts only thymine">::
-    aie 1 (Dna.count "GGGGGTAACCCGG" 'T');
+    aie 1 (Nucleotide_count.count "GGGGGTAACCCGG" 'T');
    "dna has no uracil">::
-    aie 0 (Dna.count "GATTACA" 'U');
+    aie 0 (Nucleotide_count.count "GATTACA" 'U');
    "counts all nucleotides">:: (fun _ ->
     let s = "AGCTTTTCATTCTGACTGCAACGGGCAATATGTCTCTGTGTGGATTAAAAAAAGAGTGTCTGATAGCAGC" in
     let exp = CMap.of_alist_exn [('A', 20); ('T', 21); ('C', 12); ('G', 17)] in
-    ame exp (Dna.nucleotide_counts s))
+    ame exp (Nucleotide_count.nucleotide_counts s))
   ]
 
 let () =

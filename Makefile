@@ -1,6 +1,6 @@
 # assignments
 ASSIGNMENT ?= ""
-IGNOREDIRS := "^(\.git|bin|docs|lib|exercises)$$"
+IGNOREDIRS := "^(\.git|bin|docs|lib|exercises|prime-factors)$$"
 ASSIGNMENTS = $(shell find ./exercises -maxdepth 1 -mindepth 1 -type d | awk -F/ '{print $$NF}' | sort | grep -Ev $(IGNOREDIRS))
 
 default: test
@@ -13,7 +13,7 @@ OUTDIR := $(shell mktemp -d "$(TMPDIR)$(ASSIGNMENT).XXXXXXXXXX")
 FILEEXT := "ml"
 EXAMPLE := "example.$(FILEEXT)"
 SRCFILE := "$(shell echo $(ASSIGNMENT) | sed 's/-/_/g')"
-TSTFILE := "test.$(FILEEXT)"
+TSTFILE := "$(SRCFILE)_test.$(FILEEXT)"
 # Any additional arguments, such as -p for pretty output and others
 ARGS ?= ""
 
@@ -25,7 +25,7 @@ test-assignment:
 	@echo "running tests for: $(ASSIGNMENT)"
 	@cp -r ./exercises/$(ASSIGNMENT)/* $(OUTDIR)
 	@cp ./exercises/$(ASSIGNMENT)/$(EXAMPLE) $(OUTDIR)/$(SRCFILE).$(FILEEXT)
-	@$(MAKE) -C $(OUTDIR) 
+	@make -C $(OUTDIR)
 	@rm -rf $(OUTDIR)
 
 # all tests
