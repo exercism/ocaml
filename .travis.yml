@@ -2,7 +2,6 @@ language: c
 
 script:
   - bash -ex .travis-ci.sh
-  - make test
   - bin/fetch-configlet
   - bin/configlet .
 
