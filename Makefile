@@ -1,6 +1,6 @@
 # assignments
 ASSIGNMENT ?= ""
-IGNOREDIRS := "^(\.git|bin|docs|lib|exercises|prime-factors)$$"
+IGNOREDIRS := "^(\.git|bin|docs|lib|exercises|prime-factors|word-count)$$"
 ASSIGNMENTS = $(shell find ./exercises -maxdepth 1 -mindepth 1 -type d | awk -F/ '{print $$NF}' | sort | grep -Ev $(IGNOREDIRS))
 
 default: test
