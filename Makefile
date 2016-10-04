@@ -34,3 +34,9 @@ test:
 		ASSIGNMENT=$$assignment $(MAKE) -s test-assignment || exit 1;\
 	done
 
+clean:
+	@for assignment in $(ASSIGNMENTS); do \
+		make -C ./exercises/$$assignment clean;\
+	done
+
+.PHONY: clean
