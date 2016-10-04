@@ -1,5 +1,5 @@
 # Edit this for your own project dependencies
-OPAM_DEPENDS="ocamlfind core ounit"
+OPAM_DEPENDS="ocamlfind core ounit react"
 
 case "$OCAML_VERSION,$OPAM_VERSION" in
     4.02.3,1.2.2) ppa=avsm/ocaml42+opam12 ;;
