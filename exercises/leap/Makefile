@@ -6,6 +6,6 @@ test.native: *.ml *.mli
 
 clean:
 	rm -rf _build
-	rm test.native
+	rm -f test.native
 
 .PHONY: clean

@@ -20,7 +20,7 @@ let ame exp got =
 
 (* The tests never reuse a school value, so if you like you can use destructive
  * modification (i.e. mutable data structures). For the same reason
- * School.create takes a unit argument.
+ * Grade_school.create takes a unit argument.
  *
  * For those who wonder why the test doesn't use objects, it's to not force
  * the use of objects. You can still use them internally though. 
@@ -28,45 +28,45 @@ let ame exp got =
 
 let tests =
   ["add student">:: (fun _ ->
-       let got = School.create ()
-                 |> School.add "Aimee" 2 in
+       let got = Grade_school.create ()
+                 |> Grade_school.add "Aimee" 2 in
        ame (IMap.of_alist_exn [(2, ["Aimee"])])
-           (School.to_map got));
+           (Grade_school.to_map got));
    "add more students in same class">:: (fun _ ->
-       let got = School.create ()
-                 |> School.add "James" 2
-                 |> School.add "Blair" 2
-                 |> School.add "Paul" 2 in
+       let got = Grade_school.create ()
+                 |> Grade_school.add "James" 2
+                 |> Grade_school.add "Blair" 2
+                 |> Grade_school.add "Paul" 2 in
        ame (IMap.of_alist_exn [(2, ["Blair"; "James"; "Paul"])])
-           (School.to_map got |> Map.map ~f:(List.sort ~cmp:compare)));
+           (Grade_school.to_map got |> Map.map ~f:(List.sort ~cmp:compare)));
    "add students to different grades">:: (fun _ ->
-       let got = School.create ()
-                 |> School.add "Chelsea" 3
-                 |> School.add "Logan" 7 in
+       let got = Grade_school.create ()
+                 |> Grade_school.add "Chelsea" 3
+                 |> Grade_school.add "Logan" 7 in
        ame (IMap.of_alist_exn [(3, ["Chelsea"]); (7, ["Logan"])])
-           (School.to_map got |> Map.map ~f:(List.sort ~cmp:compare)));
+           (Grade_school.to_map got |> Map.map ~f:(List.sort ~cmp:compare)));
    "get students in a grade">:: (fun _ ->
-       let got = School.create ()
-                 |> School.add "Franklin" 5
-                 |> School.add "Bradley" 5
-                 |> School.add "Jeff" 1
-                 |> School.grade 5 in
+       let got = Grade_school.create ()
+                 |> Grade_school.add "Franklin" 5
+                 |> Grade_school.add "Bradley" 5
+                 |> Grade_school.add "Jeff" 1
+                 |> Grade_school.grade 5 in
        ale ["Bradley"; "Franklin"]
            (List.sort ~cmp:compare got));
    "get students in a non existant grade">:: (fun _ ->
-       ale [] (List.sort ~cmp:compare (School.create () |> School.grade 2)));
+       ale [] (List.sort ~cmp:compare (Grade_school.create () |> Grade_school.grade 2)));
    "sort school">:: (fun _ ->
-       let got = School.create ()
-                 |> School.add "Christopher" 4
-                 |> School.add "Jennifer" 4
-                 |> School.add "Aaron" 4
-                 |> School.add "Kareem" 6
-                 |> School.add "Kyle" 3
-                 |> School.sort in
+       let got = Grade_school.create ()
+                 |> Grade_school.add "Christopher" 4
+                 |> Grade_school.add "Jennifer" 4
+                 |> Grade_school.add "Aaron" 4
+                 |> Grade_school.add "Kareem" 6
+                 |> Grade_school.add "Kyle" 3
+                 |> Grade_school.sort in
        ame (IMap.of_alist_exn [(3, ["Kyle"]);
                                (4, ["Aaron"; "Christopher"; "Jennifer"]);
                                (6, ["Kareem"])])
-           (School.to_map got));
+           (Grade_school.to_map got));
   ]
 
 let () =
