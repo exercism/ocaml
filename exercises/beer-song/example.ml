@@ -21,4 +21,4 @@ let verse = function
 let sing ~from:from ~until:until =
     List.map (List.range ~stride:(-1) ~stop:`inclusive from until)
              ~f:(fun n -> verse n ^ "\n")
-    |> String.concat
+    |> String.concat ~sep:""
