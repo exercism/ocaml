@@ -14,6 +14,7 @@
     "beer-song",
     "nucleotide-count",
     "rna-transcription",
+    "raindrops",
     "hamming",
     "phone-number",
     "grade-school",
@@ -77,6 +78,11 @@
     },
     {
       "slug": "rna-transcription",
+      "difficulty": 1,
+      "topics": []
+    },
+    {
+      "slug": "raindrops",
       "difficulty": 1,
       "topics": []
     },
