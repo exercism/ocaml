@@ -1,3 +1,5 @@
+open Core
+
 let substitute = function
   | 'a' .. 'z' as c ->
     let offset = (Char.code c) - (Char.code 'a') in
@@ -22,36 +24,24 @@ let implode l =
   let character_at i = List.nth l i in
   String.init (List.length l) character_at
 
-let rec take n l =
-  match (n, l) with
-  | (0, _) -> []
-  | (_, []) -> []
-  | (_, x::xs) -> x::(take (n-1) xs)
-
-let rec drop n l =
-  match (n, l) with
-  | (0, _) -> l
-  | (_, []) -> []
-  | (_, _::xs) -> drop (n-1) xs
-
 let rec group n l =
-  if (List.length l) < n then
+  if (List.length l) <= n then
     [l]
   else
-    (take n l) :: (group n (drop n l))
+    (Core_list.take l n) :: (group n (Core_list.drop l n))
 
-let encode ?block_size:(block_size = 5) word =
-  let lowercase_word = String.lowercase word in
-  let characters = explode lowercase_word in
+let encode ?block_size:(block_size = 5) text =
+  let lowercase_text = String.lowercase text in
+  let characters = explode lowercase_text in
   let filtered_characters = List.filter is_encodable characters in
   let groups = group block_size filtered_characters in
-  let preprocessed_words = List.map implode groups in
-  let words = List.map (fun (word) -> (String.map substitute word)) preprocessed_words in
-  String.concat " " words
+  let preprocessed_texts = List.map implode groups in
+  let texts = List.map (String.map substitute) preprocessed_texts in
+  String.concat " " texts
 
-let decode word =
-  let lowercase_word = String.lowercase word in
-  let characters = explode lowercase_word in
+let decode text =
+  let lowercase_text = String.lowercase text in
+  let characters = explode lowercase_text in
   let filtered_characters = List.filter is_encodable characters in
-  let preprocessed_word = implode filtered_characters in
-  String.map substitute preprocessed_word
+  let preprocessed_text = implode filtered_characters in
+  String.map substitute preprocessed_text
