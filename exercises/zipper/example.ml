@@ -4,11 +4,11 @@ type 'a trail =
   | L of 'a * 'a Tree.t option * 'a trail (* Left path taken *)
   | R of 'a * 'a Tree.t option * 'a trail (* Right path taken *)
   | T                                     (* Top level (root) *)
-with sexp
+[@@deriving sexp]
 
 type 'a t = { value: 'a;
               left: 'a Tree.t option;
-              right: 'a Tree.t option; trail: 'a trail } with sexp
+              right: 'a Tree.t option; trail: 'a trail } [@@deriving sexp]
 
 let rec equal veq a b =
   veq a.value b.value &&

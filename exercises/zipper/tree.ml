@@ -1,7 +1,7 @@
 open Core.Std
 
 type 'a t = { value : 'a; left : 'a t option; right : 'a t option }
-with sexp
+  [@@deriving sexp]
 
 let rec equal veq a b =
   veq a.value b.value &&
