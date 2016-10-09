@@ -7,7 +7,7 @@ open Core.Std
  * This uses manual string slicing to avoid depending on any regex package
  * and because regexes are best avoided for simple tasks.
 *)
-let (words : string -> string list) s =
+let words (s: string): string list =
   let f i ((osi, l) as acc) c = match (osi, c) with
     | (None, c) when Char.is_alphanum c          -> (Some i, l)
     | (Some si, c) when not (Char.is_alphanum c) -> (None, String.slice s si i :: l)
