@@ -1,10 +1,10 @@
-open Core
+open Core.Std
 
 let substitute = function
   | 'a' .. 'z' as c ->
-    let offset = (Char.code c) - (Char.code 'a') in
-    let code = (Char.code 'z') - offset in
-    Char.chr code
+    let offset = (Char.to_int c) - (Char.to_int 'a') in
+    let code = (Char.to_int 'z') - offset in
+    Char.of_int_exn code
   | other -> other
 
 let is_encodable = function
@@ -21,27 +21,27 @@ let explode s =
   expl ((String.length s) - 1) []
 
 let implode l =
-  let character_at i = List.nth l i in
+  let character_at i = List.nth_exn l i in
   String.init (List.length l) character_at
 
 let rec group n l =
   if (List.length l) <= n then
     [l]
   else
-    (Core_list.take l n) :: (group n (Core_list.drop l n))
+    (List.take l n) :: (group n (List.drop l n))
 
 let encode ?block_size:(block_size = 5) text =
   let lowercase_text = String.lowercase text in
   let characters = explode lowercase_text in
-  let filtered_characters = List.filter is_encodable characters in
+  let filtered_characters = List.filter ~f:is_encodable characters in
   let groups = group block_size filtered_characters in
-  let preprocessed_texts = List.map implode groups in
-  let texts = List.map (String.map substitute) preprocessed_texts in
-  String.concat " " texts
+  let preprocessed_texts = List.map ~f:implode groups in
+  let texts = List.map ~f:(String.map ~f:substitute) preprocessed_texts in
+  String.concat ~sep:" " texts
 
 let decode text =
   let lowercase_text = String.lowercase text in
   let characters = explode lowercase_text in
-  let filtered_characters = List.filter is_encodable characters in
+  let filtered_characters = List.filter ~f:is_encodable characters in
   let preprocessed_text = implode filtered_characters in
-  String.map substitute preprocessed_text
+  String.map ~f:substitute preprocessed_text
