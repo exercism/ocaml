@@ -24,6 +24,7 @@
     "bowling",
     "minesweeper",
     "prime-factors",
+    "etl",
     "hexadecimal",
     "luhn",
     "say",
@@ -128,6 +129,11 @@
     },
     {
       "slug": "prime-factors",
+      "difficulty": 1,
+      "topics": []
+    },
+    {
+      "slug": "etl",
       "difficulty": 1,
       "topics": []
     },
