@@ -23,6 +23,8 @@ let tests =
    ae "gsvjf rxpyi ldmul cqfnk hlevi gsvoz abwlt" (encode "The quick brown fox jumps over the lazy dog.");
    "encode ignores non ascii">::
    ae "mlmzh xrrrt mlivw" (encode "non ascii éignored");
+   "encode mindblowingly with a different block size">::
+   ae "n r m w y o l d r m t o b" (encode ~block_size:1 "mindblowingly");
    "decode exercism">::
    ae "exercism" (decode "vcvix rhn");
    "decode a sentence">::
