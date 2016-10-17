@@ -28,6 +28,7 @@
     "hexadecimal",
     "luhn",
     "say",
+    "meetup",
     "zipper",
     "hangman"
   ],
@@ -151,6 +152,11 @@
       "slug": "say",
       "difficulty": 1,
       "topics": []
+    },
+    {
+      "slug": "meetup",
+      "difficulty": 1,
+      "topics": ["Dates"]
     },
     {
       "slug": "zipper",
