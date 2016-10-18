@@ -26,6 +26,7 @@
     "prime-factors",
     "etl",
     "hexadecimal",
+    "atbash-cipher",
     "luhn",
     "say",
     "meetup",
@@ -140,6 +141,11 @@
     },
     {
       "slug": "hexadecimal",
+      "difficulty": 1,
+      "topics": []
+    },
+    {
+      "slug": "atbash-cipher",
       "difficulty": 1,
       "topics": []
     },
