@@ -9,4 +9,4 @@ of pins knocked down. The return value is the updated state of the game. *)
 val roll : int -> t -> t
 
 (** This is called at the end of a game to retrieve the final score. *)
-val score : t -> int
+val score : t -> (int, string) result
