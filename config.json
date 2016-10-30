@@ -10,138 +10,138 @@
       "topics": []
     },
     {
-      "slug": "bob",
-      "difficulty": 1,
-      "topics": []
-    },
-    {
-      "slug": "difference-of-squares",
-      "difficulty": 1,
-      "topics": []
-    },
-    {
-      "slug": "list-ops",
-      "difficulty": 1,
-      "topics": []
-    },
-    {
       "slug": "leap",
       "difficulty": 1,
       "topics": []
     },
     {
-      "slug": "word-count",
-      "difficulty": 1,
-      "topics": []
-    },
-    {
-      "slug": "anagram",
-      "difficulty": 1,
-      "topics": []
-    },
-    {
-      "slug": "beer-song",
-      "difficulty": 1,
-      "topics": []
-    },
-    {
-      "slug": "nucleotide-count",
-      "difficulty": 1,
-      "topics": []
-    },
-    {
-      "slug": "rna-transcription",
-      "difficulty": 1,
+      "slug": "hamming",
+      "difficulty": 2,
       "topics": []
     },
     {
       "slug": "raindrops",
-      "difficulty": 1,
+      "difficulty": 2,
       "topics": []
     },
     {
-      "slug": "hamming",
-      "difficulty": 1,
+      "slug": "difference-of-squares",
+      "difficulty": 2,
       "topics": []
     },
     {
-      "slug": "phone-number",
-      "difficulty": 1,
+      "slug": "rna-transcription",
+      "difficulty": 2,
       "topics": []
     },
     {
-      "slug": "grade-school",
-      "difficulty": 1,
-      "topics": []
-    },
-    {
-      "slug": "space-age",
-      "difficulty": 1,
-      "topics": []
-    },
-    {
-      "slug": "roman-numerals",
-      "difficulty": 1,
-      "topics": []
-    },
-    {
-      "slug": "custom-set",
-      "difficulty": 1,
-      "topics": []
-    },
-    {
-      "slug": "bowling",
-      "difficulty": 1,
-      "topics": []
-    },
-    {
-      "slug": "minesweeper",
-      "difficulty": 1,
-      "topics": []
-    },
-    {
-      "slug": "prime-factors",
-      "difficulty": 1,
+      "slug": "nucleotide-count",
+      "difficulty": 2,
       "topics": []
     },
     {
       "slug": "etl",
-      "difficulty": 1,
+      "difficulty": 3,
+      "topics": []
+    },
+    {
+      "slug": "grade-school",
+      "difficulty": 3,
+      "topics": []
+    },
+    {
+      "slug": "bob",
+      "difficulty": 3,
       "topics": []
     },
     {
       "slug": "hexadecimal",
-      "difficulty": 1,
+      "difficulty": 3,
       "topics": []
     },
     {
-      "slug": "atbash-cipher",
-      "difficulty": 1,
+      "slug": "anagram",
+      "difficulty": 3,
+      "topics": []
+    },
+    {
+      "slug": "space-age",
+      "difficulty": 3,
+      "topics": []
+    },
+    {
+      "slug": "bowling",
+      "difficulty": 4,
       "topics": []
     },
     {
       "slug": "luhn",
-      "difficulty": 1,
+      "difficulty": 4,
+      "topics": []
+    },
+    {
+      "slug": "phone-number",
+      "difficulty": 4,
+      "topics": []
+    },
+    {
+      "slug": "word-count",
+      "difficulty": 4,
+      "topics": []
+    },
+    {
+      "slug": "beer-song",
+      "difficulty": 4,
+      "topics": []
+    },
+    {
+      "slug": "roman-numerals",
+      "difficulty": 5,
+      "topics": []
+    },
+    {
+      "slug": "prime-factors",
+      "difficulty": 5,
       "topics": []
     },
     {
       "slug": "say",
-      "difficulty": 1,
+      "difficulty": 5,
+      "topics": []
+    },
+    {
+      "slug": "list-ops",
+      "difficulty": 6,
+      "topics": []
+    },
+    {
+      "slug": "atbash-cipher",
+      "difficulty": 7,
+      "topics": []
+    },
+    {
+      "slug": "minesweeper",
+      "difficulty": 7,
+      "topics": []
+    },
+    {
+      "slug": "custom-set",
+      "difficulty": 8,
       "topics": []
     },
     {
       "slug": "meetup",
-      "difficulty": 1,
+      "difficulty": 9,
       "topics": ["Dates"]
     },
     {
       "slug": "zipper",
-      "difficulty": 1,
+      "difficulty": 10,
       "topics": []
     },
     {
       "slug": "hangman",
-      "difficulty": 1,
+      "difficulty": 10,
        "topics": []
     }
   ],
