@@ -13,7 +13,7 @@ let codegen_tests = [
   ae [] [];
 
   "generates one function based on leap year for one case" >::(fun ctxt ->
-      let c = {name = "leap_year"; int_assoc = [("input", 1996)]; expected = Bool true} in
+      let c = {name = "leap_year"; parameters = [("input", Int 1996)]; expected = Bool true} in
       assert_gen ["\"leap_year\" >:: ae true (leap_year 1996);"] [c]
     );
 ]

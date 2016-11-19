@@ -26,20 +26,24 @@ let parser_tests = [
        (parse_json_text "{\"cases\" : [\"key\"]}");
 
   "parses a single element with a description and expected string output" >::
-    ae (Ok [{name = "d1"; int_assoc = []; expected = String "value"}])
+    ae (Ok [{name = "d1"; parameters = []; expected = String "value"}])
        (parse_json_text "{\"cases\" : [{\"description\" : \"d1\", \"expected\" : \"value\"}]}");
 
   "parses a single element with a description and expected float output" >::
-    ae (Ok [{name = "d1"; int_assoc = []; expected = Float 100.}])
+    ae (Ok [{name = "d1"; parameters = []; expected = Float 100.}])
        (parse_json_text "{\"cases\" : [{\"description\" : \"d1\", \"expected\" : 100.0}]}");
 
   "parses a single element with a description and expected bool output" >::
-    ae (Ok [{name = "d1"; int_assoc = []; expected = Bool true}])
+    ae (Ok [{name = "d1"; parameters = []; expected = Bool true}])
       (parse_json_text "{\"cases\" : [{\"description\" : \"d1\", \"expected\" : true}]}");
 
-  "parses a single element with a number key value pair" >::
-    ae (Ok [{name = "d1"; int_assoc = [("input", 1996)]; expected = Bool true}])
+  "parses a single element with an int key value pair" >::
+    ae (Ok [{name = "d1"; parameters = [("input", Int 1996)]; expected = Bool true}])
       (parse_json_text "{\"cases\" : [{\"description\" : \"d1\", \"input\" : 1996, \"expected\" : true}]}");
+
+  "parses a single element with a string key value pair" >::
+    ae (Ok [{name = "d1"; parameters = [("input", String "some-string")]; expected = Int 85}])
+      (parse_json_text "{\"cases\" : [{\"description\" : \"d1\", \"input\" : \"some-string\", \"expected\" : 85}]}");
 
   "parses leap.json" >::(fun ctxt ->
     let (Ok p) = parse_json_text @@ In_channel.read_all "src/leap.json" in

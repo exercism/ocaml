@@ -8,23 +8,26 @@ type error =
   TopLevelMustHaveKeyCalledCases | ExpectingListOfCases | ExpectingMapForCase
   [@@deriving eq]
 
-let to_expected (s: json) = match s with
+let to_parameter (s: json) = match s with
   | `String x -> Some (String x)
   | `Float x -> Some (Float x)
+  | `Int x -> Some (Int x)
   | `Bool x -> Some (Bool x)
   | _ -> None
 
-let parse_int_fields (assoc: (string * json) list): int elements =
-  List.filter_map assoc ~f:(fun (k, v) -> Option.map ~f:(fun v -> (k, v)) (safe_to_int_option v))
+let parse_parameters (parameters: (string * json) list): parameter elements =
+  List.filter_map parameters ~f:(fun (k, v) -> Option.map ~f:(fun v -> (k, v)) (to_parameter v))
 
-let parse_case_assoc (assoc: (string * json) list): case option =
-  let find = List.Assoc.find assoc in
+let parse_case_assoc (parameters: (string * json) list): case option =
+  let find = List.Assoc.find parameters in
+  let test_parameters = List.Assoc.remove parameters "description" in
+  let test_parameters = List.Assoc.remove test_parameters "expected" in
   let open Option.Monad_infix in
   find "description" >>=
   to_string_option >>= fun description ->
   find "expected" >>= fun expectedJson ->
-  to_expected expectedJson >>= fun expected ->
-  Some {name = description; int_assoc = parse_int_fields assoc; expected = expected}
+  to_parameter expectedJson >>= fun expected ->
+  Some {name = description; parameters = parse_parameters test_parameters; expected = expected}
 
 let parse_case (s: json): (case, error) Result.t = match s with
   | `Assoc assoc -> Result.of_option (parse_case_assoc assoc) ExpectingMapForCase
