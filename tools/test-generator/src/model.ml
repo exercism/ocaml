@@ -1,5 +1,7 @@
 open Core.Std
 
+open Utils
+
 type parameter =
   | String of string
   | Float of float
@@ -19,8 +21,8 @@ let surround (ch: char) (s: string): string =
   Char.to_string ch ^ s ^ Char.to_string ch
 
 let parameter_to_string = function
-  | String s -> s
+  | String s -> String.escaped s
   | Float f -> Float.to_string f
   | Int n -> Int.to_string n
   | Bool b -> Bool.to_string b
-  | StringList xs -> "[" ^ String.concat ~sep:"; " (List.map ~f:(surround '\"') xs) ^ "]"
+  | StringList xs -> "[" ^ String.concat ~sep:"; " (List.map ~f:(surround '\"' >> String.escaped) xs) ^ "]"
