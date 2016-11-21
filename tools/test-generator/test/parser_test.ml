@@ -45,6 +45,10 @@ let parser_tests = [
     ae (Ok [{name = "d1"; parameters = [("input", String "some-string")]; expected = Int 85}])
       (parse_json_text "{\"cases\" : [{\"description\" : \"d1\", \"input\" : \"some-string\", \"expected\" : 85}]}");
 
+  "parses a single element with a string list key value pair" >::
+    ae (Ok [{name = "d1"; parameters = [("input", StringList ["s1"; "s2"])]; expected = Int 85}])
+      (parse_json_text "{\"cases\" : [{\"description\" : \"d1\", \"input\" : [\"s1\"; \"s2\"], \"expected\" : 85}]}");
+
   "parses leap.json" >::(fun ctxt ->
     let (Ok p) = parse_json_text @@ In_channel.read_all "src/leap.json" in
     assert_equal 7 (List.length p)

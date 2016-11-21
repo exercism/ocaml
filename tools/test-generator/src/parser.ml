@@ -13,6 +13,7 @@ let to_parameter (s: json) = match s with
   | `Float x -> Some (Float x)
   | `Int x -> Some (Int x)
   | `Bool x -> Some (Bool x)
+  | `List x -> Some (StringList (List.map x ~f:to_string))
   | _ -> None
 
 let parse_parameters (parameters: (string * json) list): parameter elements =
