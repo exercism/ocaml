@@ -58,3 +58,9 @@ let run (templates_folder: string) (canonical_data_folder: string) =
   let canonical_data_files = find_canonical_data_files canonical_data_folder in
   let combined = combine_files templates canonical_data_files in
   output_tests combined
+
+let run () =
+  let output_folder = "/home/steve/dev/exercism/xocaml/exercises" in
+  let templates_folder = "/home/steve/dev/exercism/xocaml/tools/test-generator/templates" in
+  let canonical_data_folder = "/home/steve/dev/exercism/x-common/exercises" in
+  run templates_folder canonical_data_folder output_folder

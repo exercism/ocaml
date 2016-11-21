@@ -1,19 +1,21 @@
 open Core.Std
 
-type 'a elements = (string * 'a) list [@@deriving eq, show]
-
-type expected =
+type parameter =
   | String of string
   | Float of float
+  | Int of int
   | Bool of bool [@@deriving eq, show]
+
+type 'a elements = (string * 'a) list [@@deriving eq, show]
 
 type case = {
   name: string;
-  int_assoc: int elements;
-  expected: expected;
+  parameters: parameter elements;
+  expected: parameter;
 } [@@deriving eq, show]
 
-let print_expected = function
+let parameter_to_string = function
   | String s -> s
   | Float f -> Float.to_string f
+  | Int n -> Int.to_string n
   | Bool b -> Bool.to_string b
