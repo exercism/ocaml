@@ -150,7 +150,8 @@
   ],
   "ignored": [
     "docs",
-    "img"
+    "img",
+    "tools"
   ],
   "foregone": [
 
