@@ -6,7 +6,7 @@ let is_shouting s =
   String.exists ~f:Char.is_alpha s &&
   String.for_all ~f:(fun c -> not (Char.is_alpha c) || Char.is_uppercase c) s
 
-let is_question = String.is_suffix ~suffix:"?"
+let is_question s = String.is_suffix ~suffix:"?" (String.strip s)
 
 let response_for = function
   | s when is_empty s    -> "Fine. Be that way!"
