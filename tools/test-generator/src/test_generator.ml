@@ -48,10 +48,11 @@ let generate_code ~template_file ~canonical_data_file =
 
 let output_tests (files: (string * content * content) list) (output_folder: string): unit =
   let output_filepath name = output_folder ^ "/" ^ name ^ "/test.ml" in
-  let output1 (n,t,c) =
-    let Ok code = generate_code t c in
-    Out_channel.write_all (output_filepath n) code in
-  List.iter files ~f:output1
+  let output1 (n,t,c): unit =
+    match generate_code t c with
+    | Ok code -> Out_channel.write_all (output_filepath n) code
+    | Error s -> print_endline s;
+  in List.iter files ~f:output1
 
 let run ~(templates_folder: string) ~(canonical_data_folder: string) ~(output_folder: string) =
   let templates = find_templates templates_folder in
