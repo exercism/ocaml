@@ -4,3 +4,5 @@ open Core.Std
 val find_template : template_text: string -> (int * int * string) option
 
 val generate_code : template_file: string -> canonical_data_file : string -> (string, string) Result.t
+
+val run : templates_folder: string -> canonical_data_folder: string -> output_folder: string -> unit

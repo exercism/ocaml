@@ -53,14 +53,8 @@ let output_tests (files: (string * content * content) list) (output_folder: stri
     Out_channel.write_all (output_filepath n) code in
   List.iter files ~f:output1
 
-let run (templates_folder: string) (canonical_data_folder: string) =
+let run ~(templates_folder: string) ~(canonical_data_folder: string) ~(output_folder: string) =
   let templates = find_templates templates_folder in
   let canonical_data_files = find_canonical_data_files canonical_data_folder in
   let combined = combine_files templates canonical_data_files in
-  output_tests combined
-
-let run () =
-  let output_folder = "/home/steve/dev/exercism/xocaml/exercises" in
-  let templates_folder = "/home/steve/dev/exercism/xocaml/tools/test-generator/templates" in
-  let canonical_data_folder = "/home/steve/dev/exercism/x-common/exercises" in
-  run templates_folder canonical_data_folder output_folder
+  output_tests combined output_folder
