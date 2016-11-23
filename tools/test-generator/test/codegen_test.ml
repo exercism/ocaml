@@ -11,7 +11,7 @@ let ae exp cases _test_ctxt = assert_gen exp cases
 
 let codegen_tests = [
   "if there are no cases then generate an empty string" >::
-  ae [] [];
+    ae [] [];
 
   "generates one function based on leap year for one case" >::(fun ctxt ->
       let c = {name = "leap_year"; parameters = [("input", Int 1996)]; expected = Bool true} in
