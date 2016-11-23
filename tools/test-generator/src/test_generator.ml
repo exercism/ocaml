@@ -1,5 +1,6 @@
 open Core.Std
 open Parser
+open Model
 open Utils
 open Codegen
 open Special_cases
@@ -44,7 +45,7 @@ let generate_code ~slug ~template_file ~canonical_data_file =
   let open Result.Monad_infix in
   template >>= fun (s,e,template) ->
   cases >>= fun cs ->
-  let Ok substs = generate_code (fixup ~slug) template cs in
+  let Ok substs = generate_code (fixup ~stringify:parameter_to_string ~slug) template cs in
   Result.return (splice_in_filled_in_code s e ~template:template_file substs)
 
 let output_tests (files: (string * content * content) list) (output_folder: string): unit =

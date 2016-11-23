@@ -2,4 +2,6 @@ open Core.Std
 
 open Model
 
-val fixup : slug:string -> key:string -> value:parameter -> string
+val optional_int : none: int -> parameter -> string
+
+val fixup : stringify:(parameter -> string) -> slug:string -> key:string -> value:parameter -> string
