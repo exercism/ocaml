@@ -16,6 +16,9 @@ let to_list_option json =
 let to_list_note error json =
   try Ok (to_list json) with Type_error _ -> Error error
 
+let to_string_note error json =
+  try Ok (to_string json) with Type_error _ -> Error error
+
 let safe_to_int_option json =
   try Some (to_int json) with Type_error _ -> None
 
