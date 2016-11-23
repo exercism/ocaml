@@ -2,6 +2,7 @@ open Core.Std
 open Parser
 open Utils
 open Codegen
+open Special_cases
 
 let find_template ~(template_text: string): (int * int * string) option =
   let open Option.Monad_infix in
@@ -24,9 +25,9 @@ type content = string
 
 let find_nested_files (name: string) (base: string): (string * content) list =
   Sys.ls_dir base
-    |> List.filter ~f:(fun n -> Sys.is_directory_exn (base ^ "/" ^ n))
-    |> List.filter ~f:(fun n -> Sys.file_exists_exn (base ^ "/" ^ n ^ "/" ^ name))
-    |> List.map ~f:(fun n -> (n, In_channel.read_all (base ^ "/" ^ n ^ "/" ^ name)))
+    |> List.filter ~f:(fun slug -> Sys.is_directory_exn (base ^ "/" ^ slug))
+    |> List.filter ~f:(fun slug -> Sys.file_exists_exn (base ^ "/" ^ slug ^ "/" ^ name))
+    |> List.map ~f:(fun slug -> (slug, In_channel.read_all (base ^ "/" ^ slug ^ "/" ^ name)))
 
 let find_templates = find_nested_files "template.ml"
 
@@ -35,7 +36,7 @@ let find_canonical_data_files = find_nested_files "canonical-data.json"
 let combine_files (templates: (string * content) list) (canonical_data: (string * content) list): (string * content * content) list =
   List.filter_map templates ~f:(fun (n,t) -> (List.Assoc.find canonical_data ~equal:String.equal n |> Option.map ~f:(fun c -> (n,t,c))))
 
-let generate_code ~template_file ~canonical_data_file =
+let generate_code ~slug ~template_file ~canonical_data_file =
   let template = find_template template_file in
   let template = Result.of_option template "cannot find a template" in
   let cases = parse_json_text canonical_data_file in
@@ -43,16 +44,15 @@ let generate_code ~template_file ~canonical_data_file =
   let open Result.Monad_infix in
   template >>= fun (s,e,template) ->
   cases >>= fun cs ->
-  let Ok substs = generate_code template cs in
+  let Ok substs = generate_code (fixup ~slug) template cs in
   Result.return (splice_in_filled_in_code s e ~template:template_file substs)
 
 let output_tests (files: (string * content * content) list) (output_folder: string): unit =
   let output_filepath name = output_folder ^ "/" ^ name ^ "/test.ml" in
-  let output1 (n,t,c): unit =
-    match generate_code t c with
-    | Ok code -> Out_channel.write_all (output_filepath n) code
-    | Error s -> print_endline s;
-  in List.iter files ~f:output1
+  let output1 (slug,t,c) =
+    let Ok code = generate_code slug t c in
+    Out_channel.write_all (output_filepath slug) code in
+  List.iter files ~f:output1
 
 let run ~(templates_folder: string) ~(canonical_data_folder: string) ~(output_folder: string) =
   let templates = find_templates templates_folder in
