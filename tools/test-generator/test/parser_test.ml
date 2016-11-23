@@ -49,6 +49,18 @@ let parser_tests = [
     ae (Ok [{name = "d1"; parameters = [("input", StringList ["s1"; "s2"])]; expected = Int 85}])
       (parse_json_text "{\"cases\" : [{\"description\" : \"d1\", \"input\" : [\"s1\", \"s2\"], \"expected\" : 85}]}");
 
+  "an element without a description is an Error" >::
+    ae (Error BadDescription)
+      (parse_json_text "{\"cases\" : [{\"input\" : 11, \"expected\" : 85}]}");
+
+  "an element with a description which is an int is an Error" >::
+    ae (Error BadDescription)
+      (parse_json_text "{\"cases\" : [{\"description\" : 1, \"input\" : 11, \"expected\" : 85}]}");
+
+  "an element without expected is an Error" >::
+    ae (Error BadDescription)
+      (parse_json_text "{\"cases\" : [{\"input\" : 11}]}");
+
   "parses leap.json" >::(fun ctxt ->
     let (Ok p) = parse_json_text @@ In_channel.read_all "src/leap.json" in
     assert_equal 7 (List.length p)

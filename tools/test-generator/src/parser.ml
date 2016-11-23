@@ -5,7 +5,8 @@ open Yojson.Safe.Util
 open Model
 
 type error =
-  TopLevelMustHaveKeyCalledCases | ExpectingListOfCases | ExpectingMapForCase
+    TopLevelMustHaveKeyCalledCases | ExpectingListOfCases | ExpectingMapForCase |
+    BadDescription | BadExpected
   [@@deriving eq]
 
 let to_parameter (s: json) = match s with
@@ -19,19 +20,19 @@ let to_parameter (s: json) = match s with
 let parse_parameters (parameters: (string * json) list): parameter elements =
   List.filter_map parameters ~f:(fun (k, v) -> Option.map ~f:(fun v -> (k, v)) (to_parameter v))
 
-let parse_case_assoc (parameters: (string * json) list): case option =
-  let find = List.Assoc.find parameters in
+let parse_case_assoc (parameters: (string * json) list): (case, error) Result.t =
+  let find name e = List.Assoc.find parameters name |> Result.of_option ~error:e in
   let test_parameters = List.Assoc.remove parameters "description" in
   let test_parameters = List.Assoc.remove test_parameters "expected" in
-  let open Option.Monad_infix in
-  find "description" >>=
-  to_string_option >>= fun description ->
-  find "expected" >>= fun expectedJson ->
-  to_parameter expectedJson >>= fun expected ->
-  Some {name = description; parameters = parse_parameters test_parameters; expected = expected}
+  let open Result.Monad_infix in
+  find "description" BadDescription >>=
+  to_string_note BadDescription >>= fun description ->
+  find "expected" BadExpected >>= fun expectedJson ->
+  to_parameter expectedJson |> Result.of_option ~error:BadExpected >>= fun expected ->
+  Ok {name = description; parameters = parse_parameters test_parameters; expected = expected}
 
 let parse_case (s: json): (case, error) Result.t = match s with
-  | `Assoc assoc -> Result.of_option (parse_case_assoc assoc) ExpectingMapForCase
+  | `Assoc assoc -> parse_case_assoc assoc
   | _ -> Error ExpectingMapForCase
 
 let parse_cases (text: string): (json, error) Result.t =
@@ -51,3 +52,5 @@ let show_error = function
   | ExpectingMapForCase -> "Expected a json map for a test case"
   | ExpectingListOfCases -> "Expected a top level map with key cases, " ^
       "and a list of cases as its value."
+  | BadDescription -> "Case is missing a description or it is not a string."
+  | BadExpected -> "Case is missing an expected key or it is not a string."
