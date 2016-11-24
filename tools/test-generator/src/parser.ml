@@ -9,12 +9,17 @@ type error =
     BadDescription | BadExpected
   [@@deriving eq]
 
+let to_int_unsafe = function
+  | `Int x -> x
+  | _ -> failwith "need an int here"
+
 let to_parameter (s: json) = match s with
   | `String x -> Some (String x)
   | `Float x -> Some (Float x)
   | `Int x -> Some (Int x)
   | `Bool x -> Some (Bool x)
   | `List x -> Some (StringList (List.map x ~f:to_string))
+  | `Assoc x -> Some (IntStringMap (List.map x ~f:(fun (k,v) -> (k,to_int_unsafe v))))
   | _ -> None
 
 let parse_parameters (parameters: (string * json) list): parameter elements =
