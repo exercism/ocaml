@@ -11,7 +11,8 @@ let ae exp got _test_ctxt =
 let tests = [
 (* GENERATED-CODE
    "$name" >::
-      ae $expected (word_count "$input");
+      ae $expected
+         (word_count "$input");
    END GENERATED-CODE *)
 ]
 
