@@ -7,7 +7,8 @@ type parameter =
   | Float of float
   | Int of int
   | Bool of bool
-  | StringList of (string list) [@@deriving eq, show]
+  | StringList of (string list)
+  | IntStringMap of ((string * int) list) [@@deriving eq, show]
 
 type 'a elements = (string * 'a) list [@@deriving eq, show]
 
@@ -26,3 +27,5 @@ let parameter_to_string = function
   | Int n -> Int.to_string n
   | Bool b -> Bool.to_string b
   | StringList xs -> "[" ^ String.concat ~sep:"; " (List.map ~f:(surround '\"' >> String.escaped) xs) ^ "]"
+  | IntStringMap xs -> "[" ^ String.concat ~sep:"; "
+                         (List.map xs ~f:(fun (k,v) -> "(\"" ^ String.escaped k ^ "\", " ^ Int.to_string v ^ ")")) ^ "]"

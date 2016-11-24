@@ -61,6 +61,11 @@ let parser_tests = [
     ae (Error BadDescription)
       (parse_json_text "{\"cases\" : [{\"input\" : 11}]}");
 
+  "parses a map in the expected parameter" >::(fun _ctx ->
+      assert_equal (Ok [{name = "d1"; parameters = []; expected = IntStringMap [("one", 1); ("two", 2)]}])
+        (parse_json_text "{\"cases\" : [{\"description\" : \"d1\", \"expected\" : {\"one\": 1, \"two\": 2}}]}");
+      );
+
   "parses leap.json" >::(fun ctxt ->
     let (Ok p) = parse_json_text @@ In_channel.read_all "src/leap.json" in
     assert_equal 7 (List.length p)
