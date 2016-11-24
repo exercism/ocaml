@@ -2,7 +2,7 @@
 ASSIGNMENT ?= ""
 ASSIGNMENTS = $(shell find ./exercises -maxdepth 1 -mindepth 1 -type d | awk -F/ '{print $$NF}' | sort)
 
-default: test
+default: testgenerator test
 
 # output directories
 TMPDIR ?= "/tmp/"
@@ -27,6 +27,9 @@ test-assignment:
 	@make -C $(OUTDIR)
 	@rm -rf $(OUTDIR)
 
+testgenerator:
+	make -C ./tools/test-generator
+
 # all tests
 test:
 	@for assignment in $(ASSIGNMENTS); do \
@@ -34,6 +37,7 @@ test:
 	done
 
 clean:
+	make -C ./tools/test-generator clean
 	@for assignment in $(ASSIGNMENTS); do \
 		make -C ./exercises/$$assignment clean;\
 	done
