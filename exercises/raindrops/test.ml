@@ -15,13 +15,13 @@ let tests = [
       ae "Plong" (raindrop 7);
    "the sound for 6 is Pling as it has a factor 3" >::
       ae "Pling" (raindrop 6);
-   "the sound for 8 is 8" >::
+   "2 to the power 3 does not make a raindrop sound as 3 is the exponent not the base" >::
       ae "8" (raindrop 8);
    "the sound for 9 is Pling as it has a factor 3" >::
       ae "Pling" (raindrop 9);
    "the sound for 10 is Plang as it has a factor 5" >::
       ae "Plang" (raindrop 10);
-   "the sound for 14 is Plong" >::
+   "the sound for 14 is Plong as it has a factor of 7" >::
       ae "Plong" (raindrop 14);
    "the sound for 15 is PlingPlang as it has factors 3 and 5" >::
       ae "PlingPlang" (raindrop 15);
