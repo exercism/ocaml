@@ -1,22 +1,17 @@
 open Core.Std
 
-(* Get a list of all the words in the string.
- *
- * The list is in reverse order (more efficient to construct).
- *
- * This uses manual string slicing to avoid depending on any regex package
- * and because regexes are best avoided for simple tasks.
-*)
-let words (s: string): string list =
-  let f i ((osi, l) as acc) c = match (osi, c) with
-    | (None, c) when Char.is_alphanum c          -> (Some i, l)
-    | (Some si, c) when not (Char.is_alphanum c) -> (None, String.slice s si i :: l)
-    | _                                          -> acc
-  in
-  match String.foldi ~init:(None, []) ~f s with
-  | (None, l)    -> l
-  | (Some si, l) -> String.drop_prefix s si :: l
+module SMap = String.Map
 
-let word_count s = words s
-                   |> List.map ~f:(fun x -> String.lowercase x, 1)
-                   |> String.Map.of_alist_fold ~init:0 ~f:(+)
+let add_to_map wcs w =
+  SMap.update wcs w ~f:(fun k -> Option.value_map k ~default:1 ~f:((+) 1))
+
+let normalize = function
+  | ch when Char.is_alphanum ch || ch = '\'' -> Char.lowercase ch
+  | _ -> ' '
+
+let word_count s =
+  let s = String.substr_replace_all s ~pattern:" \'" ~with_:" " in
+  let s = String.substr_replace_all s ~pattern:"\' " ~with_:" " in
+  let s = String.map s ~f:normalize in
+  let split = List.filter (String.split s ~on:' ') ~f:(Fn.non String.is_empty) in
+  List.fold ~init:SMap.empty ~f:add_to_map split
