@@ -26,27 +26,27 @@ let parser_tests = [
        (parse_json_text "{\"cases\" : [\"key\"]}");
 
   "parses a single element with a description and expected string output" >::
-    ae (Ok [{name = "d1"; parameters = []; expected = String "value"}])
+    ae (Ok [{description = "d1"; parameters = []; expected = String "value"}])
        (parse_json_text "{\"cases\" : [{\"description\" : \"d1\", \"expected\" : \"value\"}]}");
 
   "parses a single element with a description and expected float output" >::
-    ae (Ok [{name = "d1"; parameters = []; expected = Float 100.}])
+    ae (Ok [{description = "d1"; parameters = []; expected = Float 100.}])
        (parse_json_text "{\"cases\" : [{\"description\" : \"d1\", \"expected\" : 100.0}]}");
 
   "parses a single element with a description and expected bool output" >::
-    ae (Ok [{name = "d1"; parameters = []; expected = Bool true}])
+    ae (Ok [{description = "d1"; parameters = []; expected = Bool true}])
       (parse_json_text "{\"cases\" : [{\"description\" : \"d1\", \"expected\" : true}]}");
 
   "parses a single element with an int key value pair" >::
-    ae (Ok [{name = "d1"; parameters = [("input", Int 1996)]; expected = Bool true}])
+    ae (Ok [{description = "d1"; parameters = [("input", Int 1996)]; expected = Bool true}])
       (parse_json_text "{\"cases\" : [{\"description\" : \"d1\", \"input\" : 1996, \"expected\" : true}]}");
 
   "parses a single element with a string key value pair" >::
-    ae (Ok [{name = "d1"; parameters = [("input", String "some-string")]; expected = Int 85}])
+    ae (Ok [{description = "d1"; parameters = [("input", String "some-string")]; expected = Int 85}])
       (parse_json_text "{\"cases\" : [{\"description\" : \"d1\", \"input\" : \"some-string\", \"expected\" : 85}]}");
 
   "parses a single element with a string list key value pair" >::
-    ae (Ok [{name = "d1"; parameters = [("input", StringList ["s1"; "s2"])]; expected = Int 85}])
+    ae (Ok [{description = "d1"; parameters = [("input", StringList ["s1"; "s2"])]; expected = Int 85}])
       (parse_json_text "{\"cases\" : [{\"description\" : \"d1\", \"input\" : [\"s1\", \"s2\"], \"expected\" : 85}]}");
 
   "an element without a description is an Error" >::
@@ -62,12 +62,13 @@ let parser_tests = [
       (parse_json_text "{\"cases\" : [{\"input\" : 11}]}");
 
   "parses a map in the expected parameter" >::(fun _ctx ->
-      assert_equal (Ok [{name = "d1"; parameters = []; expected = IntStringMap [("one", 1); ("two", 2)]}])
+      assert_equal (Ok [{description = "d1"; parameters = []; expected = IntStringMap [("one", 1); ("two", 2)]}])
         (parse_json_text "{\"cases\" : [{\"description\" : \"d1\", \"expected\" : {\"one\": 1, \"two\": 2}}]}");
       );
 
   "parses leap.json" >::(fun ctxt ->
-    let (Ok p) = parse_json_text @@ In_channel.read_all "src/leap.json" in
-    assert_equal 7 (List.length p)
+      match parse_json_text @@ In_channel.read_all "test/leap.json" with
+      | Ok p -> assert_equal 7 (List.length p)
+      | _ -> failwith "failed to parse leap.json"
   );
 ]

@@ -10,7 +10,7 @@ let ae exp got _test_ctxt =
 
 let tests = [
 (* GENERATED-CODE
-   "$name" >::
+   "$description" >::
       ae $expected
          (word_count "$input");
    END GENERATED-CODE *)

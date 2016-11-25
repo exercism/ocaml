@@ -13,7 +13,7 @@ type parameter =
 type 'a elements = (string * 'a) list [@@deriving eq, show]
 
 type case = {
-  name: string;
+  description: string;
   parameters: parameter elements;
   expected: parameter;
 } [@@deriving eq, show]

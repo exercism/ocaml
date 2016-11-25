@@ -45,13 +45,13 @@ let generate_code ~slug ~template_file ~canonical_data_file =
   let open Result.Monad_infix in
   template >>= fun (s,e,template) ->
   cases >>= fun cs ->
-  let Ok substs = generate_code (fixup ~stringify:parameter_to_string ~slug) template cs in
+  let substs = Result.ok_or_failwith @@ generate_code (fixup ~stringify:parameter_to_string ~slug) (edit ~slug) template cs in
   Result.return (splice_in_filled_in_code s e ~template:template_file substs)
 
 let output_tests (files: (string * content * content) list) (output_folder: string): unit =
   let output_filepath name = output_folder ^ "/" ^ name ^ "/test.ml" in
   let output1 (slug,t,c) =
-    let Ok code = generate_code slug t c in
+    let code = Result.ok_or_failwith @@ generate_code slug t c in
     Out_channel.write_all (output_filepath slug) code in
   List.iter files ~f:output1
 

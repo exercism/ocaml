@@ -6,7 +6,7 @@ let ae exp got _test_ctxt = assert_equal ~printer:Fn.id exp got
 
 let tests = [
 (* GENERATED-CODE
-   "$name" >::
+   "$description" >::
       ae "$expected" (raindrop $number);
    END GENERATED-CODE *)
 ]
