@@ -6,7 +6,7 @@ let ae exp got _test_ctxt = assert_equal ~printer:String.to_string exp got
 
 let tests = [
   (* GENERATED-CODE
-     "$name" >:: ae $expected (greet $name);
+     "$description" >:: ae "$expected" (greet $name);
      END GENERATED-CODE *)
 ]
 
