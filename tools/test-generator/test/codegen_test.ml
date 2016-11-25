@@ -6,7 +6,7 @@ open Model
 let leap_template = "\"$name\" >:: ae $expected (leap_year $input);"
 
 let fixup ~key ~value = parameter_to_string value
-let assert_gen exp cases = assert_equal (Ok exp) ~printer:(fun (Ok xs) -> "[" ^ (String.concat ~sep:";" xs) ^ "]") (generate_code fixup leap_template cases)
+let assert_gen exp cases = assert_equal exp ~printer:(fun xs -> "[" ^ (String.concat ~sep:";" xs) ^ "]") (Result.ok_or_failwith @@ generate_code fixup leap_template cases)
 let ae exp cases _test_ctxt = assert_gen exp cases
 
 let codegen_tests = [

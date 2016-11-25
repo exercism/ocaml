@@ -6,9 +6,12 @@ open Special_cases
 
 let ae exp got _ctxt = assert_equal ~printer:Fn.id exp got
 
+let stringify = function
+  | Bool true -> "stringified"
+  | _ -> failwith "Bad type for stringify"
+
 let special_cases_tests = [
   "for a non special cased slug convert the parameter to a string" >:: (fun _ctx ->
-      let stringify (Bool true) = "stringified" in
       assert_equal ~printer:Fn.id "stringified" (fixup ~stringify ~slug:"some-slug" ~key:"key" ~value:(Bool true))
     );
 

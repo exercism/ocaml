@@ -67,7 +67,8 @@ let parser_tests = [
       );
 
   "parses leap.json" >::(fun ctxt ->
-    let (Ok p) = parse_json_text @@ In_channel.read_all "test/leap.json" in
-    assert_equal 7 (List.length p)
+      match parse_json_text @@ In_channel.read_all "test/leap.json" with
+      | Ok p -> assert_equal 7 (List.length p)
+      | _ -> failwith "failed to parse leap.json"
   );
 ]
