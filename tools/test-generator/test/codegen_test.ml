@@ -9,7 +9,7 @@ let fixup ~key ~value = parameter_to_string value
 let edit = Fn.id
 let assert_gen exp cases = assert_equal exp
     ~printer:(fun xs -> "[" ^ (String.concat ~sep:";" xs) ^ "]")
-    (Result.ok_or_failwith @@ generate_code fixup edit leap_template cases)
+    (Result.ok_or_failwith @@ generate_code fixup edit leap_template cases |> List.map ~f:subst_to_string)
 let ae exp cases _test_ctxt = assert_gen exp cases
 
 let codegen_tests = [
