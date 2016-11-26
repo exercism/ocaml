@@ -1,4 +1,5 @@
 S src/**
+S interfaces/**
 S test/**
 B _build/src
 B _build/test
