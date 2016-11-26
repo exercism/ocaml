@@ -35,8 +35,8 @@ let special_cases_tests = [
       assert_equal [("key", "value")] @@ default_value ~key:"key" ~value:"value" []
     );
 
-  "optional_string replace value with Some(value)" >:: (fun _ctx ->
+  "optional_strings replace value with Some(value)" >:: (fun _ctx ->
       assert_equal ~printer:tuples_printer [("key", "(Some \"value\")"); ("key2", "value2")]
-        @@ optional_string ~f:(fun x -> x = "key") [("key", "value"); ("key2", "value2")]
+        @@ optional_strings ~f:(fun x -> x = "key") [("key", "value"); ("key2", "value2")]
     );
 ]
