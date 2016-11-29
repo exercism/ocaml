@@ -11,7 +11,8 @@ type subst = Subst of string [@@deriving eq, show]
 let subst_to_string (Subst s) = s
 
 let replace_key (key: string) (value: string) (target: string): string =
-  String.substr_replace_all ~pattern:("$" ^ key) ~with_:value target
+  let replace = String.substr_replace_all ~with_:value in
+  replace ~pattern:("$" ^ key) target |> replace ~pattern:("$(" ^ key ^ ")")
 
 let rec replace_keys (f: fixup_parameter_function) (ed: edit_parameters_function) (s: string) (c: case): subst =
   let s = replace_key "description" c.description s in

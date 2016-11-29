@@ -32,10 +32,15 @@ let generate_code ~slug ~template_file ~canonical_data_file =
   let substs = Result.ok_or_failwith @@ generate_code (fixup ~stringify:parameter_to_string ~slug) (edit ~slug) template.template cs in
   Result.return (fill template substs)
 
+(* Hack - right now it's generating -1L, but Ocaml needs (-1L) *)
+let final_fixup (s: string): string =
+  String.substr_replace_all s ~pattern:"-1L" ~with_:"(-1L)"
+
 let output_tests (files: (string * content * content) list) (output_folder: string): unit =
   let output_filepath name = output_folder ^ "/" ^ name ^ "/test.ml" in
   let output1 (slug,t,c) =
     let code = Result.ok_or_failwith @@ generate_code slug t c in
+    let code = final_fixup code in
     Out_channel.write_all (output_filepath slug) code in
   List.iter files ~f:output1
 
