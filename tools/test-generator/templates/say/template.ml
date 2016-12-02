@@ -8,7 +8,7 @@ let tests = [
 (* GENERATED-CODE
    "$description" >:: (
       ae $expected
-         (in_english $(input)L));
+         (in_english $input));
    END GENERATED-CODE *)
   "all numbers from 1 to 10_000 can be spelt">::(fun _ ->
       assert_bool "range test" (Sequence.range 0 10_000

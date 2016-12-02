@@ -19,7 +19,7 @@ let command =
       +> flag "-c" (optional_with_default "../../../x-common/exercises" is_directory) ~doc:"string Directory containing canonical data."
       +> flag "-o" (optional_with_default "../../exercises" is_directory) ~doc:"string Directory to output generated tests."
     )
-    (fun templates_folder canonical_data_folder output_folder () -> Test_generator.run templates_folder canonical_data_folder output_folder)
+    (fun templates_folder canonical_data_folder output_folder () -> Controller.run templates_folder canonical_data_folder output_folder)
 
 let () =
   Command.run ~version:"0.1" command
