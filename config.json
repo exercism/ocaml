@@ -74,6 +74,11 @@
       "topics": []
     },
     {
+      "slug": "bracket-push",
+      "difficulty": 4,
+      "topics": ["Stacks"]
+    },
+    {
       "slug": "bowling",
       "difficulty": 4,
       "topics": []
