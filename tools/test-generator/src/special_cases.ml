@@ -30,8 +30,15 @@ let edit_expected ~(stringify: parameter -> string) ~(slug: string) ~(value: par
   | "say" -> optional_int_or_string ~none:(-1) value
   | _ -> stringify value
 
+let edit_say (ps: (string * string) list) =
+  let edit = function
+    | ("input", v) -> ("input", if Int.of_string v < 0 then "(" ^ v ^ "L)" else v ^ "L")
+    | x -> x in
+  List.map ps ~f:edit
+
 let edit_parameters ~(slug: string) (parameters: (string * string) list) = match (slug, parameters) with
   | ("hello-world", ps) -> default_value ~key:"name" ~value:"None"
     @@ optional_strings ~f:(fun _x -> true)
     @@ parameters
+  | ("say", ps) -> edit_say ps
   | (_, ps) -> ps

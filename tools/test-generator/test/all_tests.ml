@@ -8,4 +8,6 @@ open Template_test
 open Utils_test
 
 let () =
-  run_test_tt_main ("tests" >:::List.concat [codegen_tests; model_tests; parser_tests; special_cases_tests; template_tests; utils_tests])
+  run_test_tt_main ("tests" >:::List.concat [
+      codegen_tests; model_tests; parser_tests;
+      special_cases_tests; template_tests; utils_tests])
