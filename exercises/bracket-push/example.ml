@@ -7,20 +7,34 @@ let pop (s: 'a stack): ('a * 'a stack) option = match s with
   | [] -> None
   | x :: xs -> Some (x, xs)
 
-let foldThroughOptionMonad (xs: 'a list) (z: 'b) ~(f:'b -> 'a -> 'b option): 'b option =
-  List.fold xs ~init:(Some z) ~f:(fun b a -> match b with
-      | None -> None
-      | Some b -> f b a
-    )
+(* this receives a character from the input string s.
+   if the character is an opening bracket, then push it on to the stack, and
+   return the stack (inside an Option)
+   if the character is a closing bracket, then pop the top of the stack, and
+   check the popped character matches. If it does, then return the new stack,
+   otherwise return None (to indicate matching failure). *)
+let update (s: (char stack) option) (ch: char): (char stack) option =
+  match s with
+  | None -> None
+  | Some s ->
+    let pop_matching m = Option.filter (pop s) ~f:(fun (top, _) -> top = m)
+                         |> Option.map ~f:snd in
+    match ch with
+    | '(' | '{' | '[' -> Some (push s ch)
+    | ')' -> pop_matching '('
+    | '}' -> pop_matching '{'
+    | ']' -> pop_matching '['
+    | _ -> Some s
 
-let update (s: char stack) (ch: char): (char stack) option =
-  let pop_matching m = Option.filter (pop s) ~f:(fun (top, _) -> top = m) |> Option.map ~f:snd in
-  match ch with
-  | '(' | '{' | '[' -> Some (push s ch)
-  | ')' -> pop_matching '('
-  | '}' -> pop_matching '{'
-  | ']' -> pop_matching '['
-  | _ -> Some s
-
+(* The fold loops over the characters of s, repeatedly calling update on a stack
+   and each character of s.
+   If update ever encounters a non-matching bracket, it returns None, and the
+   fold will as well.
+   Otherwise, the fold will return a stack after going through all of the string.
+   If the stack is non-empty, then some non-matching brackets must remain, so the string
+   is not balanced.
+   If the stack is empty, everything matches, and the string balances.
+*)
 let are_balanced s =
-  foldThroughOptionMonad (String.to_list s) ([]) ~f:update |> Option.exists ~f:(List.is_empty)
+  List.fold_left (String.to_list s) ~init:(Some []) ~f:update
+  |> Option.exists ~f:(List.is_empty)
