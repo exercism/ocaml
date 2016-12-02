@@ -29,7 +29,7 @@ let generate_code ~slug ~template_file ~canonical_data_file =
   let open Result.Monad_infix in
   template >>= fun template ->
   cases >>= fun cs ->
-  let substs = Result.ok_or_failwith @@ generate_code (fixup ~stringify:parameter_to_string ~slug) (edit ~slug) template.template cs in
+  let substs = Result.ok_or_failwith @@ generate_code (edit_expected ~stringify:parameter_to_string ~slug) (edit_parameters ~slug) template.template cs in
   Result.return (fill template substs)
 
 (* Hack - right now it's generating -1L, but Ocaml needs (-1L) *)

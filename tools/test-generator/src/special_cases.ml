@@ -25,12 +25,12 @@ let optional_strings ~(f: string -> bool) (parameters: (string * string) list): 
     else parameter in
   List.map ~f:replace parameters
 
-let fixup ~(stringify: parameter -> string) ~(slug: string) ~(key: string) ~(value: parameter) = match (slug, key) with
-  | ("hamming", "expected") -> optional_int ~none:(-1) value
-  | ("say", "expected") -> optional_int_or_string ~none:(-1) value
+let edit_expected ~(stringify: parameter -> string) ~(slug: string) ~(value: parameter) = match slug with
+  | "hamming" -> optional_int ~none:(-1) value
+  | "say" -> optional_int_or_string ~none:(-1) value
   | _ -> stringify value
 
-let edit ~(slug: string) (parameters: (string * string) list) = match (slug, parameters) with
+let edit_parameters ~(slug: string) (parameters: (string * string) list) = match (slug, parameters) with
   | ("hello-world", ps) -> default_value ~key:"name" ~value:"None"
     @@ optional_strings ~f:(fun _x -> true)
     @@ parameters

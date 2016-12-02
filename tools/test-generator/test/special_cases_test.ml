@@ -15,7 +15,7 @@ let stringify = function
 
 let special_cases_tests = [
   "for a non special cased slug convert the parameter to a string" >:: (fun _ctx ->
-      assert_equal ~printer:Fn.id "stringified" @@ fixup ~stringify ~slug:"some-slug" ~key:"key" ~value:(Bool true)
+      assert_equal ~printer:Fn.id "stringified" @@ edit_expected ~stringify ~slug:"some-slug" ~value:(Bool true)
     );
 
   "an optional int parameter is converted to none if it matches the special value" >:: (fun _ctx ->

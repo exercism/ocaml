@@ -5,7 +5,7 @@ open Model
 
 let leap_template = "\"$description\" >:: ae $expected (leap_year $input);"
 
-let fixup ~key ~value = parameter_to_string value
+let fixup ~value = parameter_to_string value
 let edit = Fn.id
 let assert_gen exp cases = assert_equal exp
     ~printer:(fun xs -> "[" ^ (String.concat ~sep:";" xs) ^ "]")
