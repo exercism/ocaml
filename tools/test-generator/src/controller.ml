@@ -21,6 +21,10 @@ let find_canonical_data_files = find_nested_files "canonical-data.json"
 let combine_files (template_files: (string * content) list) (canonical_data_files: (string * content) list): (string * content * content) list =
   List.filter_map template_files ~f:(fun (n,t) -> (List.Assoc.find canonical_data_files ~equal:String.equal n |> Option.map ~f:(fun c -> (n,t,c))))
 
+let hack = function
+  | Single x -> x
+  | Suite x -> failwith "unhandled"
+
 let generate_code ~slug ~template_file ~canonical_data_file =
   let template = find_template template_file in
   let template = Result.of_option template ("cannot recognize file for " ^ slug ^ " as a template") in
@@ -29,14 +33,17 @@ let generate_code ~slug ~template_file ~canonical_data_file =
   let open Result.Monad_infix in
   template >>= fun template ->
   cases >>= fun cs ->
-  let substs = Result.ok_or_failwith @@ generate_code (edit_expected ~stringify:parameter_to_string ~slug) (edit_parameters ~slug) template.template cs in
+  let substs = Result.ok_or_failwith
+    @@ generate_code (edit_expected ~stringify:parameter_to_string ~slug)
+      (edit_parameters ~slug) template.template (hack cs) in
   Result.return (fill template substs)
 
 let output_tests (files: (string * content * content) list) (output_folder: string): unit =
   let output_filepath name = output_folder ^ "/" ^ name ^ "/test.ml" in
   let output1 (slug,t,c) =
-    let code = Result.ok_or_failwith @@ generate_code slug t c in
-    Out_channel.write_all (output_filepath slug) code in
+    match generate_code slug t c with
+    | Ok code -> Out_channel.write_all (output_filepath slug) code
+    | Error e -> print_endline ("Failed when generating " ^ slug ^ ", error: " ^ e) in
   List.iter files ~f:output1
 
 let run ~(templates_folder: string) ~(canonical_data_folder: string) ~(output_folder: string) =

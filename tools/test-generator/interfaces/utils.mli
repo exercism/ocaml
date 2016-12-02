@@ -9,7 +9,11 @@ val to_list_option : json -> json list option
 
 val to_list_note : 'e -> json -> ((json list, 'e) Result.t)
 
+val to_assoc_note : 'e -> json -> ((json list, 'e) Result.t)
+
 val to_string_note : 'e -> json -> ((string, 'e) Result.t)
+
+val member_note : 'e -> string -> json -> ((json, 'e) Result.t)
 
 val safe_to_int_option : json -> int option
 
