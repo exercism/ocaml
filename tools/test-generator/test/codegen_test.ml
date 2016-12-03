@@ -5,12 +5,12 @@ open Model
 
 let leap_template = "\"$description\" >:: ae $expected (leap_year $input);"
 
-let fixup ~value = parameter_to_string value
-let edit = Fn.id
-let assert_gen exp cases = assert_equal exp
+let edit_expected ~value = parameter_to_string value
+let edit_parameters = Fn.id
+let assert_fill_in_template exp cases = assert_equal exp
     ~printer:(fun xs -> "[" ^ (String.concat ~sep:";" xs) ^ "]")
-    (Result.ok_or_failwith @@ generate_code fixup edit leap_template cases |> List.map ~f:subst_to_string)
-let ae exp cases _test_ctxt = assert_gen exp cases
+    (Result.ok_or_failwith @@ fill_in_template edit_expected edit_parameters leap_template cases |> List.map ~f:subst_to_string)
+let ae exp cases _test_ctxt = assert_fill_in_template exp cases
 
 let codegen_tests = [
   "if there are no cases then generate an empty string" >::
@@ -18,6 +18,6 @@ let codegen_tests = [
 
   "generates one function based on leap year for one case" >::(fun ctxt ->
       let c = {description = "leap_year"; parameters = [("input", Int 1996)]; expected = Bool true} in
-      assert_gen ["\"leap_year\" >:: ae true (leap_year 1996);"] [c]
+      assert_fill_in_template ["\"leap_year\" >:: ae true (leap_year 1996);"] [c]
     );
 ]

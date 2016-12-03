@@ -34,7 +34,7 @@ let generate_code ~slug ~template_file ~canonical_data_file =
   template >>= fun template ->
   cases >>= fun cs ->
   let substs = Result.ok_or_failwith
-    @@ generate_code (edit_expected ~stringify:parameter_to_string ~slug)
+    @@ fill_in_template (edit_expected ~stringify:parameter_to_string ~slug)
       (edit_parameters ~slug) template.template (hack cs) in
   Result.return (fill template substs)
 

@@ -21,5 +21,5 @@ let rec replace_keys (f: edit_expected_function) (ed: edit_parameters_function) 
   let parameter_strings = ed @@ List.map ~f:(fun (k,p) -> (k,parameter_to_string p)) c.parameters in
   List.fold parameter_strings ~init:(Subst s) ~f:(fun (Subst s) (k,v) -> Subst (replace_key k v s))
 
-let generate_code (f: edit_expected_function) (ed: edit_parameters_function) template cases =
-  Ok (List.map cases ~f:(replace_keys f ed template))
+let fill_in_template (f: edit_expected_function) (ed: edit_parameters_function) test_template cases =
+  Ok (List.map cases ~f:(replace_keys f ed test_template))
