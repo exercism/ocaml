@@ -5,11 +5,11 @@ open Say
 let ae exp got _ctx = assert_equal ~printer:(Option.value ~default:"None") exp got
 
 let tests = [
-(* GENERATED-CODE
+(* TEST
    "$description" >:: (
       ae $expected
          (in_english $input));
-   END GENERATED-CODE *)
+   END TEST *)
   "all numbers from 1 to 10_000 can be spelt">::(fun _ ->
       assert_bool "range test" (Sequence.range 0 10_000
                                 |> Sequence.map ~f:(fun n -> Int64.of_int n |> in_english)

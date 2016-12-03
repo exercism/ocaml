@@ -19,7 +19,7 @@ let template_tests = [
       let template_text = In_channel.read_all "test/sample_template.txt" in
       let template = {start=7; finish=9; file_text=template_text;template="code"} in
       let filled = fill template [Subst "line1"; Subst "line2"] in
-      let pattern = "  (* GENERATED-CODE\ncode\n     END GENERATED-CODE *)" in
+      let pattern = "  (* TEST\ncode\n     END TEST *)" in
       let expected = (String.substr_replace_all ~pattern ~with_:"line1\nline2" template_text) in
       assert_equal ~printer:Fn.id expected (filled ^ "\n")
     );

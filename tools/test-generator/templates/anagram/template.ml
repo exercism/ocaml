@@ -7,10 +7,10 @@ let ae exp got _test_ctxt =
   assert_equal exp got ~cmp:(List.equal ~equal:String.equal) ~printer
 
 let tests = [
-(* GENERATED-CODE
+(* TEST
   "$description" >::
     ae $expected (anagrams "$subject" $candidates);
-   END GENERATED-CODE *)
+   END TEST *)
 ]
 
 let () =

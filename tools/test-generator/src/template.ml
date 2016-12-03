@@ -10,8 +10,8 @@ let find_template ~(template_text: string): t option =
   let open Option.Monad_infix in
   let str_contains pattern s = String.substr_index s ~pattern |> Option.is_some in
   let lines = String.split_lines template_text |> List.to_array in
-  let start_index = find_arrayi lines ~f:(str_contains "(* GENERATED-CODE") |> Option.map ~f:fst in
-  let finish_index = (start_index >>= (fun start -> find_arrayi ~start lines ~f:(str_contains "END GENERATED-CODE *"))) |> Option.map ~f:fst in
+  let start_index = find_arrayi lines ~f:(str_contains "(* TEST") |> Option.map ~f:fst in
+  let finish_index = (start_index >>= (fun start -> find_arrayi ~start lines ~f:(str_contains "END TEST *"))) |> Option.map ~f:fst in
   let template_lines = Option.map2 start_index finish_index (fun s -> Array.slice lines (s+1)) in
   Option.map2 start_index template_lines ~f:(fun s l -> {start=s; finish=(s + 1 + Array.length l); file_text = template_text; template=String.concat_array l ~sep:"\n"})
 
