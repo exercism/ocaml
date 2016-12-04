@@ -1,5 +1,6 @@
 open Core.Std
 open OUnit2
+open Minesweeper
 
 let format_board strings =
   let width = match strings with
@@ -13,45 +14,118 @@ let format_board strings =
 let ae exp got =
   assert_equal exp got ~cmp:(List.equal ~equal:String.equal) ~printer:format_board
 
-let clean strings =
-  List.map strings ~f:(String.map ~f:(function '*' -> '*' | _ -> ' '))
-
-let tests =
-  ["zero size board">::(fun _ ->
-    ae [] (Minesweeper.annotate []));
-   "empty board">::(fun _ ->
+let tests = [
+  "no rows" >:: (fun _ ->
+    let b = [] in
+    let expected = [] in
+    ae expected (annotate b)
+  );
+  "no columns" >:: (fun _ ->
+    let b = [""] in
+    let expected = [""] in
+    ae expected (annotate b)
+  );
+  "no mines" >:: (fun _ ->
     let b = ["   ";
              "   ";
              "   "] in
-    ae b (Minesweeper.annotate b));
-   "board full of mines">::(fun _ ->
+    let expected = ["   ";
+                    "   ";
+                    "   "] in
+    ae expected (annotate b)
+  );
+  "board with only mines" >:: (fun _ ->
     let b = ["***";
              "***";
              "***"] in
-    ae b (Minesweeper.annotate b));
-   "surrounded">::(fun _ ->
+    let expected = ["***";
+                    "***";
+                    "***"] in
+    ae expected (annotate b)
+  );
+  "mine surrounded by spaces" >:: (fun _ ->
+    let b = ["   ";
+             " * ";
+             "   "] in
+    let expected = ["111";
+                    "1*1";
+                    "111"] in
+    ae expected (annotate b)
+  );
+  "space surrounded by mines" >:: (fun _ ->
     let b = ["***";
-             "*8*";
+             "* *";
              "***"] in
-    ae b (Minesweeper.annotate (clean b)));
-   "horizontal line">::(fun _ ->
-    let b = ["1*2*1"] in
-    ae b (Minesweeper.annotate (clean b)));
-   "vertical line">::(fun _ ->
-     let b = ["1";
-              "*";
-              "2";
-              "*";
-              "1"] in
-    ae b (Minesweeper.annotate (clean b)));
-   "cross">::(fun _ ->
-    let b = [" 2*2 ";
-             "25*52";
+    let expected = ["***";
+                    "*8*";
+                    "***"] in
+    ae expected (annotate b)
+  );
+  "horizontal line" >:: (fun _ ->
+    let b = [" * * "] in
+    let expected = ["1*2*1"] in
+    ae expected (annotate b)
+  );
+  "horizontal line, mines at edges" >:: (fun _ ->
+    let b = ["*   *"] in
+    let expected = ["*1 1*"] in
+    ae expected (annotate b)
+  );
+  "vertical line" >:: (fun _ ->
+    let b = [" ";
+             "*";
+             " ";
+             "*";
+             " "] in
+    let expected = ["1";
+                    "*";
+                    "2";
+                    "*";
+                    "1"] in
+    ae expected (annotate b)
+  );
+  "vertical line, mines at edges" >:: (fun _ ->
+    let b = ["*";
+             " ";
+             " ";
+             " ";
+             "*"] in
+    let expected = ["*";
+                    "1";
+                    " ";
+                    "1";
+                    "*"] in
+    ae expected (annotate b)
+  );
+  "cross" >:: (fun _ ->
+    let b = ["  *  ";
+             "  *  ";
              "*****";
-             "25*52";
-             " 2*2 "] in
-    ae b (Minesweeper.annotate (clean b)));
-  ]
+             "  *  ";
+             "  *  "] in
+    let expected = [" 2*2 ";
+                    "25*52";
+                    "*****";
+                    "25*52";
+                    " 2*2 "] in
+    ae expected (annotate b)
+  );
+  "large board" >:: (fun _ ->
+    let b = [" *  * ";
+             "  *   ";
+             "    * ";
+             "   * *";
+             " *  * ";
+             "      "] in
+    let expected = ["1*22*1";
+                    "12*322";
+                    " 123*2";
+                    "112*4*";
+                    "1*22*2";
+                    "111111"] in
+    ae expected (annotate b)
+  );
+]
 
 let () =
   run_test_tt_main ("minesweeper tests" >::: tests)
