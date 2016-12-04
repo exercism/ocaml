@@ -21,22 +21,29 @@ let find_canonical_data_files = find_nested_files "canonical-data.json"
 let combine_files (template_files: (string * content) list) (canonical_data_files: (string * content) list): (string * content * content) list =
   List.filter_map template_files ~f:(fun (n,t) -> (List.Assoc.find canonical_data_files ~equal:String.equal n |> Option.map ~f:(fun c -> (n,t,c))))
 
-let hack = function
-  | Single x -> x
-  | Suite x -> failwith "unhandled"
-
-let generate_code ~slug ~template_file ~canonical_data_file =
+let generate_code ~(slug: string) ~(template_file: content) ~(canonical_data_file: content): (content, content) Result.t =
   let template = find_template template_file in
-  let template = Result.of_option template ("cannot recognize file for " ^ slug ^ " as a template") in
-  let cases = parse_json_text canonical_data_file in
-  let cases = Result.map_error cases show_error in
   let open Result.Monad_infix in
-  template >>= fun template ->
-  cases >>= fun cs ->
-  let substs = Result.ok_or_failwith
-    @@ fill_in_template (edit_expected ~stringify:parameter_to_string ~slug)
-      (edit_parameters ~slug) template.template (hack cs) in
-  Result.return (fill template substs)
+  Result.of_option template ("cannot recognize file for " ^ slug ^ " as a template") >>= fun template ->
+  parse_json_text canonical_data_file |> Result.map_error ~f:show_error >>= (function
+      | Single cases ->
+        Result.return (fill_in_template
+          (edit_expected ~stringify:parameter_to_string ~slug)
+          (edit_parameters ~slug)
+          template.template
+          slug
+          cases |> fill_tests template);
+      | Suite tests ->
+        let x = List.map tests ~f:(fun {name;cases} ->
+            (name, fill_in_template
+               (edit_expected ~stringify:parameter_to_string ~slug)
+               (edit_parameters ~slug)
+               template.template
+               name
+               cases)
+          ) in
+        Result.return (fill_suite template x)
+    )
 
 let output_tests (files: (string * content * content) list) (output_folder: string): unit =
   let output_filepath name = output_folder ^ "/" ^ name ^ "/test.ml" in

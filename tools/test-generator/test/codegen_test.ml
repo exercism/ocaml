@@ -9,12 +9,12 @@ let edit_expected ~value = parameter_to_string value
 let edit_parameters = Fn.id
 let assert_fill_in_template exp cases = assert_equal exp
     ~printer:(fun xs -> "[" ^ (String.concat ~sep:";" xs) ^ "]")
-    (Result.ok_or_failwith @@ fill_in_template edit_expected edit_parameters leap_template cases |> List.map ~f:subst_to_string)
+    (fill_in_template edit_expected edit_parameters leap_template "suite-name" cases |> List.map ~f:subst_to_string)
 let ae exp cases _test_ctxt = assert_fill_in_template exp cases
 
 let codegen_tests = [
   "if there are no cases then generate an empty string" >::
-    ae [] [];
+  ae [] [];
 
   "generates one function based on leap year for one case" >::(fun ctxt ->
       let c = {description = "leap_year"; parameters = [("input", Int 1996)]; expected = Bool true} in

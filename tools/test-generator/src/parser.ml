@@ -8,12 +8,6 @@ type error =
     TestMustHaveKeyCalledCases | ExpectingListOfCases | ExpectingMapForCase |
     BadDescription | BadExpected | UnrecognizedJson [@@deriving eq, show]
 
-type test = {name: string; cases: case list} [@@deriving eq, show]
-
-type tests =
-  | Single of case list
-  | Suite of test list [@@deriving eq, show]
-
 let to_int_unsafe = function
   | `Int x -> x
   | _ -> failwith "need an int here"
