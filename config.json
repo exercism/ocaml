@@ -12,7 +12,10 @@
     {
       "slug": "leap",
       "difficulty": 1,
-      "topics": []
+      "topics": [
+        "Integers",
+        "Booleans"
+      ]
     },
     {
       "slug": "hamming",
