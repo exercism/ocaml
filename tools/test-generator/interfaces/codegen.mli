@@ -10,4 +10,4 @@ type subst = Subst of string
 
 val subst_to_string : subst -> string
 
-val generate_code : edit_expected_function -> edit_parameters_function -> string -> case list -> (subst list, string) Result.t
+val fill_in_template : edit_expected_function -> edit_parameters_function -> string -> case list -> (subst list, string) Result.t

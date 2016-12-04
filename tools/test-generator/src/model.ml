@@ -18,6 +18,12 @@ type case = {
   expected: parameter;
 } [@@deriving eq, show]
 
+type test = {name: string; cases: case list} [@@deriving eq, show]
+
+type tests =
+  | Single of case list
+  | Suite of test list [@@deriving eq, show]
+
 let surround (ch: char) (s: string): string =
   Char.to_string ch ^ s ^ Char.to_string ch
 

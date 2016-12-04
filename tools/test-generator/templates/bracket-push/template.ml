@@ -6,10 +6,10 @@ let ae exp got _test_ctxt =
   assert_equal exp got ~printer:Bool.to_string
 
 let tests = [
-(* GENERATED-CODE
+(* TEST
   "$description" >::
     ae $expected (are_balanced "$input");
-END GENERATED-CODE *)
+END TEST *)
 ]
 
 let () =

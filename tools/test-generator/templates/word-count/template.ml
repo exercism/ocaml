@@ -9,11 +9,11 @@ let ae exp got _test_ctxt =
   assert_equal (SMap.of_alist_exn exp) got ~cmp:(SMap.equal (=)) ~printer
 
 let tests = [
-(* GENERATED-CODE
+(* TEST
    "$description" >::
       ae $expected
          (word_count "$input");
-   END GENERATED-CODE *)
+   END TEST *)
 ]
 
 let () =

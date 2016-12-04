@@ -20,10 +20,10 @@ let dna_of_string s =
 let hamdist a b = Hamming.hamming_distance (dna_of_string a) (dna_of_string b)
 
 let tests = [
-(* GENERATED-CODE
+(* TEST
    "$description" >::
       ae $expected (hamdist "$strand1" "$strand2");
-   END GENERATED-CODE *)
+   END TEST *)
 ]
 
 let () =
