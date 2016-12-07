@@ -7,6 +7,10 @@ let optional_int ~(none: int) = function
   | Int n -> "(Some " ^ Int.to_string n ^ ")"
   | x -> parameter_to_string x
 
+let optional_int_list = function
+  | IntList xs -> "(Some " ^ String.concat ~sep:"; " (List.map ~f:Int.to_string xs) ^ ")"
+  | _ -> "None"
+
 let optional_int_or_string ~(none: int) = function
   | String s -> "(Some \"" ^ s ^ "\")"
   | Int n when n = none -> "None"
@@ -27,6 +31,7 @@ let optional_strings ~(f: string -> bool) (parameters: (string * string) list): 
 
 let edit_expected ~(stringify: parameter -> string) ~(slug: string) ~(value: parameter) = match slug with
   | "hamming" -> optional_int ~none:(-1) value
+  | "all-your-base" -> optional_int_list value
   | "say" -> optional_int_or_string ~none:(-1) value
   | _ -> stringify value
 

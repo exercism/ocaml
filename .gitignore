@@ -3,6 +3,7 @@
 .DS_Store
 tmp
 *.native
+*.byte
 _build/
 bin/configlet
 bin/configlet.exe

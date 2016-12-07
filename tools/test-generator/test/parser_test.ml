@@ -40,6 +40,14 @@ let parser_tests = [
     ae (single [{description = "d1"; parameters = []; expected = Bool true}])
       (parse_json_text "{\"cases\" : [{\"description\" : \"d1\", \"expected\" : true}]}");
 
+  "parses a single element with a description and expected int list output" >::
+    ae (single [{description = "d1"; parameters = []; expected = IntList [1;2;3]}])
+      (parse_json_text "{\"cases\" : [{\"description\" : \"d1\", \"expected\" : [1, 2, 3]}]}");
+
+  "parses a single element with a description and expected null output" >::
+    ae (single [{description = "d1"; parameters = []; expected = Null}])
+      (parse_json_text "{\"cases\" : [{\"description\" : \"d1\", \"expected\" : null}]}");
+
   "parses a single element with an int key value pair" >::
     ae (single [{description = "d1"; parameters = [("input", Int 1996)]; expected = Bool true}])
       (parse_json_text "{\"cases\" : [{\"description\" : \"d1\", \"input\" : 1996, \"expected\" : true}]}");
