@@ -23,26 +23,21 @@ let combine_files (template_files: (string * content) list) (canonical_data_file
 
 let generate_code ~(slug: string) ~(template_file: content) ~(canonical_data_file: content): (content, content) Result.t =
   let template = find_template template_file in
+  let edit_expected = edit_expected ~stringify:parameter_to_string ~slug in
+  let edit_parameters = edit_parameters ~slug in
+  let fill_in_template = fill_in_template edit_expected edit_parameters in
   let open Result.Monad_infix in
   Result.of_option template ("cannot recognize file for " ^ slug ^ " as a template") >>= fun template ->
-  parse_json_text canonical_data_file |> Result.map_error ~f:show_error >>= (function
+  parse_json_text canonical_data_file
+  |> Result.map_error ~f:show_error >>= (function
       | Single cases ->
-        Result.return (fill_in_template
-          (edit_expected ~stringify:parameter_to_string ~slug)
-          (edit_parameters ~slug)
-          template.template
-          slug
-          cases |> fill_tests template);
+        fill_in_template template.template slug cases
+        |> fill_tests template
+        |> Result.return
       | Suite tests ->
-        let x = List.map tests ~f:(fun {name;cases} ->
-            (name, fill_in_template
-               (edit_expected ~stringify:parameter_to_string ~slug)
-               (edit_parameters ~slug)
-               template.template
-               name
-               cases)
-          ) in
-        Result.return (fill_suite template x)
+        List.map tests ~f:(fun {name;cases} -> (name, fill_in_template template.template name cases))
+        |> fill_suite template
+        |> Result.return
     )
 
 let output_tests (files: (string * content * content) list) (output_folder: string): unit =
