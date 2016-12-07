@@ -3,6 +3,7 @@ open Core.Std
 open Utils
 
 type parameter =
+  | Null
   | String of string
   | Float of float
   | Int of int
@@ -29,6 +30,7 @@ let surround (ch: char) (s: string): string =
   Char.to_string ch ^ s ^ Char.to_string ch
 
 let parameter_to_string = function
+  | Null -> "null"
   | String s -> String.escaped s
   | Float f -> Float.to_string f
   | Int n -> Int.to_string n

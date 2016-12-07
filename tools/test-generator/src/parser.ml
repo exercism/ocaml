@@ -19,6 +19,7 @@ let to_list_safe xs = match xs with
   | _ -> None
 
 let to_parameter (s: json) = match s with
+  | `Null -> Some (Null)
   | `String x -> Some (String x)
   | `Float x -> Some (Float x)
   | `Int x -> Some (Int x)
