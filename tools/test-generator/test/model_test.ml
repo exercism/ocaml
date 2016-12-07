@@ -20,6 +20,8 @@ let model_tests = [
     ae "[\"a\"; \"bc\"; \"def\"]"  @@ parameter_to_string (StringList ["a"; "bc"; "def"]);
   "string list parameter with escaped characters to string" >::
     ae "[\"a\\r\"; \"b\\nc\"; \"d\\tef\"]"  @@ parameter_to_string (StringList ["a\r"; "b\nc"; "d\tef"]);
+  "int list parameter to string" >::
+    ae "[1; 2; 3; 4]"  @@ parameter_to_string (IntList [1; 2; 3; 4]);
   "int string map parameter to string" >::
     ae "[(\"one\", 1); (\"two\", 1)]"  @@ parameter_to_string (IntStringMap [("one", 1); ("two", 1)]);
   "int string map parameter to string with escaped characters in the keys" >::

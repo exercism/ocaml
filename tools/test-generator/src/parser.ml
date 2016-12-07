@@ -12,12 +12,18 @@ let to_int_unsafe = function
   | `Int x -> x
   | _ -> failwith "need an int here"
 
+let to_list_safe xs = match xs with
+  | [] -> Some (StringList [])
+  | `String x :: _ -> Some (StringList (List.map xs ~f:to_string))
+  | `Int x :: _ -> Some (IntList (List.map xs ~f:to_int_unsafe))
+  | _ -> None
+
 let to_parameter (s: json) = match s with
   | `String x -> Some (String x)
   | `Float x -> Some (Float x)
   | `Int x -> Some (Int x)
   | `Bool x -> Some (Bool x)
-  | `List x -> Some (StringList (List.map x ~f:to_string))
+  | `List x -> to_list_safe  x
   | `Assoc x -> Some (IntStringMap (List.map x ~f:(fun (k,v) -> (k,to_int_unsafe v))))
   | _ -> None
 
