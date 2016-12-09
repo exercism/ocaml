@@ -62,11 +62,6 @@
       "topics": []
     },
     {
-      "slug": "hexadecimal",
-      "difficulty": 3,
-      "topics": []
-    },
-    {
       "slug": "anagram",
       "difficulty": 3,
       "topics": []
@@ -75,6 +70,11 @@
       "slug": "space-age",
       "difficulty": 3,
       "topics": []
+    },
+    {
+      "slug": "all-your-base",
+      "difficulty": 4,
+      "topics": ["Mathematics"]
     },
     {
       "slug": "bracket-push",
@@ -158,6 +158,7 @@
     }
   ],
   "deprecated": [
+    "hexadecimal",
     "point-mutations"
   ],
   "ignored": [

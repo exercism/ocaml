@@ -1,15 +1,19 @@
 open Core.Std
 open OUnit2
-open All_your_bases
+open All_your_base
+
+let option_printer = function
+  | None -> "None"
+  | Some xs -> "Some [" ^ String.concat ~sep:";" (List.map xs ~f:Int.to_string) ^ "]"
 
 let ae exp got _test_ctxt =
-  assert_equal exp got ~printer:Bool.to_string
+  assert_equal exp got ~printer:option_printer
 
 let tests = [
-  (* TEST
-     "$description" >::
-      ae $expected (convert_bases $input_base $input_digits $output_base);
-     END TEST *)
+(* TEST
+  "$description" >::
+    ae $expected (convert_bases ~from:$input_base ~digits:$input_digits ~target:$output_base);
+END TEST *)
 ]
 
 let () =
