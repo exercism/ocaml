@@ -4,7 +4,7 @@ open Robot_name
 
 let regex = Re2.Regex.create_exn "[A-Z]{2}\\d{3}$"
 
-let tests = [
+let basic_tests = [
   "a robot has a name of 2 letters followed by 3 numbers" >:: (fun _ctxt ->
     let n = name (new_robot ()) in
     assert_bool ("'" ^ n ^ "' does not meet the specification") (Re2.Regex.matches regex n)
@@ -24,9 +24,21 @@ let tests = [
     let n = name r in
     assert_bool ("'" ^ n ^ "' does not meet the specification") (Re2.Regex.matches regex n)
     );
+]
 
-  "10,000 robots all have different names" >:: (fun _ctxt ->
-    let rs = Array.init 10000 ~f:(fun _ -> new_robot ()) in
+(*
+Optionally: make this test pass.
+
+There are 26 * 26 * 10 * 10 * 10 = 676,000 possible Robot names.
+This test generates all possible Robot names, and checks that there are
+no duplicates.
+
+If you want to do this, uncomment the code in the run_test_tt_main
+line at the bottom of this module.
+*)
+let unique_name_tests = [
+  "all possible robot names are distinct" >:: (fun _ctxt ->
+    let rs = Array.init (26 * 26 * 1000) ~f:(fun _ -> new_robot ()) in
     let (repeated, _) = Array.fold rs ~init:(String.Set.empty, String.Set.empty) ~f:(fun (repeated, seen) r ->
       let n = name r in
       if Set.mem seen n
@@ -40,4 +52,4 @@ let tests = [
 ]
 
 let () =
-  run_test_tt_main ("robot-name tests" >::: tests)
+  run_test_tt_main ("robot-name tests" >::: List.concat [basic_tests (* ; unique_name_tests *)])
