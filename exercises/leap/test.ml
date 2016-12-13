@@ -5,19 +5,13 @@ open Leap
 let ae exp got _test_ctxt = assert_equal exp got
 
 let tests = [
-  "leap year in twentieth century" >::
-    ae true (leap_year 1996);
-  "odd standard year in twentieth century" >::
-    ae false (leap_year 1997);
-  "even standard year in twentieth century" >::
-    ae false (leap_year 1998);
-  "standard year in nineteenth century" >::
-    ae false (leap_year 1900);
-  "standard year in eighteenth century" >::
-    ae false (leap_year 1800);
-  "leap year twenty four hundred" >::
-    ae true (leap_year 2400);
-  "leap year two thousand" >::
+  "year not divisible by 4: common year" >::
+    ae false (leap_year 2015);
+  "year divisible by 4, not divisible by 100: leap year" >::
+    ae true (leap_year 2016);
+  "year divisible by 100, not divisible by 400: common year" >::
+    ae false (leap_year 2100);
+  "year divisible by 400: leap year" >::
     ae true (leap_year 2000);
 ]
 
