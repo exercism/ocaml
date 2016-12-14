@@ -2,12 +2,20 @@ open Core.Std
 open OUnit2
 open Robot_name
 
-let regex = Re2.Regex.create_exn "[A-Z]{2}\\d{3}$"
+let assert_matches_spec name =
+  let is_valid_letter ch = 'A' <= ch && ch <= 'Z' in
+  let is_valid_digit ch = '0' <= ch && ch <= '9' in
+  assert_equal ~printer:Int.to_string 5 (String.length name);
+  assert_bool ("First character must be from A to Z") (is_valid_letter @@ name.[0]);
+  assert_bool ("Second character must be from A to Z") (is_valid_letter @@ name.[1]);
+  assert_bool ("Third character must be from 0 to 9") (is_valid_digit @@ name.[2]);
+  assert_bool ("Fourth character must be from 0 to 9") (is_valid_digit @@ name.[3]);
+  assert_bool ("Fifth character must be from 0 to 9") (is_valid_digit @@ name.[4]);;
 
 let basic_tests = [
   "a robot has a name of 2 letters followed by 3 numbers" >:: (fun _ctxt ->
     let n = name (new_robot ()) in
-    assert_bool ("'" ^ n ^ "' does not meet the specification") (Re2.Regex.matches regex n)
+    assert_matches_spec n
     );
 
   "resetting a robot's name gives it a different name" >:: (fun _ctxt ->
@@ -22,7 +30,7 @@ let basic_tests = [
     let r = new_robot () in
     reset r;
     let n = name r in
-    assert_bool ("'" ^ n ^ "' does not meet the specification") (Re2.Regex.matches regex n)
+    assert_matches_spec n
     );
 ]
 
