@@ -1,0 +1,22 @@
+{
+  "#": [
+    "Markdown is a shorthand for creating HTML from text strings."
+  ],
+  "methods": {
+    "description": [
+      "Check the public API is correct."
+    ],
+    "cases": [{
+      "description": "must be able to parse a Markdown string",
+      "method": "parse",
+      "arity": 1
+    }]
+  },
+  "cases": [
+    {
+       "description": "parses normal text as a paragraph",
+       "input": "This will be a paragraph",
+       "expected": "<p>This will be a paragraph</p>"
+    }
+  ]
+}
