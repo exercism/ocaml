@@ -17,7 +17,7 @@ let parser_tests = [
     ae (single []) (parse_json_text "{\"cases\" : []}");
 
   "gives an error with a json map that does not have the key cases in" >::
-    ae (Error UnrecognizedJson)
+    ae (Error (TestMustHaveKeyCalledCases "case"))
        (parse_json_text "{\"case\" : [{\"description\" : \"d1\", \"expected\" : 100}]}");
 
   "gives an error with cases that is not a json list" >::
@@ -96,5 +96,12 @@ let parser_tests = [
       | Ok (Suite p) -> assert_equal ["square_of_sum"; "sum_of_squares"; "difference_of_squares"] (List.map ~f:(fun x -> x.name) p)
       | Ok (Single p) -> assert_failure "was single"
       | Error e -> assert_failure ("failed to parse difference_of_squares.json: " ^ show_error e)
+    );
+
+  "parses clock.json" >::(fun ctxt ->
+      match parse_json_text @@ In_channel.read_all "test/clock.json" with
+      | Ok (Suite p) -> assert_equal ["create"; "add"; "equal"] (List.map ~f:(fun x -> x.name) p)
+      | Ok (Single p) -> assert_failure "was single"
+      | Error e -> assert_failure ("failed to parse clock.json: " ^ show_error e)
     );
 ]

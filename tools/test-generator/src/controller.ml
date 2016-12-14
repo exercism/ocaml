@@ -53,3 +53,15 @@ let run ~(templates_folder: string) ~(canonical_data_folder: string) ~(output_fo
   let canonical_data_files = find_canonical_data_files canonical_data_folder in
   let combined = combine_files template_files canonical_data_files in
   output_tests combined output_folder
+
+let check_canonical_data canonical_data_folder =
+  let ok_count = ref 0 in
+  let canonical_data_files = find_canonical_data_files canonical_data_folder in
+  let canonical_data_files = List.sort canonical_data_files ~cmp:(fun (s1, _) (s2, _) -> String.compare s1 s2) in
+  let total_count = List.length canonical_data_files in
+  List.iter canonical_data_files ~f:(fun (slug, text) ->
+    match parse_json_text text with
+    | Error e -> print_endline @@ slug ^ ": " ^ (show_error e)
+    | _ -> ok_count := !ok_count + 1
+  );
+  print_endline @@ "There are " ^ (Int.to_string total_count) ^ " exercises with canonical data, " ^ (Int.to_string !ok_count) ^ " can be parsed."
