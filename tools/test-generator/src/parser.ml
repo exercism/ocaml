@@ -6,7 +6,7 @@ open Model
 
 type error =
     TestMustHaveKeyCalledCases of string | ExpectingListOfCases | ExpectingMapForCase |
-    BadDescription | BadExpected | UnrecognizedJson [@@deriving eq, show]
+    NoDescription | BadDescription | NoExpected of string | BadExpected | UnrecognizedJson [@@deriving eq, show]
 
 let to_int_safe = function
   | `Int x -> Some x
@@ -41,9 +41,9 @@ let parse_case_assoc (parameters: (string * json) list): (case, error) Result.t 
   let test_parameters = List.Assoc.remove parameters "description" in
   let test_parameters = List.Assoc.remove test_parameters "expected" in
   let open Result.Monad_infix in
-  find "description" BadDescription >>=
+  find "description" NoDescription >>=
   to_string_note BadDescription >>= fun description ->
-  find "expected" BadExpected >>= fun expectedJson ->
+  find "expected" (NoExpected description) >>= fun expectedJson ->
   to_parameter expectedJson |> Result.of_option ~error:BadExpected >>= fun expected ->
   Ok {description = description; parameters = parse_parameters test_parameters; expected = expected}
 
@@ -64,7 +64,8 @@ let parse_single (text: string): (tests, error) Result.t =
   Result.return (Single ts)
 
 let is_suite (json: json) =
-  let keys = List.sort (keys json) ~cmp:String.compare in
+  let keys = List.filter (keys json) ~f:(fun k -> k <> "methods") in
+  let keys = List.sort keys ~cmp:String.compare in
   not (List.is_empty keys || keys = ["cases"] || keys = ["#"; "cases"])
 
 let merge_result = function
@@ -93,8 +94,9 @@ let parse_json_text (text: string): (tests, error) Result.t =
 let show_error = function
   | TestMustHaveKeyCalledCases name -> "Test named '" ^ name ^ "' is expected to have an object with a key: 'cases'"
   | ExpectingMapForCase -> "Expected a json map for a test case"
-  | ExpectingListOfCases -> "Expected a top level map with key cases, " ^
-      "and a list of cases as its value."
-  | BadDescription -> "Case is missing a description or it is not a string."
-  | BadExpected -> "Case is missing an expected key or it is not an understood type."
+  | ExpectingListOfCases -> "Expected a top level map with key cases, and a list of cases as its value."
+  | NoDescription -> "Case is missing a description."
+  | BadDescription -> "Description is not a string."
+  | NoExpected s -> "Case '" ^ s ^ "' is missing an expected key."
+  | BadExpected -> "Do not understand type of Expected key."
   | UnrecognizedJson -> "Cannot understand this json."
