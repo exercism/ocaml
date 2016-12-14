@@ -122,6 +122,11 @@
       "topics": []
     },
     {
+      "slug": "robot-name",
+      "difficulty": 6,
+      "topics": ["Randomness", "Mutable state"]
+    },
+    {
       "slug": "list-ops",
       "difficulty": 6,
       "topics": []
