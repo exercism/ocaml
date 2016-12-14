@@ -17,7 +17,7 @@ let parser_tests = [
     ae (single []) (parse_json_text "{\"cases\" : []}");
 
   "gives an error with a json map that does not have the key cases in" >::
-    ae (Error UnrecognizedJson)
+    ae (Error (TestMustHaveKeyCalledCases "case"))
        (parse_json_text "{\"case\" : [{\"description\" : \"d1\", \"expected\" : 100}]}");
 
   "gives an error with cases that is not a json list" >::
@@ -61,15 +61,15 @@ let parser_tests = [
       (parse_json_text "{\"cases\" : [{\"description\" : \"d1\", \"input\" : [\"s1\", \"s2\"], \"expected\" : 85}]}");
 
   "an element without a description is an Error" >::
-    ae (Error BadDescription)
+    ae (Error NoDescription)
       (parse_json_text "{\"cases\" : [{\"input\" : 11, \"expected\" : 85}]}");
 
   "an element with a description which is an int is an Error" >::
     ae (Error BadDescription)
       (parse_json_text "{\"cases\" : [{\"description\" : 1, \"input\" : 11, \"expected\" : 85}]}");
 
-  "an element without expected is an Error" >::
-    ae (Error BadDescription)
+  "an element without description is an Error" >::
+    ae (Error NoDescription)
       (parse_json_text "{\"cases\" : [{\"input\" : 11}]}");
 
   "parses a map in the expected parameter" >::(fun _ctx ->
@@ -96,5 +96,19 @@ let parser_tests = [
       | Ok (Suite p) -> assert_equal ["square_of_sum"; "sum_of_squares"; "difference_of_squares"] (List.map ~f:(fun x -> x.name) p)
       | Ok (Single p) -> assert_failure "was single"
       | Error e -> assert_failure ("failed to parse difference_of_squares.json: " ^ show_error e)
+    );
+
+  "parses clock.json" >::(fun ctxt ->
+      match parse_json_text @@ In_channel.read_all "test/clock.json" with
+      | Ok (Suite p) -> assert_equal ["create"; "add"; "equal"] (List.map ~f:(fun x -> x.name) p)
+      | Ok (Single p) -> assert_failure "was single"
+      | Error e -> assert_failure ("failed to parse clock.json: " ^ show_error e)
+    );
+
+  "parses json with a methods key for dynamic languages" >::(fun ctxt ->
+      match parse_json_text @@ In_channel.read_all "test/with-methods-key.json" with
+      | Ok (Suite p) -> assert_failure "was suite"
+      | Ok (Single p) -> ()
+      | Error e -> assert_failure ("failed to parse with-methods-key.json: " ^ show_error e)
     );
 ]

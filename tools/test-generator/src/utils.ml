@@ -7,8 +7,16 @@ let map2 (f: 'a -> 'b -> 'c) (r1: ('a, 'e) Result.t) (r2: ('b, 'e) Result.t): ('
   | (_, Error x) -> Error x
   | (Ok a, Ok b) -> Ok (f a b)
 
+let map2_option (f: 'a -> 'b -> 'c) (r1: 'a option) (r2: 'b option): 'c option = match (r1, r2) with
+  | (None, _) -> None
+  | (_, None) -> None
+  | (Some a, Some b) -> Some (f a b)
+
 let sequence (rs: (('a, 'e) Result.t) list): (('a list), 'e) Result.t =
   List.fold_right rs ~init:(Ok []) ~f:(map2 (fun x xs -> x :: xs))
+
+let sequence_option (rs: ('a option) list): ('a list) option =
+  List.fold_right rs ~init:(Some []) ~f:(map2_option (fun x xs -> x :: xs))
 
 let to_list_option json =
   try Some (to_list json) with Type_error _ -> None
