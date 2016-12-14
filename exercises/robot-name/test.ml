@@ -39,9 +39,10 @@ Optionally: make this test pass.
 
 There are 26 * 26 * 10 * 10 * 10 = 676,000 possible Robot names.
 This test generates all possible Robot names, and checks that there are
-no duplicates.
+no duplicates. It's harder to make pass than the other tests, so it is left
+as optional.
 
-If you want to do this, uncomment the code in the run_test_tt_main
+To enable it, uncomment the code in the run_test_tt_main
 line at the bottom of this module.
 *)
 let unique_name_tests = [
