@@ -10,6 +10,7 @@ type parameter =
   | Bool of bool
   | StringList of (string list)
   | IntList of (int list)
+  | IntTupleList of ((int * int) list)
   | IntStringMap of ((string * int) list) [@@deriving eq, show]
 
 type 'a elements = (string * 'a) list [@@deriving eq, show]
@@ -37,5 +38,6 @@ let parameter_to_string = function
   | Bool b -> Bool.to_string b
   | StringList xs -> "[" ^ String.concat ~sep:"; " (List.map ~f:(surround '\"' >> String.escaped) xs) ^ "]"
   | IntList xs -> "[" ^ String.concat ~sep:"; " (List.map ~f:Int.to_string xs) ^ "]"
+  | IntTupleList xs -> "[" ^ String.concat ~sep:"; " (List.map xs ~f:(fun (x,y) -> sprintf "(%d,%d)" x y)) ^ "]"
   | IntStringMap xs -> "[" ^ String.concat ~sep:"; "
                          (List.map xs ~f:(fun (k,v) -> "(\"" ^ String.escaped k ^ "\", " ^ Int.to_string v ^ ")")) ^ "]"

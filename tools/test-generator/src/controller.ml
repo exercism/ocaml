@@ -10,9 +10,9 @@ type content = string
 
 let find_nested_files (name: string) (base: string): (string * content) list =
   Sys.ls_dir base
-    |> List.filter ~f:(fun slug -> Sys.is_directory_exn (base ^ "/" ^ slug))
-    |> List.filter ~f:(fun slug -> Sys.file_exists_exn (base ^ "/" ^ slug ^ "/" ^ name))
-    |> List.map ~f:(fun slug -> (slug, In_channel.read_all (base ^ "/" ^ slug ^ "/" ^ name)))
+  |> List.filter ~f:(fun slug -> Sys.is_directory_exn (base ^ "/" ^ slug))
+  |> List.filter ~f:(fun slug -> Sys.file_exists_exn (base ^ "/" ^ slug ^ "/" ^ name))
+  |> List.map ~f:(fun slug -> (slug, In_channel.read_all (base ^ "/" ^ slug ^ "/" ^ name)))
 
 let find_template_files = find_nested_files "template.ml"
 
@@ -28,7 +28,7 @@ let generate_code ~(slug: string) ~(template_file: content) ~(canonical_data_fil
   let fill_in_template = fill_in_template edit_expected edit_parameters in
   let open Result.Monad_infix in
   Result.of_option template ("cannot recognize file for " ^ slug ^ " as a template") >>= fun template ->
-  parse_json_text canonical_data_file
+  parse_json_text canonical_data_file (expected_key_name slug)
   |> Result.map_error ~f:show_error >>= (function
       | Single cases ->
         fill_in_template template.template slug cases
@@ -60,7 +60,7 @@ let check_canonical_data canonical_data_folder =
   let canonical_data_files = List.sort canonical_data_files ~cmp:(fun (s1, _) (s2, _) -> String.compare s1 s2) in
   let total_count = List.length canonical_data_files in
   List.iter canonical_data_files ~f:(fun (slug, text) ->
-    match parse_json_text text with
+    match parse_json_text text (expected_key_name slug) with
     | Error e -> print_endline @@ slug ^ ": " ^ (show_error e)
     | _ -> ok_count := !ok_count + 1
   );
