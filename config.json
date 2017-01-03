@@ -142,6 +142,11 @@
       "topics": []
     },
     {
+      "slug": "dominoes",
+      "difficulty": 7,
+      "topics": []
+    },
+    {
       "slug": "custom-set",
       "difficulty": 8,
       "topics": []
