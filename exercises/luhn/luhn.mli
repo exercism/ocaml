@@ -1,3 +1,2 @@
-val checksum: string -> int
+(* Returns true if the input is a valid Luhn string *)
 val valid : string -> bool
-val add_check_digit: string -> string

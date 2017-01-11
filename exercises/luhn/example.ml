@@ -1,20 +1,16 @@
 open Core.Std
 
-let digit character =
-  (int_of_char character) - 48
-
-let rec sum_digits s r c = function
-  | 0 -> r
-  | i ->
-    let d = c * (digit s.[i - 1]) in
-    sum_digits s (r + (d/10) + (d mod 10)) (3-c) (i-1)
-
-let checksum s =
-  (sum_digits s 0 1 (String.length s))
+let every_second_digit_doubled =
+  let double_digit n = let d = n * 2 in if d >= 10 then d - 9 else d in
+  List.rev_mapi ~f:(fun i -> if i % 2 = 1 then double_digit else Fn.id)
 
 let valid s =
-  (checksum s) mod 10 = 0
-
-let add_check_digit s =
-  let check = ((sum_digits s 0 2 (String.length s)) mod 10) in
-  String.concat ~sep:"" [s; (string_of_int ((10 - check) mod 10))]
+  let s = String.filter s ~f:(fun ch -> ch <> ' ') in
+  if String.length s > 1
+  then
+    let checksum = String.to_list s
+    |> List.rev_map ~f:(fun ch -> Char.to_int ch - Char.to_int '0')
+    |> every_second_digit_doubled
+    |> List.sum (module Int) ~f:Fn.id in
+    checksum % 10 = 0
+  else false
