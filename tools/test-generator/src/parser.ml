@@ -55,45 +55,45 @@ let parse_case (expected_key: string) (s: json): (case, error) Result.t = match 
   | `Assoc assoc -> parse_case_assoc assoc expected_key
   | _ -> Error ExpectingMapForCase
 
-let parse_cases (text: string): (json, error) Result.t =
-  match from_string text |> member "cases" with
+let parse_cases (text: string) (cases_key: string): (json, error) Result.t =
+  match from_string text |> member cases_key with
     | `Null -> Error (TestMustHaveKeyCalledCases "xx")
     | json -> Ok json
 
-let parse_single (text: string) (expected_key: string): (tests, error) Result.t =
+let parse_single (text: string) (expected_key: string) (cases_key: string): (tests, error) Result.t =
   let open Result.Monad_infix in
-  parse_cases text >>=
+  parse_cases text cases_key >>=
   to_list_note ExpectingListOfCases >>=
   (sequence >> (List.map ~f:(parse_case expected_key))) >>= fun ts ->
   Result.return (Single ts)
 
-let is_suite (json: json) =
+let is_suite (json: json) (cases_key: string) =
   let keys = List.filter (keys json) ~f:(fun k -> k <> "methods") in
   let keys = List.sort keys ~cmp:String.compare in
-  not (List.is_empty keys || keys = ["cases"] || keys = ["#"; "cases"])
+  not (List.is_empty keys || keys = [cases_key] || keys = ["#"; cases_key])
 
 let merge_result = function
   | (_, Error x) -> Error x
   | (n, Ok c) -> Ok {name = n; cases = c}
 
-let parse_cases_from_suite name suite expected_key =
+let parse_cases_from_suite name suite expected_key cases_key =
   let open Result.Monad_infix in
-  member_note (TestMustHaveKeyCalledCases name) "cases" suite >>=
+  member_note (TestMustHaveKeyCalledCases name) cases_key suite >>=
   to_list_note ExpectingListOfCases >>= fun tests ->
   List.map tests ~f:(parse_case expected_key) |> sequence
 
-let parse_json_text (text: string) (expected_key: string): (tests, error) Result.t =
+let parse_json_text (text: string) (expected_key: string) (cases_key: string): (tests, error) Result.t =
   let open Result.Monad_infix in
   let json = from_string text in
-  if is_suite json
+  if is_suite json cases_key
   then
     to_assoc_note UnrecognizedJson json >>= fun tests ->
     let tests = List.filter tests ~f:(fun (n, _) -> n <> "#") in
-    let tests = List.map tests ~f:(fun (name, suite) -> merge_result (name, parse_cases_from_suite name suite expected_key)) in
+    let tests = List.map tests ~f:(fun (name, suite) -> merge_result (name, parse_cases_from_suite name suite expected_key cases_key)) in
     sequence tests >>= fun tests ->
     Ok (Suite tests)
   else
-    parse_single text expected_key
+    parse_single text expected_key cases_key
 
 let show_error = function
   | TestMustHaveKeyCalledCases name -> "Test named '" ^ name ^ "' is expected to have an object with a key: 'cases'"
