@@ -12,11 +12,11 @@ let ae exp got _test_ctxt = assert_equal exp got ~printer:show_cases
 
 let single x = Ok (Single x)
 
-let call_parser json = parse_json_text json "expected"
+let call_parser json = parse_json_text json "expected" "cases"
 
 let parser_tests = [
   "parses empty json as empty list" >::
-    ae (single []) (call_parser "{\"cases\" : []}");
+    ae (single []) (parse_json_text "{\"test-cases\" : []}" "expected" "test-cases");
 
   "gives an error with a json map that does not have the key cases in" >::
     ae (Error (TestMustHaveKeyCalledCases "case"))

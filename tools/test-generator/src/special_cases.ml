@@ -59,3 +59,7 @@ let edit_parameters ~(slug: string) (parameters: (string * string) list) = match
 let expected_key_name slug = match slug with
 | "dominoes" -> "can_chain"
 | _ -> "expected"
+
+let cases_name slug = match slug with
+| "luhn" -> "valid"
+| _ -> "cases"
