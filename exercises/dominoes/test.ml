@@ -8,12 +8,12 @@ let option_printer = function
   | None -> "None"
   | Some xs -> "Some [" ^ String.concat ~sep:";" (List.map xs ~f:print_dominoe) ^ "]"
 
-let drop_1_right xs = List.rev xs |> List.tl_exn |> List.rev
+let rotate_1 xs = List.tl_exn xs @ [List.hd_exn xs]
 
 let check_chain (chained: dominoe list) = 
   let assert_dominoes_match d1 d2 =
     if snd d1 <> fst d2 then failwith @@ sprintf "%s and %s cannot be chained together" (print_dominoe d1) (print_dominoe d2) else () in
-  let consecutives = List.zip_exn (drop_1_right chained) (List.tl_exn chained) in
+  let consecutives = List.zip_exn chained (rotate_1 chained) in
   List.iter consecutives ~f:(fun (d1, d2) -> assert_dominoes_match d1 d2)
 
 let assert_empty c = if List.is_empty c then () else failwith "Expected 0 length chain"
