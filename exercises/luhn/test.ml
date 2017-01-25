@@ -6,7 +6,7 @@ let assert_valid expected input _test_ctxt =
   assert_equal ~printer:Bool.to_string expected (valid input)
 
 let tests = [
-  "single digit strings are not valid" >::
+  "single digit strings can not be valid" >::
     assert_valid false "1";
   "A single zero is invalid" >::
     assert_valid false "0";
@@ -16,8 +16,8 @@ let tests = [
     assert_valid false "046 454 287";
   "invalid credit card" >::
     assert_valid false "8273 1232 7352 0569";
-  "strings that contain non-digits are not valid" >::
-    assert_valid false "827a 1232 7352 0569";
+  "valid strings with a non-digit added become invalid" >::
+    assert_valid false "046a 454 286";
 ]
 
 let () =
