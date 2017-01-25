@@ -72,6 +72,11 @@
       "topics": []
     },
     {
+      "slug": "pangram",
+      "difficulty": 3,
+      "topics": ["Strings"]
+    },
+    {
       "slug": "all-your-base",
       "difficulty": 4,
       "topics": ["Mathematics"]
