@@ -5,6 +5,7 @@ open Utils
 open Codegen
 open Special_cases
 open Template
+open Files
 
 type content = string
 
@@ -40,19 +41,22 @@ let generate_code ~(slug: string) ~(template_file: content) ~(canonical_data_fil
         |> Result.return
     )
 
-let output_tests (files: (string * content * content) list) (output_folder: string): unit =
+let output_tests (files: (string * content * content) list) (output_folder: string) ~(generated_folder: string): unit =
   let output_filepath name = output_folder ^ "/" ^ name ^ "/test.ml" in
   let output1 (slug,t,c) =
     match generate_code slug t c with
-    | Ok code -> Out_channel.write_all (output_filepath slug) code
+    | Ok code -> 
+        if backup ~base_folder:generated_folder ~slug ~contents:code
+        then Out_channel.write_all (output_filepath slug) code
+        else print_endline @@ "not generating " ^ slug ^ " as unchanged from previous generated file."
     | Error e -> print_endline ("Failed when generating " ^ slug ^ ", error: " ^ e) in
   List.iter files ~f:output1
 
-let run ~(templates_folder: string) ~(canonical_data_folder: string) ~(output_folder: string) =
+let run ~(templates_folder: string) ~(canonical_data_folder: string) ~(output_folder: string) ~(generated_folder: string) =
   let template_files = find_template_files templates_folder in
   let canonical_data_files = find_canonical_data_files canonical_data_folder in
   let combined = combine_files template_files canonical_data_files in
-  output_tests combined output_folder
+  output_tests combined output_folder generated_folder
 
 let check_canonical_data canonical_data_folder =
   let ok_count = ref 0 in
