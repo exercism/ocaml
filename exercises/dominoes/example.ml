@@ -16,7 +16,7 @@ let zip_with (xs: 'a list) (ys: 'b list) ~(f: 'a -> 'b -> 'c) =
 let tails (xs: 'a list): ('a list) list =
   let rec go acc = function
   | [] -> [] :: acc
-  | (x::xs) as l -> go (l :: acc) xs
+  | (_::xs) as l -> go (l :: acc) xs
   in
   List.rev @@ go [] xs
 

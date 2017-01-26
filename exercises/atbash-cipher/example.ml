@@ -22,7 +22,7 @@ let explode s =
 
 let implode l =
   let character_at i = List.nth_exn l i in
-  String.init (List.length l) character_at
+  String.init (List.length l) ~f:character_at
 
 let rec group n l =
   if (List.length l) <= n then
