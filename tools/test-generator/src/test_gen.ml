@@ -10,6 +10,8 @@ let is_directory =
          exit 1
     )
 
+let home_dir = Option.value_exn (Sys.getenv "HOME")
+
 let command =
   Command.basic
     ~summary:"Generates test code from canonical data."
@@ -18,7 +20,7 @@ let command =
       +> flag "-t" (optional_with_default "./templates" is_directory) ~doc:"string Directory containing templates."
       +> flag "-c" (optional_with_default "../../../x-common/exercises" is_directory) ~doc:"string Directory containing canonical data."
       +> flag "-o" (optional_with_default "../../exercises" is_directory) ~doc:"string Directory to output generated tests."
-      +> flag "-g" (optional_with_default "/home/steve/.xocaml-generated" is_directory) ~doc:"string Directory to backup generated tests."
+      +> flag "-g" (optional_with_default (home_dir ^ "/.xocaml-generated") is_directory) ~doc:"string Directory to backup generated tests."
     )
     (fun templates_folder canonical_data_folder output_folder generated_folder () -> Controller.run templates_folder canonical_data_folder output_folder generated_folder)
 

@@ -1,7 +1,12 @@
 open Core.Std
 
 let mkdir_if_not_present dir =
-  if Sys.file_exists dir = `No then Unix.mkdir dir else ()
+  if Sys.file_exists dir = `No 
+  then begin
+    Unix.mkdir dir;
+    print_endline @@ "Storing generated files in " ^ dir
+  end 
+  else ()
 
 let backup ~(base_folder: string) ~(slug: string) ~(contents: string): bool =
   mkdir_if_not_present base_folder;
