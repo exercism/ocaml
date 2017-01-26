@@ -9,7 +9,7 @@ type progress =
     | Busy of int
 
 type t = {
-    send_feed : char -> unit;
+    send_feed : ?step:React.step -> char -> unit;
     masked_word_s : string signal;
     progress_s : progress signal;
 }

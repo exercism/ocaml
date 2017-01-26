@@ -7,5 +7,5 @@ let count s c =
     String.fold ~init:0 ~f s
 
 let nucleotide_counts s =
-    let f m c = CMap.change m c (function None -> Some 1 | Some n -> Some (n + 1)) in
+    let f m c = CMap.change m c ~f:(function None -> Some 1 | Some n -> Some (n + 1)) in
     String.fold ~init:CMap.empty ~f s
