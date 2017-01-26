@@ -18,8 +18,9 @@ let command =
       +> flag "-t" (optional_with_default "./templates" is_directory) ~doc:"string Directory containing templates."
       +> flag "-c" (optional_with_default "../../../x-common/exercises" is_directory) ~doc:"string Directory containing canonical data."
       +> flag "-o" (optional_with_default "../../exercises" is_directory) ~doc:"string Directory to output generated tests."
+      +> flag "-g" (optional_with_default "/home/steve/.xocaml-generated" is_directory) ~doc:"string Directory to backup generated tests."
     )
-    (fun templates_folder canonical_data_folder output_folder () -> Controller.run templates_folder canonical_data_folder output_folder)
+    (fun templates_folder canonical_data_folder output_folder generated_folder () -> Controller.run templates_folder canonical_data_folder output_folder generated_folder)
 
 let () =
   Command.run ~version:"0.1" command
