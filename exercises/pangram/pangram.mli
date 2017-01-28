@@ -1,0 +1,1 @@
+val is_pangram : string -> bool
