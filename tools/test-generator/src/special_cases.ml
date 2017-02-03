@@ -7,18 +7,18 @@ let map_elements (to_str: json -> string) (parameters: (string * json) list): (s
   List.map parameters ~f:(fun (k,j) -> (k,to_str j))
 
 let optional_int ~(none: int) = function
-| Int n when n = none -> "None"
-| Int n -> "(Some " ^ Int.to_string n ^ ")"
-| x -> parameter_to_string x
+| `Int n when n = none -> "None"
+| `Int n -> "(Some " ^ Int.to_string n ^ ")"
+| x -> json_to_string x
 
 let optional_int_list = function
-| IntList xs -> "(Some [" ^ String.concat ~sep:"; " (List.map ~f:Int.to_string xs) ^ "])"
+| `List xs -> "(Some [" ^ String.concat ~sep:"; " (List.map ~f:json_to_string xs) ^ "])"
 | _ -> "None"
 
 let optional_int_or_string ~(none: int) = function
-| String s -> "(Some \"" ^ s ^ "\")"
-| Int n when n = none -> "None"
-| x -> parameter_to_string x
+| `String s -> "(Some \"" ^ s ^ "\")"
+| `Int n when n = none -> "None"
+| x -> json_to_string x
 
 let default_value ~(key: string) ~(value: string) (parameters: (string * string) list): (string * string) list =
   if List.exists ~f:(fun (k, _) -> k = key) parameters
@@ -33,7 +33,7 @@ let optional_strings ~(f: string -> bool) (parameters: (string * json) list): (s
     else (k, json_to_string v) in
   List.map ~f:replace parameters
 
-let edit_expected ~(stringify: parameter -> string) ~(slug: string) ~(value: parameter) = match slug with
+let edit_expected ~(stringify: json -> string) ~(slug: string) ~(value: json) = match slug with
 | "hamming" -> optional_int ~none:(-1) value
 | "all-your-base" -> optional_int_list value
 | "say" -> optional_int_or_string ~none:(-1) value

@@ -24,7 +24,7 @@ let combine_files (template_files: (string * content) list) (canonical_data_file
 
 let generate_code ~(slug: string) ~(template_file: content) ~(canonical_data_file: content): (content, content) Result.t =
   let template = find_template template_file in
-  let edit_expected = edit_expected ~stringify:parameter_to_string ~slug in
+  let edit_expected = edit_expected ~stringify:json_to_string ~slug in
   let edit_parameters = edit_parameters ~slug in
   let fill_in_template = fill_in_template edit_expected edit_parameters in
   let open Result.Monad_infix in

@@ -11,20 +11,20 @@ let tuples_printer kvs =
   String.concat ~sep:";" @@ List.map ~f:(fun (k,v) -> "(" ^ k ^ "," ^ v ^ ")") kvs
 
 let stringify = function
-  | Bool true -> "stringified"
+  | `Bool true -> "stringified"
   | _ -> failwith "Bad type for stringify"
 
 let special_cases_tests = [
   "for a non special cased slug convert the parameter to a string" >:: (fun _ctx ->
-      assert_equal ~printer:Fn.id "stringified" @@ edit_expected ~stringify ~slug:"some-slug" ~value:(Bool true)
+      assert_equal ~printer:Fn.id "stringified" @@ edit_expected ~stringify ~slug:"some-slug" ~value:(`Bool true)
     );
 
   "an optional int parameter is converted to none if it matches the special value" >:: (fun _ctx ->
-      assert_equal "None" @@ optional_int ~none:88 (Int 88)
+      assert_equal "None" @@ optional_int ~none:88 (`Int 88)
     );
 
   "an optional int parameter is converted to (Some value) if it does not match the special value" >:: (fun _ctx ->
-      assert_equal "(Some 0)" @@ optional_int ~none:88 (Int 0)
+      assert_equal "(Some 0)" @@ optional_int ~none:88 (`Int 0)
     );
 
   "default_value does not provide a default for a list that has the given key already" >:: (fun _ctx ->

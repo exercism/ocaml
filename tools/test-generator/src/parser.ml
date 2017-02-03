@@ -44,8 +44,7 @@ let parse_case_assoc (parameters: (string * json) list) (expected_key: string): 
   let open Result.Monad_infix in
   find "description" NoDescription >>=
   to_string_note BadDescription >>= fun description ->
-  find expected_key (NoExpected description) >>= fun expectedJson ->
-  to_parameter expectedJson |> Result.of_option ~error:BadExpected >>= fun expected ->
+  find expected_key (NoExpected description) >>= fun expected ->
   Ok {description = description; parameters = test_parameters; expected = expected}
 
 let parse_case (expected_key: string) (s: json): (case, error) Result.t = match s with

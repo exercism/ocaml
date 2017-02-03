@@ -22,7 +22,7 @@ type 'a elements = (string * 'a) list [@@deriving eq, show]
 type case = {
   description: string;
   parameters: (string * json) list [@printer fun fmt kjs -> ()];
-  expected: parameter;
+  expected: json [@printer fun fmt j -> ()];
 } [@@deriving show]
 
 type test = {name: string; cases: case list} [@@deriving show]

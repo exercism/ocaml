@@ -3,7 +3,7 @@ open Core.Std
 open Model
 open Yojson.Basic
 
-type edit_expected_function = value: parameter -> string
+type edit_expected_function = value: json -> string
 
 type edit_parameters_function = (string * json) list -> (string * string) list
 
