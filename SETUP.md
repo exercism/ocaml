@@ -9,19 +9,7 @@ To work on the exercises, you will need `Opam` and `Core`. Consult [opam](https:
 opam install core
 
 ## Running Tests
-Because OCaml is a compiled language you need to compile your submission and the test code before you can run the tests. Compile with
-
-```bash
-$ corebuild -quiet test.native
-```
-
-and when successful run the tests by running the `test.native` executable:
-
-```bash
-./test.native
-```
-
-Alternatively just type
+A Makefile is provided with a default target to compile your solution and run the tests. At the command line, type:
 
 ```bash
 make
