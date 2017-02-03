@@ -26,4 +26,6 @@ let model_tests = [
     ae "[(\"one\", 1); (\"two\", 1)]"  @@ parameter_to_string (IntStringMap [("one", 1); ("two", 1)]);
   "int string map parameter to string with escaped characters in the keys" >::
     ae "[(\"\\t\\r\", 1); (\"two\\n\", 1)]"  @@ parameter_to_string (IntStringMap [("\t\r", 1); ("two\n", 1)]);
+  "json_to_string on list of strings" >::
+    ae "[\"a\"; \"b\"; \"c\"]" @@ json_to_string (`List [`String "a"; `String "b"; `String "c"]);
 ]

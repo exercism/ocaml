@@ -3,6 +3,7 @@ open OUnit2
 open Model
 open Codegen
 open Special_cases
+open Yojson.Basic
 
 let ae exp got _ctxt = assert_equal ~printer:Fn.id exp got
 
@@ -36,7 +37,7 @@ let special_cases_tests = [
     );
 
   "optional_strings replace value with Some(value)" >:: (fun _ctx ->
-      assert_equal ~printer:tuples_printer [("key", "(Some \"value\")"); ("key2", "value2")]
-        @@ optional_strings ~f:(fun x -> x = "key") [("key", "value"); ("key2", "value2")]
+      assert_equal ~printer:tuples_printer [("key", "(Some \"value\")"); ("key2", "\"value2\"")]
+        @@ optional_strings ~f:(fun x -> x = "key") [("key", `String "value"); ("key2", `String "value2")]
     );
 ]

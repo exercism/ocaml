@@ -1,6 +1,7 @@
 open Core.Std
 
 open Utils
+open Yojson.Basic
 
 type parameter =
   | Null
@@ -15,17 +16,20 @@ type parameter =
 
 type 'a elements = (string * 'a) list [@@deriving eq, show]
 
+(*let pp_json (fmt: Format.formatter) (j: json): unit = *)
+  (*fmt.*)
+
 type case = {
   description: string;
-  parameters: parameter elements;
+  parameters: (string * json) list [@printer fun fmt kjs -> ()];
   expected: parameter;
-} [@@deriving eq, show]
+} [@@deriving show]
 
-type test = {name: string; cases: case list} [@@deriving eq, show]
+type test = {name: string; cases: case list} [@@deriving show]
 
 type tests =
   | Single of case list
-  | Suite of test list [@@deriving eq, show]
+  | Suite of test list
 
 let surround (ch: char) (s: string): string =
   Char.to_string ch ^ s ^ Char.to_string ch
@@ -41,3 +45,13 @@ let parameter_to_string = function
   | IntTupleList xs -> "[" ^ String.concat ~sep:"; " (List.map xs ~f:(fun (x,y) -> sprintf "(%d,%d)" x y)) ^ "]"
   | IntStringMap xs -> "[" ^ String.concat ~sep:"; "
                          (List.map xs ~f:(fun (k,v) -> "(\"" ^ String.escaped k ^ "\", " ^ Int.to_string v ^ ")")) ^ "]"
+
+let rec json_to_string (j: json): string = match j with
+  | `Null -> "null"
+  | `String s -> "\"" ^ (String.escaped s) ^ "\""
+  | `Float f -> Float.to_string f
+  | `Int n -> Int.to_string n
+  | `Bool b -> Bool.to_string b
+  | `List xs -> "[" ^ String.concat ~sep:"; " (List.map ~f:json_to_string xs) ^ "]"
+  | `Assoc xs -> "[" ^ String.concat ~sep:"; "
+                         (List.map xs ~f:(fun (k,v) -> "(\"" ^ String.escaped k ^ "\", " ^ json_to_string v ^ ")")) ^ "]"

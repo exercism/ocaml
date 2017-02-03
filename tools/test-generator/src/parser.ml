@@ -46,7 +46,7 @@ let parse_case_assoc (parameters: (string * json) list) (expected_key: string): 
   to_string_note BadDescription >>= fun description ->
   find expected_key (NoExpected description) >>= fun expectedJson ->
   to_parameter expectedJson |> Result.of_option ~error:BadExpected >>= fun expected ->
-  Ok {description = description; parameters = parse_parameters test_parameters; expected = expected}
+  Ok {description = description; parameters = test_parameters; expected = expected}
 
 let parse_case (expected_key: string) (s: json): (case, error) Result.t = match s with
   | `Assoc assoc -> parse_case_assoc assoc expected_key

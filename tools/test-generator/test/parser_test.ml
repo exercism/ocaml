@@ -51,20 +51,16 @@ let parser_tests = [
       (call_parser "{\"cases\" : [{\"description\" : \"d1\", \"expected\" : null}]}");
 
   "parses a single element with an int key value pair" >::
-    ae (single [{description = "d1"; parameters = [("input", Int 1996)]; expected = Bool true}])
+    ae (single [{description = "d1"; parameters = [("input", `Int 1996)]; expected = Bool true}])
       (call_parser "{\"cases\" : [{\"description\" : \"d1\", \"input\" : 1996, \"expected\" : true}]}");
 
   "parses a single element with a string key value pair" >::
-    ae (single [{description = "d1"; parameters = [("input", String "some-string")]; expected = Int 85}])
+    ae (single [{description = "d1"; parameters = [("input", `String "some-string")]; expected = Int 85}])
       (call_parser "{\"cases\" : [{\"description\" : \"d1\", \"input\" : \"some-string\", \"expected\" : 85}]}");
 
   "parses a single element with a string list key value pair" >::
-    ae (single [{description = "d1"; parameters = [("input", StringList ["s1"; "s2"])]; expected = Int 85}])
+    ae (single [{description = "d1"; parameters = [("input", `List [`String "s1"; `String "s2"])]; expected = Int 85}])
       (call_parser "{\"cases\" : [{\"description\" : \"d1\", \"input\" : [\"s1\", \"s2\"], \"expected\" : 85}]}");
-
-  "parses a single element with a int tuple list (modelled as an int list) key value pair" >::
-    ae (single [{description = "d1"; parameters = [("input", IntTupleList [(1,2);(3,4)])]; expected = Int 85}])
-      (call_parser "{\"cases\" : [{\"description\" : \"d1\", \"input\" : [[1,2],[3,4]], \"expected\" : 85}]}");
 
   "an element without a description is an Error" >::
     ae (Error NoDescription)
