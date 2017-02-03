@@ -47,6 +47,17 @@ In this example, the Makefile would look for an implementation in ocaml_exercise
 
 All pull requests are run through a Travis CI build, which compiles and runs tests.
 
+## Canonical test data
+
+If you are implementing an existing test, there may be "canonical data" for it in the [x-common](https://github.com/exercism/x-common) repository.
+An example: https://github.com/exercism/x-common/blob/master/exercises/bracket-push/canonical-data.json
+
+You should base your tests off this data, in order to provide consistency across different language tracks.
+
+There is a test generator which can create test code from these json files and an OCaml template file that you 
+would need to create. It is a work in progress, so may not work for every exercise. If you wish to use it, there
+is documentation [here](tools/test-generator/README.md).
+
 ## Feedback
 
 If you find this documentation is inaccurate or incomplete, or can be improved in any way, please don't hesitate to raise an [issue](https://github.com/exercism/xocaml/issues) or submit a pull request.
