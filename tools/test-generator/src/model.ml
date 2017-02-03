@@ -5,11 +5,11 @@ open Yojson.Basic
 
 type case = {
   description: string;
-  parameters: (string * json) list [@printer fun fmt kjs -> ()];
-  expected: json [@printer fun fmt j -> ()];
-} [@@deriving show]
+  parameters: (string * json) list;
+  expected: json;
+}
 
-type test = {name: string; cases: case list} [@@deriving show]
+type test = {name: string; cases: case list}
 
 type tests =
   | Single of case list

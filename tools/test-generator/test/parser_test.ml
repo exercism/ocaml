@@ -3,12 +3,7 @@ open OUnit2
 open Parser
 open Model
 
-let show_cases = function
-  | Ok (Single cs) -> List.map ~f:show_case cs |> String.concat
-  | Ok (Suite cs) -> failwith "no printer"
-  | Error e -> show_error e
-
-let ae exp got _test_ctxt = assert_equal exp got ~printer:show_cases
+let ae exp got _test_ctxt = assert_equal exp got
 
 let single x = Ok (Single x)
 
