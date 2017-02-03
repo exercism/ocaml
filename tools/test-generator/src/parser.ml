@@ -23,9 +23,6 @@ let rec to_list_safe xs: parameter option = let open Option.Monad_infix in match
 | `List x :: _ -> List.map xs ~f:to_tuple_safe |> sequence_option >>= (fun xs -> Some (IntTupleList xs))
 | _ -> None
 
-let q xs = let open Option.Monad_infix in
-  List.map xs ~f:(fun (k,v) -> (to_int_safe v |> Option.map ~f:(fun v -> (k,v))))
-
 let to_parameter (s: json) = match s with
 | `Null -> Some (Null)
 | `String x -> Some (String x)
