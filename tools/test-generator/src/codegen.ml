@@ -1,10 +1,11 @@
 open Core.Std
 
 open Model
+open Yojson.Basic
 
-type edit_expected_function = value: parameter -> string
+type edit_expected_function = value: json -> string
 
-type edit_parameters_function = (string * string) list -> (string * string) list
+type edit_parameters_function = (string * json) list -> (string * string) list
 
 type subst = Subst of string [@@deriving eq, show]
 
@@ -22,7 +23,7 @@ let rec replace_keys (f: edit_expected_function) (ed: edit_parameters_function) 
   let expected = f ~value:c.expected in
   let s = replace_key "expected" expected s in
   let s = replace_key "suite-name" suite_name s in
-  let parameter_strings = ed @@ List.map ~f:(fun (k,p) -> (k,parameter_to_string p)) c.parameters in
+  let parameter_strings = ed @@ List.map ~f:(fun (k,p) -> (k,p)) c.parameters in
   List.fold parameter_strings ~init:(Subst s) ~f:(fun (Subst s) (k,v) -> Subst (replace_key k v s))
 
 let fill_in_template (f: edit_expected_function) (ed: edit_parameters_function) test_template suite_name cases =

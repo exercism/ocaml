@@ -8,38 +8,6 @@ type error =
     TestMustHaveKeyCalledCases of string | ExpectingListOfCases | ExpectingMapForCase |
     NoDescription | BadDescription | NoExpected of string | BadExpected | UnrecognizedJson [@@deriving eq, show]
 
-let to_int_safe = function
-| `Int x -> Some x
-| _ -> None
-
-let to_tuple_safe xs = match xs with
-| `List [`Int x; `Int y] -> Some (x,y)
-| _ -> None
-
-let rec to_list_safe xs: parameter option = let open Option.Monad_infix in match xs with
-| [] -> Some (StringList [])
-| `String x :: _ -> Some (StringList (List.map xs ~f:to_string))
-| `Int x :: _ -> List.map xs ~f:to_int_safe |> sequence_option >>= (fun xs -> Some (IntList xs))
-| `List x :: _ -> List.map xs ~f:to_tuple_safe |> sequence_option >>= (fun xs -> Some (IntTupleList xs))
-| _ -> None
-
-let q xs = let open Option.Monad_infix in
-  List.map xs ~f:(fun (k,v) -> (to_int_safe v |> Option.map ~f:(fun v -> (k,v))))
-
-let to_parameter (s: json) = match s with
-| `Null -> Some (Null)
-| `String x -> Some (String x)
-| `Float x -> Some (Float x)
-| `Int x -> Some (Int x)
-| `Bool x -> Some (Bool x)
-| `List x -> to_list_safe x
-| `Assoc xs -> let open Option.Monad_infix in
-    let xs = List.map xs ~f:(fun (k,v) -> (to_int_safe v |> Option.map ~f:(fun v -> (k,v)))) in
-    sequence_option xs >>= fun xs -> Some (IntStringMap xs)
-
-let parse_parameters (parameters: (string * json) list): parameter elements =
-  List.filter_map parameters ~f:(fun (k, v) -> Option.map ~f:(fun v -> (k, v)) (to_parameter v))
-
 let parse_case_assoc (parameters: (string * json) list) (expected_key: string): (case, error) Result.t =
   let find name e = List.Assoc.find parameters name |> Result.of_option ~error:e in
   let test_parameters = List.Assoc.remove parameters "description" in
@@ -47,9 +15,8 @@ let parse_case_assoc (parameters: (string * json) list) (expected_key: string): 
   let open Result.Monad_infix in
   find "description" NoDescription >>=
   to_string_note BadDescription >>= fun description ->
-  find expected_key (NoExpected description) >>= fun expectedJson ->
-  to_parameter expectedJson |> Result.of_option ~error:BadExpected >>= fun expected ->
-  Ok {description = description; parameters = parse_parameters test_parameters; expected = expected}
+  find expected_key (NoExpected description) >>= fun expected ->
+  Ok {description = description; parameters = test_parameters; expected = expected}
 
 let parse_case (expected_key: string) (s: json): (case, error) Result.t = match s with
   | `Assoc assoc -> parse_case_assoc assoc expected_key

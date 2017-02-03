@@ -22,7 +22,7 @@ let hamdist a b = Hamming.hamming_distance (dna_of_string a) (dna_of_string b)
 let tests = [
 (* TEST
    "$description" >::
-      ae $expected (hamdist "$strand1" "$strand2");
+      ae $expected (hamdist $strand1 $strand2);
    END TEST *)
 ]
 

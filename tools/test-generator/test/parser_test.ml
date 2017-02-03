@@ -3,12 +3,7 @@ open OUnit2
 open Parser
 open Model
 
-let show_cases = function
-  | Ok (Single cs) -> List.map ~f:show_case cs |> String.concat
-  | Ok (Suite cs) -> failwith "no printer"
-  | Error e -> show_error e
-
-let ae exp got _test_ctxt = assert_equal exp got ~printer:show_cases
+let ae exp got _test_ctxt = assert_equal exp got
 
 let single x = Ok (Single x)
 
@@ -31,40 +26,36 @@ let parser_tests = [
        (call_parser "{\"cases\" : [\"key\"]}");
 
   "parses a single element with a description and expected string output" >::
-    ae (single [{description = "d1"; parameters = []; expected = String "value"}])
+    ae (single [{description = "d1"; parameters = []; expected = `String "value"}])
        (call_parser "{\"cases\" : [{\"description\" : \"d1\", \"expected\" : \"value\"}]}");
 
   "parses a single element with a description and expected float output" >::
-    ae (single [{description = "d1"; parameters = []; expected = Float 100.}])
+    ae (single [{description = "d1"; parameters = []; expected = `Float 100.}])
        (call_parser "{\"cases\" : [{\"description\" : \"d1\", \"expected\" : 100.0}]}");
 
   "parses a single element with a description and expected bool output" >::
-    ae (single [{description = "d1"; parameters = []; expected = Bool true}])
+    ae (single [{description = "d1"; parameters = []; expected = `Bool true}])
       (call_parser "{\"cases\" : [{\"description\" : \"d1\", \"expected\" : true}]}");
 
   "parses a single element with a description and expected int list output" >::
-    ae (single [{description = "d1"; parameters = []; expected = IntList [1;2;3]}])
+    ae (single [{description = "d1"; parameters = []; expected = `List [`Int 1;`Int 2;`Int 3]}])
       (call_parser "{\"cases\" : [{\"description\" : \"d1\", \"expected\" : [1, 2, 3]}]}");
 
   "parses a single element with a description and expected null output" >::
-    ae (single [{description = "d1"; parameters = []; expected = Null}])
+    ae (single [{description = "d1"; parameters = []; expected = `Null}])
       (call_parser "{\"cases\" : [{\"description\" : \"d1\", \"expected\" : null}]}");
 
   "parses a single element with an int key value pair" >::
-    ae (single [{description = "d1"; parameters = [("input", Int 1996)]; expected = Bool true}])
+    ae (single [{description = "d1"; parameters = [("input", `Int 1996)]; expected = `Bool true}])
       (call_parser "{\"cases\" : [{\"description\" : \"d1\", \"input\" : 1996, \"expected\" : true}]}");
 
   "parses a single element with a string key value pair" >::
-    ae (single [{description = "d1"; parameters = [("input", String "some-string")]; expected = Int 85}])
+    ae (single [{description = "d1"; parameters = [("input", `String "some-string")]; expected = `Int 85}])
       (call_parser "{\"cases\" : [{\"description\" : \"d1\", \"input\" : \"some-string\", \"expected\" : 85}]}");
 
   "parses a single element with a string list key value pair" >::
-    ae (single [{description = "d1"; parameters = [("input", StringList ["s1"; "s2"])]; expected = Int 85}])
+    ae (single [{description = "d1"; parameters = [("input", `List [`String "s1"; `String "s2"])]; expected = `Int 85}])
       (call_parser "{\"cases\" : [{\"description\" : \"d1\", \"input\" : [\"s1\", \"s2\"], \"expected\" : 85}]}");
-
-  "parses a single element with a int tuple list (modelled as an int list) key value pair" >::
-    ae (single [{description = "d1"; parameters = [("input", IntTupleList [(1,2);(3,4)])]; expected = Int 85}])
-      (call_parser "{\"cases\" : [{\"description\" : \"d1\", \"input\" : [[1,2],[3,4]], \"expected\" : 85}]}");
 
   "an element without a description is an Error" >::
     ae (Error NoDescription)
@@ -79,7 +70,7 @@ let parser_tests = [
       (call_parser "{\"cases\" : [{\"input\" : 11}]}");
 
   "parses a map in the expected parameter" >::(fun _ctx ->
-      assert_equal (single [{description = "d1"; parameters = []; expected = IntStringMap [("one", 1); ("two", 2)]}])
+      assert_equal (single [{description = "d1"; parameters = []; expected = `Assoc [("one", `Int 1); ("two", `Int 2)]}])
         (call_parser "{\"cases\" : [{\"description\" : \"d1\", \"expected\" : {\"one\": 1, \"two\": 2}}]}");
       );
 

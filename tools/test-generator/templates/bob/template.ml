@@ -7,7 +7,7 @@ let ae exp got _test_ctxt = assert_equal ~printer:String.to_string exp got
 let tests = [
 (* TEST
    "$description" >::
-      ae "$expected" (response_for "$input");
+      ae $expected (response_for $input);
    END TEST *)
 ]
 
