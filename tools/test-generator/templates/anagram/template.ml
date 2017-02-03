@@ -9,7 +9,7 @@ let ae exp got _test_ctxt =
 let tests = [
 (* TEST
   "$description" >::
-    ae $expected (anagrams "$subject" $candidates);
+    ae $expected (anagrams $subject $candidates);
    END TEST *)
 ]
 

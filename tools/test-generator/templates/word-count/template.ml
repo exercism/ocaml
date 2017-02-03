@@ -12,7 +12,7 @@ let tests = [
 (* TEST
    "$description" >::
       ae $expected
-         (word_count "$input");
+         (word_count $input);
    END TEST *)
 ]
 
