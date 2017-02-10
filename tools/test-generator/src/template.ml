@@ -40,7 +40,6 @@ let fill_tests (template: t) (substs: subst list): string =
   let join = String.concat_array ~sep:"\n" in
   String.concat [join before; join subst; join after] ~sep:"\n"
 
-(* HACKS HERE *)
 let fill_single_suite (template: t) (suite_substs: string * subst list): string =
   let (suite_name, substs) = suite_substs in
   let suite_name_line = Option.value_exn template.suite_name_line in
@@ -53,7 +52,6 @@ let fill_single_suite (template: t) (suite_substs: string * subst list): string 
   let join = String.concat_array ~sep:"\n" in
   String.concat [join before; join subst; join after] ~sep:"\n"
 
-(* HACKS HERE *)
 let fill_suite (template: t) (suite_substs: (string * subst list) list): string =
   let fills = List.map suite_substs ~f:(fun x -> (fill_single_suite template x) ^ "\n") in
   let suite_name_line = Option.value_exn template.suite_name_line in
