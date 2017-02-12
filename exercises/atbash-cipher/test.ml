@@ -35,7 +35,7 @@ let decode_tests = [
 ]
 
 let different_block_size_test = [
-  "encode mindblowingly with a different block size">::
+  "encode mindblowingly with a different block size" >::
     ae "n r m w y o l d r m t o b" (encode ~block_size:1 "mindblowingly");
 ]
 
