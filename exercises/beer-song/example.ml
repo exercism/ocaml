@@ -18,7 +18,7 @@ let verse = function
            "Go to the store and buy some more, 99 bottles of beer on the wall.\n"
     | n -> line1 n ^ line2 (n-1)
 
-let sing ~from:from ~until:until =
+let lyrics ~from:from ~until:until =
     List.map (List.range ~stride:(-1) ~stop:`inclusive from until)
-             ~f:(fun n -> verse n ^ "\n")
-    |> String.concat ~sep:""
+             ~f:(fun n -> verse n)
+    |> String.concat ~sep:"\n"
