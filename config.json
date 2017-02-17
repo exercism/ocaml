@@ -112,6 +112,11 @@
       "topics": []
     },
     {
+      "slug": "run-length-encoding",
+      "difficulty": 5,
+      "topics": ["Algorithms", "Transforming"]
+    },
+    {
       "slug": "roman-numerals",
       "difficulty": 5,
       "topics": []
