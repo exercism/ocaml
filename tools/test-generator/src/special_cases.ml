@@ -33,10 +33,16 @@ let optional_strings ~(f: string -> bool) (parameters: (string * json) list): (s
     else (k, json_to_string v) in
   List.map ~f:replace parameters
 
+let option_of_null (value: json): string = match value with
+| `Null -> "None"
+| `String s -> "(Some \"" ^ s ^ "\")"
+| _ -> failwith "cannot handle this type"
+
 let edit_expected ~(stringify: json -> string) ~(slug: string) ~(value: json) = match slug with
 | "hamming" -> optional_int ~none:(-1) value
 | "all-your-base" -> optional_int_list value
 | "say" -> optional_int_or_string ~none:(-1) value
+| "phone-number" -> option_of_null value
 | _ -> stringify value
 
 let edit_say (ps: (string * json) list) =
