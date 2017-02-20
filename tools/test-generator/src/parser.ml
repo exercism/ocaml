@@ -35,7 +35,8 @@ let parse_single (text: string) (expected_key: string) (cases_key: string): (tes
   Result.return (Single ts)
 
 let is_suite (json: json) (cases_key: string) =
-  let keys = List.filter (keys json) ~f:(fun k -> k <> "methods") in
+  let ignorable_keys = ["exercise"; "version"; "methods"] in
+  let keys = List.filter (keys json) ~f:(Fn.non (List.mem ignorable_keys)) in
   let keys = List.sort keys ~cmp:String.compare in
   not (List.is_empty keys || keys = [cases_key] || keys = ["#"; cases_key])
 
