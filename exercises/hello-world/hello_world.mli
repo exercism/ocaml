@@ -1,12 +1,4 @@
 (*
-   Return a greeting to an optional subject
-
-   ## Examples
-
-   ### greet None
-   "Hello, World!"
-
-   ### greet Some("Alice")
-   "Hello, Alice!"
+   Returns "Hello, World!"
 *)
-val greet: string option -> string
+val hello: string
