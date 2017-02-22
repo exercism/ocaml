@@ -10,27 +10,27 @@ let tests = [
     assert_valid false "1";
   "A single zero is invalid" >::
     assert_valid false "0";
-  "simple valid sin" >::
-    assert_valid true " 5 9 ";
-  "valid Canadian SIN" >::
-    assert_valid true "046 454 286";
+  "a simple valid SIN that remains valid if reversed" >::
+    assert_valid true "059";
+  "a simple valid SIN that becomes invalid if reversed" >::
+    assert_valid true "59";
+  "a valid Canadian SIN" >::
+    assert_valid true "055 444 285";
   "invalid Canadian SIN" >::
-    assert_valid false "046 454 287";
+    assert_valid false "055 444 286";
   "invalid credit card" >::
     assert_valid false "8273 1232 7352 0569";
-  "valid strings with a non-digit added become invalid" >::
-    assert_valid false "046a 454 286";
-  "punctuation is not allowed" >::
+  "valid strings with a non-digit included become invalid" >::
+    assert_valid false "055a 444 285";
+  "valid strings with punctuation included become invalid" >::
     assert_valid false "055-444-285";
-  "symbols are not allowed" >::
+  "valid strings with symbols included become invalid" >::
     assert_valid false "055\194\163 444$ 285";
   "single zero with space is invalid" >::
     assert_valid false " 0";
-  "lots of zeros are valid" >::
-    assert_valid true " 00000";
-  "another valid sin" >::
-    assert_valid true "055 444 285";
-  "nine doubled is nine" >::
+  "more than a single zero is valid" >::
+    assert_valid true "0000 0";
+  "input digit 9 is correctly converted to output digit 9" >::
     assert_valid true "091";
 ]
 
