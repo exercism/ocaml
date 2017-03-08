@@ -38,11 +38,22 @@ let option_of_null (value: json): string = match value with
 | `String s -> "(Some \"" ^ s ^ "\")"
 | _ -> failwith "cannot handle this type"
 
+let is_empty_string (value: json): bool = match value with
+| `String s -> String.is_empty s
+| _ -> false
+
+let edit_connect_expected = function
+| `String "X" -> "(Some X)"
+| `String "O" -> "(Some O)"
+| `String "" -> "None"
+| x -> failwith "Bad json value in connect " ^ json_to_string x
+
 let edit_expected ~(stringify: json -> string) ~(slug: string) ~(value: json) = match slug with
 | "hamming" -> optional_int ~none:(-1) value
 | "all-your-base" -> optional_int_list value
 | "say" -> optional_int_or_string ~none:(-1) value
 | "phone-number" -> option_of_null value
+| "connect" -> edit_connect_expected value
 | _ -> stringify value
 
 let edit_say (ps: (string * json) list) =
@@ -58,11 +69,10 @@ let edit_all_your_base (ps: (string * json) list): (string * string) list =
   | (k, v) -> (k, json_to_string v) in
   List.map ps ~f:edit
 
-let two_elt_list_to_tuple (j: json): string = match j with
-| `List [`Int x1; `Int x2] -> sprintf "(%d,%d)" x1 x2
-| _ -> failwith "two element list expected, but got " ^ (json_to_string j)
- 
 let edit_dominoes (ps: (string * json) list): (string * string) list =
+  let two_elt_list_to_tuple (j: json): string = match j with
+  | `List [`Int x1; `Int x2] -> sprintf "(%d,%d)" x1 x2
+  | _ -> failwith "two element list expected, but got " ^ (json_to_string j) in 
   let edit (p: (string * json)) = match p with
   | ("input", `List j) -> ("input", "[" ^ (List.map ~f:two_elt_list_to_tuple j |> String.concat ~sep:"; ") ^ "]")
   | (k, v) -> (k, json_to_string v) in
@@ -79,6 +89,4 @@ let expected_key_name slug = match slug with
 | "dominoes" -> "can_chain"
 | _ -> "expected"
 
-let cases_name slug = match slug with
-| "luhn" -> "valid"
-| _ -> "cases"
+let cases_name _slug = "cases"
