@@ -162,6 +162,11 @@
       "topics": []
     },
     {
+      "slug": "connect",
+      "difficulty": 8,
+      "topics": ["Search"]
+    },
+    {
       "slug": "meetup",
       "difficulty": 9,
       "topics": ["Dates"]
