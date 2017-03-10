@@ -24,7 +24,7 @@ let parse_case (expected_key: string) (s: json): (case, error) Result.t = match 
 
 let parse_cases (text: string) (cases_key: string): (json, error) Result.t =
   match from_string text |> member cases_key with
-    | `Null -> Error (TestMustHaveKeyCalledCases "xx")
+    | `Null -> Error (TestMustHaveKeyCalledCases cases_key)
     | json -> Ok json
 
 let parse_single (text: string) (expected_key: string) (cases_key: string): (tests, error) Result.t =
@@ -34,15 +34,34 @@ let parse_single (text: string) (expected_key: string) (cases_key: string): (tes
   (sequence >> (List.map ~f:(parse_case expected_key))) >>= fun ts ->
   Result.return (Single ts)
 
-let is_suite (json: json) (cases_key: string) =
-  let ignorable_keys = ["exercise"; "version"; "methods"; "comments"] in
-  let keys = List.filter (keys json) ~f:(Fn.non (List.mem ignorable_keys)) in
-  let keys = List.sort keys ~cmp:String.compare in
-  not (List.is_empty keys || keys = [cases_key] || keys = ["#"; cases_key])
+let rec to_cases case: (case list, error) Result.t = 
+  let open Result.Monad_infix in
+  find_note case "description" NoDescription >>= to_string_note BadDescription >>= fun desc ->
+  let cases = List.Assoc.find case "cases" in
+  match cases with
+  | Some cases -> to_list_note UnrecognizedJson cases >>= fun cases ->
+      List.map cases ~f:(to_assoc_note UnrecognizedJson) |> sequence >>= fun x ->
+      List.map x ~f:to_cases |> sequence |> Result.map ~f:List.concat
+  | None -> 
+      find_note case "expected" (NoExpected "expected") >>= fun expected ->
+      Result.return [{description = desc; parameters = case; expected = expected}]
 
-let merge_result = function
-  | (_, Error x) -> Error x
-  | (n, Ok c) -> Ok {name = n; cases = c}
+let convert_cases_description_to_name desc =
+  String.lowercase desc |> String.substr_replace_all ~pattern:" " ~with_:"_"
+
+let suite_case json: (test, error) Result.t = 
+  let open Result.Monad_infix in
+  to_assoc_note UnrecognizedJson json >>= fun case ->
+  find_note case "description" NoDescription >>= to_string_note BadDescription >>= fun desc ->
+  find_note case "cases" ExpectingListOfCases >>= to_list_note ExpectingListOfCases >>= fun case_assocs ->
+  List.map ~f:(to_assoc_note ExpectingMapForCase) case_assocs |> sequence >>= fun cases -> 
+  List.map cases ~f:to_cases |> sequence >>= fun cases ->
+  Result.return {name = convert_cases_description_to_name desc; cases = List.concat cases}
+
+let suite_cases (json: json) (cases_key: string): (test list, error) Result.t = 
+  let open Result.Monad_infix in
+  (member cases_key json |> to_list_note ExpectingListOfCases) >>= fun assoc_cases ->
+  List.map ~f:suite_case assoc_cases |> sequence
 
 let parse_cases_from_suite name suite expected_key cases_key =
   let open Result.Monad_infix in
@@ -53,15 +72,9 @@ let parse_cases_from_suite name suite expected_key cases_key =
 let parse_json_text (text: string) (expected_key: string) (cases_key: string): (tests, error) Result.t =
   let open Result.Monad_infix in
   let json = from_string text in
-  if is_suite json cases_key
-  then
-    to_assoc_note UnrecognizedJson json >>= fun tests ->
-    let tests = List.filter tests ~f:(fun (n, _) -> n <> "#") in
-    let tests = List.map tests ~f:(fun (name, suite) -> merge_result (name, parse_cases_from_suite name suite expected_key cases_key)) in
-    sequence tests >>= fun tests ->
-    Ok (Suite tests)
-  else
-    parse_single text expected_key cases_key
+  match suite_cases json cases_key with
+  | Ok suite_cases -> Ok (Suite suite_cases)
+  | Error _ -> parse_single text expected_key cases_key
 
 let show_error = function
   | TestMustHaveKeyCalledCases name -> "Test named '" ^ name ^ "' is expected to have an object with a key: 'cases'"
