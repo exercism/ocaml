@@ -13,13 +13,13 @@ let tests = [
     ae ["tan"] (anagrams "ant" ["tan"; "stand"; "at"]);
   "does not detect false positives" >::
     ae [] (anagrams "galea" ["eagle"]);
-  "detects multiple anagrams" >::
+  "detects two anagrams" >::
     ae ["stream"; "maters"] (anagrams "master" ["stream"; "pigeon"; "maters"]);
   "does not detect anagram subsets" >::
     ae [] (anagrams "good" ["dog"; "goody"]);
   "detects anagram" >::
     ae ["inlets"] (anagrams "listen" ["enlists"; "google"; "inlets"; "banana"]);
-  "detects multiple anagrams" >::
+  "detects three anagrams" >::
     ae ["gallery"; "regally"; "largely"] (anagrams "allergy" ["gallery"; "ballerina"; "regally"; "clergy"; "largely"; "leading"]);
   "does not detect identical words" >::
     ae ["cron"] (anagrams "corn" ["corn"; "dark"; "Corn"; "rank"; "CORN"; "cron"; "park"]);
