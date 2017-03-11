@@ -51,10 +51,10 @@ let template_tests = [
       let template = {start=7; finish=9; file_text=template_text;template="code";
                       suite_name_line=Some 6; suite_end = Some 14; suite_all_names_line = None} in
       let subst = ("tests1", [Subst "line1"; Subst "line2"]) in
-      let filled = fill_single_suite template subst in
+      let filled = Result.ok_or_failwith @@ fill_single_suite template subst in
       assert_equal ~printer:Bool.to_string true (String.substr_index filled ~pattern:"let tests1_tests = [" |> Option.is_some);
       assert_equal ~printer:Bool.to_string true (String.substr_index filled ~pattern:"line1" |> Option.is_some);
       assert_equal ~printer:Bool.to_string true (String.substr_index filled ~pattern:"line2" |> Option.is_some);
-      assert_equal ~printer:Int.to_string 6 (String.count ~f:(fun ch -> ch = '\n') filled);
+      assert_equal ~printer:Int.to_string 7 (String.count ~f:(fun ch -> ch = '\n') filled);
     );
 ]

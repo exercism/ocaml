@@ -38,7 +38,6 @@ let generate_code ~(slug: string) ~(template_file: content) ~(canonical_data_fil
       | Suite tests ->
         List.map tests ~f:(fun {name;cases} -> (name, fill_in_template template.template name cases))
         |> fill_suite template
-        |> Result.return
     )
 
 let output_tests (files: (string * content * content) list) (output_folder: string) ~(generated_folder: string): unit =
