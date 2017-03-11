@@ -10,11 +10,8 @@ let single x = Ok (Single x)
 let call_parser json = parse_json_text json "expected" "cases"
 
 let parser_tests = [
-  "parses empty json as empty list" >::
-    ae (single []) (parse_json_text "{\"test-cases\" : []}" "expected" "test-cases");
-
   "gives an error with a json map that does not have the key cases in" >::
-    ae (Error (TestMustHaveKeyCalledCases "case"))
+    ae (Error (TestMustHaveKeyCalledCases "cases"))
        (call_parser "{\"case\" : [{\"description\" : \"d1\", \"expected\" : 100}]}");
 
   "gives an error with cases that is not a json list" >::
@@ -90,16 +87,21 @@ let parser_tests = [
 
   "parses difference_of_squares.json" >::(fun ctxt ->
       match call_parser @@ In_channel.read_all "test/difference_of_squares.json" with
-      | Ok (Suite p) -> assert_equal ["square_of_sum"; "sum_of_squares"; "difference_of_squares"] (List.map ~f:(fun x -> x.name) p)
+      | Ok (Suite p) -> assert_equal [
+        "square_the_sum_of_the_numbers_up_to_the_given_number"; 
+        "sum_the_squares_of_the_numbers_up_to_the_given_number"; 
+        "subtract_sum_of_squares_from_square_of_sums"] (List.map ~f:(fun x -> x.name) p)
       | Ok (Single p) -> assert_failure "was single"
       | Error e -> assert_failure ("failed to parse difference_of_squares.json: " ^ show_error e)
     );
 
-  "parses clock.json" >::(fun ctxt ->
-      match call_parser @@ In_channel.read_all "test/clock.json" with
-      | Ok (Suite p) -> assert_equal ["create"; "add"; "equal"] (List.map ~f:(fun x -> x.name) p)
+  "parses nested json in beer-song by dropping intermediate nesting levels" >::(fun ctxt ->
+      match call_parser @@ In_channel.read_all "test/beer-song.json" with
+      | Ok (Suite p) -> assert_equal [
+        "verse"; 
+        "lyrics"] (List.map ~f:(fun x -> x.name) p)
       | Ok (Single p) -> assert_failure "was single"
-      | Error e -> assert_failure ("failed to parse clock.json: " ^ show_error e)
+      | Error e -> assert_failure ("failed to parse beer-song.json: " ^ show_error e)
     );
 
   "parses json with a methods key for dynamic languages" >::(fun ctxt ->

@@ -27,14 +27,25 @@ let to_list_note error json =
 let to_assoc_note error json =
   try Ok (to_assoc json) with Type_error _ -> Error error
 
+let to_assoc_option json =
+  try Some (to_assoc json) with Type_error _ -> None
+
 let to_string_note error json =
   try Ok (to_string json) with Type_error _ -> Error error
+
+let to_string_option json =
+  try Some (to_string json) with _ -> None
 
 let safe_to_int_option json =
   try Some (to_int json) with Type_error _ -> None
 
 let member_note error m json =
   try Ok (member m json) with Type_error _ -> Error error
+
+let find_note (xs: ('a, 'b) List.Assoc.t) (key: 'a) (error: 'e): ('b, 'e) Result.t = 
+  match List.Assoc.find xs key with
+  | Some v -> Ok v
+  | None -> Error error
 
 let (>>) f g = Fn.compose f g
 
