@@ -22,6 +22,12 @@ let find_canonical_data_files = find_nested_files "canonical-data.json"
 let combine_files (template_files: (string * content) list) (canonical_data_files: (string * content) list): (string * content * content) list =
   List.filter_map template_files ~f:(fun (n,t) -> (List.Assoc.find canonical_data_files ~equal:String.equal n |> Option.map ~f:(fun c -> (n,t,c))))
 
+(* pangram in the canonical data is a suite but it does not really need to be as there's only one group. Convert a Suite to
+   a Single test in this case, to simplify the template. *)
+let simplify_single_test_suite tests = match tests with
+| Suite [{name = name; cases = cases}] -> Single cases
+| x -> x
+
 let generate_code ~(slug: string) ~(template_file: content) ~(canonical_data_file: content): (content, content) Result.t =
   let template = find_template template_file in
   let edit_expected = edit_expected ~stringify:json_to_string ~slug in
@@ -30,7 +36,7 @@ let generate_code ~(slug: string) ~(template_file: content) ~(canonical_data_fil
   let open Result.Monad_infix in
   Result.of_option template ("cannot recognize file for " ^ slug ^ " as a template") >>= fun template ->
   parse_json_text canonical_data_file (expected_key_name slug) (cases_name slug)
-  |> Result.map_error ~f:show_error >>= (function
+  |> Result.map_error ~f:show_error >>| simplify_single_test_suite >>= (function
       | Single cases ->
         fill_in_template template.template slug cases
         |> fill_tests template

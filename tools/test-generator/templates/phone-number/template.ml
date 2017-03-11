@@ -9,13 +9,12 @@ let option_to_string f = function
 let ae exp got _test_ctxt =
   assert_equal ~printer:(option_to_string String.to_string) exp got
 
-let (* SUITE *)$(suite_name)_tests = [
+let tests = [
 (* TEST
-   "$description" >::
-      ae $expected (number $phrase);
-   END TEST *)
+  "$description" >::
+    ae $expected (number $phrase);
+END TEST *)
 ]
-(* END SUITE *)
 
 let () =
   run_test_tt_main ("phone-number tests" >::: number_tests)
