@@ -1,0 +1,13 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "OCaml",
+      "type": "ocamldebug",
+      "request": "launch",
+      "program": "/home/steve/dev/exercism/xocaml/tools/test-generator/debug.byte",
+      "console": "internalConsole",
+      "stopOnEntry": false
+    }
+  ]
+}

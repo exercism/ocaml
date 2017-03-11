@@ -23,10 +23,20 @@ let zip s1 s2 =
     then ()
     else failwith @@ "Expected differs from actual: " ^ (diff_message exp got)
 
-let (* SUITE *)$(suite_name)_tests = [
+let (* SUITE verse *)verse_tests = [
 (* TEST
    "$description" >::
-     ae $expected ($suite-name $number);
+     ae $expected 
+     (verse $number);
+   END TEST *)
+]
+(* END SUITE *)
+
+let (* SUITE lyrics *)lyrics_tests = [
+(* TEST
+   "$description" >::
+     ae $expected 
+     (lyrics ~from:$beginning ~until:$end);
    END TEST *)
 ]
 (* END SUITE *)
@@ -34,5 +44,5 @@ let (* SUITE *)$(suite_name)_tests = [
 let () =
   run_test_tt_main (
     "beer song tests" >:::
-      List.concat [(* suite-all-names *)]
+      List.concat [verse_tests; lyrics_tests]
   )

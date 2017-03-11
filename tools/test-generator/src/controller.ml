@@ -15,7 +15,10 @@ let find_nested_files (name: string) (base: string): (string * content) list =
   |> List.filter ~f:(fun slug -> Sys.file_exists_exn (base ^ "/" ^ slug ^ "/" ^ name))
   |> List.map ~f:(fun slug -> (slug, In_channel.read_all (base ^ "/" ^ slug ^ "/" ^ name)))
 
-let find_template_files = find_nested_files "template.ml"
+let find_template_files base filter = 
+  let all_files = find_nested_files "template.ml" base in
+  let filter = Option.value filter ~default:"" in
+  List.filter all_files ~f:(fun (slug,_) -> String.is_substring slug ~substring:filter)
 
 let find_canonical_data_files = find_nested_files "canonical-data.json"
 
@@ -24,26 +27,35 @@ let combine_files (template_files: (string * content) list) (canonical_data_file
 
 (* pangram in the canonical data is a suite but it does not really need to be as there's only one group. Convert a Suite to
    a Single test in this case, to simplify the template. *)
-let simplify_single_test_suite tests = match tests with
+let simplify_single_test_suite (tests: tests): tests = match tests with
 | Suite [{name = name; cases = cases}] -> Single cases
 | x -> x
 
 let generate_code ~(slug: string) ~(template_file: content) ~(canonical_data_file: content): (content, content) Result.t =
-  let template = find_template template_file in
+  let open Result.Monad_infix in
+  Result.of_option ~error:("cannot recognize file for " ^ slug ^ " as a template") @@ find_template template_file >>= fun template ->
   let edit_expected = edit_expected ~stringify:json_to_string ~slug in
   let edit_parameters = edit_parameters ~slug in
   let fill_in_template = fill_in_template edit_expected edit_parameters in
-  let open Result.Monad_infix in
-  Result.of_option template ("cannot recognize file for " ^ slug ^ " as a template") >>= fun template ->
+  let file_text = template.file_text in
+  let file_lines = String.split_lines file_text |> List.to_array in
   parse_json_text canonical_data_file (expected_key_name slug) (cases_name slug)
   |> Result.map_error ~f:show_error >>| simplify_single_test_suite >>= (function
       | Single cases ->
+        let template = to_single template.template in
         fill_in_template template.template slug cases
-        |> fill_tests template
+        |> fill_tests file_text template
         |> Result.return
       | Suite tests ->
-        List.map tests ~f:(fun {name;cases} -> (name, fill_in_template template.template name cases))
-        |> fill_suite template
+        let suites = to_multi template.template in
+        let suites_by_line = List.map suites ~f:(fun s -> (file_lines.(s.suite_name_line), s)) in
+        let find_suite name = List.find suites_by_line ~f:(fun (l,s) -> String.is_substring l ~substring:name) |> Option.map ~f:snd in
+        let fill_suite_tests {name; cases} = 
+          let suite = Result.of_option ~error:("cannot find template for suite " ^ name) (find_suite name) in
+          Result.map suite ~f:(fun suite -> (name, fill_in_template suite.template_part.template name cases))
+        in
+        List.map tests ~f:fill_suite_tests |> sequence >>=
+        fill_suite template
     )
 
 let output_tests (files: (string * content * content) list) (output_folder: string) ~(generated_folder: string): unit =
@@ -57,8 +69,8 @@ let output_tests (files: (string * content * content) list) (output_folder: stri
     | Error e -> print_endline ("Failed when generating " ^ slug ^ ", error: " ^ e) in
   List.iter files ~f:output1
 
-let run ~(templates_folder: string) ~(canonical_data_folder: string) ~(output_folder: string) ~(generated_folder: string) =
-  let template_files = find_template_files templates_folder in
+let run ~(templates_folder: string) ~(canonical_data_folder: string) ~(output_folder: string) ~(generated_folder: string) (filter: string option) =
+  let template_files = find_template_files templates_folder filter in
   let canonical_data_files = find_canonical_data_files canonical_data_folder in
   let combined = combine_files template_files canonical_data_files in
   output_tests combined output_folder generated_folder
