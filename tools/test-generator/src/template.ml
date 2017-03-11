@@ -40,21 +40,23 @@ let fill_tests (template: t) (substs: subst list): string =
   let join = String.concat_array ~sep:"\n" in
   String.concat [join before; join subst; join after] ~sep:"\n"
 
-let fill_single_suite (template: t) (suite_substs: string * subst list): string =
+let fill_single_suite (template: t) (suite_substs: string * subst list): (string, string) Result.t =
+  let open Result.Monad_infix in
   let (suite_name, substs) = suite_substs in
-  let suite_name_line = Option.value_exn template.suite_name_line in
-  let suite_end_line = Option.value_exn template.suite_end in
+  Result.of_option template.suite_name_line ~error:"no suite name" >>= fun suite_name_line ->
+  Result.of_option template.suite_end ~error:"no suite end" >>= fun suite_end_line ->
   let lines = String.split_lines template.file_text |> Fn.flip List.drop suite_name_line |> List.to_array in
   Array.replace lines 0 ~f:(String.substr_replace_all ~pattern:"(* SUITE *)$(suite_name)_tests" ~with_:(suite_name ^ "_tests"));
   let before = Array.slice lines 0 (template.start - suite_name_line) in
   let subst = Array.of_list (List.map ~f:subst_to_string substs) in
   let after = Array.slice lines (template.finish - suite_name_line + 1) (suite_end_line - suite_name_line) in
   let join = String.concat_array ~sep:"\n" in
-  String.concat [join before; join subst; join after] ~sep:"\n"
+  Result.return @@ (String.concat [join before; join subst; join after] ~sep:"\n") ^ "\n"
 
-let fill_suite (template: t) (suite_substs: (string * subst list) list): string =
-  let fills = List.map suite_substs ~f:(fun x -> (fill_single_suite template x) ^ "\n") in
-  let suite_name_line = Option.value_exn template.suite_name_line in
+let fill_suite (template: t) (suite_substs: (string * subst list) list): (string, string) Result.t =
+  let open Result.Monad_infix in
+  List.map suite_substs ~f:(fun x -> (fill_single_suite template x)) |> sequence >>= fun fills ->
+  Result.of_option template.suite_name_line "no suite name line" >>= fun suite_name_line ->
   let lines = String.split_lines template.file_text |> List.to_array in
   let before = Array.slice lines 0 suite_name_line in
   let subst = Array.of_list fills in
@@ -62,4 +64,4 @@ let fill_suite (template: t) (suite_substs: (string * subst list) list): string 
   let join = String.concat_array ~sep:"\n" in
   let generated = String.concat [join before; join subst; join after] ~sep:"\n" in
   let all_suite_names = String.concat ~sep:"; " @@ List.map ~f:(fun (s,_) -> s ^ "_tests") suite_substs in
-  String.substr_replace_all generated ~pattern:"(* suite-all-names *)" ~with_:all_suite_names
+  Result.return @@ String.substr_replace_all generated ~pattern:"(* suite-all-names *)" ~with_:all_suite_names
