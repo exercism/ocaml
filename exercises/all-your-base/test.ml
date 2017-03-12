@@ -33,7 +33,7 @@ let tests = [
   "multiple zeros" >::
     ae (Some [0]) (convert_bases ~from:10 ~digits:[0; 0; 0] ~target:2);
   "leading zeros" >::
-    ae (Some [4; 2]) (convert_bases ~from:7 ~digits:[0; 0; 6; 0] ~target:10);
+    ae (Some [4; 2]) (convert_bases ~from:7 ~digits:[0; 6; 0] ~target:10);
   "negative digit" >::
     ae None (convert_bases ~from:2 ~digits:[1; -1; 1; 0; 1; 0] ~target:10);
   "invalid positive digit" >::
