@@ -2,28 +2,46 @@ open Core.Std
 open OUnit2
 open Roman_numerals
 
-let checks exp inp _ctx = assert_equal ~printer:Fn.id  exp (to_roman inp)
+let ae expected actual _ctx = assert_equal ~printer:Fn.id expected actual
 
-let tests =   
-    [ "1 to I"         >:: checks "I"   1
-    ; "2 to II"        >:: checks "II"  2
-    ; "3 to III"       >:: checks "III" 3
-    ; "4 to IV"        >:: checks "IV"  4
-    ; "5 to V"         >:: checks "V"   5
-    ; "6 to VI"        >:: checks "VI"  6
-    ; "9 to IX"        >:: checks "IX"  9
-    ; "27 to XXVII"    >:: checks "XXVII"  27
-    ; "48 to XLVIII"   >:: checks "XLVIII" 48
-    ; "59 to LIX"      >:: checks "LIX"    59
-    ; "93 to XCIII"    >:: checks "XCIII"  93
-    ; "141 to CXLI"    >:: checks "CXLI"   141
-    ; "163 to CLXIII"  >:: checks "CLXIII" 163
-    ; "402 to CDII"    >:: checks "CDII"   402
-    ; "575 to DLXXV"   >:: checks "DLXXV"  575
-    ; "911 to CMXI"    >:: checks "CMXI"   911
-    ; "1024 to MXXIV"  >:: checks "MXXIV"  1024
-    ; "3000 to MMM"    >:: checks "MMM"    3000
-    ]
+let tests = [
+   "1 is a single I" >::
+      ae "I" (to_roman 1);
+   "2 is two I's" >::
+      ae "II" (to_roman 2);
+   "3 is three I's" >::
+      ae "III" (to_roman 3);
+   "4, being 5 - 1, is IV" >::
+      ae "IV" (to_roman 4);
+   "5 is a single V" >::
+      ae "V" (to_roman 5);
+   "6, being 5 + 1, is VI" >::
+      ae "VI" (to_roman 6);
+   "9, being 10 - 1, is IX" >::
+      ae "IX" (to_roman 9);
+   "20 is two X's" >::
+      ae "XXVII" (to_roman 27);
+   "48 is not 50 - 2 but rather 40 + 8" >::
+      ae "XLVIII" (to_roman 48);
+   "50 is a single L" >::
+      ae "LIX" (to_roman 59);
+   "90, being 100 - 10, is XC" >::
+      ae "XCIII" (to_roman 93);
+   "100 is a single C" >::
+      ae "CXLI" (to_roman 141);
+   "60, being 50 + 10, is LX" >::
+      ae "CLXIII" (to_roman 163);
+   "400, being 500 - 100, is CD" >::
+      ae "CDII" (to_roman 402);
+   "500 is a single D" >::
+      ae "DLXXV" (to_roman 575);
+   "900, being 1000 - 100, is CM" >::
+      ae "CMXI" (to_roman 911);
+   "1000 is a single M" >::
+      ae "MXXIV" (to_roman 1024);
+   "3000 is three M's" >::
+      ae "MMM" (to_roman 3000);
+]
 
 let () =
     run_test_tt_main ("roman-numerals test" >::: tests) 
