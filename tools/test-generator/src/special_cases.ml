@@ -77,12 +77,20 @@ let edit_dominoes (ps: (string * json) list): (string * string) list =
   | ("input", `List j) -> ("input", "[" ^ (List.map ~f:two_elt_list_to_tuple j |> String.concat ~sep:"; ") ^ "]")
   | (k, v) -> (k, json_to_string v) in
   List.map ps ~f:edit
+
+let edit_space_age (ps: (string * json) list): (string * string) list =
+  let strip_quotes s = String.drop_prefix s 1 |> Fn.flip String.drop_suffix 1 in
+  let edit = function
+  | ("planet", v) -> ("planet", json_to_string v |> strip_quotes) 
+  | (k, v) -> (k, json_to_string v) in
+  List.map ps ~f:edit
   
 let edit_parameters ~(slug: string) (parameters: (string * json) list) = match (slug, parameters) with
 | ("hello-world", ps) -> default_value ~key:"name" ~value:"None" (optional_strings ~f:(fun _x -> true) parameters)
 | ("say", ps) -> edit_say ps
 | ("all-your-base", ps) -> edit_all_your_base ps
 | ("dominoes", ps) -> edit_dominoes ps
+| ("space-age", ps) -> edit_space_age ps
 | (_, ps) -> map_elements json_to_string ps
 
 let expected_key_name slug = match slug with
