@@ -48,12 +48,18 @@ let edit_connect_expected = function
 | `String "" -> "None"
 | x -> failwith "Bad json value in connect " ^ json_to_string x
 
+let edit_change_expected (value: json) = match value with
+| `List xs -> "(Some [" ^ (String.concat ~sep:"; " (List.map ~f:json_to_string xs)) ^ "])"
+| `Int (-1) -> "None"
+| _ -> failwith "Bad json value in change"
+
 let edit_expected ~(stringify: json -> string) ~(slug: string) ~(value: json) = match slug with
 | "hamming" -> optional_int ~none:(-1) value
 | "all-your-base" -> optional_int_list value
 | "say" -> optional_int_or_string ~none:(-1) value
 | "phone-number" -> option_of_null value
 | "connect" -> edit_connect_expected value
+| "change" -> edit_change_expected value
 | _ -> stringify value
 
 let edit_say (ps: (string * json) list) =

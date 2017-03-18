@@ -142,6 +142,11 @@
       "topics": ["Randomness", "Mutable state"]
     },
     {
+      "slug": "change",
+      "difficulty": 6,
+      "topics": ["Dynamic Programming"]
+    },
+    {
       "slug": "list-ops",
       "difficulty": 6,
       "topics": []
