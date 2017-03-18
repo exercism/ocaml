@@ -18,11 +18,11 @@ let tests = [
     ae (Some "1234567890") (number "123 456   7890   ");
   "invalid when 9 digits" >::
     ae None (number "123456789");
-  "invalid when 11 digits" >::
+  "invalid when 11 digits does not start with a 1" >::
     ae None (number "21234567890");
   "valid when 11 digits and starting with 1" >::
     ae (Some "1234567890") (number "11234567890");
-  "invalid when 12 digits" >::
+  "invalid when more than 11 digits" >::
     ae None (number "321234567890");
   "invalid with letters" >::
     ae None (number "123-abc-7890");
