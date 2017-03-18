@@ -4,7 +4,7 @@ open Run_length_encoding
 
 let ae exp got _test_ctxt = assert_equal exp got ~printer:Fn.id
 
-let run_length_encode_a_string_tests = [
+let encode_tests = [
    "empty string" >::
      ae "" (encode "");
    "single characters only are encoded without count" >::
@@ -19,7 +19,8 @@ let run_length_encode_a_string_tests = [
      ae "2a3b4c" (encode "aabbbcccc");
 ]
 
-let run_length_decode_a_string_tests = [
+
+let decode_tests = [
    "empty string" >::
      ae "" (decode "");
    "single characters only" >::
@@ -34,13 +35,14 @@ let run_length_decode_a_string_tests = [
      ae "aabbbcccc" (decode "2a3b4c");
 ]
 
+
 let encode_and_then_decode_tests = [
    "encode followed by decode gives original string" >::
-     ae "zzz ZZ  zZ" (decode @@ encode "zzz ZZ  zZ");
+     ae "zzz ZZ  zZ" (encode "zzz ZZ  zZ" |> decode);
 ]
 
 let () =
   run_test_tt_main (
     "run length encoding tests" >:::
-      List.concat [run_length_encode_a_string_tests; run_length_decode_a_string_tests; encode_and_then_decode_tests]
+      List.concat [encode_tests; decode_tests; encode_and_then_decode_tests]
   )
