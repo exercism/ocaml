@@ -72,6 +72,11 @@
       "topics": []
     },
     {
+      "slug": "triangle",
+      "difficulty": 3,
+      "topics": ["Mathematics"]
+    },
+    {
       "slug": "pangram",
       "difficulty": 3,
       "topics": ["Strings"]
