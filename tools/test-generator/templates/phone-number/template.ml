@@ -17,4 +17,4 @@ END TEST *)
 ]
 
 let () =
-  run_test_tt_main ("phone-number tests" >::: number_tests)
+  run_test_tt_main ("phone-number tests" >::: tests)

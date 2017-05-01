@@ -14,6 +14,8 @@ let tests = [
     ae false (are_balanced "[[");
   "wrong ordered brackets" >::
     ae false (are_balanced "}{");
+  "wrong closing bracket" >::
+    ae false (are_balanced "{]");
   "paired with whitespace" >::
     ae true (are_balanced "{ }");
   "simple nested brackets" >::
