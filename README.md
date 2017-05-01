@@ -11,7 +11,7 @@ notes contain a few details specific to Ocaml.
 
 ## Prerequisites
 
-The OCaml track assumes installation of OCaml version 4.04.0, and installation of Core, OUnit, and React (for the Hangman exercise).
+The OCaml track assumes installation of OCaml version 4.04.1, and installation of Core, OUnit, and React (for the Hangman exercise).
 Assuming you have opam, these can be installed with
 ```bash
 opam install core ounit react
