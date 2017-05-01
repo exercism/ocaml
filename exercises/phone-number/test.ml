@@ -11,17 +11,19 @@ let ae exp got _test_ctxt =
 
 let tests = [
   "cleans the number" >::
-    ae (Some "1234567890") (number "(123) 456-7890");
+    ae (Some "2234567890") (number "(223) 456-7890");
   "cleans numbers with dots" >::
-    ae (Some "1234567890") (number "123.456.7890");
+    ae (Some "2234567890") (number "223.456.7890");
   "cleans numbers with multiple spaces" >::
-    ae (Some "1234567890") (number "123 456   7890   ");
+    ae (Some "2234567890") (number "223 456   7890   ");
   "invalid when 9 digits" >::
     ae None (number "123456789");
   "invalid when 11 digits does not start with a 1" >::
-    ae None (number "21234567890");
+    ae None (number "22234567890");
   "valid when 11 digits and starting with 1" >::
-    ae (Some "1234567890") (number "11234567890");
+    ae (Some "2234567890") (number "12234567890");
+  "valid when 11 digits and starting with 1 even with punctuation" >::
+    ae (Some "2234567890") (number "+1 (223) 456-7890");
   "invalid when more than 11 digits" >::
     ae None (number "321234567890");
   "invalid with letters" >::
@@ -30,6 +32,10 @@ let tests = [
     ae None (number "123-@:!-7890");
   "invalid with right number of digits but letters mixed in" >::
     ae None (number "1a2b3c4d5e6f7g8h9i0j");
+  "invalid if area code does not start with 2-9" >::
+    ae None (number "(123) 456-7890");
+  "invalid if exchange code does not start with 2-9" >::
+    ae None (number "(223) 056-7890");
 ]
 
 let () =
