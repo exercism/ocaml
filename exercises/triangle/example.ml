@@ -10,6 +10,6 @@ let is_triangle a b c =
 
 let is_equilateral a b c = is_triangle a b c && a = b && b = c
 
-let is_isoceles a b c = is_triangle a b c && (a = b || b = c || a = c)
+let is_isosceles a b c = is_triangle a b c && (a = b || b = c || a = c)
 
 let is_scalene a b c = is_triangle a b c && (a <> b && b <> c)
