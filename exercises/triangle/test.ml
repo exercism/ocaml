@@ -15,19 +15,19 @@ let equilateral_tests = [
      ae false (is_equilateral 0 0 0);
 ]
 
-let isoceles_tests = [
+let isosceles_tests = [
    "true if last two sides are equal" >::
-     ae true (is_isoceles 3 4 4);
+     ae true (is_isosceles 3 4 4);
    "true if first two sides are equal" >::
-     ae true (is_isoceles 4 4 3);
+     ae true (is_isosceles 4 4 3);
    "true if first and last sides are equal" >::
-     ae true (is_isoceles 4 3 4);
+     ae true (is_isosceles 4 3 4);
    "equilateral triangles are also isosceles" >::
-     ae true (is_isoceles 4 4 4);
+     ae true (is_isosceles 4 4 4);
    "false if no sides are equal" >::
-     ae false (is_isoceles 2 3 4);
+     ae false (is_isosceles 2 3 4);
    "Sides that violate triangle inequality are not isosceles, even if two are equal" >::
-     ae false (is_isoceles 1 1 3);
+     ae false (is_isosceles 1 1 3);
 ]
 
 let scalene_tests = [
@@ -44,5 +44,5 @@ let scalene_tests = [
 let () =
   run_test_tt_main (
     "triangle tests" >:::
-      List.concat [equilateral_tests; isoceles_tests; scalene_tests]
+      List.concat [equilateral_tests; isosceles_tests; scalene_tests]
   )

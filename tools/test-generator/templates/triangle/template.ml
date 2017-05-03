@@ -11,10 +11,10 @@ let (* SUITE returns_true_if_the_triangle_is_equilateral *)equilateral_tests = [
    END TEST *)
 ]
 (* END SUITE *)
-let (* SUITE returns_true_if_the_triangle_is_isosceles *)isoceles_tests = [
+let (* SUITE returns_true_if_the_triangle_is_isosceles *)isosceles_tests = [
 (* TEST
    "$description" >::
-     ae $expected (is_isoceles $sides);
+     ae $expected (is_isosceles $sides);
    END TEST *)
 ]
 (* END SUITE *)
@@ -29,5 +29,5 @@ let (* SUITE returns_true_if_the_triangle_is_scalene *)scalene_tests = [
 let () =
   run_test_tt_main (
     "triangle tests" >:::
-      List.concat [equilateral_tests; isoceles_tests; scalene_tests]
+      List.concat [equilateral_tests; isosceles_tests; scalene_tests]
   )
