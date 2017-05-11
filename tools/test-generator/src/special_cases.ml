@@ -53,6 +53,12 @@ let edit_change_expected (value: json) = match value with
 | `Int (-1) -> "None"
 | _ -> failwith "Bad json value in change"
 
+let edit_bowling_expected (value: json) = match value with
+| `Int n -> "(Ok " ^ (Int.to_string n) ^ ")"
+| `Assoc [(k, v)] -> 
+    if k = "error" then "(Error " ^ json_to_string v ^ ")" else failwith ("Can only handle error value but got " ^ k)
+| _ -> failwith "Bad json value in bowling"
+
 let edit_expected ~(stringify: json -> string) ~(slug: string) ~(value: json) = match slug with
 | "hamming" -> optional_int ~none:(-1) value
 | "all-your-base" -> optional_int_list value
@@ -60,6 +66,7 @@ let edit_expected ~(stringify: json -> string) ~(slug: string) ~(value: json) = 
 | "phone-number" -> option_of_null value
 | "connect" -> edit_connect_expected value
 | "change" -> edit_change_expected value
+| "bowling" -> edit_bowling_expected value
 | _ -> stringify value
 
 let edit_say (ps: (string * json) list) =
@@ -91,12 +98,21 @@ let edit_space_age (ps: (string * json) list): (string * string) list =
   | (k, v) -> (k, json_to_string v) in
   List.map ps ~f:edit
   
+let edit_bowling (ps: (string * json) list): (string * string) list =
+  let strip_quotes s = String.drop_prefix s 1 |> Fn.flip String.drop_suffix 1 in
+  let edit = function
+  | ("property", v) -> ("property", json_to_string v |> strip_quotes) 
+  | ("roll", `Int n) -> ("roll", let s = Int.to_string n in if n < 0 then ("(" ^ s ^ ")") else s)
+  | (k, v) -> (k, json_to_string v) in
+  List.map ps ~f:edit
+
 let edit_parameters ~(slug: string) (parameters: (string * json) list) = match (slug, parameters) with
 | ("hello-world", ps) -> default_value ~key:"name" ~value:"None" (optional_strings ~f:(fun _x -> true) parameters)
 | ("say", ps) -> edit_say ps
 | ("all-your-base", ps) -> edit_all_your_base ps
 | ("dominoes", ps) -> edit_dominoes ps
 | ("space-age", ps) -> edit_space_age ps
+| ("bowling", ps) -> edit_bowling ps
 | (_, ps) -> map_elements json_to_string ps
 
 let expected_key_name slug = match slug with
