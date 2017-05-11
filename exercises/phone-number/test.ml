@@ -30,8 +30,6 @@ let tests = [
     ae None (number "123-abc-7890");
   "invalid with punctuations" >::
     ae None (number "123-@:!-7890");
-  "invalid with right number of digits but letters mixed in" >::
-    ae None (number "1a2b3c4d5e6f7g8h9i0j");
   "invalid if area code does not start with 2-9" >::
     ae None (number "(123) 456-7890");
   "invalid if exchange code does not start with 2-9" >::
