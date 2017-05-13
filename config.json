@@ -82,6 +82,11 @@
       "topics": ["Strings"]
     },
     {
+      "slug": "acronym",
+      "difficulty": 3,
+      "topics": ["Strings"]
+    },
+    {
       "slug": "all-your-base",
       "difficulty": 4,
       "topics": ["Mathematics"]
@@ -90,11 +95,6 @@
       "slug": "bracket-push",
       "difficulty": 4,
       "topics": ["Stacks"]
-    },
-    {
-      "slug": "bowling",
-      "difficulty": 4,
-      "topics": []
     },
     {
       "slug": "luhn",
@@ -158,6 +158,11 @@
     },
     {
       "slug": "minesweeper",
+      "difficulty": 7,
+      "topics": []
+    },
+    {
+      "slug": "bowling",
       "difficulty": 7,
       "topics": []
     },
