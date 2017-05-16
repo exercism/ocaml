@@ -15,6 +15,11 @@ type tests =
   | Single of case list
   | Suite of test list
 
+type canonical_data = {
+  version: string option;
+  tests: tests
+}
+
 let rec json_to_string (j: json): string = match j with
   | `Null -> "null"
   | `String s -> "\"" ^ (String.escaped s) ^ "\""

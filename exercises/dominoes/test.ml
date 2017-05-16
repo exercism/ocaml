@@ -1,3 +1,5 @@
+(* Test/exercise version: "1.0.1" *)
+
 open Core.Std
 open OUnit2
 open Dominoes

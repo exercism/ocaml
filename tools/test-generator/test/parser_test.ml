@@ -7,7 +7,7 @@ let ae exp got _test_ctxt = assert_equal exp got
 
 let single x = Ok (Single x)
 
-let call_parser json = parse_json_text json "expected" "cases"
+let call_parser json = parse_json_text json "expected" "cases" |> Result.map ~f:(fun c -> c.tests)
 
 let parser_tests = [
   "gives an error with a json map that does not have the key cases in" >::
