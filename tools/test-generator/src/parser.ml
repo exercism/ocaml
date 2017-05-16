@@ -69,13 +69,14 @@ let parse_cases_from_suite name suite expected_key cases_key =
   to_list_note ExpectingListOfCases >>= fun tests ->
   List.map tests ~f:(parse_case expected_key) |> sequence
 
-let parse_json_text (text: string) (expected_key: string) (cases_key: string): (tests, error) Result.t =
+let parse_json_text (text: string) (expected_key: string) (cases_key: string): (canonical_data, error) Result.t =
   let open Result.Monad_infix in
   let json = from_string text in
+  let version = member "version" json |> to_string_option in
   match suite_cases json cases_key with
-  | Ok suite_cases -> Ok (Suite suite_cases)
-  | Error _ -> parse_single text expected_key cases_key
-
+  | Ok suite_cases -> Ok {version; tests=(Suite suite_cases)}
+  | Error _ -> parse_single text expected_key cases_key >>= fun tests -> Ok {version; tests}
+                
 let show_error = function
   | TestMustHaveKeyCalledCases name -> "Test named '" ^ name ^ "' is expected to have an object with a key: 'cases'"
   | ExpectingMapForCase -> "Expected a json map for a test case"

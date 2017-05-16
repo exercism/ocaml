@@ -27,11 +27,16 @@ let combine_files (template_files: (string * content) list) (canonical_data_file
 
 (* pangram in the canonical data is a suite but it does not really need to be as there's only one group. Convert a Suite to
    a Single test in this case, to simplify the template. *)
-let simplify_single_test_suite (tests: tests): tests = match tests with
-| Suite [{name = name; cases = cases}] -> Single cases
-| x -> x
+let simplify_single_test_suite (canonical_data: canonical_data): canonical_data = match canonical_data.tests with
+| Suite [{name = name; cases = cases}] -> {version=canonical_data.version; tests=Single cases}
+| _ -> canonical_data
 
-let generate_code ~(slug: string) ~(template_file: content) ~(canonical_data_file: content): (content, content) Result.t =
+
+let prepend_version (v: string option) (str: string): string = match v with
+| None -> str
+| Some v -> "(* Test/exercise version: \"" ^ v ^ "\" *)\n\n" ^ str
+
+let generate_code ~(slug: string) ~(template_file: content) ~(canonical_data_file: content): (content, string) Result.t =
   let open Result.Monad_infix in
   Result.of_option ~error:("cannot recognize file for " ^ slug ^ " as a template") @@ find_template template_file >>= fun template ->
   let edit_expected = edit_expected ~stringify:json_to_string ~slug in
@@ -40,11 +45,12 @@ let generate_code ~(slug: string) ~(template_file: content) ~(canonical_data_fil
   let file_text = template.file_text in
   let file_lines = String.split_lines file_text |> List.to_array in
   parse_json_text canonical_data_file (expected_key_name slug) (cases_name slug)
-  |> Result.map_error ~f:show_error >>| simplify_single_test_suite >>= (function
+  |> Result.map_error ~f:show_error >>| simplify_single_test_suite >>= fun cd -> (match cd.tests with
       | Single cases ->
         let template = to_single template.template in
         fill_in_template template.template slug cases
         |> fill_tests file_text template
+        |> prepend_version cd.version
         |> Result.return
       | Suite tests ->
         let suites = to_multi template.template in
@@ -56,6 +62,7 @@ let generate_code ~(slug: string) ~(template_file: content) ~(canonical_data_fil
         in
         List.map tests ~f:fill_suite_tests |> sequence >>=
         fill_suite template
+        |> Result.map ~f:(prepend_version cd.version)
     )
 
 let output_tests (files: (string * content * content) list) (output_folder: string) ~(generated_folder: string): unit =
@@ -68,6 +75,9 @@ let output_tests (files: (string * content * content) list) (output_folder: stri
         else print_endline @@ "not generating " ^ slug ^ " as unchanged from previous generated file."
     | Error e -> print_endline ("Failed when generating " ^ slug ^ ", error: " ^ e) in
   List.iter files ~f:output1
+
+(*let add_header (canonical_data_folder: string) (generated: string): string =*)
+
 
 let run ~(templates_folder: string) ~(canonical_data_folder: string) ~(output_folder: string) ~(generated_folder: string) (filter: string option) =
   let template_files = find_template_files templates_folder filter in
