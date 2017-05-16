@@ -8,8 +8,8 @@ let ae exp got _test_ctxt = assert_equal ~printer exp got
 let tests = [
 (* TEST
    "$description" >::
-      ae $expected 
-         (make_change ~target:$target ~coins:$coins);
+     ae $expected 
+       (make_change ~target:$target ~coins:$coins);
    END TEST *)
 ]
 
