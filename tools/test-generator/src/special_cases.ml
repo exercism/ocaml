@@ -67,6 +67,7 @@ let edit_expected ~(stringify: json -> string) ~(slug: string) ~(value: json) = 
 | "connect" -> edit_connect_expected value
 | "change" -> edit_change_expected value
 | "bowling" -> edit_bowling_expected value
+| "binary-search" -> optional_int ~none:(-1) value
 | _ -> stringify value
 
 let edit_say (ps: (string * json) list) =
@@ -106,6 +107,16 @@ let edit_bowling (ps: (string * json) list): (string * string) list =
   | (k, v) -> (k, json_to_string v) in
   List.map ps ~f:edit
 
+let edit_binary_search (ps: (string * json) list): (string * string) list =
+  let open Yojson.Basic.Util in
+  let as_array_string xs = 
+    let xs = to_list xs |> List.map ~f:to_int |> List.map ~f:Int.to_string in
+    "[|" ^ String.concat ~sep:"; " xs ^ "|]" in
+  let edit = function
+  | ("array", v) -> ("array", as_array_string v) 
+  | (k, v) -> (k, json_to_string v) in
+  List.map ps ~f:edit
+
 let edit_parameters ~(slug: string) (parameters: (string * json) list) = match (slug, parameters) with
 | ("hello-world", ps) -> default_value ~key:"name" ~value:"None" (optional_strings ~f:(fun _x -> true) parameters)
 | ("say", ps) -> edit_say ps
@@ -113,6 +124,7 @@ let edit_parameters ~(slug: string) (parameters: (string * json) list) = match (
 | ("dominoes", ps) -> edit_dominoes ps
 | ("space-age", ps) -> edit_space_age ps
 | ("bowling", ps) -> edit_bowling ps
+| ("binary-search", ps) -> edit_binary_search ps
 | (_, ps) -> map_elements json_to_string ps
 
 let expected_key_name slug = match slug with
