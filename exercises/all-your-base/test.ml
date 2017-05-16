@@ -1,3 +1,5 @@
+(* Test/exercise version: "1.0.0" *)
+
 open Core.Std
 open OUnit2
 open All_your_base

@@ -1,3 +1,5 @@
+(* Test/exercise version: "1.0.0" *)
+
 open Core.Std
 open OUnit2
 open Atbash_cipher
@@ -22,6 +24,7 @@ let encode_tests = [
    "encode all the letters" >::
      ae "gsvjf rxpyi ldmul cqfnk hlevi gsvoz abwlt" (encode "The quick brown fox jumps over the lazy dog.");
 ]
+
 
 let decode_tests = [
    "decode exercism" >::
