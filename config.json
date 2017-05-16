@@ -102,6 +102,11 @@
       "topics": []
     },
     {
+      "slug": "binary-search",
+      "difficulty": 4,
+      "topics": ["Search", "Algorithms", "Arrays"]
+    },
+    {
       "slug": "phone-number",
       "difficulty": 4,
       "topics": []
