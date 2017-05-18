@@ -9,8 +9,7 @@
       "difficulty": 1,
       "topics": [
         "Strings",
-        "Optional values",
-        "Pattern matching"
+        "Setting up Ocaml dev environment"
       ]
     },
     {
