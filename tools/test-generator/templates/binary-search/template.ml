@@ -1,6 +1,6 @@
-open Core
 open OUnit2
 open Binary_search
+open Core
 
 let option_to_string f = function
   | None   -> "None"

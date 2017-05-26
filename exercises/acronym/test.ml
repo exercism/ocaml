@@ -1,4 +1,4 @@
-(* Test/exercise version: "1.0.0" *)
+(* Test/exercise version: "1.1.0" *)
 
 open Core
 open OUnit2
@@ -12,8 +12,6 @@ let tests = [
     ae "PNG" (acronym "Portable Network Graphics");
   "lowercase words" >::
     ae "ROR" (acronym "Ruby on Rails");
-  "camelcase" >::
-    ae "HTML" (acronym "HyperText Markup Language");
   "punctuation" >::
     ae "FIFO" (acronym "First In, First Out");
   "all caps words" >::
