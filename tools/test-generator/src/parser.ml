@@ -9,9 +9,9 @@ type error =
     NoDescription | BadDescription | NoExpected of string | BadExpected | UnrecognizedJson [@@deriving eq, show]
 
 let parse_case_assoc (parameters: (string * json) list) (expected_key: string): (case, error) Result.t =
-  let find name e = List.Assoc.find parameters name |> Result.of_option ~error:e in
-  let test_parameters = List.Assoc.remove parameters "description" in
-  let test_parameters = List.Assoc.remove test_parameters expected_key in
+  let find name e = List.Assoc.find parameters ~equal:String.equal name |> Result.of_option ~error:e in
+  let test_parameters = List.Assoc.remove parameters ~equal:String.equal "description" in
+  let test_parameters = List.Assoc.remove test_parameters ~equal:String.equal expected_key in
   let open Result.Monad_infix in
   find "description" NoDescription >>=
   to_string_note BadDescription >>= fun description ->
@@ -37,7 +37,7 @@ let parse_single (text: string) (expected_key: string) (cases_key: string): (tes
 let rec to_cases case: (case list, error) Result.t = 
   let open Result.Monad_infix in
   find_note case "description" NoDescription >>= to_string_note BadDescription >>= fun desc ->
-  let cases = List.Assoc.find case "cases" in
+  let cases = List.Assoc.find case ~equal:String.equal "cases" in
   match cases with
   | Some cases -> to_list_note UnrecognizedJson cases >>= fun cases ->
       List.map cases ~f:(to_assoc_note UnrecognizedJson) |> sequence >>= fun x ->
