@@ -1,6 +1,4 @@
-(** Word-count exercise *)
-
-open Core.Std
+open Core
 
 (**
  * Count occurences of words (consisting of letters and numbers) in the string.
