@@ -1,7 +1,7 @@
 test: test.native
 	@./test.native
 
-test.native: *.ml *.ml
+test.native: *.ml *.mli
 	@corebuild -r -quiet -pkg oUnit test.native
 
 clean:

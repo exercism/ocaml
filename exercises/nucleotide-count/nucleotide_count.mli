@@ -1,4 +1,4 @@
-open Core.Std
+open Core
 
 (* Count the number of times the nucleotide occurs in the string. *)
 val count : string -> char -> int

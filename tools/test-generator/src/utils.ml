@@ -1,4 +1,4 @@
-open Core.Std
+open Core
 open Yojson.Basic
 open Yojson.Basic.Util
 
@@ -43,7 +43,7 @@ let member_note error m json =
   try Ok (member m json) with Type_error _ -> Error error
 
 let find_note (xs: ('a, 'b) List.Assoc.t) (key: 'a) (error: 'e): ('b, 'e) Result.t = 
-  match List.Assoc.find xs key with
+  match List.Assoc.find ~equal:(=) xs key with
   | Some v -> Ok v
   | None -> Error error
 

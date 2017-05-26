@@ -1,8 +1,8 @@
 (* Test/exercise version: "1.0.0" *)
 
-open Core.Std
 open OUnit2
 open Binary_search
+open Core
 
 let option_to_string f = function
   | None   -> "None"

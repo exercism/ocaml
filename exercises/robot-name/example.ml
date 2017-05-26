@@ -1,4 +1,4 @@
-open Core.Std
+open Core
 
 type robot = {mutable index : int}
 

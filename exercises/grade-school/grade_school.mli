@@ -1,5 +1,5 @@
 (** Grade-school exercise *)
-open Core.Std
+open Core
 
 type school
 

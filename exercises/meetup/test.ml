@@ -1,6 +1,6 @@
 open OUnit2
 open Meetup
-open Core.Std
+open Core
 
 type case = {
   description: string;

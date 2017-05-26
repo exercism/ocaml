@@ -1,4 +1,4 @@
-open Core.Std
+open Core
 
 type planet = Mercury | Venus | Earth | Mars
             | Jupiter | Saturn | Neptune | Uranus

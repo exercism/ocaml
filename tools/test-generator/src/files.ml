@@ -1,4 +1,4 @@
-open Core.Std
+open Core
 
 let mkdir_if_not_present dir =
   if Sys.file_exists dir = `No 

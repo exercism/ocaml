@@ -1,4 +1,4 @@
-open Core.Std
+open Core
 
 type schedule = First | Second | Third | Fourth | Teenth | Last
 

@@ -1,5 +1,5 @@
 (** Zipper exercise interface *)
-open Core.Std
+open Core
 
 (** The type of a zipper *)
 type 'a t

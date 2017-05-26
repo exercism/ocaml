@@ -1,4 +1,4 @@
-open Core.Std
+open Core
 
 type player = O | X
 type cell = O | X | Empty

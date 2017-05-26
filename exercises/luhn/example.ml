@@ -1,4 +1,4 @@
-open Core.Std
+open Core
 
 let every_second_digit_doubled =
   let double_digit n = let d = n * 2 in if d >= 10 then d - 9 else d in

@@ -1,11 +1,11 @@
-open Core.Std
+open Core
 
-let find array value = 
+let find xs value = 
   let rec go lo hi = 
     if lo > hi then None
     else begin 
       let mid = lo + (hi - lo) / 2 in
-      let mid_val = array.(mid) in
+      let mid_val = xs.(mid) in
       if mid_val < value
       then go (mid + 1) hi
       else if mid_val > value
@@ -13,7 +13,7 @@ let find array value =
       else Some mid
     end
   in
-  if Array.is_empty array
+  if Array.is_empty xs
   then None
-  else go 0 (Array.length array - 1) 
+  else go 0 (Array.length xs - 1) 
   

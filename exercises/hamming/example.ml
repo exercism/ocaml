@@ -1,4 +1,4 @@
-open Core.Std
+open Core
 
 type nucleotide = A | C | G | T
 

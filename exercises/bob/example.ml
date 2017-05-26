@@ -1,4 +1,4 @@
-open Core.Std
+open Core
 
 let is_empty = String.for_all ~f:Char.is_whitespace
 

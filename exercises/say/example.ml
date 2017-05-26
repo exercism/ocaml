@@ -1,4 +1,4 @@
-open Core.Std
+open Core
 
 let rec in_english_impl = let open Int64 in function
   | 0L -> "zero"

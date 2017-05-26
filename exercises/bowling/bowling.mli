@@ -1,4 +1,4 @@
-open Core.Std
+open Core
 
 (** Abstract type for the bowling game. *)
 type t

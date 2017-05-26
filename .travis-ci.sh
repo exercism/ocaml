@@ -18,6 +18,8 @@ opam --version
 opam --git-version
 
 opam init
-opam install ${OPAM_DEPENDS}
+opam switch $OCAML_VERSION
 eval `opam config env`
+opam install ${OPAM_DEPENDS}
+
 make test

@@ -1,4 +1,4 @@
-open Core.Std
+open Core
 
 let substitute = function
   | 'a' .. 'z' as c ->
