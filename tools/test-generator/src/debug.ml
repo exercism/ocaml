@@ -1,4 +1,4 @@
-open Core.Std
+open Core
 open Controller
 
 let home_dir = Option.value_exn (Sys.getenv "HOME")

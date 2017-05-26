@@ -1,4 +1,4 @@
-open Core.Std
+open Core
 
 let string_to_set s = Char.Set.of_list (String.to_list s)
 

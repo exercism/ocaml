@@ -1,4 +1,4 @@
-open Core.Std
+open Core
 
 let (>|>) f g x = g (f x)
 

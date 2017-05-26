@@ -1,4 +1,4 @@
-open Core.Std
+open Core
 
 let to_sorted_list s = String.to_list s |> List.sort ~cmp:Char.compare
 

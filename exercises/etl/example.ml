@@ -1,4 +1,4 @@
-open Core.Std
+open Core
 
 let transform data =
   let assign_value value character = ((Char.lowercase character), value) in

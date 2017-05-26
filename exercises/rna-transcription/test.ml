@@ -1,4 +1,4 @@
-open Core.Std
+open Core
 open OUnit2
 
 let char_of_variant = function

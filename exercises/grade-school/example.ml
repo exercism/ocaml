@@ -1,4 +1,4 @@
-open Core.Std
+open Core
 
 type school = string list Int.Map.t
 

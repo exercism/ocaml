@@ -1,4 +1,4 @@
-open Core.Std
+open Core
 
 let raindrop = function
   | n when n mod 105 = 0 -> "PlingPlangPlong"

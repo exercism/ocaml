@@ -1,4 +1,4 @@
-open Core.Std
+open Core
 open React
 
 let allowed_failures = 9

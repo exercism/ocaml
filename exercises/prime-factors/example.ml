@@ -1,4 +1,4 @@
-open Core.Std
+open Core
 
 let square_root_trunc n =
     (* Square root is not defined on int64 but it is on big_int *)

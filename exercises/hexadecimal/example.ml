@@ -1,4 +1,4 @@
-open Core.Std
+open Core
 
 let digit_to_int c =
   match c with

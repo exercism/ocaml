@@ -1,6 +1,6 @@
 (* Test/exercise version: "1.2.0" *)
 
-open Core.Std
+open Core
 open OUnit2
 open Phone_number
 

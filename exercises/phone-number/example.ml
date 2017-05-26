@@ -1,4 +1,4 @@
-open Core.Std
+open Core
 
 let check_valid_first_digits s =
   if s.[0] = '0' || s.[0] = '1' || s.[3] = '0' || s.[3] = '1'

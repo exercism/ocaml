@@ -1,4 +1,4 @@
-open Core.Std
+open Core
 
 let sort_sides a b c = 
   let side = List.nth_exn (List.sort ~cmp:Int.compare [a; b; c]) in

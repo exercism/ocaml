@@ -1,4 +1,4 @@
-open Core.Std
+open Core
 
 let rec range a b =
   if a > b then

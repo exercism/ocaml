@@ -1,4 +1,4 @@
-open Core.Std
+open Core
 
 let find array value = 
   let rec go lo hi = 

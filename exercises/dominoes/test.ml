@@ -1,6 +1,6 @@
 (* Test/exercise version: "1.0.1" *)
 
-open Core.Std
+open Core
 open OUnit2
 open Dominoes
 
