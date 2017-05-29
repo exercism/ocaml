@@ -62,11 +62,6 @@ is documentation [here](tools/test-generator/README.md).
 
 If you find this documentation is inaccurate or incomplete, or can be improved in any way, please don't hesitate to raise an [issue](https://github.com/exercism/xocaml/issues) or submit a pull request.
 
-## License
-
-The MIT License (MIT)
-
-Copyright (c) 2014 Katrina Owen, _@kytrinyx.com
 
 ### OCaml icon
 The [OCaml](https://ocaml.org) logo is released under the [Attribution-ShareAlike 4.0 International](https://creativecommons.org/licenses/by-sa/4.0/) license.
