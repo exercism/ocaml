@@ -196,6 +196,11 @@
       "topics": []
     },
     {
+      "slug": "react",
+      "difficulty": 10,
+       "topics": ["Reactive programming"]
+    },
+    {
       "slug": "hangman",
       "difficulty": 10,
        "topics": []
