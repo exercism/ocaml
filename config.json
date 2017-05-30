@@ -23,7 +23,9 @@
     {
       "slug": "hamming",
       "difficulty": 2,
-      "topics": []
+      "topics": [
+        "Iterating over two lists at once"
+      ]
     },
     {
       "slug": "raindrops",
@@ -33,42 +35,59 @@
     {
       "slug": "difference-of-squares",
       "difficulty": 2,
-      "topics": []
+      "topics": [
+        "Mathematics"
+      ]
     },
     {
       "slug": "rna-transcription",
       "difficulty": 2,
-      "topics": []
+      "topics": [
+        "Transforming"
+      ]
     },
     {
       "slug": "nucleotide-count",
       "difficulty": 2,
-      "topics": []
+      "topics": [
+        "Counting"
+      ]
     },
     {
       "slug": "etl",
       "difficulty": 3,
-      "topics": []
+      "topics": [
+        "Transforming"
+      ]
     },
     {
       "slug": "grade-school",
       "difficulty": 3,
-      "topics": []
+      "topics": [
+        "Transforming"
+      ]
     },
     {
       "slug": "bob",
       "difficulty": 3,
-      "topics": []
+      "topics": [
+        "Strings"
+      ]
     },
     {
       "slug": "anagram",
       "difficulty": 3,
-      "topics": []
+      "topics": [
+        "Strings"        
+      ]
     },
     {
       "slug": "space-age",
       "difficulty": 3,
-      "topics": []
+      "topics": [
+        "Arithmetic",
+        "Floats"
+      ]
     },
     {
       "slug": "triangle",
@@ -98,7 +117,7 @@
     {
       "slug": "luhn",
       "difficulty": 4,
-      "topics": []
+      "topics": ["Arithmetic"]
     },
     {
       "slug": "binary-search",
@@ -108,17 +127,17 @@
     {
       "slug": "phone-number",
       "difficulty": 4,
-      "topics": []
+      "topics": ["Strings"]
     },
     {
       "slug": "word-count",
       "difficulty": 4,
-      "topics": []
+      "topics": ["Strings", "Counting"]
     },
     {
       "slug": "beer-song",
       "difficulty": 4,
-      "topics": []
+      "topics": ["Strings"]
     },
     {
       "slug": "run-length-encoding",
@@ -128,17 +147,17 @@
     {
       "slug": "roman-numerals",
       "difficulty": 5,
-      "topics": []
+      "topics": ["Strings"]
     },
     {
       "slug": "prime-factors",
       "difficulty": 5,
-      "topics": []
+      "topics": ["Mathematics", "Algorithms"]
     },
     {
       "slug": "say",
       "difficulty": 5,
-      "topics": []
+      "topics": ["Strings"]
     },
     {
       "slug": "robot-name",
@@ -148,37 +167,37 @@
     {
       "slug": "change",
       "difficulty": 6,
-      "topics": ["Dynamic Programming"]
+      "topics": ["Dynamic Programming", "Algorithms"]
     },
     {
       "slug": "list-ops",
       "difficulty": 6,
-      "topics": []
+      "topics": ["Functional programming"]
     },
     {
       "slug": "atbash-cipher",
       "difficulty": 7,
-      "topics": []
+      "topics": ["Transforming"]
     },
     {
       "slug": "minesweeper",
       "difficulty": 7,
-      "topics": []
+      "topics": ["Transforming", "Arrays"]
     },
     {
       "slug": "bowling",
       "difficulty": 7,
-      "topics": []
+      "topics": ["Algorithms"]
     },
     {
       "slug": "dominoes",
       "difficulty": 7,
-      "topics": []
+      "topics": ["Algorithms", "Search"]
     },
     {
       "slug": "custom-set",
       "difficulty": 8,
-      "topics": []
+      "topics": ["Functional programming"]
     },
     {
       "slug": "connect",
@@ -193,7 +212,7 @@
     {
       "slug": "zipper",
       "difficulty": 10,
-      "topics": []
+      "topics": ["Functional programming"]
     },
     {
       "slug": "react",
@@ -203,7 +222,7 @@
     {
       "slug": "hangman",
       "difficulty": 10,
-       "topics": []
+       "topics": ["Reactive programming"]
     }
   ],
   "deprecated": [
