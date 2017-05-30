@@ -210,6 +210,11 @@
       "topics": ["Dates"]
     },
     {
+      "slug": "forth",
+      "difficulty": 9,
+      "topics": ["Interpreters"]
+    },
+    {
       "slug": "zipper",
       "difficulty": 10,
       "topics": ["Functional programming"]
