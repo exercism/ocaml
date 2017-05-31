@@ -3,6 +3,8 @@ open Core
 open Model
 open Yojson.Basic
 
+let strip_quotes s = String.drop_prefix s 1 |> Fn.flip String.drop_suffix 1
+
 let map_elements (to_str: json -> string) (parameters: (string * json) list): (string * string) list =
   List.map parameters ~f:(fun (k,j) -> (k,to_str j))
 
@@ -36,6 +38,7 @@ let optional_strings ~(f: string -> bool) (parameters: (string * json) list): (s
 let option_of_null (value: json): string = match value with
 | `Null -> "None"
 | `String s -> "(Some \"" ^ s ^ "\")"
+| `List xs as l -> "(Some " ^ (json_to_string l) ^ ")"
 | _ -> failwith "cannot handle this type"
 
 let is_empty_string (value: json): bool = match value with
@@ -68,6 +71,7 @@ let edit_expected ~(stringify: json -> string) ~(slug: string) ~(value: json) = 
 | "change" -> edit_change_expected value
 | "bowling" -> edit_bowling_expected value
 | "binary-search" -> optional_int ~none:(-1) value
+| "forth" -> option_of_null value
 | _ -> stringify value
 
 let edit_say (ps: (string * json) list) =
@@ -92,15 +96,14 @@ let edit_dominoes (ps: (string * json) list): (string * string) list =
   | (k, v) -> (k, json_to_string v) in
   List.map ps ~f:edit
 
+
 let edit_space_age (ps: (string * json) list): (string * string) list =
-  let strip_quotes s = String.drop_prefix s 1 |> Fn.flip String.drop_suffix 1 in
   let edit = function
   | ("planet", v) -> ("planet", json_to_string v |> strip_quotes) 
   | (k, v) -> (k, json_to_string v) in
   List.map ps ~f:edit
   
 let edit_bowling (ps: (string * json) list): (string * string) list =
-  let strip_quotes s = String.drop_prefix s 1 |> Fn.flip String.drop_suffix 1 in
   let edit = function
   | ("property", v) -> ("property", json_to_string v |> strip_quotes) 
   | ("roll", `Int n) -> ("roll", let s = Int.to_string n in if n < 0 then ("(" ^ s ^ ")") else s)
