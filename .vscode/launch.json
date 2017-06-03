@@ -1,0 +1,14 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "OCaml",
+      "type": "ocamldebug",
+      "request": "launch",
+      "program": "${workspaceRoot}/tools/test-generator/test_gen.byte",
+      "console": "internalConsole",
+      "stopOnEntry": false,
+      "args": ["-l", "purescript" ,"-o", "/home/steve/dev/exercism/xpurescript/exercises"]
+    }
+  ]
+}

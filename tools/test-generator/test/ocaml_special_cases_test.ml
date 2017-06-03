@@ -2,7 +2,7 @@ open Core
 open OUnit2
 open Model
 open Codegen
-open Special_cases
+open Ocaml_special_cases
 open Yojson.Basic
 
 let ae exp got _ctxt = assert_equal ~printer:Fn.id exp got
@@ -14,9 +14,9 @@ let stringify = function
   | `Bool true -> "stringified"
   | _ -> failwith "Bad type for stringify"
 
-let special_cases_tests = [
+let ocaml_special_cases_tests = [
   "for a non special cased slug convert the parameter to a string" >:: (fun _ctx ->
-      assert_equal ~printer:Fn.id "stringified" @@ edit_expected ~stringify ~slug:"some-slug" ~value:(`Bool true)
+      assert_equal ~printer:Fn.id "stringified" @@ ocaml_edit_expected ~stringify ~slug:"some-slug" ~value:(`Bool true)
     );
 
   "an optional int parameter is converted to none if it matches the special value" >:: (fun _ctx ->

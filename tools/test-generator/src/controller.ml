@@ -6,6 +6,7 @@ open Codegen
 open Special_cases
 open Template
 open Files
+open Languages
 
 type content = string
 
@@ -15,8 +16,8 @@ let find_nested_files (name: string) (base: string): (string * content) list =
   |> List.filter ~f:(fun slug -> Sys.file_exists_exn (base ^ "/" ^ slug ^ "/" ^ name))
   |> List.map ~f:(fun slug -> (slug, In_channel.read_all (base ^ "/" ^ slug ^ "/" ^ name)))
 
-let find_template_files base filter = 
-  let all_files = find_nested_files "template.ml" base in
+let find_template_files base filter template_filename = 
+  let all_files = find_nested_files template_filename base in
   let filter = Option.value filter ~default:"" in
   List.filter all_files ~f:(fun (slug,_) -> String.is_substring slug ~substring:filter)
 
@@ -32,18 +33,19 @@ let simplify_single_test_suite (canonical_data: canonical_data): canonical_data 
 | _ -> canonical_data
 
 
-let prepend_version (v: string option) (str: string): string = match v with
+let prepend_version (version_printer: string -> string) (v: string option) (str: string): string = match v with
 | None -> str
-| Some v -> "(* Test/exercise version: \"" ^ v ^ "\" *)\n\n" ^ str
+| Some v -> (version_printer v) ^ str
 
-let generate_code ~(slug: string) ~(template_file: content) ~(canonical_data_file: content): (content, string) Result.t =
+let generate_code ~(lc: language_config) ~(slug: string) ~(template_file: content) ~(canonical_data_file: content): (content, string) Result.t =
   let open Result.Monad_infix in
-  Result.of_option ~error:("cannot recognize file for " ^ slug ^ " as a template") @@ find_template template_file >>= fun template ->
-  let edit_expected = edit_expected ~stringify:json_to_string ~slug in
+  Result.of_option ~error:("cannot recognize file for " ^ slug ^ " as a template") @@ find_template template_file lc.test_start_marker lc.test_end_marker >>= fun template ->
+  let edit_expected = edit_expected ~language:lc.name ~stringify:json_to_string ~slug in
   let edit_parameters = edit_parameters ~slug in
   let fill_in_template = fill_in_template edit_expected edit_parameters in
   let file_text = template.file_text in
   let file_lines = String.split_lines file_text |> List.to_array in
+  let prepend_version = prepend_version lc.version_printer in
   parse_json_text canonical_data_file (expected_key_name slug) (cases_name slug)
   |> Result.map_error ~f:show_error >>| simplify_single_test_suite >>= fun cd -> (match cd.tests with
       | Single cases ->
@@ -65,10 +67,10 @@ let generate_code ~(slug: string) ~(template_file: content) ~(canonical_data_fil
         |> Result.map ~f:(prepend_version cd.version)
     )
 
-let output_tests (files: (string * content * content) list) (output_folder: string) ~(generated_folder: string): unit =
-  let output_filepath name = output_folder ^ "/" ^ name ^ "/test.ml" in
+let output_tests (lc: language_config) (files: (string * content * content) list) (output_folder: string) ~(generated_folder: string): unit =
+  let output_filepath name = output_folder ^ "/" ^ name ^ "/" ^ lc.template_file_name in
   let output1 (slug,t,c) =
-    match generate_code slug t c with
+    match generate_code lc slug t c with
     | Ok code -> 
         if backup ~base_folder:generated_folder ~slug ~contents:code
         then Out_channel.write_all (output_filepath slug) code
@@ -76,14 +78,11 @@ let output_tests (files: (string * content * content) list) (output_folder: stri
     | Error e -> print_endline ("Failed when generating " ^ slug ^ ", error: " ^ e) in
   List.iter files ~f:output1
 
-(*let add_header (canonical_data_folder: string) (generated: string): string =*)
-
-
-let run ~(templates_folder: string) ~(canonical_data_folder: string) ~(output_folder: string) ~(generated_folder: string) (filter: string option) =
-  let template_files = find_template_files templates_folder filter in
+let run ~(language_config: language_config) ~(templates_folder: string) ~(canonical_data_folder: string) ~(output_folder: string) ~(generated_folder: string) (filter: string option) =
+  let template_files = find_template_files templates_folder filter language_config.template_file_name in
   let canonical_data_files = find_canonical_data_files canonical_data_folder in
   let combined = combine_files template_files canonical_data_files in
-  output_tests combined output_folder generated_folder
+  output_tests language_config combined output_folder generated_folder
 
 let check_canonical_data canonical_data_folder =
   let ok_count = ref 0 in

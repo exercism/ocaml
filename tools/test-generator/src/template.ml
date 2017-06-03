@@ -24,11 +24,11 @@ type t = {file_text: string;
           template: template;
          } [@@deriving eq, show]
 
-let find_template ~(template_text: string): t option =
+let find_template ~(template_text: string) (test_start_marker: string) (test_end_marker: string): t option =
   let open Option.Monad_infix in
   let lines = String.split_lines template_text |> List.to_array in
-  let test_starts = Array.filter_mapi lines ~f:(fun i l -> if (String.is_substring l ~substring:"(* TEST") then Some i else None) in
-  let test_ends = Array.filter_mapi lines ~f:(fun i l -> if (String.is_substring l ~substring:"END TEST") then Some i else None) in
+  let test_starts = Array.filter_mapi lines ~f:(fun i l -> if String.is_substring l ~substring:test_start_marker then Some i else None) in
+  let test_ends = Array.filter_mapi lines ~f:(fun i l -> if String.is_substring l ~substring:test_end_marker then Some i else None) in
   let test_starts_and_ends = Array.zip_exn test_starts test_ends in
   let template_lines = Array.map test_starts_and_ends ~f:(fun (s,e) -> Array.slice lines (s+1) e) in
   let suite_name_lines = Array.filter_mapi lines ~f:(fun i l -> if (String.is_prefix l ~prefix:"let (* SUITE ") then Some i else None) in

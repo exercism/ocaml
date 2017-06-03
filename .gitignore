@@ -7,3 +7,4 @@ tmp
 _build/
 bin/configlet
 bin/configlet.exe
+.psc-ide-port
