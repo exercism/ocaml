@@ -129,9 +129,3 @@ let edit_parameters ~(slug: string) (parameters: (string * json) list) = match (
 | ("bowling", ps) -> edit_bowling ps
 | ("binary-search", ps) -> edit_binary_search ps
 | (_, ps) -> map_elements json_to_string ps
-
-let expected_key_name slug = match slug with
-| "dominoes" -> "can_chain"
-| _ -> "expected"
-
-let cases_name _slug = "cases"

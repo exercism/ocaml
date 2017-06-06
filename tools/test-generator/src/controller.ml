@@ -46,7 +46,7 @@ let generate_code ~(lc: language_config) ~(slug: string) ~(template_file: conten
   let file_text = template.file_text in
   let file_lines = String.split_lines file_text |> List.to_array in
   let prepend_version = prepend_version lc.version_printer in
-  parse_json_text canonical_data_file (expected_key_name slug) (cases_name slug)
+  parse_json_text canonical_data_file "expected" "cases"
   |> Result.map_error ~f:show_error >>| simplify_single_test_suite >>= fun cd -> (match cd.tests with
       | Single cases ->
         let template = to_single template.template in
@@ -90,7 +90,7 @@ let check_canonical_data canonical_data_folder =
   let canonical_data_files = List.sort canonical_data_files ~cmp:(fun (s1, _) (s2, _) -> String.compare s1 s2) in
   let total_count = List.length canonical_data_files in
   List.iter canonical_data_files ~f:(fun (slug, text) ->
-    match parse_json_text text (expected_key_name slug) (cases_name slug) with
+    match parse_json_text text "expected" "cases" with
     | Error e -> print_endline @@ slug ^ ": " ^ (show_error e)
     | _ -> ok_count := !ok_count + 1
   );

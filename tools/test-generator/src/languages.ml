@@ -12,7 +12,7 @@ type language_config = {
 let default_language_config = function
 | "ocaml" -> {
     name = "ocaml";
-    template_file_name = "template.ml"; 
+    template_file_name = "test.ml"; 
     default_base_folder = "../..";
     test_start_marker = "(* TEST"; 
     test_end_marker = "END TEST";
