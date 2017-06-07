@@ -3,7 +3,6 @@ open Parser
 open Model
 open Utils
 open Codegen
-open Special_cases
 open Template
 open Files
 open Languages
@@ -40,13 +39,13 @@ let prepend_version (version_printer: string -> string) (v: string option) (str:
 let generate_code ~(lc: language_config) ~(slug: string) ~(template_file: content) ~(canonical_data_file: content): (content, string) Result.t =
   let open Result.Monad_infix in
   Result.of_option ~error:("cannot recognize file for " ^ slug ^ " as a template") @@ find_template template_file lc.test_start_marker lc.test_end_marker >>= fun template ->
-  let edit_expected = edit_expected ~language:lc.name ~stringify:json_to_string ~slug in
+  let edit_expected = lc.edit_expected ~stringify:json_to_string ~slug in
   let edit_parameters = edit_parameters ~slug in
   let fill_in_template = fill_in_template edit_expected edit_parameters in
   let file_text = template.file_text in
   let file_lines = String.split_lines file_text |> List.to_array in
   let prepend_version = prepend_version lc.version_printer in
-  parse_json_text canonical_data_file (expected_key_name slug) (cases_name slug)
+  parse_json_text canonical_data_file "expected" "cases"
   |> Result.map_error ~f:show_error >>| simplify_single_test_suite >>= fun cd -> (match cd.tests with
       | Single cases ->
         let template = to_single template.template in
@@ -90,7 +89,7 @@ let check_canonical_data canonical_data_folder =
   let canonical_data_files = List.sort canonical_data_files ~cmp:(fun (s1, _) (s2, _) -> String.compare s1 s2) in
   let total_count = List.length canonical_data_files in
   List.iter canonical_data_files ~f:(fun (slug, text) ->
-    match parse_json_text text (expected_key_name slug) (cases_name slug) with
+    match parse_json_text text "expected" "cases" with
     | Error e -> print_endline @@ slug ^ ": " ^ (show_error e)
     | _ -> ok_count := !ok_count + 1
   );
