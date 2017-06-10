@@ -301,11 +301,6 @@
     "hexadecimal",
     "point-mutations"
   ],
-  "ignored": [
-    "docs",
-    "img",
-    "tools"
-  ],
   "foregone": [
 
   ]
