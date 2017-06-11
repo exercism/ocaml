@@ -30,7 +30,9 @@
     {
       "slug": "raindrops",
       "difficulty": 2,
-      "topics": []
+      "topics": [
+
+      ]
     },
     {
       "slug": "difference-of-squares",
@@ -78,7 +80,7 @@
       "slug": "anagram",
       "difficulty": 3,
       "topics": [
-        "Strings"        
+        "Strings"
       ]
     },
     {
@@ -92,142 +94,207 @@
     {
       "slug": "triangle",
       "difficulty": 3,
-      "topics": ["Mathematics"]
+      "topics": [
+        "Mathematics"
+      ]
     },
     {
       "slug": "pangram",
       "difficulty": 3,
-      "topics": ["Strings"]
+      "topics": [
+        "Strings"
+      ]
     },
     {
       "slug": "acronym",
       "difficulty": 3,
-      "topics": ["Strings"]
+      "topics": [
+        "Strings"
+      ]
     },
     {
       "slug": "all-your-base",
       "difficulty": 4,
-      "topics": ["Mathematics"]
+      "topics": [
+        "Mathematics"
+      ]
     },
     {
       "slug": "bracket-push",
       "difficulty": 4,
-      "topics": ["Stacks"]
+      "topics": [
+        "Stacks"
+      ]
     },
     {
       "slug": "luhn",
       "difficulty": 4,
-      "topics": ["Arithmetic"]
+      "topics": [
+        "Arithmetic"
+      ]
     },
     {
       "slug": "binary-search",
       "difficulty": 4,
-      "topics": ["Search", "Algorithms", "Arrays"]
+      "topics": [
+        "Search",
+        "Algorithms",
+        "Arrays"
+      ]
     },
     {
       "slug": "phone-number",
       "difficulty": 4,
-      "topics": ["Strings"]
+      "topics": [
+        "Strings"
+      ]
     },
     {
       "slug": "word-count",
       "difficulty": 4,
-      "topics": ["Strings", "Counting"]
+      "topics": [
+        "Strings",
+        "Counting"
+      ]
     },
     {
       "slug": "beer-song",
       "difficulty": 4,
-      "topics": ["Strings"]
+      "topics": [
+        "Strings"
+      ]
     },
     {
       "slug": "run-length-encoding",
       "difficulty": 5,
-      "topics": ["Algorithms", "Transforming"]
+      "topics": [
+        "Algorithms",
+        "Transforming"
+      ]
     },
     {
       "slug": "roman-numerals",
       "difficulty": 5,
-      "topics": ["Strings"]
+      "topics": [
+        "Strings"
+      ]
     },
     {
       "slug": "prime-factors",
       "difficulty": 5,
-      "topics": ["Mathematics", "Algorithms"]
+      "topics": [
+        "Mathematics",
+        "Algorithms"
+      ]
     },
     {
       "slug": "say",
       "difficulty": 5,
-      "topics": ["Strings"]
+      "topics": [
+        "Strings"
+      ]
     },
     {
       "slug": "robot-name",
       "difficulty": 6,
-      "topics": ["Randomness", "Mutable state"]
+      "topics": [
+        "Randomness",
+        "Mutable state"
+      ]
     },
     {
       "slug": "change",
       "difficulty": 6,
-      "topics": ["Dynamic Programming", "Algorithms"]
+      "topics": [
+        "Dynamic Programming",
+        "Algorithms"
+      ]
     },
     {
       "slug": "list-ops",
       "difficulty": 6,
-      "topics": ["Functional programming"]
+      "topics": [
+        "Functional programming"
+      ]
     },
     {
       "slug": "atbash-cipher",
       "difficulty": 7,
-      "topics": ["Transforming"]
+      "topics": [
+        "Transforming"
+      ]
     },
     {
       "slug": "minesweeper",
       "difficulty": 7,
-      "topics": ["Transforming", "Arrays"]
+      "topics": [
+        "Transforming",
+        "Arrays"
+      ]
     },
     {
       "slug": "bowling",
       "difficulty": 7,
-      "topics": ["Algorithms"]
+      "topics": [
+        "Algorithms"
+      ]
     },
     {
       "slug": "dominoes",
       "difficulty": 7,
-      "topics": ["Algorithms", "Search"]
+      "topics": [
+        "Algorithms",
+        "Search"
+      ]
     },
     {
       "slug": "custom-set",
       "difficulty": 8,
-      "topics": ["Functional programming"]
+      "topics": [
+        "Functional programming"
+      ]
     },
     {
       "slug": "connect",
       "difficulty": 8,
-      "topics": ["Search"]
+      "topics": [
+        "Search"
+      ]
     },
     {
       "slug": "meetup",
       "difficulty": 9,
-      "topics": ["Dates"]
+      "topics": [
+        "Dates"
+      ]
     },
     {
       "slug": "forth",
       "difficulty": 9,
-      "topics": ["Interpreters"]
+      "topics": [
+        "Interpreters"
+      ]
     },
     {
       "slug": "zipper",
       "difficulty": 10,
-      "topics": ["Functional programming"]
+      "topics": [
+        "Functional programming"
+      ]
     },
     {
       "slug": "react",
       "difficulty": 10,
-       "topics": ["Reactive programming"]
+      "topics": [
+        "Reactive programming"
+      ]
     },
     {
       "slug": "hangman",
       "difficulty": 10,
-       "topics": ["Reactive programming"]
+      "topics": [
+        "Reactive programming"
+      ]
     }
   ],
   "deprecated": [
