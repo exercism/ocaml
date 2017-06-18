@@ -17,9 +17,9 @@ This will build and run the unit tests
 The test generator should be run whenever test canonical data is updated.
 
 You will need the latest version of x-common checked out locally, at the same level as your
-xocaml repo. 
+ocaml repo. 
 
-Please note: running will overwrite tests in the xocaml/exercises folders (this is the default, there
+Please note: running will overwrite tests in the ocaml/exercises folders (this is the default, there
 is a command line option to write the tests to a different folder - run test_gen.native --help).
 
 To run, type test_gen.native at the command line.
