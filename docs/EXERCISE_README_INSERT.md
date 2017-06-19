@@ -23,7 +23,7 @@ opam install utop
 Consult [utop](https://github.com/diml/utop/blob/master/README.md) for more detail.
 
 ## Feedback, Issues, Pull Requests
-The [exercism/xocaml](https://github.com/exercism/xocaml) repository on
+The [exercism/ocaml](https://github.com/exercism/ocaml) repository on
 GitHub is the home for all of the Ocaml exercises.
 
 If you have feedback about an exercise, or want to help implementing a new

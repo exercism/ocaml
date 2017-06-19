@@ -19,7 +19,7 @@ opam install core ounit react
 
 ## Running Tests
 
-To run all the tests, type `make` from the top level xocaml directory.
+To run all the tests, type `make` from the top level ocaml directory.
 
 To run tests for an individual exercise, `make test-assignment ASSIGNMENT=luhn`
 
@@ -60,7 +60,7 @@ is documentation [here](tools/test-generator/README.md).
 
 ## Feedback
 
-If you find this documentation is inaccurate or incomplete, or can be improved in any way, please don't hesitate to raise an [issue](https://github.com/exercism/xocaml/issues) or submit a pull request.
+If you find this documentation is inaccurate or incomplete, or can be improved in any way, please don't hesitate to raise an [issue](https://github.com/exercism/ocaml/issues) or submit a pull request.
 
 
 ### OCaml icon
