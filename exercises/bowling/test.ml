@@ -1,4 +1,4 @@
-(* Test/exercise version: "1.0.0" *)
+(* Test/exercise version: "1.0.1" *)
 
 open! Core
 open OUnit2
@@ -6,9 +6,9 @@ open Bowling
 
 type game = Bowling.t
 
-let to_ok (r: (t, string) Result.t): t = match r with
-| Ok g -> g
-| Error e -> failwith ("should be OK but got Error " ^ e)
+let to_ok = function
+| Ok x -> x
+| Error e -> failwith @@ "should be OK but got Error " ^ e
 
 let set_previous_frames (frames : int list): game =
   List.fold frames ~init:new_game ~f:(fun g f -> roll f g |> to_ok)
@@ -21,8 +21,7 @@ let assert_score exp game = assert_equal ~printer:score_printer exp (score game)
 let roll_printer = function
 | Ok _ -> "Ok <some game>"
 | Error e -> e
-let assert_roll (exp: (t, string) Result.t) (frame: int) (game: game) = 
-  assert_equal ~printer:roll_printer exp (roll frame game)
+let assert_roll exp frame game = assert_equal ~printer:roll_printer exp (roll frame game)
 
 let tests = [
    "should be able to score a game with all zeros" >:: (fun _ ->
@@ -81,23 +80,23 @@ let tests = [
       let g = set_previous_frames [10; 10; 10; 10; 10; 10; 10; 10; 10; 10; 10; 10] in
       assert_score (Ok 300) g
    );
-   "rolls can not score negative points" >:: (fun _ ->
+   "rolls cannot score negative points" >:: (fun _ ->
       let g = set_previous_frames [] in
       assert_roll (Error "Negative roll is invalid") (-1) g
    );
-   "a roll can not score more than 10 points" >:: (fun _ ->
+   "a roll cannot score more than 10 points" >:: (fun _ ->
       let g = set_previous_frames [] in
       assert_roll (Error "Pin count exceeds pins on the lane") 11 g
    );
-   "two rolls in a frame can not score more than 10 points" >:: (fun _ ->
+   "two rolls in a frame cannot score more than 10 points" >:: (fun _ ->
       let g = set_previous_frames [5] in
       assert_roll (Error "Pin count exceeds pins on the lane") 6 g
    );
-   "bonus roll after a strike in the last frame can not score more than 10 points" >:: (fun _ ->
+   "bonus roll after a strike in the last frame cannot score more than 10 points" >:: (fun _ ->
       let g = set_previous_frames [0; 0; 0; 0; 0; 0; 0; 0; 0; 0; 0; 0; 0; 0; 0; 0; 0; 0; 10] in
       assert_roll (Error "Pin count exceeds pins on the lane") 11 g
    );
-   "two bonus rolls after a strike in the last frame can not score more than 10 points" >:: (fun _ ->
+   "two bonus rolls after a strike in the last frame cannot score more than 10 points" >:: (fun _ ->
       let g = set_previous_frames [0; 0; 0; 0; 0; 0; 0; 0; 0; 0; 0; 0; 0; 0; 0; 0; 0; 0; 10; 5] in
       assert_roll (Error "Pin count exceeds pins on the lane") 6 g
    );
@@ -105,19 +104,19 @@ let tests = [
       let g = set_previous_frames [0; 0; 0; 0; 0; 0; 0; 0; 0; 0; 0; 0; 0; 0; 0; 0; 0; 0; 10; 10; 6] in
       assert_score (Ok 26) g
    );
-   "the second bonus rolls after a strike in the last frame can not be a strike if the first one is not a strike" >:: (fun _ ->
+   "the second bonus rolls after a strike in the last frame cannot be a strike if the first one is not a strike" >:: (fun _ ->
       let g = set_previous_frames [0; 0; 0; 0; 0; 0; 0; 0; 0; 0; 0; 0; 0; 0; 0; 0; 0; 0; 10; 6] in
       assert_roll (Error "Pin count exceeds pins on the lane") 10 g
    );
-   "second bonus roll after a strike in the last frame can not score than 10 points" >:: (fun _ ->
+   "second bonus roll after a strike in the last frame cannot score more than 10 points" >:: (fun _ ->
       let g = set_previous_frames [0; 0; 0; 0; 0; 0; 0; 0; 0; 0; 0; 0; 0; 0; 0; 0; 0; 0; 10; 10] in
       assert_roll (Error "Pin count exceeds pins on the lane") 11 g
    );
-   "an unstarted game can not be scored" >:: (fun _ ->
+   "an unstarted game cannot be scored" >:: (fun _ ->
       let g = set_previous_frames [] in
       assert_score (Error "Score cannot be taken until the end of the game") g
    );
-   "an incomplete game can not be scored" >:: (fun _ ->
+   "an incomplete game cannot be scored" >:: (fun _ ->
       let g = set_previous_frames [0; 0] in
       assert_score (Error "Score cannot be taken until the end of the game") g
    );
