@@ -6,7 +6,7 @@ type game = Bowling.t
 
 let to_ok = function
 | Ok x -> x
-| Error _ -> failwith "should be OK"
+| Error e -> failwith @@ "should be OK but got Error " ^ e
 
 let set_previous_frames (frames : int list): game =
   List.fold frames ~init:new_game ~f:(fun g f -> roll f g |> to_ok)
