@@ -1,4 +1,4 @@
-(* Test/exercise version: "1.0.0" *)
+(* Test/exercise version: "1.1.0" *)
 
 open Core
 open OUnit2
@@ -22,6 +22,8 @@ let dna_of_string s =
 let hamdist a b = Hamming.hamming_distance (dna_of_string a) (dna_of_string b)
 
 let tests = [
+   "empty strands" >::
+      ae (Some 0) (hamdist "" "");
    "identical strands" >::
       ae (Some 0) (hamdist "A" "A");
    "long identical strands" >::
@@ -46,8 +48,6 @@ let tests = [
       ae (Some 4) (hamdist "GATACA" "GCATAA");
    "large distance in off-by-one strand" >::
       ae (Some 9) (hamdist "GGACGGATTCTG" "AGGACGGATTCT");
-   "empty strands" >::
-      ae (Some 0) (hamdist "" "");
    "disallow first strand longer" >::
       ae None (hamdist "AATG" "AAA");
    "disallow second strand longer" >::
