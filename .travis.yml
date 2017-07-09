@@ -3,7 +3,7 @@ language: c
 script:
   - bash -ex .travis-ci.sh
   - bin/fetch-configlet
-  - bin/configlet .
+  - bin/configlet lint .
 
 env:
   - OCAML_VERSION=4.04.1 OPAM_VERSION=1.2.2
