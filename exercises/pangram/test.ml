@@ -1,4 +1,4 @@
-(* Test/exercise version: "1.0.0" *)
+(* Test/exercise version: "1.1.0" *)
 
 open Core
 open OUnit2
@@ -24,7 +24,7 @@ let tests = [
    "pangram with mixed case and punctuation" >::
       ae true (is_pangram "\"Five quacking Zephyrs jolt my wax bed.\"");
    "upper and lower case versions of the same character should not be counted separately" >::
-      ae false (is_pangram "the quick brown fox jumped over the lazy FOX");
+      ae false (is_pangram "the quick brown fox jumps over with lazy FX");
 ]
 
 let () =
