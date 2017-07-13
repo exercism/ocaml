@@ -4,9 +4,17 @@ For installation and learning resources, refer to the
 [exercism help page](http://exercism.io/languages/ocaml).
 
 ## Installation
-To work on the exercises, you will need `Opam` and `Core`. Consult [opam](https://opam.ocaml.org) website for instructions on how to install for your OS. Once `opam` is installed open a terminal window and run the following command to install core:
+To work on the exercises, you will need `Opam` and `Core`. Consult [opam](https://opam.ocaml.org) website for instructions on how to install `opam` for your OS. Once `opam` is installed open a terminal window and run the following command to install core:
 
+```bash
 opam install core
+```
+
+To run the tests you will need `OUnit`. Install it using `opam`:
+
+```bash
+opam install ounit
+```
 
 ## Running Tests
 A Makefile is provided with a default target to compile your solution and run the tests. At the command line, type:
