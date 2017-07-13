@@ -1,4 +1,4 @@
-(* Test/exercise version: "1.1.0" *)
+(* Test/exercise version: "1.2.0" *)
 
 open Core
 open OUnit2
@@ -122,6 +122,8 @@ let user_defined_words_tests = [
      ae (Some [1; 1; 1]) (evaluate [": foo dup ;"; ": foo dup dup ;"; "1 foo"]);
    "can override built-in words" >::
      ae (Some [1; 1]) (evaluate [": swap dup ;"; "1 swap"]);
+   "can override built-in operators" >::
+     ae (Some [12]) (evaluate [": + * ;"; "3 4 +"]);
    "cannot redefine numbers" >::
      ae None (evaluate [": 1 2 ;"]);
    "errors if executing a non-existent word" >::

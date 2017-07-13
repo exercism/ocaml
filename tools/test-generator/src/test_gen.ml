@@ -22,7 +22,7 @@ let command =
       empty
       +> flag "-l" (optional string) ~doc:"language to generate tests for"
       +> flag "-t" (optional_with_default "./templates" is_directory) ~doc:"string Directory containing templates."
-      +> flag "-c" (optional_with_default "../../../x-common/exercises" is_directory) ~doc:"string Directory containing canonical data."
+      +> flag "-c" (optional_with_default "../../../problem-specifications/exercises" is_directory) ~doc:"string Directory containing canonical data."
       +> flag "-o" (optional string) ~doc:"string Directory to output generated tests."
       +> flag "-g" (optional string) ~doc:"string Directory to backup generated tests."
       +> flag "-f" (optional string) ~doc:"string Filter out files not matching this string."
