@@ -6,7 +6,7 @@ Exercism Exercises in OCaml
 
 Contributions to the OCaml track (or any other part of Exercism) are very welcome!
 
-Please see the [contributing guide](https://github.com/exercism/x-common/blob/master/CONTRIBUTING.md) for overall guidance. The below
+Please see the [contributing guide](https://github.com/exercism/docs/blob/master/contributing-to-language-tracks/README.md) for overall guidance. The below
 notes contain a few details specific to Ocaml.
 
 ## Prerequisites
@@ -25,10 +25,10 @@ To run tests for an individual exercise, `make test-assignment ASSIGNMENT=luhn`
 
 ## Adding an Exercise
 
-The [contributing guide](https://github.com/exercism/x-common/blob/master/CONTRIBUTING.md) provides guidance on
+The [contributing guide](https://github.com/exercism/docs/blob/master/contributing-to-language-tracks/README.md) provides guidance on
 how to add a new exercise, or port an existing exercise from another language track. This is a brief guide, with specifics for the OCaml stream.
 
-Firstly, register the exercise in [config json](https://github.com/exercism/x-common/blob/master/CONTRIBUTING.md#configjson). The name of the exercise should go in the "slug" entry.
+Firstly, register the exercise in [config json](https://github.com/exercism/docs/blob/master/contributing-to-language-tracks/README.md#configjson). The name of the exercise should go in the "slug" entry.
 
 Then, write the exercise tests & proof of concept implementation.
 A folder layout for an exercise called "ocaml-exercise" is below.
