@@ -418,11 +418,6 @@
       "uuid": "d0c937ef-3c7b-40be-891d-3024129b443f",
       "slug": "hexadecimal",
       "deprecated": true
-    },
-    {
-      "uuid": "1a78aecb-521a-4bcf-a618-fd50a3d4fdc7",
-      "slug": "point-mutations",
-      "deprecated": true
     }
   ],
   "foregone": [
