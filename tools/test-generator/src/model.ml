@@ -5,8 +5,7 @@ open Yojson.Basic
 
 type case = {
   description: string;
-  parameters: (string * json) list;
-  expected: json;
+  parameters: (string * json) list
 }
 
 type test = {name: string; cases: case list}
