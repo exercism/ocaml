@@ -1,5 +1,5 @@
 # Edit this for your own project dependencies
-OPAM_DEPENDS="ocamlfind core ounit react"
+OPAM_DEPENDS="ocamlfind core ounit react ppx_deriving"
 
 case "$OCAML_VERSION,$OPAM_VERSION" in
     4.05.0,1.2.2) ppa=avsm/ocaml42+opam12 ;;

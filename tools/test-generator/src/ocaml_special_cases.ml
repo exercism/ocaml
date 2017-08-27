@@ -2,8 +2,13 @@ open Core
 
 open Model
 open Yojson.Basic
+open Yojson.Basic.Util
 
 let strip_quotes s = String.drop_prefix s 1 |> Fn.flip String.drop_suffix 1
+
+let two_elt_list_to_tuple (j: json): string = match j with
+| `List [`Int x1; `Int x2] -> sprintf "(%d,%d)" x1 x2
+| _ -> failwith "two element list expected, but got " ^ (json_to_string j)
 
 let map_elements (to_str: json -> string) (parameters: (string * json) list): (string * string) list =
   List.map parameters ~f:(fun (k,j) -> (k,to_str j))
@@ -78,9 +83,6 @@ let edit_all_your_base (ps: (string * json) list): (string * string) list =
   List.map ps ~f:edit
 
 let edit_dominoes (ps: (string * json) list): (string * string) list =
-  let two_elt_list_to_tuple (j: json): string = match j with
-  | `List [`Int x1; `Int x2] -> sprintf "(%d,%d)" x1 x2
-  | _ -> failwith "two element list expected, but got " ^ (json_to_string j) in 
   let edit (p: (string * json)) = match p with
   | ("input", `List j) -> ("input", "[" ^ (List.map ~f:two_elt_list_to_tuple j |> String.concat ~sep:"; ") ^ "]")
   | (k, v) -> (k, json_to_string v) in
@@ -90,6 +92,28 @@ let edit_space_age (ps: (string * json) list): (string * string) list =
   let edit = function
   | ("planet", v) -> ("planet", json_to_string v |> strip_quotes) 
   | (k, v) -> (k, json_to_string v) in
+  List.map ps ~f:edit
+  
+let edit_palindrome_products (ps: (string * json) list): (string * string) list =
+  let edit = function
+  | ("property", v) -> ("property", json_to_string v |> strip_quotes)
+  | ("expected", `Assoc kvs) -> 
+      let find = List.Assoc.find kvs ~equal:String.equal in
+      let open Option.Monad_infix in
+      let success_result = 
+        find "value" >>= fun value ->
+        find "factors" >>= fun factors ->
+        let factors = to_list factors in
+        let factors_str = "[" ^ (List.map ~f:two_elt_list_to_tuple factors |> String.concat ~sep:"; ") ^ "]" in
+        let expected = sprintf "Ok {value=%s; factors=%s}" (json_to_string value) factors_str in
+        Some ("expected", expected) in
+      if Option.is_some success_result
+      then Option.value_exn success_result
+      else 
+        let error = List.Assoc.find_exn kvs ~equal:String.equal "error" in
+        ("expected", "Error " ^ json_to_string error)
+  | (k, v) -> (k, json_to_string v)
+  in
   List.map ps ~f:edit
   
 let edit_bowling (ps: (string * json) list): (string * string) list =
@@ -126,6 +150,7 @@ let ocaml_edit_parameters ~(slug: string) (parameters: (string * json) list) = m
 | ("forth", ps) -> edit_expected ~f:option_of_null ps
 | ("hamming", ps) -> edit_expected ~f:(optional_int ~none:(-1)) ps
 | ("hello-world", ps) -> default_value ~key:"name" ~value:"None" (optional_strings ~f:(fun _ -> true) parameters)
+| ("palindrome-products", ps) -> edit_palindrome_products ps
 | ("phone-number", ps) -> edit_expected ~f:option_of_null ps
 | ("say", ps) -> edit_say ps
 | ("space-age", ps) -> edit_space_age ps
