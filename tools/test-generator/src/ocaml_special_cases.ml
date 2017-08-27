@@ -62,21 +62,10 @@ let edit_bowling_expected (value: json) = match value with
     if k = "error" then "(Error " ^ json_to_string v ^ ")" else failwith ("Can only handle error value but got " ^ k)
 | _ -> failwith "Bad json value in bowling"
 
-let ocaml_edit_expected ~(stringify: json -> string) ~(slug: string) ~(value: json) = match slug with
-| "hamming" -> optional_int ~none:(-1) value
-| "all-your-base" -> optional_int_list value
-| "say" -> optional_int_or_string ~none:(-1) value
-| "phone-number" -> option_of_null value
-| "connect" -> edit_connect_expected value
-| "change" -> edit_change_expected value
-| "bowling" -> edit_bowling_expected value
-| "binary-search" -> optional_int ~none:(-1) value
-| "forth" -> option_of_null value
-| _ -> stringify value
-
 let edit_say (ps: (string * json) list) =
   let edit = function
   | ("input", v) -> ("input", let v = json_to_string v in if Int.of_string v >= 0 then "(" ^ v ^ "L)" else v ^ "L")
+  | ("expected", v) -> ("expected", optional_int_or_string ~none:(-1) v)
   | (k, ps) -> (k, json_to_string ps) in
   List.map ps ~f:edit
 
@@ -84,6 +73,7 @@ let edit_all_your_base (ps: (string * json) list): (string * string) list =
   let edit = function
   | ("output_base", v) -> let v = json_to_string v in ("output_base", if Int.of_string v >= 0 then v else "(" ^ v ^ ")")
   | ("input_base", v) -> let v = json_to_string v in ("input_base", if Int.of_string v >= 0 then v else "(" ^ v ^ ")")
+  | ("expected", v) -> ("expected", optional_int_list v)
   | (k, v) -> (k, json_to_string v) in
   List.map ps ~f:edit
 
@@ -96,7 +86,6 @@ let edit_dominoes (ps: (string * json) list): (string * string) list =
   | (k, v) -> (k, json_to_string v) in
   List.map ps ~f:edit
 
-
 let edit_space_age (ps: (string * json) list): (string * string) list =
   let edit = function
   | ("planet", v) -> ("planet", json_to_string v |> strip_quotes) 
@@ -107,6 +96,7 @@ let edit_bowling (ps: (string * json) list): (string * string) list =
   let edit = function
   | ("property", v) -> ("property", json_to_string v |> strip_quotes) 
   | ("roll", `Int n) -> ("roll", let s = Int.to_string n in if n < 0 then ("(" ^ s ^ ")") else s)
+  | ("expected", v) -> ("expected", edit_bowling_expected v)
   | (k, v) -> (k, json_to_string v) in
   List.map ps ~f:edit
 
@@ -117,15 +107,26 @@ let edit_binary_search (ps: (string * json) list): (string * string) list =
     "[|" ^ String.concat ~sep:"; " xs ^ "|]" in
   let edit = function
   | ("array", v) -> ("array", as_array_string v) 
+  | ("expected", v) -> ("expected", optional_int ~none:(-1) v)
   | (k, v) -> (k, json_to_string v) in
   List.map ps ~f:edit
 
-let edit_parameters ~(slug: string) (parameters: (string * json) list) = match (slug, parameters) with
-| ("hello-world", ps) -> default_value ~key:"name" ~value:"None" (optional_strings ~f:(fun _x -> true) parameters)
-| ("say", ps) -> edit_say ps
+let rec edit_expected ~(f: json -> string) (parameters: (string * json) list) = match parameters with
+  | [] -> []
+  | ("expected", v) :: rest -> ("expected", f v) :: edit_expected f rest
+  | (k, v) :: rest -> (k, json_to_string v) :: edit_expected f rest
+
+let ocaml_edit_parameters ~(slug: string) (parameters: (string * json) list) = match (slug, parameters) with
 | ("all-your-base", ps) -> edit_all_your_base ps
-| ("dominoes", ps) -> edit_dominoes ps
-| ("space-age", ps) -> edit_space_age ps
-| ("bowling", ps) -> edit_bowling ps
 | ("binary-search", ps) -> edit_binary_search ps
+| ("bowling", ps) -> edit_bowling ps
+| ("change", ps) -> edit_expected ~f:edit_change_expected ps
+| ("connect", ps) -> edit_expected ~f:edit_connect_expected ps
+| ("dominoes", ps) -> edit_dominoes ps
+| ("forth", ps) -> edit_expected ~f:option_of_null ps
+| ("hamming", ps) -> edit_expected ~f:(optional_int ~none:(-1)) ps
+| ("hello-world", ps) -> default_value ~key:"name" ~value:"None" (optional_strings ~f:(fun _ -> true) parameters)
+| ("phone-number", ps) -> edit_expected ~f:option_of_null ps
+| ("say", ps) -> edit_say ps
+| ("space-age", ps) -> edit_space_age ps
 | (_, ps) -> map_elements json_to_string ps

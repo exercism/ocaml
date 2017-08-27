@@ -15,10 +15,6 @@ let stringify = function
   | _ -> failwith "Bad type for stringify"
 
 let ocaml_special_cases_tests = [
-  "for a non special cased slug convert the parameter to a string" >:: (fun _ctx ->
-      assert_equal ~printer:Fn.id "stringified" @@ ocaml_edit_expected ~stringify ~slug:"some-slug" ~value:(`Bool true)
-    );
-
   "an optional int parameter is converted to none if it matches the special value" >:: (fun _ctx ->
       assert_equal "None" @@ optional_int ~none:88 (`Int 88)
     );
@@ -39,5 +35,17 @@ let ocaml_special_cases_tests = [
   "optional_strings replace value with Some(value)" >:: (fun _ctx ->
       assert_equal ~printer:tuples_printer [("key", "(Some \"value\")"); ("key2", "\"value2\"")]
         @@ optional_strings ~f:(fun x -> x = "key") [("key", `String "value"); ("key2", `String "value2")]
+    );
+
+  "option_of_null converts Null to None" >:: (fun _ctx ->
+      assert_equal "None" @@ option_of_null `Null
+    );
+  
+  "option_of_null converts String to Some" >:: (fun _ctx ->
+      assert_equal "(Some \"abc\")" @@ option_of_null (`String "abc")
+    );
+
+  "option_of_null converts List to Some" >:: (fun _ctx ->
+      assert_equal "(Some [1; 2; 3])" @@ option_of_null (`List [`Int 1;`Int 2;`Int 3])
     );
 ]

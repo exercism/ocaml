@@ -7,7 +7,7 @@ let ae exp got _test_ctxt = assert_equal exp got
 
 let single x = Ok (Single x)
 
-let call_parser json = parse_json_text json "expected" "cases" |> Result.map ~f:(fun c -> c.tests)
+let call_parser json = parse_json_text json "cases" |> Result.map ~f:(fun c -> c.tests)
 
 let parser_tests = [
   "gives an error with a json map that does not have the key cases in" >::
@@ -23,35 +23,35 @@ let parser_tests = [
        (call_parser "{\"cases\" : [\"key\"]}");
 
   "parses a single element with a description and expected string output" >::
-    ae (single [{description = "d1"; parameters = []; expected = `String "value"}])
+    ae (single [{description = "d1"; parameters = [("expected", `String "value")]}])
        (call_parser "{\"cases\" : [{\"description\" : \"d1\", \"expected\" : \"value\"}]}");
 
   "parses a single element with a description and expected float output" >::
-    ae (single [{description = "d1"; parameters = []; expected = `Float 100.}])
+    ae (single [{description = "d1"; parameters = [("expected", `Float 100.)]}])
        (call_parser "{\"cases\" : [{\"description\" : \"d1\", \"expected\" : 100.0}]}");
 
   "parses a single element with a description and expected bool output" >::
-    ae (single [{description = "d1"; parameters = []; expected = `Bool true}])
+    ae (single [{description = "d1"; parameters = [("expected", `Bool true)];}])
       (call_parser "{\"cases\" : [{\"description\" : \"d1\", \"expected\" : true}]}");
 
   "parses a single element with a description and expected int list output" >::
-    ae (single [{description = "d1"; parameters = []; expected = `List [`Int 1;`Int 2;`Int 3]}])
+    ae (single [{description = "d1"; parameters = [("expected", `List [`Int 1;`Int 2;`Int 3])]}])
       (call_parser "{\"cases\" : [{\"description\" : \"d1\", \"expected\" : [1, 2, 3]}]}");
 
   "parses a single element with a description and expected null output" >::
-    ae (single [{description = "d1"; parameters = []; expected = `Null}])
+    ae (single [{description = "d1"; parameters = [("expected", `Null)]}])
       (call_parser "{\"cases\" : [{\"description\" : \"d1\", \"expected\" : null}]}");
 
   "parses a single element with an int key value pair" >::
-    ae (single [{description = "d1"; parameters = [("input", `Int 1996)]; expected = `Bool true}])
+    ae (single [{description = "d1"; parameters = [("input", `Int 1996); ("expected", `Bool true)]}])
       (call_parser "{\"cases\" : [{\"description\" : \"d1\", \"input\" : 1996, \"expected\" : true}]}");
 
   "parses a single element with a string key value pair" >::
-    ae (single [{description = "d1"; parameters = [("input", `String "some-string")]; expected = `Int 85}])
+    ae (single [{description = "d1"; parameters = [("input", `String "some-string"); ("expected", `Int 85)]}])
       (call_parser "{\"cases\" : [{\"description\" : \"d1\", \"input\" : \"some-string\", \"expected\" : 85}]}");
 
   "parses a single element with a string list key value pair" >::
-    ae (single [{description = "d1"; parameters = [("input", `List [`String "s1"; `String "s2"])]; expected = `Int 85}])
+    ae (single [{description = "d1"; parameters = [("input", `List [`String "s1"; `String "s2"]); ("expected", `Int 85)]}])
       (call_parser "{\"cases\" : [{\"description\" : \"d1\", \"input\" : [\"s1\", \"s2\"], \"expected\" : 85}]}");
 
   "an element without a description is an Error" >::
@@ -67,7 +67,7 @@ let parser_tests = [
       (call_parser "{\"cases\" : [{\"input\" : 11}]}");
 
   "parses a map in the expected parameter" >::(fun _ctx ->
-      assert_equal (single [{description = "d1"; parameters = []; expected = `Assoc [("one", `Int 1); ("two", `Int 2)]}])
+      assert_equal (single [{description = "d1"; parameters = [("expected", `Assoc [("one", `Int 1); ("two", `Int 2)])]}])
         (call_parser "{\"cases\" : [{\"description\" : \"d1\", \"expected\" : {\"one\": 1, \"two\": 2}}]}");
       );
 
