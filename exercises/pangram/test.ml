@@ -1,4 +1,4 @@
-(* Test/exercise version: "1.1.0" *)
+(* Test/exercise version: "1.2.0" *)
 
 open Core
 open OUnit2
@@ -9,6 +9,8 @@ let ae exp got _test_ctxt = assert_equal ~printer:Bool.to_string exp got
 let tests = [
    "sentence empty" >::
       ae false (is_pangram "");
+   "recognizes a perfect lower case pangram" >::
+      ae true (is_pangram "abcdefghijklmnopqrstuvwxyz");
    "pangram with only lower case" >::
       ae true (is_pangram "the quick brown fox jumps over the lazy dog");
    "missing character 'x'" >::
