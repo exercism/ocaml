@@ -1,4 +1,4 @@
-(* Test/exercise version: "1.2.0" *)
+(* Test/exercise version: "1.3.0" *)
 
 open Core
 open OUnit2
@@ -15,8 +15,8 @@ let tests = [
       ae true (is_pangram "the quick brown fox jumps over the lazy dog");
    "missing character 'x'" >::
       ae false (is_pangram "a quick movement of the enemy will jeopardize five gunboats");
-   "another missing character 'x'" >::
-      ae false (is_pangram "the quick brown fish jumps over the lazy dog");
+   "another missing character, e.g. 'h'" >::
+      ae false (is_pangram "five boxing wizards jump quickly at it");
    "pangram with underscores" >::
       ae true (is_pangram "the_quick_brown_fox_jumps_over_the_lazy_dog");
    "pangram with numbers" >::

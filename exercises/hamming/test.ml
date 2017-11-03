@@ -1,4 +1,4 @@
-(* Test/exercise version: "1.1.0" *)
+(* Test/exercise version: "2.0.1" *)
 
 open Core
 open OUnit2
@@ -39,9 +39,9 @@ let tests = [
    "small distance in long strands" >::
       ae (Some 2) (hamdist "ACCAGGG" "ACTATGG");
    "non-unique character in first strand" >::
-      ae (Some 1) (hamdist "AGA" "AGG");
+      ae (Some 1) (hamdist "AAG" "AAA");
    "non-unique character in second strand" >::
-      ae (Some 1) (hamdist "AGG" "AGA");
+      ae (Some 1) (hamdist "AAA" "AAG");
    "same nucleotides in different positions" >::
       ae (Some 2) (hamdist "TAG" "GAT");
    "large distance" >::
