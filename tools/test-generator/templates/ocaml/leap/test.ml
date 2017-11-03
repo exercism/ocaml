@@ -2,7 +2,7 @@ open Core
 open OUnit2
 open Leap
 
-let ae exp got _test_ctxt = assert_equal exp got
+let ae exp got _test_ctxt = assert_equal exp got ~printer:Int.to_string
 
 let tests = [
 (* TEST
