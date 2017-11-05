@@ -302,6 +302,16 @@
     {
       "core": false,
       "difficulty": 6,
+      "slug": "rectangles",
+      "topics": [
+        "search" 
+      ],
+      "unlocked_by": null,
+      "uuid": "1b491d7e-40db-4782-a8bb-7cb3746588f5"
+    },
+    {
+      "core": false,
+      "difficulty": 6,
       "slug": "list-ops",
       "topics": [
         "functional_programming"
