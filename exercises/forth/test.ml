@@ -1,4 +1,4 @@
-(* Test/exercise version: "1.2.0" *)
+(* Test/exercise version: "1.3.0" *)
 
 open Core
 open OUnit2
@@ -10,8 +10,6 @@ let print_int_list_option (xs: int list option) = match xs with
 let ae exp got _test_ctxt = assert_equal ~printer:print_int_list_option exp got
 
 let parsing_and_numbers_tests = [
-   "empty input results in empty stack" >::
-     ae (Some []) (evaluate []);
    "numbers just get pushed onto the stack" >::
      ae (Some [1; 2; 3; 4; 5]) (evaluate ["1 2 3 4 5"]);
 ]
