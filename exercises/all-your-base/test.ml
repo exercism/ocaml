@@ -1,4 +1,4 @@
-(* Test/exercise version: "1.1.0" *)
+(* Test/exercise version: "2.0.1" *)
 
 open Core
 open OUnit2
@@ -29,28 +29,28 @@ let tests = [
   "15-bit integer" >::
     ae (Some [6; 10; 45]) (convert_bases ~from:97 ~digits:[3; 46; 60] ~target:73);
   "empty list" >::
-    ae None (convert_bases ~from:2 ~digits:[] ~target:10);
+    ae (Some [0]) (convert_bases ~from:2 ~digits:[] ~target:10);
   "single zero" >::
     ae (Some [0]) (convert_bases ~from:10 ~digits:[0] ~target:2);
   "multiple zeros" >::
     ae (Some [0]) (convert_bases ~from:10 ~digits:[0; 0; 0] ~target:2);
   "leading zeros" >::
-    ae (Some [4;2]) (convert_bases ~from:7 ~digits:[0; 6; 0] ~target:10);
-  "first base is one" >::
+    ae (Some [4; 2]) (convert_bases ~from:7 ~digits:[0; 6; 0] ~target:10);
+  "input base is one" >::
     ae None (convert_bases ~from:1 ~digits:[] ~target:10);
-  "first base is zero" >::
+  "input base is zero" >::
     ae None (convert_bases ~from:0 ~digits:[] ~target:10);
-  "first base is negative" >::
+  "input base is negative" >::
     ae None (convert_bases ~from:(-2) ~digits:[1] ~target:10);
   "negative digit" >::
     ae None (convert_bases ~from:2 ~digits:[1; -1; 1; 0; 1; 0] ~target:10);
   "invalid positive digit" >::
     ae None (convert_bases ~from:2 ~digits:[1; 2; 1; 0; 1; 0] ~target:10);
-  "second base is one" >::
+  "output base is one" >::
     ae None (convert_bases ~from:2 ~digits:[1; 0; 1; 0; 1; 0] ~target:1);
-  "second base is zero" >::
+  "output base is zero" >::
     ae None (convert_bases ~from:10 ~digits:[7] ~target:0);
-  "second base is negative" >::
+  "output base is negative" >::
     ae None (convert_bases ~from:2 ~digits:[1] ~target:(-7));
   "both bases are negative" >::
     ae None (convert_bases ~from:(-2) ~digits:[1] ~target:(-7));
