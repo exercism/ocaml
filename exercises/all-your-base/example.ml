@@ -7,7 +7,7 @@ let rec to_digits (b: base) (acc: int list) = function
   | n -> to_digits b (n % b :: acc) (n / b)
 
 let convert_bases ~from ~digits ~target =
-  if from <= 1 || target <= 1 || List.is_empty digits
+  if from <= 1 || target <= 1
   then None
   else
     let open Option.Monad_infix in
