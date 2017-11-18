@@ -2,7 +2,7 @@ open Core
 
 type school = string list Int.Map.t
 
-let create _ = Int.Map.empty
+let empty_school = Int.Map.empty
 
 let add s g school = Map.add_multi ~key:g ~data:s school
 
