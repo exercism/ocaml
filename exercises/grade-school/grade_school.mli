@@ -3,8 +3,7 @@ open Core
 
 type school
 
-(** Create a new empty school *)
-val create : unit -> school
+val empty_school :  school
 
 (** Add a student to a school *)
 val add : string -> int -> school -> school
