@@ -6,4 +6,4 @@ script:
   - bin/configlet lint .
 
 env:
-  - OCAML_VERSION=4.05.0 OPAM_VERSION=1.2.2
+  - OCAML_VERSION=4.06.0 OPAM_VERSION=1.2.2
