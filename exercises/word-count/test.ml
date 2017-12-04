@@ -41,6 +41,9 @@ let tests = [
    "with quotations" >::
       ae [("joe", 1); ("can't", 1); ("tell", 1); ("between", 1); ("large", 2); ("and", 1)]
          (word_count "Joe can't tell between 'large' and large.");
+   "multiple spaces not detected as a word" >::
+      ae [("multiple", 1); ("whitespaces", 1)]
+         (word_count " multiple   whitespaces");
 ]
 
 let () =

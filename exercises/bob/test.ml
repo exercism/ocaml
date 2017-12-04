@@ -1,10 +1,9 @@
-(* Test/exercise version: "1.0.0" *)
+(* Test/exercise version: "1.1.0" *)
 
-open Core
 open OUnit2
 open Bob
 
-let ae exp got _test_ctxt = assert_equal ~printer:String.to_string exp got
+let ae exp got _test_ctxt = assert_equal ~printer:(fun x -> x) exp got
 
 let tests = [
    "stating something" >::
@@ -24,7 +23,7 @@ let tests = [
    "using acronyms in regular speech" >::
       ae "Whatever." (response_for "It's OK if you don't want to go to the DMV.");
    "forceful question" >::
-      ae "Whoa, chill out!" (response_for "WHAT THE HELL WERE YOU THINKING?");
+      ae "Calm down, I know what I'm doing!" (response_for "WHAT THE HELL WERE YOU THINKING?");
    "shouting numbers" >::
       ae "Whoa, chill out!" (response_for "1, 2, 3 GO!");
    "only numbers" >::
