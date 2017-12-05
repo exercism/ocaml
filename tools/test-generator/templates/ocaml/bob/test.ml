@@ -1,4 +1,3 @@
-open Core
 open OUnit2
 open Bob
 
