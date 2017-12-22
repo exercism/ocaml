@@ -1,6 +1,6 @@
 PKG findlib
 PKG core
-PKG ounit
+PKG oUnit
 PKG react
 S *
 B *
