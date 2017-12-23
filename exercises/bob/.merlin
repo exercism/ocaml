@@ -1,5 +1,5 @@
 PKG findlib
 PKG core
-PKG ounit
+PKG oUnit
 S *
 B *
