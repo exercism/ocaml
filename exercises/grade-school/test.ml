@@ -22,12 +22,12 @@ let tests =
                  |> Grade_school.add "Aimee" 2 in
        assert_map_equals (IMap.of_alist_exn [(2, ["Aimee"])])
            (Grade_school.to_map got));
-   "add more students in sassert_map_equals class">:: (fun _ ->
+   "add more students in same class">:: (fun _ ->
        let got = Grade_school.empty_school
-                 |> Grade_school.add "Jassert_map_equalss" 2
+                 |> Grade_school.add "James" 2
                  |> Grade_school.add "Blair" 2
                  |> Grade_school.add "Paul" 2 in
-       assert_map_equals (IMap.of_alist_exn [(2, ["Blair"; "Jassert_map_equalss"; "Paul"])])
+       assert_map_equals (IMap.of_alist_exn [(2, ["Blair"; "James"; "Paul"])])
            (Grade_school.to_map got |> Map.map ~f:(List.sort ~cmp:compare)));
    "add students to different grades">:: (fun _ ->
        let got = Grade_school.empty_school
