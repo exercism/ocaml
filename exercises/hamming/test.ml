@@ -1,6 +1,7 @@
 (* Test/exercise version: "2.0.1" *)
 
 open Core
+open Core.Std
 open OUnit2
 
 let printer n =
