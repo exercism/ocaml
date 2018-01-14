@@ -17,7 +17,6 @@ Convert a number to a string, the contents of which depend on the number's facto
 - 34 has four factors: 1, 2, 17, and 34.
   - In raindrop-speak, this would be "34".
 
-
 ## Getting Started
 For installation and learning resources, refer to the
 [exercism help page](http://exercism.io/languages/ocaml).

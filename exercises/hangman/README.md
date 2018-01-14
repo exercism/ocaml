@@ -17,7 +17,6 @@ be described in the language/track specific files of the exercise.
 [Hangman]: https://en.wikipedia.org/wiki/Hangman_%28game%29
 [frp]: https://en.wikipedia.org/wiki/Functional_reactive_programming
 
-
 ## Getting Started
 For installation and learning resources, refer to the
 [exercism help page](http://exercism.io/languages/ocaml).
@@ -55,7 +54,6 @@ GitHub is the home for all of the Ocaml exercises.
 
 If you have feedback about an exercise, or want to help implementing a new
 one, head over there and create an issue.  We'll do our best to help you!
-
 
 ## Submitting Incomplete Solutions
 It's possible to submit an incomplete solution so you can see how others have completed the exercise.

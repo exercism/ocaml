@@ -36,7 +36,6 @@ Given the range `[10, 99]` (both inclusive)...
 The smallest palindrome product is `121`. Its factors are `(11, 11)`.
 The largest palindrome product is `9009`. Its factors are `(91, 99)`.
 
-
 ## Getting Started
 For installation and learning resources, refer to the
 [exercism help page](http://exercism.io/languages/ocaml).

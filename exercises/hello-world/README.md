@@ -14,7 +14,6 @@ The objectives are simple:
 
 If everything goes well, you will be ready to fetch your first real exercise.
 
-
 ## Getting Started
 For installation and learning resources, refer to the
 [exercism help page](http://exercism.io/languages/ocaml).

@@ -22,7 +22,6 @@ In the end, you should be able to:
 Note that all our students only have one name.  (It's a small town, what
 do you want?)
 
-
 ## Getting Started
 For installation and learning resources, refer to the
 [exercism help page](http://exercism.io/languages/ocaml).

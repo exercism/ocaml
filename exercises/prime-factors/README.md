@@ -29,7 +29,6 @@ You can check this yourself:
 - = 60
 - Success!
 
-
 ## Getting Started
 For installation and learning resources, refer to the
 [exercism help page](http://exercism.io/languages/ocaml).
