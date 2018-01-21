@@ -1,9 +1,8 @@
 open Core
 
 let square_root_trunc n =
-    (* Square root is not defined on int64 but it is on big_int *)
-    let open Big_int in
-    big_int_of_int64 n |> sqrt_big_int |> int64_of_big_int
+    (* Square root is not defined on int64 *)
+    Int64.to_float n |> sqrt |> Int64.of_float
 
 let rec factors_of' = function
     | 1L -> []
