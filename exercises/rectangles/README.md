@@ -1,3 +1,67 @@
+# Rectangles
+
+Count the rectangles in an ASCII diagram like the one below.
+
+```text
+   +--+
+  ++  |
++-++--+
+|  |  |
++--+--+
+```
+
+The above diagram contains 6 rectangles:
+
+```text
+
+
++-----+
+|     |
++-----+
+```
+
+```text
+   +--+
+   |  |
+   |  |
+   |  |
+   +--+
+```
+
+```text
+   +--+
+   |  |
+   +--+
+
+
+```
+
+```text
+
+
+   +--+
+   |  |
+   +--+
+```
+
+```text
+
+
++--+
+|  |
++--+
+```
+
+```text
+
+  ++
+  ++
+
+
+```
+
+You may assume that the input is always a proper rectangle (i.e. the length of
+every line equals the length of the first line).
 
 ## Getting Started
 For installation and learning resources, refer to the
@@ -36,3 +100,6 @@ GitHub is the home for all of the Ocaml exercises.
 
 If you have feedback about an exercise, or want to help implementing a new
 one, head over there and create an issue.  We'll do our best to help you!
+
+## Submitting Incomplete Solutions
+It's possible to submit an incomplete solution so you can see how others have completed the exercise.

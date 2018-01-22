@@ -6,6 +6,7 @@ Implement general base conversion. Given a number in base **a**,
 represented as a sequence of digits, convert it to base **b**.
 
 ## Note
+
 - Try to implement the conversion yourself.
   Do not use something else to perform the conversion for you.
 
@@ -28,9 +29,7 @@ The number 1120, *in base 3*, means:
 
 I think you got the idea!
 
-
 *Yes. Those three numbers above are exactly the same. Congratulations!*
-
 
 ## Getting Started
 For installation and learning resources, refer to the
@@ -69,7 +68,6 @@ GitHub is the home for all of the Ocaml exercises.
 
 If you have feedback about an exercise, or want to help implementing a new
 one, head over there and create an issue.  We'll do our best to help you!
-
 
 ## Submitting Incomplete Solutions
 It's possible to submit an incomplete solution so you can see how others have completed the exercise.

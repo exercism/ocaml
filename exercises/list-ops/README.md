@@ -6,7 +6,6 @@ In functional languages list operations like `length`, `map`, and
 `reduce` are very common. Implement a series of basic list operations,
 without using existing functions.
 
-
 ## Getting Started
 For installation and learning resources, refer to the
 [exercism help page](http://exercism.io/languages/ocaml).
@@ -44,7 +43,6 @@ GitHub is the home for all of the Ocaml exercises.
 
 If you have feedback about an exercise, or want to help implementing a new
 one, head over there and create an issue.  We'll do our best to help you!
-
 
 ## Submitting Incomplete Solutions
 It's possible to submit an incomplete solution so you can see how others have completed the exercise.

@@ -3,7 +3,6 @@
 Given a string containing brackets `[]`, braces `{}` and parentheses `()`,
 verify that all the pairs are matched and nested correctly.
 
-
 ## Getting Started
 For installation and learning resources, refer to the
 [exercism help page](http://exercism.io/languages/ocaml).

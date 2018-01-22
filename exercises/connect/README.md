@@ -18,7 +18,7 @@ computes the winner (or lack thereof). Note that all games need not be "fair".
 The boards look like this (with spaces added for readability, which won't be in
 the representation passed to your code):
 
-```        
+```text
 . O . X .
  . X X O .
   O O O X .
@@ -29,7 +29,6 @@ the representation passed to your code):
 "Player `O`" plays from top to bottom, "Player `X`" plays from left to right. In
 the above example `O` has made a connection from left to right but nobody has
 won since `O` didn't connect top and bottom.
-
 
 ## Getting Started
 For installation and learning resources, refer to the
@@ -68,7 +67,6 @@ GitHub is the home for all of the Ocaml exercises.
 
 If you have feedback about an exercise, or want to help implementing a new
 one, head over there and create an issue.  We'll do our best to help you!
-
 
 ## Submitting Incomplete Solutions
 It's possible to submit an incomplete solution so you can see how others have completed the exercise.
