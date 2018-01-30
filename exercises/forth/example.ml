@@ -20,14 +20,14 @@ let handle_binary_op f = function
 
 let std_vocabulary: vocabulary =
   String.Map.empty 
-  |> Map.add ~key:"+" ~data:(handle_binary_op (+))
-  |> Map.add ~key:"-" ~data:(handle_binary_op (-))
-  |> Map.add ~key:"*" ~data:(handle_binary_op ( * ))
-  |> Map.add ~key:"/" ~data:(function | x :: y :: xs -> if x = 0 then None else Some ((y/x) :: xs) | _ -> None)
-  |> Map.add ~key:"DUP" ~data:(function | x :: xs -> Some (x :: x :: xs) | _ -> None)
-  |> Map.add ~key:"DROP" ~data:(function | _ :: xs -> Some xs | _ -> None)
-  |> Map.add ~key:"SWAP" ~data:(function | x :: y :: xs -> Some (y :: x :: xs) | _ -> None)
-  |> Map.add ~key:"OVER" ~data:(function | x :: y :: xs -> Some (y :: x :: y :: xs) | _ -> None)
+  |> Map.set ~key:"+" ~data:(handle_binary_op (+))
+  |> Map.set ~key:"-" ~data:(handle_binary_op (-))
+  |> Map.set ~key:"*" ~data:(handle_binary_op ( * ))
+  |> Map.set ~key:"/" ~data:(function | x :: y :: xs -> if x = 0 then None else Some ((y/x) :: xs) | _ -> None)
+  |> Map.set ~key:"DUP" ~data:(function | x :: xs -> Some (x :: x :: xs) | _ -> None)
+  |> Map.set ~key:"DROP" ~data:(function | _ :: xs -> Some xs | _ -> None)
+  |> Map.set ~key:"SWAP" ~data:(function | x :: y :: xs -> Some (y :: x :: xs) | _ -> None)
+  |> Map.set ~key:"OVER" ~data:(function | x :: y :: xs -> Some (y :: x :: y :: xs) | _ -> None)
 
 let (<|>) o1 o2 = match o1 with
 | None -> o2
@@ -71,7 +71,7 @@ let rec handle_def vocabulary stack words: (vocabulary * stack) option =
     then None
     else
       let def = List.drop words 1 in
-      let vocabulary = Map.add vocabulary ~key:new_vocab ~data:(fun stack -> Option.map ~f:(snd >|> List.rev) @@ evaluate_stack stack vocabulary def) in
+      let vocabulary = Map.set vocabulary ~key:new_vocab ~data:(fun stack -> Option.map ~f:(snd >|> List.rev) @@ evaluate_stack stack vocabulary def) in
       Some (vocabulary, stack)
 
 and evaluate_sentence_or_fail (vocabulary: vocabulary) (stack: stack) (sentence: sentence): (vocabulary * stack) option = match sentence with
