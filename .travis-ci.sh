@@ -2,7 +2,7 @@
 OPAM_DEPENDS="ocamlfind core ounit react ppx_deriving"
 
 case "$OCAML_VERSION,$OPAM_VERSION" in
-    4.06.0,1.2.2) ppa=avsm/ocaml42+opam12 ;;
+    4.06.1,1.2.2) ppa=avsm/ocaml42+opam12 ;;
     *) echo Unknown $OCAML_VERSION,$OPAM_VERSION; exit 1 ;;
 esac
 
