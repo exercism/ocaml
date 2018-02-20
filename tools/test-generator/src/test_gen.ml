@@ -13,7 +13,7 @@ let is_directory =
 
 let home_dir = Option.value_exn (Sys.getenv "HOME")
 
-let default_generated name = Option.value ~default:(home_dir ^ "/.x" ^ name ^ "-generated")
+let default_generated name = Option.value ~default:(home_dir ^ "/.exercism-" ^ name ^ "-generated")
 
 let command =
   let open Command.Let_syntax in
@@ -23,7 +23,7 @@ let command =
     [%map_open
       let language = flag "l" (optional string) ~doc:"language to generate tests for"
       and templates_folder = flag "t" (optional_with_default "./templates" is_directory) ~doc:"string Directory containing templates."
-      and canonical_data_folder = flag "c" (optional_with_default "./templates" is_directory) ~doc:"string Directory containing templates."
+      and canonical_data_folder = flag "c" (optional_with_default "../../../problem-specifications/exercises" is_directory) ~doc:"string Directory containing canonical data."
       and output_folder = flag "-o" (optional string) ~doc:"string Directory to output generated tests."
       and generated_folder = flag "-g" (optional string) ~doc:"string Directory to backup generated tests."
       and filter = flag "-f" (optional string) ~doc:"string Filter out files not matching this string."
