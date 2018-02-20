@@ -8,12 +8,22 @@ type error =
     TestMustHaveKeyCalledCases of string | ExpectingListOfCases | ExpectingMapForCase |
     NoDescription | BadDescription | UnrecognizedJson [@@deriving eq, show]
 
+let extract_parameters case =
+  let open Result.Monad_infix in
+  find_note case "input" UnrecognizedJson >>= fun input ->
+  let input = to_assoc_note UnrecognizedJson input in
+  find_note case "expected" UnrecognizedJson >>= fun expected ->
+  match input with
+  | Ok input -> Ok (("expected", expected) :: input)
+  | e -> e
+    
 let parse_case_assoc (parameters: (string * json) list): (case, error) Result.t =
   let find name e = List.Assoc.find parameters ~equal:String.equal name |> Result.of_option ~error:e in
   let test_parameters = List.Assoc.remove parameters ~equal:String.equal "description" in
   let open Result.Monad_infix in
   find "description" NoDescription >>=
   to_string_note BadDescription >>= fun description ->
+  extract_parameters test_parameters >>= fun test_parameters ->
   Ok {description = description; parameters = test_parameters}
 
 let parse_case (s: json): (case, error) Result.t = match s with
@@ -22,8 +32,8 @@ let parse_case (s: json): (case, error) Result.t = match s with
 
 let parse_cases (text: string) (cases_key: string): (json, error) Result.t =
   match from_string text |> member cases_key with
-    | `Null -> Error (TestMustHaveKeyCalledCases cases_key)
-    | json -> Ok json
+  | `Null -> Error (TestMustHaveKeyCalledCases cases_key)
+  | json -> Ok json
 
 let parse_single (text: string) (cases_key: string): (tests, error) Result.t =
   let open Result.Monad_infix in
@@ -37,11 +47,13 @@ let rec to_cases case: (case list, error) Result.t =
   find_note case "description" NoDescription >>= to_string_note BadDescription >>= fun desc ->
   let cases = List.Assoc.find case ~equal:String.equal "cases" in
   match cases with
-  | Some cases -> to_list_note UnrecognizedJson cases >>= fun cases ->
+  | Some cases -> 
+      to_list_note UnrecognizedJson cases >>= fun cases ->
       List.map cases ~f:(to_assoc_note UnrecognizedJson) |> sequence >>= fun x ->
       List.map x ~f:to_cases |> sequence |> Result.map ~f:List.concat
   | None -> 
-      Result.return [{description = desc; parameters = case}]
+      extract_parameters case >>= fun parameters ->
+      Result.return [{description = desc; parameters = parameters}]
 
 let convert_cases_description_to_name desc =
   String.lowercase desc |> String.substr_replace_all ~pattern:" " ~with_:"_"

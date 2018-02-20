@@ -15,7 +15,7 @@
   "cases": [
     {
        "description": "parses normal text as a paragraph",
-       "input": "This will be a paragraph",
+       "input": { "input" : "This will be a paragraph" },
        "expected": "<p>This will be a paragraph</p>"
     }
   ]
