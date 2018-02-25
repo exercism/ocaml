@@ -69,22 +69,22 @@ let edit_bowling_expected (value: json) = match value with
 
 let edit_say (ps: (string * json) list) =
   let edit = function
-  | ("input", v) -> ("input", let v = json_to_string v in if Int.of_string v >= 0 then "(" ^ v ^ "L)" else v ^ "L")
+  | ("number", v) -> ("number", let v = json_to_string v in if Int.of_string v >= 0 then "(" ^ v ^ "L)" else v ^ "L")
   | ("expected", v) -> ("expected", optional_int_or_string ~none:(-1) v)
   | (k, ps) -> (k, json_to_string ps) in
   List.map ps ~f:edit
 
 let edit_all_your_base (ps: (string * json) list): (string * string) list =
   let edit = function
-  | ("output_base", v) -> let v = json_to_string v in ("output_base", if Int.of_string v >= 0 then v else "(" ^ v ^ ")")
-  | ("input_base", v) -> let v = json_to_string v in ("input_base", if Int.of_string v >= 0 then v else "(" ^ v ^ ")")
+  | ("outputBase", v) -> let v = json_to_string v in ("outputBase", if Int.of_string v >= 0 then v else "(" ^ v ^ ")")
+  | ("inputBase", v) -> let v = json_to_string v in ("inputBase", if Int.of_string v >= 0 then v else "(" ^ v ^ ")")
   | ("expected", v) -> ("expected", optional_int_list v)
   | (k, v) -> (k, json_to_string v) in
   List.map ps ~f:edit
 
 let edit_dominoes (ps: (string * json) list): (string * string) list =
   let edit (p: (string * json)) = match p with
-  | ("input", `List j) -> ("input", "[" ^ (List.map ~f:two_elt_list_to_tuple j |> String.concat ~sep:"; ") ^ "]")
+  | ("dominoes", `List j) -> ("dominoes", "[" ^ (List.map ~f:two_elt_list_to_tuple j |> String.concat ~sep:"; ") ^ "]")
   | (k, v) -> (k, json_to_string v) in
   List.map ps ~f:edit
 
@@ -149,7 +149,6 @@ let ocaml_edit_parameters ~(slug: string) (parameters: (string * json) list) = m
 | ("dominoes", ps) -> edit_dominoes ps
 | ("forth", ps) -> edit_expected ~f:option_of_null ps
 | ("hamming", ps) -> edit_expected ~f:(optional_int ~none:(-1)) ps
-| ("hello-world", ps) -> default_value ~key:"name" ~value:"None" (optional_strings ~f:(fun _ -> true) parameters)
 | ("palindrome-products", ps) -> edit_palindrome_products ps
 | ("phone-number", ps) -> edit_expected ~f:option_of_null ps
 | ("say", ps) -> edit_say ps

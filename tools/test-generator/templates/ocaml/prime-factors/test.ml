@@ -17,7 +17,7 @@ let to_int64s = List.map ~f:Int64.of_int
 let tests = [
 (* TEST
    "$description" >::
-      ae (to_int64s $expected) (factors_of $(input)L);
+      ae (to_int64s $expected) (factors_of $(value)L);
    END TEST *)
 ]
 

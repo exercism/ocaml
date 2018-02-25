@@ -8,7 +8,7 @@ let tests = [
 (* TEST
    "$description" >:: (
       ae $expected
-        (in_english $input));
+        (in_english $number));
    END TEST *)
   "all numbers from 1 to 10_000 can be spelt">::(fun _ ->
       assert_bool "range test" (Sequence.range 0 10_000

@@ -17,7 +17,7 @@ let ae exp got =
 let tests = [
 (* TEST
   "$description" >:: (fun _ ->
-    let b = $input in
+    let b = $minefield in
     let expected = $expected in
     ae expected (annotate b)
   );

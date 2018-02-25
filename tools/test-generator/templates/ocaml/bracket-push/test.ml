@@ -8,7 +8,7 @@ let ae exp got _test_ctxt =
 let tests = [
 (* TEST
   "$description" >::
-    ae $expected (are_balanced $input);
+    ae $expected (are_balanced $value);
 END TEST *)
 ]
 

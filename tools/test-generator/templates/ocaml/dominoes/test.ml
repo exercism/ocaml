@@ -38,7 +38,7 @@ let assert_chain input hasChain =
 let tests = [
 (* TEST
   "$description" >::
-    assert_chain $input $expected;
+    assert_chain $dominoes $expected;
 END TEST *)
 ]
 

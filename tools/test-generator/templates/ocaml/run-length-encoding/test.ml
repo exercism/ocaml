@@ -7,7 +7,7 @@ let ae exp got _test_ctxt = assert_equal exp got ~printer:Fn.id
 let (* SUITE run-length_encode_a_string *)encode_tests = [
 (* TEST
    "$description" >::
-     ae $expected (encode $input);
+     ae $expected (encode $string);
    END TEST *)
 ]
 (* END SUITE *)
@@ -15,7 +15,7 @@ let (* SUITE run-length_encode_a_string *)encode_tests = [
 let (* SUITE run-length_decode_a_string *)decode_tests = [
 (* TEST
    "$description" >::
-     ae $expected (decode $input);
+     ae $expected (decode $string);
    END TEST *)
 ]
 (* END SUITE *)
@@ -23,7 +23,7 @@ let (* SUITE run-length_decode_a_string *)decode_tests = [
 let (* SUITE encode_and_then_decode *)encode_and_then_decode_tests = [
 (* TEST
    "$description" >::
-     ae $expected (encode $input |> decode);
+     ae $expected (encode $string |> decode);
    END TEST *)
 ]
 (* END SUITE *)

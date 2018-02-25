@@ -7,7 +7,7 @@ let ae exp got _test_ctxt = assert_equal exp got ~printer:Int.to_string
 let tests = [
 (* TEST
    "$description" >::
-      ae $expected (count_rectangles $input);
+      ae $expected (count_rectangles $strings);
    END TEST *)
 ]
 

@@ -17,7 +17,7 @@ let tests = [
 (* TEST
    "$description" >::
       ae ($expected)
-         ($property ~min:$input_min ~max:$input_max);
+         ($property ~min:$min ~max:$max);
    END TEST *)
 ]
 

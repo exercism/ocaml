@@ -7,7 +7,7 @@ let ae exp got _test_ctxt = assert_equal ~printer:Bool.to_string exp got
 let tests = [
 (* TEST
    "$description" >::
-      ae $expected (is_pangram $input);
+      ae $expected (is_pangram $sentence);
    END TEST *)
 ]
 
