@@ -8,7 +8,7 @@ let assert_valid expected input _test_ctxt =
 let tests = [
 (* TEST
   "$description" >::
-    assert_valid $expected $input;
+    assert_valid $expected $value;
 END TEST *)
 ]
 

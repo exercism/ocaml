@@ -12,7 +12,7 @@ let ae exp got _test_ctxt =
 let tests = [
 (* TEST
   "$description" >::
-    ae $expected (convert_bases ~from:$input_base ~digits:$input_digits ~target:$output_base);
+    ae $expected (convert_bases ~from:$inputBase ~digits:$digits ~target:$outputBase);
 END TEST *)
 ]
 

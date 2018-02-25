@@ -2,12 +2,12 @@ open Core
 open OUnit2
 open Leap
 
-let ae exp got _test_ctxt = assert_equal exp got ~printer:Int.to_string
+let ae exp got _test_ctxt = assert_equal exp got ~printer:Bool.to_string
 
 let tests = [
 (* TEST
   "$description" >::
-    ae $expected (leap_year $input);
+    ae $expected (leap_year $year);
 END TEST *)
 ]
 
