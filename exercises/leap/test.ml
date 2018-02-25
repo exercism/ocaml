@@ -1,10 +1,10 @@
-(* Test/exercise version: "1.2.0" *)
+(* Test/exercise version: "1.3.0" *)
 
 open Core
 open OUnit2
 open Leap
 
-let ae exp got _test_ctxt = assert_equal exp got
+let ae exp got _test_ctxt = assert_equal exp got ~printer:Bool.to_string
 
 let tests = [
   "year not divisible by 4: common year" >::

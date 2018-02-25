@@ -54,7 +54,7 @@ let call_callbacks cell =
   Hashtbl.iter cell.callbacks ~f:(apply !(cell.value));;
 
 let dedup_cells (cells: 'a cell list): 'a cell list = 
-  List.dedup cells ~compare:(fun c1 c2 -> Int.compare c1.cell_id c2.cell_id)
+  List.dedup_and_sort cells ~compare:(fun c1 c2 -> Int.compare c1.cell_id c2.cell_id)
 
 let update_compute_cell_value (cell: 'a cell) = 
   let computed = match cell.cell_type with
