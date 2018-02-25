@@ -3,7 +3,11 @@ open OUnit2
 open Parser
 open Model
 
-let ae exp got _test_ctxt = assert_equal exp got
+let printer (r: (Model.tests, Parser.error) Result.t): string = match r with
+| Ok tests -> tests_to_string tests
+| Error e -> "error"
+
+let ae (exp: (Model.tests, Parser.error) Result.t) (got: (Model.tests, Parser.error) Result.t) _test_ctxt = assert_equal exp got ~printer
 
 let single x = Ok (Single x)
 
@@ -24,35 +28,35 @@ let parser_tests = [
 
   "parses a single element with a description and expected string output" >::
     ae (single [{description = "d1"; parameters = [("expected", `String "value")]}])
-       (call_parser "{\"cases\" : [{\"description\" : \"d1\", \"expected\" : \"value\"}]}");
+       (call_parser "{\"cases\" : [{\"description\" : \"d1\", \"input\" : {}, \"expected\" : \"value\"}]}");
 
   "parses a single element with a description and expected float output" >::
     ae (single [{description = "d1"; parameters = [("expected", `Float 100.)]}])
-       (call_parser "{\"cases\" : [{\"description\" : \"d1\", \"expected\" : 100.0}]}");
+       (call_parser "{\"cases\" : [{\"description\" : \"d1\", \"input\" : {}, \"expected\" : 100.0}]}");
 
   "parses a single element with a description and expected bool output" >::
     ae (single [{description = "d1"; parameters = [("expected", `Bool true)];}])
-      (call_parser "{\"cases\" : [{\"description\" : \"d1\", \"expected\" : true}]}");
+      (call_parser "{\"cases\" : [{\"description\" : \"d1\", \"input\" : {}, \"expected\" : true}]}");
 
   "parses a single element with a description and expected int list output" >::
     ae (single [{description = "d1"; parameters = [("expected", `List [`Int 1;`Int 2;`Int 3])]}])
-      (call_parser "{\"cases\" : [{\"description\" : \"d1\", \"expected\" : [1, 2, 3]}]}");
+      (call_parser "{\"cases\" : [{\"description\" : \"d1\", \"input\" : {}, \"expected\" : [1, 2, 3]}]}");
 
   "parses a single element with a description and expected null output" >::
     ae (single [{description = "d1"; parameters = [("expected", `Null)]}])
-      (call_parser "{\"cases\" : [{\"description\" : \"d1\", \"expected\" : null}]}");
+      (call_parser "{\"cases\" : [{\"description\" : \"d1\", \"input\" : {}, \"expected\" : null}]}");
 
   "parses a single element with an int key value pair" >::
-    ae (single [{description = "d1"; parameters = [("input", `Int 1996); ("expected", `Bool true)]}])
-      (call_parser "{\"cases\" : [{\"description\" : \"d1\", \"input\" : 1996, \"expected\" : true}]}");
+    ae (single [{description = "d1"; parameters = [("expected", `Bool true); ("year", `Int 1996)]}])
+      (call_parser "{\"cases\" : [{\"description\" : \"d1\", \"input\": { \"year\" : 1996 }, \"expected\" : true}]}");
 
   "parses a single element with a string key value pair" >::
-    ae (single [{description = "d1"; parameters = [("input", `String "some-string"); ("expected", `Int 85)]}])
-      (call_parser "{\"cases\" : [{\"description\" : \"d1\", \"input\" : \"some-string\", \"expected\" : 85}]}");
+    ae (single [{description = "d1"; parameters = [("expected", `Int 85); ("string", `String "some-string")]}])
+      (call_parser "{\"cases\" : [{\"description\" : \"d1\", \"input\": { \"string\" : \"some-string\" }, \"expected\" : 85}]}");
 
   "parses a single element with a string list key value pair" >::
-    ae (single [{description = "d1"; parameters = [("input", `List [`String "s1"; `String "s2"]); ("expected", `Int 85)]}])
-      (call_parser "{\"cases\" : [{\"description\" : \"d1\", \"input\" : [\"s1\", \"s2\"], \"expected\" : 85}]}");
+    ae (single [{description = "d1"; parameters = [("expected", `Int 85); ("list", `List [`String "s1"; `String "s2"])]}])
+      (call_parser "{\"cases\" : [{\"description\" : \"d1\", \"input\" : { \"list\" : [\"s1\", \"s2\"] }, \"expected\" : 85}]}");
 
   "an element without a description is an Error" >::
     ae (Error NoDescription)
@@ -68,12 +72,12 @@ let parser_tests = [
 
   "parses a map in the expected parameter" >::(fun _ctx ->
       assert_equal (single [{description = "d1"; parameters = [("expected", `Assoc [("one", `Int 1); ("two", `Int 2)])]}])
-        (call_parser "{\"cases\" : [{\"description\" : \"d1\", \"expected\" : {\"one\": 1, \"two\": 2}}]}");
+        (call_parser "{\"cases\" : [{\"description\" : \"d1\", \"input\" : {}, \"expected\" : {\"one\": 1, \"two\": 2}}]}");
       );
 
   "parses leap.json" >::(fun ctxt ->
       match call_parser @@ In_channel.read_all "test/leap.json" with
-      | Ok (Single p) -> assert_equal 7 (List.length p)
+      | Ok (Single p) -> assert_equal 4 (List.length p)
       | Ok (Suite p) -> assert_failure "was suite"
       | Error e -> assert_failure ("failed to parse leap.json: " ^ show_error e)
   );

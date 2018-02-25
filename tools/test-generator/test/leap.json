@@ -1,39 +1,38 @@
 {
-   "cases": [
-      {
-         "description": "leap year",
-         "input": 1996,
-         "expected": true
+  "exercise": "leap",
+  "version": "1.3.0",
+  "cases": [
+    {
+      "description": "year not divisible by 4: common year",
+      "property": "leapYear",
+      "input": {
+        "year": 2015
       },
-      {
-         "description": "standard and odd year",
-         "input": 1997,
-         "expected": false
+      "expected": false
+    },
+    {
+      "description": "year divisible by 4, not divisible by 100: leap year",
+      "property": "leapYear",
+      "input": {
+        "year": 1996
       },
-      {
-         "description": "standard even year",
-         "input": 1998,
-         "expected": false
+      "expected": true
+    },
+    {
+      "description": "year divisible by 100, not divisible by 400: common year",
+      "property": "leapYear",
+      "input": {
+        "year": 2100
       },
-      {
-         "description": "standard nineteenth century",
-         "input": 1900,
-         "expected": false
+      "expected": false
+    },
+    {
+      "description": "year divisible by 400: leap year",
+      "property": "leapYear",
+      "input": {
+        "year": 2000
       },
-      {
-         "description": "standard eighteenth century",
-         "input": 1800,
-         "expected": false
-      },
-      {
-         "description": "leap twenty fourth century",
-         "input": 2400,
-         "expected": true
-      },
-      {
-         "description": "leap y2k",
-         "input": 2000,
-         "expected": true
-      }
-   ]
+      "expected": true
+    }
+  ]
 }
