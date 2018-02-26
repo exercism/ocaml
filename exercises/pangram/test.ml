@@ -1,4 +1,4 @@
-(* Test/exercise version: "1.3.0" *)
+(* Test/exercise version: "1.4.0" *)
 
 open Core
 open OUnit2

@@ -1,4 +1,4 @@
-(* Test/exercise version: "1.2.0" *)
+(* Test/exercise version: "1.4.0" *)
 
 open Core
 open OUnit2
@@ -32,10 +32,14 @@ let tests = [
     ae None (number "123-abc-7890");
   "invalid with punctuations" >::
     ae None (number "123-@:!-7890");
-  "invalid if area code does not start with 2-9" >::
+  "invalid if area code starts with 0" >::
+    ae None (number "(023) 456-7890");
+  "invalid if area code starts with 1" >::
     ae None (number "(123) 456-7890");
-  "invalid if exchange code does not start with 2-9" >::
+  "invalid if exchange code starts with 0" >::
     ae None (number "(223) 056-7890");
+  "invalid if exchange code starts with 1" >::
+    ae None (number "(223) 156-7890");
 ]
 
 let () =

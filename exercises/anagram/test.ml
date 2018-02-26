@@ -1,4 +1,4 @@
-(* Test/exercise version: "1.0.1" *)
+(* Test/exercise version: "1.2.0" *)
 
 open Core
 open OUnit2
@@ -11,10 +11,6 @@ let ae exp got _test_ctxt =
 let tests = [
   "no matches" >::
     ae [] (anagrams "diaper" ["hello"; "world"; "zombies"; "pants"]);
-  "detects simple anagram" >::
-    ae ["tan"] (anagrams "ant" ["tan"; "stand"; "at"]);
-  "does not detect false positives" >::
-    ae [] (anagrams "galea" ["eagle"]);
   "detects two anagrams" >::
     ae ["stream"; "maters"] (anagrams "master" ["stream"; "pigeon"; "maters"]);
   "does not detect anagram subsets" >::
@@ -23,8 +19,6 @@ let tests = [
     ae ["inlets"] (anagrams "listen" ["enlists"; "google"; "inlets"; "banana"]);
   "detects three anagrams" >::
     ae ["gallery"; "regally"; "largely"] (anagrams "allergy" ["gallery"; "ballerina"; "regally"; "clergy"; "largely"; "leading"]);
-  "does not detect identical words" >::
-    ae ["cron"] (anagrams "corn" ["corn"; "dark"; "Corn"; "rank"; "CORN"; "cron"; "park"]);
   "does not detect non-anagrams with identical checksum" >::
     ae [] (anagrams "mass" ["last"]);
   "detects anagrams case-insensitively" >::
@@ -33,8 +27,6 @@ let tests = [
     ae ["carthorse"] (anagrams "Orchestra" ["cashregister"; "carthorse"; "radishes"]);
   "detects anagrams using case-insensitive possible matches" >::
     ae ["Carthorse"] (anagrams "orchestra" ["cashregister"; "Carthorse"; "radishes"]);
-  "does not detect a word as its own anagram" >::
-    ae [] (anagrams "banana" ["Banana"]);
   "does not detect a anagram if the original word is repeated" >::
     ae [] (anagrams "go" ["go Go GO"]);
   "anagrams must use all letters exactly once" >::

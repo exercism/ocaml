@@ -1,4 +1,4 @@
-(* Test/exercise version: "1.0.0" *)
+(* Test/exercise version: "1.2.0" *)
 
 open Core
 open OUnit2
@@ -25,6 +25,8 @@ let tests = [
       ae "XXVII" (to_roman 27);
    "48 is not 50 - 2 but rather 40 + 8" >::
       ae "XLVIII" (to_roman 48);
+   "49 is not 40 + 5 + 4 but rather 50 - 10 + 10 - 1" >::
+      ae "XLIX" (to_roman 49);
    "50 is a single L" >::
       ae "LIX" (to_roman 59);
    "90, being 100 - 10, is XC" >::
