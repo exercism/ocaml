@@ -1,12 +1,9 @@
 (* Test/exercise version: "1.0.1" *)
 
-open Core
 open OUnit2
 open Anagram
 
-let ae exp got _test_ctxt =
-  let printer = List.to_string ~f:String.to_string in
-  assert_equal exp got ~cmp:(List.equal ~equal:String.equal) ~printer
+let ae exp got _test_ctxt = assert_equal exp got ~printer:(String.concat ";")
 
 let tests = [
   "no matches" >::

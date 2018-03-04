@@ -2,7 +2,7 @@ test: test.native
 	@./test.native
 
 test.native: *.ml *.mli
-	@corebuild -r -quiet -pkg oUnit test.native
+	@ocamlbuild -r -quiet -pkg oUnit -pkg base test.native
 
 clean:
 	rm -rf _build
