@@ -2,7 +2,7 @@
 
 (executable
  ((name test)
-  (libraries (core oUnit))
+  (libraries (core_kernel oUnit))
   (preprocess (pps (ppx_sexp_conv)))
  ))
 

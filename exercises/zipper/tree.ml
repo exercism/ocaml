@@ -1,4 +1,4 @@
-open Core
+open Core_kernel
 
 type 'a t = { value : 'a; left : 'a t option; right : 'a t option }
   [@@deriving sexp]

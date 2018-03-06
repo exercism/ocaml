@@ -1,4 +1,4 @@
-open Core
+open Core_kernel
 
 type 'a trail =
   | L of 'a * 'a Tree.t option * 'a trail (* Left path taken *)

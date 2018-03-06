@@ -1,6 +1,5 @@
 open OUnit2
 open React
-
 open Hangman
 
 (* Assert Equals Int *)
