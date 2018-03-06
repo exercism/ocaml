@@ -1,4 +1,4 @@
-(* Test/exercise version: "1.0.0" *)
+(* Test/exercise version: "1.1.0" *)
 
 open Base
 open OUnit2
@@ -10,7 +10,7 @@ let assert_valid expected input _test_ctxt =
 let tests = [
   "single digit strings can not be valid" >::
     assert_valid false "1";
-  "A single zero is invalid" >::
+  "a single zero is invalid" >::
     assert_valid false "0";
   "a simple valid SIN that remains valid if reversed" >::
     assert_valid true "059";

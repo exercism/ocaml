@@ -1,4 +1,4 @@
-(* Test/exercise version: "1.1.0" *)
+(* Test/exercise version: "1.3.0" *)
 
 open OUnit2
 open Acronym
@@ -13,11 +13,9 @@ let tests = [
     ae "ROR" (acronym "Ruby on Rails");
   "punctuation" >::
     ae "FIFO" (acronym "First In, First Out");
-  "all caps words" >::
-    ae "PHP" (acronym "PHP: Hypertext Preprocessor");
-  "non-acronym all caps word" >::
+  "all caps word" >::
     ae "GIMP" (acronym "GNU Image Manipulation Program");
-  "hyphenated" >::
+  "punctuation without whitespace" >::
     ae "CMOS" (acronym "Complementary metal-oxide semiconductor");
 ]
 

@@ -1,4 +1,4 @@
-(* Test/exercise version: "1.1.0" *)
+(* Test/exercise version: "1.2.0" *)
 
 open Base
 open OUnit2

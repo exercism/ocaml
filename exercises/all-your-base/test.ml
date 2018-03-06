@@ -1,4 +1,4 @@
-(* Test/exercise version: "2.0.1" *)
+(* Test/exercise version: "2.3.0" *)
 
 open OUnit2
 open All_your_base
@@ -36,7 +36,7 @@ let tests = [
   "leading zeros" >::
     ae (Some [4; 2]) (convert_bases ~from:7 ~digits:[0; 6; 0] ~target:10);
   "input base is one" >::
-    ae None (convert_bases ~from:1 ~digits:[] ~target:10);
+    ae None (convert_bases ~from:1 ~digits:[0] ~target:10);
   "input base is zero" >::
     ae None (convert_bases ~from:0 ~digits:[] ~target:10);
   "input base is negative" >::
