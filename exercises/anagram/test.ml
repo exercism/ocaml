@@ -1,11 +1,11 @@
 (* Test/exercise version: "1.2.0" *)
 
-open Core
+open Base
 open OUnit2
 open Anagram
 
 let ae exp got _test_ctxt =
-  let printer = List.to_string ~f:String.to_string in
+  let printer = String.concat ~sep:";" in
   assert_equal exp got ~cmp:(List.equal ~equal:String.equal) ~printer
 
 let tests = [

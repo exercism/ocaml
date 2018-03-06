@@ -1,4 +1,4 @@
-open Core
+open Base
 
 type palindrome_products = {
   value : int;
@@ -6,10 +6,10 @@ type palindrome_products = {
 } [@@deriving show, eq]
 
 let invalid_input_error min max =
-  Error (sprintf "invalid input: min is %d and max is %d" min max)
+  Error (Printf.sprintf "invalid input: min is %d and max is %d" min max)
 
 let is_palindrome n =
-  let n = Int.to_string n in String.rev n = n
+  let n = Int.to_string n in String.(rev n = n)
 
 let to_palindrome_products (xs : (int * (int * int)) list): palindrome_products =
   let value = fst (List.hd_exn xs) in
@@ -35,7 +35,7 @@ let smallest ~min ~max =
       |> List.group ~break:(fun (x, _) (y, _) -> x <> y)
       |> List.hd
       |> Option.map ~f:to_palindrome_products
-      |> Result.of_option ~error:(sprintf "no palindrome with factors in the range %d to %d" min max)
+      |> Result.of_option ~error:(Printf.sprintf "no palindrome with factors in the range %d to %d" min max)
 
 let largest ~min ~max = 
   if min > max
@@ -54,6 +54,6 @@ let largest ~min ~max =
       |> List.group ~break:(fun (x, _) (y, _) -> x <> y)
       |> List.hd
       |> Option.map ~f:to_palindrome_products
-      |> Result.of_option ~error:(sprintf "no palindrome with factors in the range %d to %d" min max)
+      |> Result.of_option ~error:(Printf.sprintf "no palindrome with factors in the range %d to %d" min max)
 
   

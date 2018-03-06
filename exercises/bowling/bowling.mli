@@ -1,4 +1,4 @@
-open Core
+open Base
 
 (** Abstract type for the bowling game. *)
 type t

@@ -1,10 +1,9 @@
 (* Test/exercise version: "1.1.0" *)
 
-open Core
 open OUnit2
 open Atbash_cipher
 
-let ae exp got _test_ctxt = assert_equal ~printer:String.to_string exp got
+let ae exp got _test_ctxt = assert_equal ~printer:(fun x -> x) exp got
 
 let encode_tests = [
    "encode yes" >::

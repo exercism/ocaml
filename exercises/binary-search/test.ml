@@ -2,14 +2,13 @@
 
 open OUnit2
 open Binary_search
-open Core
 
 let option_to_string f = function
   | None   -> "None"
   | Some x -> "Some " ^ f x
 
 let ae exp got _test_ctxt =
-  assert_equal ~printer:(option_to_string Int.to_string) exp got
+  assert_equal ~printer:(option_to_string string_of_int) exp got
 
 let tests = [
   "finds a value in an array with one element" >::

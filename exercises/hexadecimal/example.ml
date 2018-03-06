@@ -1,8 +1,8 @@
-open Core
+open Base
 
 let digit_to_int c =
   match c with
-  | '0'..'9'  -> Some (int_of_char(c) - 48)
+  | '0'..'9'  -> Some (Char.to_int(c) - 48)
   | 'a'..'f'  -> Some (Char.to_int(c) - 97 + 10)
   | 'A'..'F'  -> Some (Char.to_int(c) - 97 + 10)
   | _ -> None

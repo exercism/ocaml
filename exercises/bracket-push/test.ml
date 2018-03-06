@@ -1,6 +1,6 @@
 (* Test/exercise version: "1.2.0" *)
 
-open Core
+open Base
 open OUnit2
 open Bracket_push
 

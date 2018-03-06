@@ -1,10 +1,10 @@
-open Core
+open Base
 open OUnit2
 open Robot_name
 
 let assert_matches_spec name =
-  let is_valid_letter ch = 'A' <= ch && ch <= 'Z' in
-  let is_valid_digit ch = '0' <= ch && ch <= '9' in
+  let is_valid_letter ch = Char.('A' <= ch && ch <= 'Z') in
+  let is_valid_digit ch = Char.('0' <= ch && ch <= '9') in
   assert_equal ~printer:Int.to_string 5 (String.length name);
   assert_bool ("First character must be from A to Z") (is_valid_letter @@ name.[0]);
   assert_bool ("Second character must be from A to Z") (is_valid_letter @@ name.[1]);
@@ -23,7 +23,7 @@ let basic_tests = [
     let n1 = name r in
     reset r;
     let n2 = name r in
-    assert_bool ("'" ^ n1 ^ "' was repeated") (n1 <> n2)
+    assert_bool ("'" ^ n1 ^ "' was repeated") String.(n1 <> n2)
     );
 
   "after reset the robot's name still matches the specification" >:: (fun _ctxt ->
@@ -48,7 +48,8 @@ line at the bottom of this module.
 let unique_name_tests = [
   "all possible robot names are distinct" >:: (fun _ctxt ->
     let rs = Array.init (26 * 26 * 1000) ~f:(fun _ -> new_robot ()) in
-    let (repeated, _) = Array.fold rs ~init:(String.Set.empty, String.Set.empty) ~f:(fun (repeated, seen) r ->
+    let empty = Set.empty (module String) in
+    let (repeated, _) = Array.fold rs ~init:(empty, empty) ~f:(fun (repeated, seen) r ->
       let n = name r in
       if Set.mem seen n
       then (Set.add repeated n, seen)

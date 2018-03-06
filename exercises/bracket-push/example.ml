@@ -1,4 +1,4 @@
-open Core
+open Base
 
 type 'a stack = 'a list
 
@@ -17,7 +17,7 @@ let update (s: (char stack) option) (ch: char): (char stack) option =
   match s with
   | None -> None
   | Some s ->
-    let pop_matching m = Option.filter (pop s) ~f:(fun (top, _) -> top = m)
+    let pop_matching m = Option.filter (pop s) ~f:(fun (top, _) -> Char.(top = m))
                          |> Option.map ~f:snd in
     match ch with
     | '(' | '{' | '[' -> Some (push s ch)

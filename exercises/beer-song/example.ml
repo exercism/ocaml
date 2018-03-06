@@ -1,4 +1,4 @@
-open Core
+open Base
 
 let bottles = function
     | 0 -> "no more bottles"
@@ -7,10 +7,10 @@ let bottles = function
 
 let line1 n =
     let b = bottles n in
-    sprintf "%s of beer on the wall, %s of beer.\n" b b
+    Printf.sprintf "%s of beer on the wall, %s of beer.\n" b b
 
 let line2 n =
-    sprintf "Take %s down and pass it around, %s of beer on the wall.\n"
+    Printf.sprintf "Take %s down and pass it around, %s of beer on the wall.\n"
             (if n > 0 then "one" else "it") (bottles n)
 
 let verse = function

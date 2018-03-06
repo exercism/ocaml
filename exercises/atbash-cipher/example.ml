@@ -1,4 +1,4 @@
-open Core
+open Base
 
 let substitute = function
   | 'a' .. 'z' as c ->

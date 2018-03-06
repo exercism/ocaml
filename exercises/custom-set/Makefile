@@ -1,11 +1,9 @@
-test: test.native
-	@./test.native
+default: clean test
 
-test.native: *.ml
-	@corebuild -r -quiet -pkg oUnit test.native
+test: 
+	jbuilder runtest
 
 clean:
-	rm -rf _build
-	rm -f test.native
+	jbuilder clean
 
 .PHONY: clean

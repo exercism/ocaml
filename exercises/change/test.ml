@@ -1,10 +1,10 @@
 (* Test/exercise version: "1.1.0" *)
 
-open Core
+open Base
 open OUnit2
 open Change
 
-let printer = Option.value_map ~default:"None" ~f:(List.to_string ~f:Int.to_string)
+let printer = Option.value_map ~default:"None" ~f:(fun xs -> String.concat ~sep:";" (List.map ~f:Int.to_string xs))
 let ae exp got _test_ctxt = assert_equal ~printer exp got
 
 let tests = [

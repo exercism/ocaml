@@ -1,4 +1,4 @@
-open Core
+open Base
 
 let (>|>) f g x = g (f x)
 
@@ -10,7 +10,7 @@ let repeat n ch =
 let collapse = function
 | [] -> failwith "empty string not expected here"
 | [x] -> Char.to_string x
-| (x::_) as g -> sprintf "%d%c" (List.length g) x
+| (x::_) as g -> Printf.sprintf "%d%c" (List.length g) x
 
 let to_int = String.of_char_list >|> Int.of_string
 
@@ -22,7 +22,7 @@ let decode_to_tuple (s: 'a list): ((int * 'a) * 'a list) =
 
 let encode =
   String.to_list
-  >|> List.group ~break:((<>))
+  >|> List.group ~break:(Char.(<>))
   >|> List.map ~f:collapse
   >|> String.concat ~sep:""
 
