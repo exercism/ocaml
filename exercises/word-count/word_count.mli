@@ -1,4 +1,4 @@
-open Core
+open Core_kernel
 
 (**
  * Count occurences of words (consisting of letters and numbers) in the string.

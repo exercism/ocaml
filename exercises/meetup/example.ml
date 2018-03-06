@@ -1,4 +1,4 @@
-open Core
+open Core_kernel
 
 type schedule = First | Second | Third | Fourth | Teenth | Last
 

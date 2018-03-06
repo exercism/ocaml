@@ -1,6 +1,6 @@
 open OUnit2
 open Meetup
-open Core
+open Core_kernel
 
 type case = {
   description: string;

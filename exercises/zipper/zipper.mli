@@ -1,5 +1,5 @@
 (** Zipper exercise interface *)
-open Core
+open Core_kernel
 
 (** The type of a zipper *)
 type 'a t

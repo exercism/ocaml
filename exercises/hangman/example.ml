@@ -1,4 +1,4 @@
-open Core
+open Core_kernel
 open React
 
 let allowed_failures = 9

@@ -2,7 +2,7 @@
 
 (executable
  ((name test)
-  (libraries (core oUnit react))
+  (libraries (core_kernel oUnit react))
  ))
 
 (alias
