@@ -1,4 +1,4 @@
-open Core
+open Base
 
 type robot = {mutable index : int}
 
@@ -19,7 +19,7 @@ let name r =
   let letter_A = Char.to_int 'A' in
   let first_letter = Char.of_int_exn (letter_A + (letters_part / 26)) in
   let second_letter = Char.of_int_exn (letter_A + (letters_part % 26)) in
-  sprintf "%c%c%03d" first_letter second_letter (n % 1000)
+  Printf.sprintf "%c%c%03d" first_letter second_letter (n % 1000)
 
 let reset r =
   index := !index + 1;

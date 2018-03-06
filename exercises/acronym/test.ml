@@ -1,11 +1,10 @@
 (* Test/exercise version: "1.1.0" *)
 
-open Core
 open OUnit2
 open Acronym
 
 let ae exp got _test_ctxt =
-  assert_equal exp got ~printer:Fn.id
+  assert_equal exp got ~printer:(fun x -> x )
 
 let tests = [
   "basic" >::

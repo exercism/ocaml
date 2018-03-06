@@ -1,12 +1,11 @@
 (* Test/exercise version: "2.0.1" *)
 
-open Core
 open OUnit2
 open All_your_base
 
 let option_printer = function
   | None -> "None"
-  | Some xs -> "Some [" ^ String.concat ~sep:";" (List.map xs ~f:Int.to_string) ^ "]"
+  | Some xs -> "Some [" ^ String.concat ";" (List.map string_of_int xs) ^ "]"
 
 let ae exp got _test_ctxt =
   assert_equal exp got ~printer:option_printer

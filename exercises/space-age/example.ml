@@ -1,4 +1,4 @@
-open Core
+open Base
 
 type planet = Mercury | Venus | Earth | Mars
             | Jupiter | Saturn | Neptune | Uranus

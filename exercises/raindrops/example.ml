@@ -1,5 +1,3 @@
-open Core
-
 let raindrop = function
   | n when n mod 105 = 0 -> "PlingPlangPlong"
   | n when n mod 35 = 0 -> "PlangPlong"

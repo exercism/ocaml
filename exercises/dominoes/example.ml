@@ -1,6 +1,6 @@
 (* Based off the Haskell solution by Tarmean at http://exercism.io/submissions/6dc2eef7e7eb469d8657111fc4389fc0 *)
 
-open Core
+open Base
 
 type dominoe = int * int
 

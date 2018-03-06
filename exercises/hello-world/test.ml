@@ -1,10 +1,9 @@
 (* Test/exercise version: "1.0.0" *)
 
-open Core
 open OUnit2
 open Hello_world
 
-let ae exp got _test_ctxt = assert_equal ~printer:String.to_string exp got
+let ae exp got _test_ctxt = assert_equal ~printer:(fun x -> x) exp got
 
 let tests = [
      "Say Hi!" >:: ae "Hello, World!" hello;

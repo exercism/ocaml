@@ -1,4 +1,4 @@
-open Core
+open Base
 
 type field =
   | Mine
@@ -29,7 +29,7 @@ let adjacent_offsets =
   ([-1; 0; 1] >>= fun x ->
    [-1; 0; 1] >>= fun y ->
    return (x, y))
-  |> List.filter ~f:(fun c -> c <> (0, 0))
+  |> List.filter ~f:(fun (x, y) -> x <> 0 || y <> 0)
 
 let mark_mine board c =
   let valid_coord (x, y) = x >= 0 && x < board.width && y >= 0 && y < board.height in

@@ -1,4 +1,4 @@
-open Core
+open Base
 
 let is_empty = String.for_all ~f:Char.is_whitespace
 
@@ -6,7 +6,7 @@ let is_shouting s =
   String.exists ~f:Char.is_alpha s &&
   String.for_all ~f:(fun c -> not (Char.is_alpha c) || Char.is_uppercase c) s
 
-let is_question s = s.[String.length s - 1] = '?'
+let is_question s = Char.(s.[String.length s - 1] = '?')
 
 let response_for s = 
   let s = String.strip s in 

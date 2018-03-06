@@ -1,7 +1,7 @@
-open Core
+open Base
 
 let check_valid_first_digits s =
-  if s.[0] = '0' || s.[0] = '1' || s.[3] = '0' || s.[3] = '1'
+  if Char.(s.[0] = '0' || s.[0] = '1' || s.[3] = '0' || s.[3] = '1')
   then None
   else Some s
 
@@ -11,6 +11,6 @@ let number s =
   else
     let s = String.filter ~f:(Char.is_digit) s in
     match String.length s with
-    | 10                            -> check_valid_first_digits s
-    | 11 when String.get s 0 = '1'  -> check_valid_first_digits (String.drop_prefix s 1)
-    | _                             -> None
+    | 10                                   -> check_valid_first_digits s
+    | 11 when Char.(String.get s 0 = '1')  -> check_valid_first_digits (String.drop_prefix s 1)
+    | _                                    -> None

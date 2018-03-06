@@ -1,6 +1,5 @@
 (* Test/exercise version: "1.1.0" *)
 
-open Core
 open OUnit2
 open Difference_of_squares
 

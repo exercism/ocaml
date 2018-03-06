@@ -1,4 +1,4 @@
-open Core
+open Base
 open OUnit2
 
 module L = List_ops
@@ -6,7 +6,7 @@ module L = List_ops
 let aei exp got _test_ctxt = assert_equal ~printer:Int.to_string exp got
 
 let ael exp got _test_ctxt =
-  assert_equal ~printer:(List.to_string ~f:Int.to_string) exp got
+  assert_equal exp got ~printer:(fun xs -> String.concat ~sep:";" (List.map ~f:Int.to_string xs)) 
 
 let is_odd n = n % 2 = 1
 

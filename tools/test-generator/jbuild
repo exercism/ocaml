@@ -1,0 +1,11 @@
+(jbuild_version 1)
+
+(executable
+ ((name test_gen)
+  (libraries (core oUnit yojson))
+ ))
+
+(alias
+ ((name    runtest)
+  (deps    (test_gen.exe))
+  (action  (run ${<}))))

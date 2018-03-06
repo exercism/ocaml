@@ -1,21 +1,27 @@
-open Core
+open Base
 
 type player = O | X
 type cell = O | X | Empty
 
-module IntTuple = struct
-  type t = int * int
+let eq_cell c1 c2 = match (c1, c2) with
+| (O, O) -> true
+| (X, X) -> true
+| _ -> false
 
-  let compare (x0, y0) (x1, y1) =
-    match Int.compare x0 x1 with
-      0 -> Int.compare y0 y1
-    | c -> c
- 
-  let t_of_sexp tuple = Tuple2.t_of_sexp Int.t_of_sexp Int.t_of_sexp tuple
-  let sexp_of_t tuple = Tuple2.sexp_of_t Int.sexp_of_t Int.sexp_of_t tuple
+module IntTuple = struct
+  module T = struct
+    type t = int * int
+    let compare (x0, y0) (x1, y1) =
+      match Int.compare x0 x1 with
+        0 -> Int.compare y0 y1
+      | c -> c
+    let sexp_of_t (x, y) = Sexp.List [Sexp.Atom (Int.to_string x); Sexp.Atom (Int.to_string y)]
+  end
+  include T
+  include Comparable.Make(T)
 end
 
-module IntIntSet = Set.Make(IntTuple)
+let emptyIntIntSet = Set.empty (module IntTuple)
 
 let (>|>) f g = Fn.compose g f
 
@@ -42,7 +48,7 @@ let neighbouring_positions rows cols (r, c): (int * int) list =
 let neighbours board rows cols (r,c) =
   let cell = board.(r).(c) in
   let positions = neighbouring_positions rows cols (r,c) in
-  List.filter positions ~f:(fun (r1,c1) -> cell = board.(r1).(c1))
+  List.filter positions ~f:(fun (r1,c1) -> eq_cell cell board.(r1).(c1))
 
 let search successors initial ~matches = 
   let rec go visited node = 
@@ -61,20 +67,20 @@ let search successors initial ~matches =
       end
     else (false, visited)
   in
-  Array.exists initial ~f:(go (IntIntSet.empty) >|> fst)
+  Array.exists initial ~f:(go emptyIntIntSet >|> fst)
 
 let connect board: player option = 
   let board = to_matrix board in
   let rows = Array.length board in
   let cols = Array.length board.(0) in
   let search = search (neighbours board rows cols) in
-  let initials_x = Array.filter_mapi board ~f:(fun row cell -> if cell.(0) = X then Some (row, 0) else None) in
-  if search initials_x ~matches:(fun (r,c) -> (c = cols - 1) && board.(r).(c) = X)
+  let initials_x = Array.filter_mapi board ~f:(fun row cell -> if eq_cell cell.(0) X then Some (row, 0) else None) in
+  if search initials_x ~matches:(fun (r,c) -> (c = cols - 1) && eq_cell board.(r).(c) X)
   then Some X
   else 
   begin
-    let initials_o = Array.filter_mapi board.(0) ~f:(fun col cell -> if cell = O then Some (0, col) else None) in
-    if search initials_o ~matches:(fun (r,c) -> (r = rows - 1) && board.(r).(c) = O)
+    let initials_o = Array.filter_mapi board.(0) ~f:(fun col cell -> if eq_cell cell O then Some (0, col) else None) in
+    if search initials_o ~matches:(fun (r,c) -> (r = rows - 1) && eq_cell board.(r).(c) O)
       then Some O
       else None 
   end

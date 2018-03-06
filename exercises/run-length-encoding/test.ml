@@ -1,6 +1,6 @@
 (* Test/exercise version: "1.0.0" *)
 
-open Core
+open Base
 open OUnit2
 open Run_length_encoding
 
