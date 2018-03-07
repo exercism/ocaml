@@ -1,17 +1,8 @@
-Because OCaml is a compiled language you need to compile your submission and the test code before you can run the tests. Compile with
+Because OCaml is a compiled language you need to compile your submission and the test code before you can run the tests. 
+We use [`jbuilder`](https://jbuilder.readthedocs.io/en/latest/) to build.
+Each folder has a jbuild file specifying how to build and also a Makefile which delegates to jbuild.
 
-```bash
-$ corebuild -quiet test.native
-```
-
-and when successful run the tests by running the `test.native` executable:
-
-```bash
-./test.native
-```
-
-Alternatively just type
-
+To compile and run the tests, simply type from the exercise folder:
 ```bash
 make
 ```
@@ -21,5 +12,7 @@ make
 To create a module that can be used with the test in the `bob` exercise put the following in a file named `bob.ml`:
 
 ```ocaml
-open Core.Std let response_for input = failwith "TODO"
+open Base 
+
+let response_for input = failwith "TODO"
 ```
