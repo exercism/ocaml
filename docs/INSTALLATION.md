@@ -21,16 +21,16 @@
    opam switch <version-number>
    ```
 
-   For example, if the latest version is 4.06.0, you will run:
+   For example, if the latest version is 4.06.1, you will run:
 
    ```bash
-   opam switch 4.06.0
+   opam switch 4.06.1
    ```
 
-3. Install the Core and [OUnit](http://ounit.forge.ocamlcore.org/) packages,
+3. Install the Core_kernel and [OUnit](http://ounit.forge.ocamlcore.org/) packages,
    which are necessary in order to run the exercise tests:
 
    ```bash
-   opam install core ounit
+   opam install core_kernel ounit
    ```
 
