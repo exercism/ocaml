@@ -9,9 +9,11 @@ OCaml's documentation is spread over multiple projects and can be hard to find b
 
 Confusingly the standard library is sometimes referred to as the core library (though rarely as the Core library).
 
-The Core library itself consists of two parts: Core and Core_kernel where Core extends Core_kernel. Often a Core module includes a Core_kernel module, if that's the case the documentation will have a link to the Core_kernel module's documentation page. If you can't find a function it's often hidden in an included module. Note that when you do `open Core.Std` (which is a good idea) you're using the Core library which shadows some of the modules from the standard library.
+The Core library from Jane Street is required for a few exercises, but can be useful for all. It's divided into three - Base, Core_kernel, and Core - each extending the previous. 
+Base is all you'll need for most exercises, but for a few (using dates for instance, Core_kernel is needed).
+To use Core, put `open Base` or `open Core_kernel` at the top of your code.
 
-For example, instead of [`List`](http://caml.inria.fr/pub/docs/manual-ocaml/libref/List.html) you get [`Core_kernel`'s `Core_list`](https://ocaml.janestreet.com/ocaml-core/latest/doc/core_kernel/Core_list.html) (`open Core.Std` makes this available under the name `List`).
+For example, instead of [`List`](http://caml.inria.fr/pub/docs/manual-ocaml/libref/List.html) you get a shadow from `Base`.(https://ocaml.janestreet.com/ocaml-core/latest/doc/base/Base/List/) (`open Base` makes this available under the name `List`).
 
 There are some subtle and not so subtle differences between the standard library `List` module and `Core`'s `List`, for example in the standard library `List.for_all` has signature
 
