@@ -6,5 +6,5 @@ tmp
 *.byte
 _build/
 bin/configlet
-bin/configlet.exe
+**/*.exe
 .psc-ide-port
