@@ -1,4 +1,3 @@
-open Core
 open OUnit2
 open Difference_of_squares
 

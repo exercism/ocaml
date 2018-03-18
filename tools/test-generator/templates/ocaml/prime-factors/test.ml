@@ -1,10 +1,10 @@
-open Core
+open Base
 open OUnit2
 open Prime_factors
 
 (* Assert Equals *)
 let ae exp got _test_ctxt =
-  let printer = List.to_string ~f:Int64.to_string in
+  let printer xs = List.map xs ~f:Int64.to_string |> String.concat ~sep:";" in
   assert_equal exp got ~printer
 
 let to_int64s = List.map ~f:Int64.of_int

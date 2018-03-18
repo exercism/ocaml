@@ -1,8 +1,8 @@
-open Core
+open Base
 open OUnit2
 open Dominoes
 
-let print_dominoe (d1, d2) = sprintf "(%d,%d)" d1 d2
+let print_dominoe (d1, d2) = Printf.sprintf "(%d,%d)" d1 d2
 
 let dominoes_printer xs = "[" ^ String.concat ~sep:";" (List.map xs ~f:print_dominoe) ^ "]"
 let option_printer = function
@@ -11,14 +11,19 @@ let option_printer = function
 
 let rotate_1 xs = List.tl_exn xs @ [List.hd_exn xs]
 
+let tuple_compare (x0, y0) (x1, y1) =
+  if x0 < x1 then (-1)
+  else if x0 > x1 then 1
+  else Int.compare y0 y1
+
 let norm l =
   let norm1 (x, y) = if x > y then (y, x) else (x, y) in
-  List.map ~f:norm1 l |> List.sort ~cmp:compare
+  List.map ~f:norm1 l |> List.sort ~cmp:tuple_compare
 
 let check_chain (input: dominoe list) (chained: dominoe list) =
   assert_equal (norm input) (norm chained) ~printer:dominoes_printer ~msg:"chain doesn't use the same dominoes as the input";
   let assert_dominoes_match d1 d2 =
-    if snd d1 <> fst d2 then failwith @@ sprintf "%s and %s cannot be chained together" (print_dominoe d1) (print_dominoe d2) else () in
+    if snd d1 <> fst d2 then failwith @@ Printf.sprintf "%s and %s cannot be chained together" (print_dominoe d1) (print_dominoe d2) else () in
   let consecutives = List.zip_exn chained (rotate_1 chained) in
   List.iter consecutives ~f:(fun (d1, d2) -> assert_dominoes_match d1 d2)
 

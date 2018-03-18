@@ -1,8 +1,7 @@
-open Core
 open OUnit2
 open Rectangles
 
-let ae exp got _test_ctxt = assert_equal exp got ~printer:Int.to_string
+let ae exp got _test_ctxt = assert_equal exp got ~printer:string_of_int
 
 let tests = [
 (* TEST
