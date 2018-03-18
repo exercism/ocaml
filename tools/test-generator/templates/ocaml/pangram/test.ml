@@ -1,8 +1,7 @@
-open Core
 open OUnit2
 open Pangram
 
-let ae exp got _test_ctxt = assert_equal ~printer:Bool.to_string exp got
+let ae exp got _test_ctxt = assert_equal ~printer:string_of_bool exp got
 
 let tests = [
 (* TEST

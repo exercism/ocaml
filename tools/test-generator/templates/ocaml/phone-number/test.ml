@@ -1,4 +1,4 @@
-open Core
+open Base
 open OUnit2
 open Phone_number
 
@@ -7,7 +7,7 @@ let option_to_string f = function
   | Some x -> "Some " ^ f x
 
 let ae exp got _test_ctxt =
-  assert_equal ~printer:(option_to_string String.to_string) exp got
+  assert_equal ~printer:(option_to_string Fn.id) exp got
 
 let tests = [
 (* TEST

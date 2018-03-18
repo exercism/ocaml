@@ -1,14 +1,14 @@
-open Core
+open Base
 open OUnit2
+open Hamming
 
-let printer n =
-  Option.sexp_of_t Int.sexp_of_t n
-  |> Sexp.to_string
+let printer = function
+| None -> "None"
+| Some x -> Int.to_string x
 
 let ae exp got _test_ctxt = assert_equal ~printer exp got
 
 let dna_of_string s =
-  let open Hamming in
   let f = function
     | 'A' -> A
     | 'C' -> C
@@ -17,7 +17,7 @@ let dna_of_string s =
     | _   -> failwith "Big news! New nucleotide discovered" in
   String.to_list s |> List.map ~f
 
-let hamdist a b = Hamming.hamming_distance (dna_of_string a) (dna_of_string b)
+let hamdist a b = hamming_distance (dna_of_string a) (dna_of_string b)
 
 let tests = [
 (* TEST

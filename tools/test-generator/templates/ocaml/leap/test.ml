@@ -1,8 +1,7 @@
-open Core
 open OUnit2
 open Leap
 
-let ae exp got _test_ctxt = assert_equal exp got ~printer:Bool.to_string
+let ae exp got _test_ctxt = assert_equal exp got ~printer:string_of_bool
 
 let tests = [
 (* TEST

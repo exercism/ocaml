@@ -1,8 +1,7 @@
-open Core
 open OUnit2
 open Raindrops
 
-let ae exp got _test_ctxt = assert_equal ~printer:Fn.id exp got
+let ae exp got _test_ctxt = assert_equal ~printer:(fun x -> x) exp got
 
 let tests = [
 (* TEST
