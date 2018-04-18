@@ -1,7 +1,6 @@
 module type ELEMENT = sig
     type t
     val compare : t -> t -> int
-    val equal : t -> t -> bool
 end
 
 module Make(El: ELEMENT) = struct
@@ -12,11 +11,13 @@ module Make(El: ELEMENT) = struct
 
     type el = El.t
 
+    let el_equal a b = El.compare a b = 0
+
     let is_empty = function
       | [] -> true
       | _ -> false
 
-    let is_member l n = List.filter (El.equal n) l |> is_empty |> not
+    let is_member l n = List.filter (el_equal n) l |> is_empty |> not
 
     let rec is_subset x y = match (x, y) with
       | ([], []) -> true
@@ -34,7 +35,7 @@ module Make(El: ELEMENT) = struct
       | ([], []) -> true
       | ([], _) -> false
       | (_, []) -> false
-      | ((x::xs), (y::ys)) -> El.equal x y && equal xs ys
+      | ((x::xs), (y::ys)) -> el_equal x y && equal xs ys
 
     let of_list = List.sort_uniq El.compare
 
