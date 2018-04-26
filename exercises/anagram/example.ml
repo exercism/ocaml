@@ -1,6 +1,6 @@
 open Base
 
-let to_sorted_list s = String.to_list s |> List.sort ~cmp:Char.compare
+let to_sorted_list s = String.to_list s |> List.sort ~compare:Char.compare
 
 let anagrams target candidates =
   let target_lc = String.lowercase target in

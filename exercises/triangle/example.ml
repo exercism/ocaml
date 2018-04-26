@@ -1,7 +1,7 @@
 open Base
 
 let sort_sides a b c = 
-  let side = List.nth_exn (List.sort ~cmp:Int.compare [a; b; c]) in
+  let side = List.nth_exn (List.sort ~compare:Int.compare [a; b; c]) in
   (side 0, side 1, side 2)
 
 let is_triangle a b c = 

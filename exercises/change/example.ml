@@ -8,7 +8,7 @@ let find_smallest_coins_list_meeting_target (cache: int list option array) (coin
   List.filter coins ~f:(fun x -> x <= target)
   |> List.map ~f:find_coins_meeting_target_minus_coin 
   |> List.filter_map ~f:(Fn.id) 
-  |> List.sort ~cmp:(fun xs ys -> Int.compare (List.length xs) (List.length ys))
+  |> List.sort ~compare:(fun xs ys -> Int.compare (List.length xs) (List.length ys))
   |> List.hd
 
 let make_change ~target ~coins = match target with
