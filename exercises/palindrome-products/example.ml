@@ -31,7 +31,7 @@ let smallest ~min ~max =
       |> Sequence.filter ~f:(fun (n, _) -> is_palindrome n) in
     products
       |> Sequence.to_list
-      |> List.sort ~cmp:(fun (x,_) (y,_) -> Int.compare x y)
+      |> List.sort ~compare:(fun (x,_) (y,_) -> Int.compare x y)
       |> List.group ~break:(fun (x, _) (y, _) -> x <> y)
       |> List.hd
       |> Option.map ~f:to_palindrome_products
@@ -50,7 +50,7 @@ let largest ~min ~max =
       |> Sequence.filter ~f:(fun (n, _) -> is_palindrome n) in
     products
       |> Sequence.to_list
-      |> List.sort ~cmp:(fun (x,_) (y,_) -> Int.compare y x)
+      |> List.sort ~compare:(fun (x,_) (y,_) -> Int.compare y x)
       |> List.group ~break:(fun (x, _) (y, _) -> x <> y)
       |> List.hd
       |> Option.map ~f:to_palindrome_products

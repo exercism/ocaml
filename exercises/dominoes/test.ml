@@ -20,7 +20,7 @@ let tuple_compare (x0, y0) (x1, y1) =
 
 let norm l =
   let norm1 (x, y) = if x > y then (y, x) else (x, y) in
-  List.map ~f:norm1 l |> List.sort ~cmp:tuple_compare
+  List.map ~f:norm1 l |> List.sort ~compare:tuple_compare
 
 let check_chain (input: dominoe list) (chained: dominoe list) =
   assert_equal (norm input) (norm chained) ~printer:dominoes_printer ~msg:"chain doesn't use the same dominoes as the input";

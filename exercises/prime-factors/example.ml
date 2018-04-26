@@ -20,4 +20,4 @@ and factors_of_loop n =
     done;
     Option.value ~default:[n] !res
 
-let factors_of n = List.sort ~cmp:Int64.compare (factors_of' n)
+let factors_of n = List.sort ~compare:Int64.compare (factors_of' n)

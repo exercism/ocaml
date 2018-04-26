@@ -9,4 +9,4 @@ let add s g school = Map.add_multi ~key:g ~data:s school
 
 let grade g school = Map.find school g |> Option.value ~default:[]
 
-let sorted school = Map.map ~f:(List.sort ~cmp:String.compare) school
+let sorted school = Map.map ~f:(List.sort ~compare:String.compare) school

@@ -85,7 +85,7 @@ let run ~(language_config: language_config) ~(templates_folder: string) ~(canoni
 let check_canonical_data canonical_data_folder =
   let ok_count = ref 0 in
   let canonical_data_files = find_canonical_data_files canonical_data_folder in
-  let canonical_data_files = List.sort canonical_data_files ~cmp:(fun (s1, _) (s2, _) -> String.compare s1 s2) in
+  let canonical_data_files = List.sort canonical_data_files ~compare:(fun (s1, _) (s2, _) -> String.compare s1 s2) in
   let total_count = List.length canonical_data_files in
   List.iter canonical_data_files ~f:(fun (slug, text) ->
     match parse_json_text text "cases" with
