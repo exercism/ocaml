@@ -1,4 +1,4 @@
-(* Test/exercise version: "1.1.0" *)
+(* Test/exercise version: "1.2.0" *)
 
 open Base
 open OUnit2
@@ -34,6 +34,8 @@ let tests = [
     assert_valid true "0000 0";
   "input digit 9 is correctly converted to output digit 9" >::
     assert_valid true "091";
+  "strings with non-digits is invalid" >::
+    assert_valid false ":9";
 ]
 
 let () =

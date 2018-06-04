@@ -1,4 +1,4 @@
-(* Test/exercise version: "1.2.0" *)
+(* Test/exercise version: "1.3.0" *)
 
 open Base
 open OUnit2
@@ -20,6 +20,8 @@ let tests = [
     ae false (are_balanced "{]");
   "paired with whitespace" >::
     ae true (are_balanced "{ }");
+  "partially paired brackets" >::
+    ae false (are_balanced "{[])");
   "simple nested brackets" >::
     ae true (are_balanced "{[]}");
   "several paired brackets" >::
