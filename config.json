@@ -7,6 +7,7 @@
       "slug": "hello-world",
       "uuid": "cda3b090-ae52-476b-a782-9cbf43953cf0",
       "core": false,
+      "auto_approve": true,
       "unlocked_by": null,
       "difficulty": 1,
       "topics": [
