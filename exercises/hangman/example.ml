@@ -1,4 +1,4 @@
-open Core_kernel
+open Base
 open React
 
 let allowed_failures = 9
@@ -20,14 +20,14 @@ let progress { progress_s; _ } = progress_s
 
 let calc_failures target tried =
     let rec go fails target' = function
-        | h :: t when Char.Set.mem target' h ->
-            go fails (Char.Set.remove target' h) t
+        | h :: t when Set.mem target' h ->
+            go fails (Set.remove target' h) t
         | _ :: t -> go (fails+1) target' t
         | [] -> fails
     in go 0 target tried
 
 let mask_word word tried =
-    let tried' = Char.Set.of_list tried in
+    let tried' = Set.of_list(module Char) tried in
     String.map ~f:(function c when Set.mem tried' c -> c | _ -> '_') word
 
 let calc_progress masked_word failures =
@@ -39,7 +39,7 @@ let calc_progress masked_word failures =
         Busy (allowed_failures - failures)
 
 let create word =
-    let target = String.to_list word |> Char.Set.of_list in
+    let target = String.to_list word |> Set.of_list(module Char) in
     let feed_e, send_feed = E.create () in
     let tried_s = S.fold (fun t h -> h :: t) [] feed_e in
     let failures_s = S.map (calc_failures target) tried_s in
