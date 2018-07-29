@@ -11,7 +11,7 @@ notes contain a few details specific to Ocaml.
 
 ## Prerequisites
 
-The OCaml track assumes installation of OCaml version 4.06.1, and installation of Core_kernel, OUnit, and React (for the Hangman exercise).
+The OCaml track assumes installation of OCaml version 4.07.0, and installation of Core_kernel, OUnit, and React (for the Hangman exercise).
 Assuming you have opam, these can be installed with
 ```bash
 opam install core_kernel ounit react
@@ -22,7 +22,9 @@ opam install core_kernel ounit react
 Core_kernel is a standard library replacement. If you prefer to write your exercises using the standard library distributed with OCaml,
 or to use other standard library replacements (such as Batteries), that is also an option. If you find any difficulties doing so please raise
 an issue.
+
 OUnit is a unit testing library.
+
 React is a reactive library, just used in the hangman exercise.
 
 ## Running Tests
