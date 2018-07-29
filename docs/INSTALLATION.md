@@ -21,10 +21,10 @@
    opam switch <version-number>
    ```
 
-   For example, if the latest version is 4.06.1, you will run:
+   For example, if the latest version is 4.07.0, you will run:
 
    ```bash
-   opam switch 4.06.1
+   opam switch 4.07.0
    ```
 
 3. Install the Core_kernel and [OUnit](http://ounit.forge.ocamlcore.org/) packages,
