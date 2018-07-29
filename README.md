@@ -22,7 +22,9 @@ opam install core_kernel ounit react
 Core_kernel is a standard library replacement. If you prefer to write your exercises using the standard library distributed with OCaml,
 or to use other standard library replacements (such as Batteries), that is also an option. If you find any difficulties doing so please raise
 an issue.
+
 OUnit is a unit testing library.
+
 React is a reactive library, just used in the hangman exercise.
 
 ## Running Tests
