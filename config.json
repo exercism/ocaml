@@ -51,7 +51,7 @@
       "unlocked_by": null,
       "difficulty": 2,
       "topics": [
-        "mathematics"
+        "math"
       ]
     },
     {
@@ -121,7 +121,6 @@
       "unlocked_by": null,
       "difficulty": 3,
       "topics": [
-        "arithmetic",
         "floats"
       ]
     },
@@ -131,9 +130,7 @@
       "core": false,
       "unlocked_by": null,
       "difficulty": 3,
-      "topics": [
-        "mathematics"
-      ]
+      "topics": []
     },
     {
       "slug": "pangram",
@@ -162,7 +159,7 @@
       "unlocked_by": null,
       "difficulty": 4,
       "topics": [
-        "mathematics"
+        "math"
       ]
     },
     {
@@ -181,9 +178,7 @@
       "core": false,
       "unlocked_by": null,
       "difficulty": 4,
-      "topics": [
-        "arithmetic"
-      ]
+      "topics": []
     },
     {
       "slug": "binary-search",
@@ -257,7 +252,7 @@
       "difficulty": 5,
       "topics": [
         "algorithms",
-        "mathematics"
+        "math"
       ]
     },
     {
@@ -277,7 +272,7 @@
       "unlocked_by": null,
       "difficulty": 6,
       "topics": [
-        "arithmetic"
+        "math"
       ]
     },
     {
