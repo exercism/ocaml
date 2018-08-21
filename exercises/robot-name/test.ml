@@ -55,7 +55,7 @@ let unique_name_tests = [
       then (Set.add repeated n, seen)
       else (repeated, Set.add seen n)
       ) in
-    let first_few_repeats = Array.sub (Set.to_array repeated) 0 (min 20 (Set.length repeated)) in
+    let first_few_repeats = Array.sub (Set.to_array repeated) ~pos:0 ~len:(min 20 (Set.length repeated)) in
     let failure_message = "first few repeats: " ^ (String.concat_array first_few_repeats ~sep:",") in
     assert_bool failure_message (Set.is_empty repeated)
     );

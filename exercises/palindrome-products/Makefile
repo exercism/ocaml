@@ -1,6 +1,6 @@
 default: clean test
 
-test: 
+test:
 	jbuilder runtest
 
 clean:

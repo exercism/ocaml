@@ -1,3 +1,0 @@
-PKG core oUnit
-S *
-B build/*

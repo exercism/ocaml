@@ -1,0 +1,9 @@
+(executable
+ (name test)
+ (libraries core_kernel oUnit)
+ (preprocess (pps ppx_sexp_conv)))
+
+(alias
+  (name    runtest)
+  (deps    (:x test.exe))
+  (action  (run %{x})))

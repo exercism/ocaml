@@ -1,6 +1,0 @@
-PKG findlib
-PKG core
-PKG oUnit
-PKG react
-S *
-B *
