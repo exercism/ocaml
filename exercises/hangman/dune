@@ -1,6 +1,6 @@
 (executable
  (name test)
- (libraries base oUnit React))
+ (libraries base oUnit react))
 
 (alias
   (name    runtest)
