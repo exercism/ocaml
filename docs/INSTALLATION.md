@@ -27,10 +27,10 @@
    opam switch 4.07.0
    ```
 
-3. Install the Core_kernel and [OUnit](http://ounit.forge.ocamlcore.org/) packages,
+3. Install the Core_kernel, [Base](https://ocaml.janestreet.com/ocaml-core/latest/doc/base/Base/index.html) and [OUnit](http://ounit.forge.ocamlcore.org/) packages,
    which are necessary in order to run the exercise tests:
 
    ```bash
-   opam install core_kernel ounit
+   opam install base core_kernel ounit
    ```
 
