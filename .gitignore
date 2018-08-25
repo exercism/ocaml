@@ -8,3 +8,5 @@ _build/
 bin/configlet
 **/*.exe
 .psc-ide-port
+
+.merlin

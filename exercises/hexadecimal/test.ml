@@ -1,4 +1,3 @@
-open Base
 open OUnit2
 open Hexadecimal
 
