@@ -1,5 +1,3 @@
-(* Test/exercise version: "1.2.0" *)
-
 open Core_kernel
 open OUnit2
 open Word_count

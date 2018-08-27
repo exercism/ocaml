@@ -1,5 +1,3 @@
-(* Test/exercise version: "1.0.0" *)
-
 open Base
 open OUnit2
 open Minesweeper

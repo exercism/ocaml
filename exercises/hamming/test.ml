@@ -1,5 +1,3 @@
-(* Test/exercise version: "2.0.1" *)
-
 open Base
 open OUnit2
 open Hamming
