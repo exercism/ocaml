@@ -1,5 +1,3 @@
-(* Test/exercise version: "1.2.0" *)
-
 open OUnit2
 open Difference_of_squares
 

@@ -1,5 +1,3 @@
-(* Test/exercise version: "1.4.0" *)
-
 open OUnit2
 open Pangram
 

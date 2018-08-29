@@ -1,5 +1,3 @@
-(* Test/exercise version: "1.4.0" *)
-
 open Base
 open OUnit2
 open Phone_number

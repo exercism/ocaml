@@ -1,5 +1,3 @@
-(* Test/exercise version: "1.0.0" *)
-
 open Core_kernel
 open OUnit2
 open React
