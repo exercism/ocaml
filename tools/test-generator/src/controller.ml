@@ -32,10 +32,6 @@ let simplify_single_test_suite (canonical_data: canonical_data): canonical_data 
 | _ -> canonical_data
 
 
-let prepend_version (version_printer: string -> string) (v: string option) (str: string): string = match v with
-| None -> str
-| Some v -> (version_printer v) ^ str
-
 let generate_code ~(lc: language_config) ~(slug: string) ~(template_file: content) ~(canonical_data_file: content): (content, string) Result.t =
   let open Result.Monad_infix in
   Result.of_option ~error:("cannot recognize file for " ^ slug ^ " as a template") @@ find_template template_file lc.test_start_marker lc.test_end_marker >>= fun template ->
@@ -43,14 +39,12 @@ let generate_code ~(lc: language_config) ~(slug: string) ~(template_file: conten
   let fill_in_template = fill_in_template edit_parameters in
   let file_text = template.file_text in
   let file_lines = String.split_lines file_text |> List.to_array in
-  let prepend_version = prepend_version lc.version_printer in
   parse_json_text canonical_data_file "cases"
   |> Result.map_error ~f:show_error >>| simplify_single_test_suite >>= fun cd -> (match cd.tests with
       | Single cases ->
         let template = to_single template.template in
         fill_in_template template.template slug cases
         |> fill_tests file_text template
-        |> prepend_version cd.version
         |> Result.return
       | Suite tests ->
         let suites = to_multi template.template in
@@ -62,7 +56,6 @@ let generate_code ~(lc: language_config) ~(slug: string) ~(template_file: conten
         in
         List.map tests ~f:fill_suite_tests |> sequence >>=
         fill_suite template
-        |> Result.map ~f:(prepend_version cd.version)
     )
 
 let output_tests (lc: language_config) (files: (string * content * content) list) (output_folder: string) ~(generated_folder: string): unit =
