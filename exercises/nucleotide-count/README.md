@@ -20,8 +20,7 @@ information.
 
 [rwo7]: https://v1.realworldocaml.org/v1/en/html/error-handling.html
 
-The exercise consists of three parts:
-- Given an input character, determine if it `is_nucleotide`.
+The exercise consists of two parts:
 - Given an input DNA string and a nucleotide, count the number of times the
   nucleotide occurs in the string.  If the nucleotide `c` is invalid, or the
   DNA string contains an invalid nucleotide `c`, the result should be `Error c`.
