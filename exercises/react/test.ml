@@ -1,12 +1,13 @@
-open Core_kernel
+open Base
 open OUnit2
 open React
 
 let ae exp got =
-  assert_equal ~printer:(Int.to_string) exp got;;
+  assert_equal exp got ~printer:Int.to_string
 
 let assert_list_eq exp got =
-  assert_equal ~printer:(List.to_string ~f:Int.to_string) exp got;;
+  let printer xs = List.sexp_of_t Int.sexp_of_t xs |> Sexp.to_string_hum ~indent:1 in
+  assert_equal exp got ~printer
 
 let create_int_input_cell = create_input_cell ~eq:Int.equal
 let create_compute_cell_1 = create_compute_cell_1 ~eq:Int.equal
@@ -24,7 +25,7 @@ let tests = [
   );
   "compute cells calculate from an initial value" >:: (fun _ctx ->
     let cell = create_int_input_cell ~value:1 in
-    let computed = create_compute_cell_1 cell ~f:succ in
+    let computed = create_compute_cell_1 cell ~f:Int.succ in
     ae 2 (value_of computed)
   );
   "compute cells take inputs in the right order" >:: (fun _ctx ->
@@ -35,7 +36,7 @@ let tests = [
   );
   "compute cells update value when dependencies are changed" >:: (fun _ctx ->
     let input = create_int_input_cell ~value:1 in
-    let computed = create_compute_cell_1 input ~f:succ in
+    let computed = create_compute_cell_1 input ~f:Int.succ in
     set_value input 3;
     ae 4 (value_of computed)
   );
@@ -51,7 +52,7 @@ let tests = [
   );
   "compute cells fire callbacks" >:: (fun _ctx ->
     let input = create_int_input_cell ~value:1 in
-    let output = create_compute_cell_1 input ~f:succ in
+    let output = create_compute_cell_1 input ~f:Int.succ in
     let record = ref [] in
     ignore @@ add_callback output ~k:(fun x -> record := x :: !record);
     
@@ -109,7 +110,7 @@ let tests = [
   );
   "removing a callback multiple times doesn't interfere with other callbacks" >:: (fun _ctx ->
     let input = create_int_input_cell ~value:1 in
-    let output = create_compute_cell_1 input ~f:succ in
+    let output = create_compute_cell_1 input ~f:Int.succ in
     let callback1_calls = ref [] in
     let callback2_calls = ref [] in
     let cb1 = add_callback output ~k:(fun x -> callback1_calls := x :: !callback1_calls) in
@@ -124,9 +125,9 @@ let tests = [
   );
   "callbacks should only be called once even if multiple dependencies change" >:: (fun _ctx ->
     let input = create_int_input_cell ~value:1 in
-    let plus_one = create_compute_cell_1 input ~f:succ in
-    let minus_one1 = create_compute_cell_1 input ~f:pred in
-    let minus_one2 = create_compute_cell_1 minus_one1 ~f:pred in
+    let plus_one = create_compute_cell_1 input ~f:Int.succ in
+    let minus_one1 = create_compute_cell_1 input ~f:Int.pred in
+    let minus_one2 = create_compute_cell_1 minus_one1 ~f:Int.pred in
     let output = create_compute_cell_2 plus_one minus_one2 ~f:((fun x y -> x * y)) in
     
     let callback1_calls = ref [] in
@@ -137,8 +138,8 @@ let tests = [
   );
   "callbacks should not be called if dependencies change but output value doesn't change" >:: (fun _ctx ->
     let input = create_int_input_cell ~value:1 in
-    let plus_one = create_compute_cell_1 input ~f:succ in
-    let minus_one1 = create_compute_cell_1 input ~f:pred in
+    let plus_one = create_compute_cell_1 input ~f:Int.succ in
+    let minus_one1 = create_compute_cell_1 input ~f:Int.pred in
     let always_two = create_compute_cell_2 plus_one minus_one1 ~f:(fun x y -> x - y) in
     
     let callback1_calls = ref [] in
