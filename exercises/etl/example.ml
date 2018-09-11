@@ -1,7 +1,7 @@
 open Base
 
 let transform data =
-  let assign_value value character = ((Char.lowercase character), value) in
-  let assign (value, characters) = List.map ~f:(assign_value value) characters in
+  let assign points letter = (Char.lowercase letter, points) in
+  let gather (points, letters) = List.map letters ~f:(assign points) in
   let compare (a, _) (b, _) = Char.compare a b in
-  List.sort ~compare:compare (List.concat (List.map ~f:assign data))
+  List.sort ~compare (List.concat_map data ~f:gather)
