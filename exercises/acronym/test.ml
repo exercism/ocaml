@@ -15,6 +15,10 @@ let tests = [
     ae "GIMP" (acronym "GNU Image Manipulation Program");
   "punctuation without whitespace" >::
     ae "CMOS" (acronym "Complementary metal-oxide semiconductor");
+  "very long abbreviation" >::
+    ae "ROTFLSHTMDCOALM" (acronym "Rolling On The Floor Laughing So Hard That My Dogs Came Over And Licked Me");
+  "consecutive delimiters" >::
+    ae "SIMUFTA" (acronym "Something - I made up from thin air");
 ]
 
 let () =
