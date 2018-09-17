@@ -1,4 +1,4 @@
-open Core_kernel
+open Base
 
 type callback_id = int
 
@@ -20,23 +20,21 @@ and 'a cell = {
 
 let next_cell_id () =
   let cell_id = !latest_cell_id in
-  latest_cell_id := succ !latest_cell_id;
+  latest_cell_id := Int.succ !latest_cell_id;
   cell_id
 
 let apply x f = f x
-
-let callbacks_tbl = Int.Table.create
 
 let value_of {value; _}: 'a = !value
 
 let create_input_cell ~(value: 'a) ~eq = 
   let cell_id = next_cell_id () in
-  latest_cell_id := succ !latest_cell_id;
+  latest_cell_id := Int.succ !latest_cell_id;
   {
     cell_id;
     eq = eq;
     value = ref value;
-    callbacks = callbacks_tbl (); 
+    callbacks = Hashtbl.create (module Int);
     cell_type = InputCell;
     observers = ref [];
   }
@@ -44,14 +42,14 @@ let create_input_cell ~(value: 'a) ~eq =
 let add_callback cell ~k = 
   let id = !latest_callback_id in
   Hashtbl.set cell.callbacks ~key:id ~data:k;
-  latest_callback_id := succ id;
+  latest_callback_id := Int.succ id;
   id
   
 let remove_callback cell id = 
-  Hashtbl.remove cell.callbacks id;;
+  Hashtbl.remove cell.callbacks id
 
 let call_callbacks cell =
-  Hashtbl.iter cell.callbacks ~f:(apply !(cell.value));;
+  Hashtbl.iter cell.callbacks ~f:(apply !(cell.value))
 
 let dedup_cells (cells: 'a cell list): 'a cell list = 
   List.dedup_and_sort cells ~compare:(fun c1 c2 -> Int.compare c1.cell_id c2.cell_id)
@@ -88,17 +86,17 @@ let set_value (cell: 'a cell) (x: 'a) = match cell.cell_type with
       List.iter cells ~f:call_callbacks;
       ()
     end
-| _ -> failwith "cannot set the value of a compute cell";;
+| _ -> failwith "cannot set the value of a compute cell"
 
 let create_compute_cell_1 one ~f ~eq = 
-  let callbacks = callbacks_tbl () in
+  let callbacks = Hashtbl.create (module Int) in
   let value = ref (f !(one.value)) in
   let c = {cell_id = next_cell_id(); value; callbacks; observers = ref []; eq; cell_type = ComputeCell {one; f}} in
   one.observers := c :: !(one.observers);
   c
 
 let create_compute_cell_2 one two ~f ~eq = 
-  let callbacks = callbacks_tbl () in
+  let callbacks = Hashtbl.create (module Int) in
   let value = ref (f !(one.value) !(two.value)) in
   let c = {cell_id = next_cell_id(); value; callbacks; observers = ref []; eq; cell_type = ComputeCell2 {one; two; f}} in
   one.observers := c :: !(one.observers);

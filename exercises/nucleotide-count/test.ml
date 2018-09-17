@@ -1,7 +1,6 @@
-open Core_kernel
+open Base
 open OUnit2
 
-module CharMap = Char.Map
 module NC = Nucleotide_count
 
 (* Assert that two 'int option' values are equivalent. *)
@@ -16,12 +15,13 @@ let aire exp got _ctxt =
 
 (* Assert that two '(int Char.Map.t, char) Result.t' values are equivalent. *)
 let amre exp got _ctxt =
+  let sexp_of_map = Map.sexp_of_m__t (module Char) in
   let printer m =
-    Result.sexp_of_t (CharMap.sexp_of_t Int.sexp_of_t) Char.sexp_of_t m
+    Result.sexp_of_t (sexp_of_map Int.sexp_of_t) Char.sexp_of_t m
     |> Sexp.to_string_hum ~indent:1
   in
   let cmp exp got = match exp, got with
-    | Ok exp_map, Ok got_map -> CharMap.equal Int.equal exp_map got_map
+    | Ok exp_map, Ok got_map -> Map.equal Int.equal exp_map got_map
     | Error c1, Error c2     -> Char.equal c1 c2
     | _ -> false
   in assert_equal exp got ~cmp ~printer
@@ -41,20 +41,20 @@ let tests =
       amre (Error 'X') (NC.count_nucleotides "ACGXT");
 
     "Empty DNA string has zero nucleotides" >::
-      amre (Ok CharMap.empty) (NC.count_nucleotides "");
+      amre (Ok (Map.empty (module Char))) (NC.count_nucleotides "");
 
     "DNA string with two Adenine nucleotides" >::
-      amre (Ok (CharMap.singleton 'A' 2)) (NC.count_nucleotides "AA");
+      amre (Ok (Map.singleton (module Char) 'A' 2)) (NC.count_nucleotides "AA");
 
     "DNA string with one Adenine, two Cytosine nucleotides" >::
       begin
-        let exp = Ok (CharMap.of_alist_exn [('A', 1); ('C', 2)])
+        let exp = Ok ((Map.of_alist_exn (module Char)) [('A', 1); ('C', 2)])
         in amre exp (NC.count_nucleotides "ACC")
       end;
 
     "DNA string with one Adenine, two Cytosine, three Guanine, four Thymine nucleotides" >::
       begin
-        let exp = Ok (CharMap.of_alist_exn [('A', 1); ('C', 2); ('G', 3); ('T', 4)])
+        let exp = Ok ((Map.of_alist_exn (module Char)) [('A', 1); ('C', 2); ('G', 3); ('T', 4)])
         in amre exp (NC.count_nucleotides "CGTATGTCTG")
       end;
   ]

@@ -1,4 +1,4 @@
-open Core_kernel
+open Base
 
 (**
  * Count occurences of words (consisting of letters and numbers) in the string.
@@ -6,4 +6,4 @@ open Core_kernel
  * Words will be converted to lower case before comparison and insertion in the
  * map.
  *)
-val word_count : string -> int String.Map.t
+val word_count : string -> int Map.M(String).t

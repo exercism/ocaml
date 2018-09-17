@@ -1,4 +1,4 @@
-open Core_kernel
+open Base
 
 type 'a t = { value : 'a; left : 'a t option; right : 'a t option }
 

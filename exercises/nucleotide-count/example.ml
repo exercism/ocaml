@@ -1,4 +1,4 @@
-open Core_kernel
+open Base
 open Base.Continue_or_stop
 
 let is_nucleotide = function
@@ -14,11 +14,11 @@ let count_nucleotide s c =
                         Continue (if Char.equal c c' then n+1 else n))
 
 let count_nucleotides =
-  let incr = Char.Map.change ~f:(function
+  let incr = Map.change ~f:(function
                  | None -> Some 1
                  | Some n -> Some (n + 1))
   in String.fold_until
-       ~init:Char.Map.empty
+       ~init:(Map.empty (module Char))
        ~finish:Result.return
        ~f:(fun acgt c -> if is_nucleotide c
                          then Continue (incr acgt c)
