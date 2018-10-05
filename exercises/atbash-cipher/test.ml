@@ -32,6 +32,10 @@ let decode_tests = [
      ae "testing123testing" (decode "gvhgr mt123 gvhgr mt");
    "decode all the letters" >::
      ae "thequickbrownfoxjumpsoverthelazydog" (decode "gsvjf rxpyi ldmul cqfnk hlevi gsvoz abwlt");
+   "decode with too many spaces" >::
+     ae "exercism" (decode "vc vix    r hn");
+   "decode with no spaces" >::
+     ae "anobstacleisoftenasteppingstone" (decode "zmlyhgzxovrhlugvmzhgvkkrmthglmv");
 ]
 
 let different_block_size_test = [
