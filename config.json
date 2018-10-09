@@ -105,6 +105,16 @@
       ]
     },
     {
+      "slug": "allergies",
+      "uuid": "9d26763a-cbd0-11e8-a8d5-f2801f1b9fd1",
+      "core": false,
+      "unlocked_by": null,
+      "difficulty": 3,
+      "topics": [
+        "bitwise_operations"
+      ]
+    },
+    {
       "slug": "anagram",
       "uuid": "7a3e7667-c7a2-4ba2-b448-599719f78ebc",
       "core": false,
