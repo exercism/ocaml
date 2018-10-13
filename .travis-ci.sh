@@ -1,12 +1,7 @@
 # Edit this for your own project dependencies
 OPAM_DEPENDS="ocamlfind core ounit qcheck react ppx_deriving"
 
-case "$OCAML_VERSION,$OPAM_VERSION" in
-    4.07.0,1.2.2) ppa=avsm/ocaml42+opam12 ;;
-    *) echo Unknown $OCAML_VERSION,$OPAM_VERSION; exit 1 ;;
-esac
-
-echo "yes" | sudo add-apt-repository ppa:$ppa
+echo "yes" | sudo add-apt-repository ppa:avsm/ocaml42+opam12
 sudo apt-get update -qq
 sudo apt-get install -qq ocaml ocaml-native-compilers camlp4-extra opam
 export OPAMYES=1
