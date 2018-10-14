@@ -67,10 +67,10 @@ For installation and learning resources, refer to the
 [exercism help page](http://exercism.io/languages/ocaml).
 
 ## Installation
-To work on the exercises, you will need `Opam` and `Core`. Consult [opam](https://opam.ocaml.org) website for instructions on how to install `opam` for your OS. Once `opam` is installed open a terminal window and run the following command to install core:
+To work on the exercises, you will need `Opam` and `Base`. Consult [opam](https://opam.ocaml.org) website for instructions on how to install `opam` for your OS. Once `opam` is installed open a terminal window and run the following command to install base:
 
 ```bash
-opam install core
+opam install base
 ```
 
 To run the tests you will need `OUnit`. Install it using `opam`:
