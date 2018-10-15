@@ -22,10 +22,10 @@ For installation and learning resources, refer to the
 [exercism help page](http://exercism.io/languages/ocaml).
 
 ## Installation
-To work on the exercises, you will need `Opam` and `Base`. Consult [opam](https://opam.ocaml.org) website for instructions on how to install `opam` for your OS. Once `opam` is installed open a terminal window and run the following command to install base:
+To work on the exercises, you will need `Opam`, `Base` and `React`. Consult [opam](https://opam.ocaml.org) website for instructions on how to install `opam` for your OS. Once `opam` is installed open a terminal window and run the following command to install base and react:
 
 ```bash
-opam install base
+opam install base react
 ```
 
 To run the tests you will need `OUnit`. Install it using `opam`:
