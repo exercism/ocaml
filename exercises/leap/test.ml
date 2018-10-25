@@ -12,6 +12,8 @@ let tests = [
     ae false (leap_year 2100);
   "year divisible by 400: leap year" >::
     ae true (leap_year 2000);
+  "year divisible by 200, not divisible by 400: common year" >::
+    ae false (leap_year 1800);
 ]
 
 let () =

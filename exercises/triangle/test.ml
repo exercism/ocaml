@@ -26,12 +26,12 @@ let isosceles_tests = [
      ae true (is_isosceles 4 4 4);
    "false if no sides are equal" >::
      ae false (is_isosceles 2 3 4);
-   "Sides that violate triangle inequality are not isosceles, even if two are equal" >::
-     ae false (is_isosceles 3 1 1);
-   "Sides that violate triangle inequality are not isosceles, even if two are equal" >::
-     ae false (is_isosceles 1 3 1);
-   "Sides that violate triangle inequality are not isosceles, even if two are equal" >::
+   "Sides that violate triangle inequality are not isosceles, even if two are equal (1)" >::
      ae false (is_isosceles 1 1 3);
+   "Sides that violate triangle inequality are not isosceles, even if two are equal (2)" >::
+     ae false (is_isosceles 1 3 1);
+   "Sides that violate triangle inequality are not isosceles, even if two are equal (3)" >::
+     ae false (is_isosceles 3 1 1);
 ]
 
 let scalene_tests = [

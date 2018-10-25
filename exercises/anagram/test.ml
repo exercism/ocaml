@@ -29,8 +29,8 @@ let tests = [
     ae [] (anagrams "go" ["go Go GO"]);
   "anagrams must use all letters exactly once" >::
     ae [] (anagrams "tapper" ["patter"]);
-  "capital word is not own anagram" >::
-    ae [] (anagrams "BANANA" ["Banana"]);
+  "words are not anagrams of themselves (case-insensitive)" >::
+    ae [] (anagrams "BANANA" ["BANANA"; "Banana"; "banana"]);
 ]
 
 let () =
