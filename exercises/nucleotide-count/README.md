@@ -25,7 +25,7 @@ The exercise consists of two parts:
   nucleotide occurs in the string.  If the nucleotide `c` is invalid, or the
   DNA string contains an invalid nucleotide `c`, the result should be `Error c`.
 - Given an input DNA string, count all the nucleotides in the string and
-  gather the result in a `Char.Map`.  If the DNA string contains an invalid
+  gather the result in a `Map`.  If the DNA string contains an invalid
   nucleotide `c`, the result should be `Error c`.  Otherwise the result
   should be `Ok map`.
 
