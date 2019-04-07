@@ -4,7 +4,7 @@ open Anagram
 
 let ae exp got _test_ctxt =
   let printer = String.concat ~sep:";" in
-  assert_equal exp got ~cmp:(List.equal ~equal:String.equal) ~printer
+  assert_equal exp got ~printer
 
 let tests = [
   "no matches" >::
