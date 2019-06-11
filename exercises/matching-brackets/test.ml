@@ -1,6 +1,6 @@
 open Base
 open OUnit2
-open Bracket_push
+open Matching_brackets
 
 let ae exp got _test_ctxt =
   assert_equal exp got ~printer:Bool.to_string
@@ -39,4 +39,4 @@ let tests = [
 ]
 
 let () =
-  run_test_tt_main ("bracket-push tests" >::: tests)
+  run_test_tt_main ("matching-brackets tests" >::: tests)
