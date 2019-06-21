@@ -27,4 +27,5 @@ if [ $1 == "generate" ]; then
     echo "Checked in test files diverged from generated files:"
     echo $output
     exit 1
+  fi
 fi 
