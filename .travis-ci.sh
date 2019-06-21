@@ -10,7 +10,7 @@ fi
 
 if [ $1 == "generate" ]; then
   sudo apk add m4 linux-headers
-  opam install dune core yojson ounit ocp-indent
+  opam install dune core yojson ounit ocp-indent ppx_deriving
   eval $(opam env)
   sudo git clone https://github.com/exercism/problem-specifications.git ../problem-specifications
   cd ../problem-specifications
