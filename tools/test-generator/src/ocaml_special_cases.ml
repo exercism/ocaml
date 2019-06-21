@@ -44,12 +44,21 @@ let optional_strings ~(f: string -> bool) (parameters: (string * json) list): (s
 let option_of_null (value: json): string = match value with
 | `Null -> "None"
 | `String s -> "(Some \"" ^ s ^ "\")"
-| `List xs as l -> "(Some " ^ (json_to_string l) ^ ")"
+| `List _ as l -> "(Some " ^ (json_to_string l) ^ ")"
 | x -> failwith "cannot handle this type " ^ json_to_string x
 
 let is_empty_string (value: json): bool = match value with
 | `String s -> String.is_empty s
 | _ -> false
+
+let edit_beer_song_expected = function
+| `List xs -> xs 
+  |> List.map ~f:(function 
+    | `String s -> s 
+    | x -> json_to_string x) 
+  |> String.concat ~sep:(String.escaped "\n")
+  |> Printf.sprintf "\"%s\""
+| x -> json_to_string x |> Printf.sprintf "Bad json value in beer-song %s" |> failwith 
 
 let edit_connect_expected = function
 | `String "X" -> "(Some X)"
@@ -198,12 +207,13 @@ let edit_forth_expected (value: json) = match value with
 
 let rec edit_expected ~(f: json -> string) (parameters: (string * json) list) = match parameters with
   | [] -> []
-  | ("expected", v) :: rest -> ("expected", f v) :: edit_expected f rest
-  | (k, v) :: rest -> (k, json_to_string v) :: edit_expected f rest
+  | ("expected", v) :: rest -> ("expected", f v) :: edit_expected ~f rest
+  | (k, v) :: rest -> (k, json_to_string v) :: edit_expected ~f rest
 
 let ocaml_edit_parameters ~(slug: string) (parameters: (string * json) list) = match (slug, parameters) with
 | ("all-your-base", ps) -> edit_all_your_base ps
 | ("binary-search", ps) -> edit_binary_search ps
+| ("beer-song", ps) -> edit_expected ~f:edit_beer_song_expected ps
 | ("bowling", ps) -> edit_bowling ps
 | ("change", ps) -> edit_expected ~f:edit_change_expected ps
 | ("connect", ps) -> edit_expected ~f:edit_connect_expected ps
