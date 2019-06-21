@@ -16,6 +16,7 @@ let map_elements (to_str: json -> string) (parameters: (string * json) list): (s
 let optional_int ~(none: int) = function
 | `Int n when n = none -> "None"
 | `Int n -> "(Some " ^ Int.to_string n ^ ")"
+| `Assoc [("error", _)] -> "None" 
 | x -> json_to_string x
 
 let optional_int_list = function
@@ -44,7 +45,7 @@ let option_of_null (value: json): string = match value with
 | `Null -> "None"
 | `String s -> "(Some \"" ^ s ^ "\")"
 | `List xs as l -> "(Some " ^ (json_to_string l) ^ ")"
-| _ -> failwith "cannot handle this type"
+| x -> failwith "cannot handle this type " ^ json_to_string x
 
 let is_empty_string (value: json): bool = match value with
 | `String s -> String.is_empty s
@@ -57,9 +58,9 @@ let edit_connect_expected = function
 | x -> failwith "Bad json value in connect " ^ json_to_string x
 
 let edit_change_expected (value: json) = match value with
-| `List xs -> "(Some [" ^ (String.concat ~sep:"; " (List.map ~f:json_to_string xs)) ^ "])"
-| `Int (-1) -> "None"
-| _ -> failwith "Bad json value in change"
+| `List xs -> "(Ok [" ^ (String.concat ~sep:"; " (List.map ~f:json_to_string xs)) ^ "])"
+| `Assoc [("error", v)] -> "(Error " ^ json_to_string v ^ ")"
+| x -> failwith "Bad json value in change " ^ json_to_string x
 
 let edit_bowling_expected (value: json) = match value with
 | `Int n -> "(Ok " ^ (Int.to_string n) ^ ")"
@@ -69,8 +70,9 @@ let edit_bowling_expected (value: json) = match value with
 
 let edit_say (ps: (string * json) list) =
   let edit = function
-  | ("number", v) -> ("number", let v = json_to_string v in if Int.of_string v >= 0 then "(" ^ v ^ "L)" else v ^ "L")
-  | ("expected", v) -> ("expected", optional_int_or_string ~none:(-1) v)
+  | ("number", v) -> ("number", Printf.sprintf "%sL" (json_to_string v))
+  | ("expected", `Assoc [("error", v)]) -> ("expected", "(Error " ^ json_to_string v ^ ")")
+  | ("expected", v) -> ("expected", "(Ok " ^ json_to_string v ^ ")")
   | (k, ps) -> (k, json_to_string ps) in
   List.map ps ~f:edit
 
@@ -88,6 +90,36 @@ let edit_dominoes (ps: (string * json) list): (string * string) list =
   | (k, v) -> (k, json_to_string v) in
   List.map ps ~f:edit
 
+let edit_etl (ps: (string * json) list): (string * string) list =
+  let edit = function
+  | ("expected", `Assoc l) -> 
+    l
+    |> List.map ~f:(fun (k, v) -> Printf.sprintf "('%s', %s)" k (json_to_string v))
+    |> String.concat ~sep:"; "
+    |> fun v -> ("expected", Printf.sprintf "[%s]" v)
+  | (k, v) -> (k, json_to_string v) in
+  let s = List.map ps ~f:edit in
+  s @ (
+    ps 
+    |> List.filter_map  ~f:(fun (k, v) -> (
+      if String.equal k "expected" then
+        None
+      else
+        match v with 
+        | `List l -> 
+          l
+          |> List.filter_map ~f:(fun i -> 
+             match i with
+             | `String s -> Some (Printf.sprintf "'%s'" s)
+             | _ -> None)
+          |> String.concat ~sep:"; "
+          |> fun s -> (k, Printf.sprintf "[%s]" s)
+          |> Option.return
+        | _ -> None
+    ))
+    |> (fun l -> [("input", "[" ^ (List.map l ~f:(fun (k, v) -> Printf.sprintf "(%s, %s)" k v) |> (String.concat ~sep:"; ")) ^ "]")]
+  ))
+  
 let edit_space_age (ps: (string * json) list): (string * string) list =
   let edit = function
   | ("planet", v) -> ("planet", json_to_string v |> strip_quotes) 
@@ -122,7 +154,7 @@ let edit_bowling (ps: (string * json) list): (string * string) list =
   | ("roll", `Int n) -> ("roll", let s = Int.to_string n in if n < 0 then ("(" ^ s ^ ")") else s)
   | ("expected", v) -> ("expected", edit_bowling_expected v)
   | (k, v) -> (k, json_to_string v) in
-  List.map ps ~f:edit
+  (List.map ps ~f:edit) @ if List.exists ps ~f:(fun (k, _) -> String.equal "roll" k) then [] else [("roll", "")]
 
 let edit_binary_search (ps: (string * json) list): (string * string) list =
   let open Yojson.Basic.Util in
@@ -134,6 +166,35 @@ let edit_binary_search (ps: (string * json) list): (string * string) list =
   | ("expected", v) -> ("expected", optional_int ~none:(-1) v)
   | (k, v) -> (k, json_to_string v) in
   List.map ps ~f:edit
+
+let edit_triangle (ps: (string * json) list): (string * string) list =
+  let edit = function
+  | ("sides", `List l) -> ("sides", l |> List.map ~f:json_to_string |> String.concat ~sep:" ")
+  | (k, v) -> (k, json_to_string v) in
+  List.map ps ~f:edit
+
+let edit_rectangles (ps: (string * json) list): (string * string) list =
+  let edit = function
+  | ("strings", `List l) -> ("strings", l |> List.map ~f:json_to_string |> String.concat ~sep:";\n" |> Printf.sprintf "[|%s|]")
+  | (k, v) -> (k, json_to_string v) in
+  List.map ps ~f:edit
+
+let edit_minesweeper (ps: (string * json) list): (string * string) list =
+  let edit = function
+  | ("minefield", `List l) -> ("minefield", l |> List.map ~f:json_to_string |> String.concat ~sep:";\n" |> Printf.sprintf "[%s]")
+  | ("expected", `List l) -> ("expected", l |> List.map ~f:json_to_string |> String.concat ~sep:";\n" |> Printf.sprintf "[%s]")
+  | (k, v) -> (k, json_to_string v) in
+  List.map ps ~f:edit
+
+let edit_phone_number_expected (value: json) = match value with
+| `String s -> "(Ok \"" ^ s ^ "\")"
+| `Assoc [("error", v)] -> "(Error " ^ json_to_string v ^ ")"
+| x -> failwith "Bad json value in change " ^ json_to_string x
+
+let edit_forth_expected (value: json) = match value with
+| `List xs -> "(Ok [" ^ (String.concat ~sep:"; " (List.map ~f:json_to_string xs)) ^ "])"
+| `Assoc [("error", v)] -> "(Error " ^ json_to_string v ^ ")"
+| x -> failwith "Bad json value in change " ^ json_to_string x
 
 let rec edit_expected ~(f: json -> string) (parameters: (string * json) list) = match parameters with
   | [] -> []
@@ -147,10 +208,14 @@ let ocaml_edit_parameters ~(slug: string) (parameters: (string * json) list) = m
 | ("change", ps) -> edit_expected ~f:edit_change_expected ps
 | ("connect", ps) -> edit_expected ~f:edit_connect_expected ps
 | ("dominoes", ps) -> edit_dominoes ps
-| ("forth", ps) -> edit_expected ~f:option_of_null ps
+| ("etl", ps) -> edit_etl ps
+| ("forth", ps) -> edit_expected ~f:edit_forth_expected ps
 | ("hamming", ps) -> edit_expected ~f:(optional_int ~none:(-1)) ps
+| ("minesweeper", ps) -> edit_minesweeper ps
 | ("palindrome-products", ps) -> edit_palindrome_products ps
-| ("phone-number", ps) -> edit_expected ~f:option_of_null ps
+| ("phone-number", ps) -> edit_expected ~f:edit_phone_number_expected ps
+| ("rectangles", ps) -> edit_rectangles ps
 | ("say", ps) -> edit_say ps
 | ("space-age", ps) -> edit_space_age ps
+| ("triangle", ps) -> edit_triangle ps
 | (_, ps) -> map_elements json_to_string ps

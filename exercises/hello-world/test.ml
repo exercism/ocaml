@@ -4,7 +4,7 @@ open Hello_world
 let ae exp got _test_ctxt = assert_equal ~printer:(fun x -> x) exp got
 
 let tests = [
-     "Say Hi!" >:: ae "Hello, World!" hello;
+  "Say Hi!" >:: ae "Hello, World!" hello;
 ]
 
 let () =

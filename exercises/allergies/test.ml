@@ -60,14 +60,14 @@ let rec manyofl =
     function
     | []    -> return []
     | x::xs -> bool >>= function
-               | true  -> map (List.cons x) (manyofl xs)
-               | false -> manyofl xs)
+      | true  -> map (List.cons x) (manyofl xs)
+      | false -> manyofl xs)
 
 (* QCheck generator for (allergens, score) pair, where allergens is a list. *)
 let allergens_gen =
   let sum = List.fold ~init:0 ~f:(+) in
   QCheck.Gen.(map List.unzip (manyofl allergenScores) >>=
-                (fun (allergens, scores) -> return (allergens, sum scores)))
+              (fun (allergens, scores) -> return (allergens, sum scores)))
 
 (* Pretty-printer of `allergic_to` failure. *)
 let print_allergic_to_fail exp act (allergen, score) =
@@ -98,8 +98,8 @@ let prop_allergic_to_multiple_allergens =
         else None)
     |> String.concat ~sep:"\n\n"
   in QCheck.Test.make ~count:1000 ~name:"prop_allergic_to_multiple_allergens"
-       (QCheck.make allergens_gen ~print)
-       (fun (allergens, score) -> List.for_all allergens ~f:(allergic_to score))
+    (QCheck.make allergens_gen ~print)
+    (fun (allergens, score) -> List.for_all allergens ~f:(allergic_to score))
 
 (* Pretty-printer of `allergies` failure. *)
 let print_allergies_fail (allergens, score) =

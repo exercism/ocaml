@@ -6,7 +6,7 @@ open Model
 
 type error =
     TestMustHaveKeyCalledCases of string | ExpectingListOfCases | ExpectingMapForCase |
-    NoDescription | BadDescription | UnrecognizedJson [@@deriving eq, show]
+    NoDescription | BadDescription | NoProperty | BadProperty | UnrecognizedJson [@@deriving eq, show]
 
 let extract_parameters case =
   let open Result.Monad_infix in
@@ -24,7 +24,12 @@ let parse_case_assoc (parameters: (string * json) list): (case, error) Result.t 
   find "description" NoDescription >>=
   to_string_note BadDescription >>= fun description ->
   extract_parameters test_parameters >>= fun test_parameters ->
-  Ok {description = description; parameters = test_parameters}
+  find "property" NoProperty >>= to_string_note BadProperty >>= fun property ->
+  Ok {
+    description = description;
+    parameters = test_parameters;
+    property = property;
+  }
 
 let parse_case (s: json): (case, error) Result.t = match s with
   | `Assoc assoc -> parse_case_assoc assoc
@@ -45,6 +50,8 @@ let parse_single (text: string) (cases_key: string): (tests, error) Result.t =
 let rec to_cases case: (case list, error) Result.t = 
   let open Result.Monad_infix in
   find_note case "description" NoDescription >>= to_string_note BadDescription >>= fun desc ->
+  let find name = List.Assoc.find case ~equal:String.equal name in
+  let property = find "property" |> Option.value_map ~default:"" ~f:(function `String s -> s | _ -> "") in
   let cases = List.Assoc.find case ~equal:String.equal "cases" in
   match cases with
   | Some cases -> 
@@ -53,7 +60,11 @@ let rec to_cases case: (case list, error) Result.t =
       List.map x ~f:to_cases |> sequence |> Result.map ~f:List.concat
   | None -> 
       extract_parameters case >>= fun parameters ->
-      Result.return [{description = desc; parameters = parameters}]
+      Result.return [{
+        description = desc; 
+        parameters = parameters;
+        property = property;
+      }]
 
 let convert_cases_description_to_name desc =
   String.lowercase desc |> String.substr_replace_all ~pattern:" " ~with_:"_"
@@ -93,3 +104,5 @@ let show_error = function
   | NoDescription -> "Case is missing a description."
   | BadDescription -> "Description is not a string."
   | UnrecognizedJson -> "Cannot understand this json."
+  | NoProperty -> "Case is missing a property key."
+  | BadProperty -> "Property is not a string."

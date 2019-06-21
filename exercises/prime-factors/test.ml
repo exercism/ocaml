@@ -13,22 +13,22 @@ let to_int64s = List.map ~f:Int64.of_int
  *
  * If you happen to use a 64 bits machine normal ints would do as well, but this
  * works for everybody.
- *)
+*)
 let tests = [
-   "no factors" >::
-      ae (to_int64s []) (factors_of 1L);
-   "prime number" >::
-      ae (to_int64s [2]) (factors_of 2L);
-   "square of a prime" >::
-      ae (to_int64s [3; 3]) (factors_of 9L);
-   "cube of a prime" >::
-      ae (to_int64s [2; 2; 2]) (factors_of 8L);
-   "product of primes and non-primes" >::
-      ae (to_int64s [2; 2; 3]) (factors_of 12L);
-   "product of primes" >::
-      ae (to_int64s [5; 17; 23; 461]) (factors_of 901255L);
-   "factors include a large prime" >::
-      ae (to_int64s [11; 9539; 894119]) (factors_of 93819012551L);
+  "no factors" >::
+  ae (to_int64s []) (factors_of 1L);
+  "prime number" >::
+  ae (to_int64s [2]) (factors_of 2L);
+  "square of a prime" >::
+  ae (to_int64s [3; 3]) (factors_of 9L);
+  "cube of a prime" >::
+  ae (to_int64s [2; 2; 2]) (factors_of 8L);
+  "product of primes and non-primes" >::
+  ae (to_int64s [2; 2; 3]) (factors_of 12L);
+  "product of primes" >::
+  ae (to_int64s [5; 17; 23; 461]) (factors_of 901255L);
+  "factors include a large prime" >::
+  ae (to_int64s [11; 9539; 894119]) (factors_of 93819012551L);
 ]
 
 let () =

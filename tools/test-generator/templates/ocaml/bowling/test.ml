@@ -24,7 +24,7 @@ let assert_roll exp frame game = assert_equal ~printer:roll_printer exp (roll fr
 let tests = [
 (* TEST
    "$description" >:: (fun _ ->
-      let g = set_previous_frames $previous_rolls in
+      let g = set_previous_frames $previousRolls in
       assert_$property $expected $roll g
    );
    END TEST *)
