@@ -10,7 +10,6 @@ fi
 
 if [ $1 == "generate" ]; then
   sudo apk add m4 linux-headers
-  opam pin add jbuilder 1.0+beta20
   opam install dune core yojson ounit ocp-indent
   eval $(opam env)
   sudo git clone https://github.com/exercism/problem-specifications.git ../problem-specifications
