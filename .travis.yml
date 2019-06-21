@@ -1,7 +1,10 @@
 language: c
 
+services:
+  - docker
+
 script:
-  - bash -ex .travis-ci.sh
+  - docker run -w /repo -v $(pwd):/repo --entrypoint "/bin/bash" -it ocaml/opam2:alpine-3.9-ocaml-4.07 ".travis-ci.sh"
   - bin/fetch-configlet
   - bin/configlet lint .
 
