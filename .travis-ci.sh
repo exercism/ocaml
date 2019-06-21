@@ -19,7 +19,7 @@ if [ $1 == "generate" ]; then
   cd tools/test-generator
   sudo dune exec ./test_gen.exe --profile=release 
   cd -
-  sudo ocp-indent -i ../../exercises/**/test.ml
+  sudo ocp-indent -i exercises/**/test.ml
   if output=$(git status --porcelain -- "exercises/**/test.ml") && [ -z "$output" ]; then
     echo "Tests are in sync."
   else
