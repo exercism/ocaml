@@ -23,12 +23,14 @@ let tests = [
   ae (Some 5) (find [|1; 3; 5; 8; 13; 21; 34; 55; 89; 144; 233; 377|] 21);
   "identifies that a value is not included in the array" >::
   ae None (find [|1; 3; 4; 6; 8; 9; 11|] 7);
-  "a value smaller than the array's smallest value is not included" >::
+  "a value smaller than the array's smallest value is not found" >::
   ae None (find [|1; 3; 4; 6; 8; 9; 11|] 0);
-  "a value larger than the array's largest value is not included" >::
+  "a value larger than the array's largest value is not found" >::
   ae None (find [|1; 3; 4; 6; 8; 9; 11|] 13);
-  "nothing is included in an empty array" >::
+  "nothing is found in an empty array" >::
   ae None (find [||] 1);
+  "nothing is found when the left and right bounds cross" >::
+  ae None (find [|1; 2|] 0);
 ]
 
 let () =

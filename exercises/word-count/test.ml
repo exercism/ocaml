@@ -42,6 +42,9 @@ let tests = [
   "multiple spaces not detected as a word" >::
   ae [("multiple", 1); ("whitespaces", 1)]
     (word_count " multiple   whitespaces");
+  "alternating word separators not detected as a word" >::
+  ae [("one", 1); ("two", 1); ("three", 1)]
+    (word_count ",\n,one,\n ,two \n 'three'");
 ]
 
 let () =

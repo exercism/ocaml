@@ -25,7 +25,7 @@ let tests = [
   ae ["carthorse"] (anagrams "Orchestra" ["cashregister"; "carthorse"; "radishes"]);
   "detects anagrams using case-insensitive possible matches" >::
   ae ["Carthorse"] (anagrams "orchestra" ["cashregister"; "Carthorse"; "radishes"]);
-  "does not detect a anagram if the original word is repeated" >::
+  "does not detect an anagram if the original word is repeated" >::
   ae [] (anagrams "go" ["go Go GO"]);
   "anagrams must use all letters exactly once" >::
   ae [] (anagrams "tapper" ["patter"]);

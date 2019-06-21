@@ -34,7 +34,7 @@ let tests = [
                       "   "] in
       ae expected (annotate b)
     );
-  "board with only mines" >:: (fun _ ->
+  "minefield with only mines" >:: (fun _ ->
       let b = ["***";
                "***";
                "***"] in
@@ -110,7 +110,7 @@ let tests = [
                       " 2*2 "] in
       ae expected (annotate b)
     );
-  "large board" >:: (fun _ ->
+  "large minefield" >:: (fun _ ->
       let b = [" *  * ";
                "  *   ";
                "    * ";

@@ -24,14 +24,14 @@ let tests = [
   ae "Calm down, I know what I'm doing!" (response_for "WHAT THE HELL WERE YOU THINKING?");
   "shouting numbers" >::
   ae "Whoa, chill out!" (response_for "1, 2, 3 GO!");
-  "only numbers" >::
+  "no letters" >::
   ae "Whatever." (response_for "1, 2, 3");
-  "question with only numbers" >::
+  "question with no letters" >::
   ae "Sure." (response_for "4?");
   "shouting with special characters" >::
   ae "Whoa, chill out!" (response_for "ZOMG THE %^*@#$(*^ ZOMBIES ARE COMING!!11!!1!");
   "shouting with no exclamation mark" >::
-  ae "Whoa, chill out!" (response_for "I HATE YOU");
+  ae "Whoa, chill out!" (response_for "I HATE THE DMV");
   "statement containing question mark" >::
   ae "Whatever." (response_for "Ending with ? means a question.");
   "non-letters with question" >::
@@ -45,7 +45,7 @@ let tests = [
   "alternate silence" >::
   ae "Fine. Be that way!" (response_for "\t\t\t\t\t\t\t\t\t\t");
   "multiple line question" >::
-  ae "Whatever." (response_for "\nDoes this cryogenic chamber make me look fat?\nno");
+  ae "Whatever." (response_for "\nDoes this cryogenic chamber make me look fat?\nNo.");
   "starting with whitespace" >::
   ae "Whatever." (response_for "         hmmmmmmm...");
   "ending with whitespace" >::

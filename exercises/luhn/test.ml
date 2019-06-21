@@ -20,19 +20,25 @@ let tests = [
   assert_valid false "055 444 286";
   "invalid credit card" >::
   assert_valid false "8273 1232 7352 0569";
-  "valid strings with a non-digit included become invalid" >::
-  assert_valid false "055a 444 285";
+  "valid number with an even number of digits" >::
+  assert_valid true "095 245 88";
+  "valid number with an odd number of spaces" >::
+  assert_valid true "234 567 891 234";
+  "valid strings with a non-digit added at the end become invalid" >::
+  assert_valid false "059a";
   "valid strings with punctuation included become invalid" >::
   assert_valid false "055-444-285";
   "valid strings with symbols included become invalid" >::
-  assert_valid false "055\194\163 444$ 285";
+  assert_valid false "055# 444$ 285";
   "single zero with space is invalid" >::
   assert_valid false " 0";
   "more than a single zero is valid" >::
   assert_valid true "0000 0";
   "input digit 9 is correctly converted to output digit 9" >::
   assert_valid true "091";
-  "strings with non-digits is invalid" >::
+  "using ascii value for non-doubled non-digit isn't allowed" >::
+  assert_valid false "055b 444 285";
+  "using ascii value for doubled non-digit isn't allowed" >::
   assert_valid false ":9";
 ]
 

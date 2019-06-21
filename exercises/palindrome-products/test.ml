@@ -39,16 +39,16 @@ let tests = [
   ae (Ok {value=99000099; factors=[(9901,9999)]})
     (largest ~min:1000 ~max:9999);
   "empty result for smallest if no palindrome in the range" >::
-  ae (Error "no palindrome with factors in the range 1002 to 1003")
+  ae (Ok {value=null; factors=[]})
     (smallest ~min:1002 ~max:1003);
   "empty result for largest if no palindrome in the range" >::
-  ae (Error "no palindrome with factors in the range 15 to 15")
+  ae (Ok {value=null; factors=[]})
     (largest ~min:15 ~max:15);
   "error result for smallest if min is more than max" >::
-  ae (Error "invalid input: min is 10000 and max is 1")
+  ae (Error "min must be <= max")
     (smallest ~min:10000 ~max:1);
   "error result for largest if min is more than max" >::
-  ae (Error "invalid input: min is 2 and max is 1")
+  ae (Error "min must be <= max")
     (largest ~min:2 ~max:1);
 ]
 
