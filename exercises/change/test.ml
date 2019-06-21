@@ -2,7 +2,10 @@ open Base
 open OUnit2
 open Change
 
-let printer = Option.value_map ~default:"None" ~f:(fun xs -> String.concat ~sep:";" (List.map ~f:Int.to_string xs))
+let printer = function
+  | Ok l -> l |> List.map ~f:Int.to_string |> String.concat ~sep:";" |> Printf.sprintf "Ok [%s]"
+  | Error m -> Printf.sprintf "Error \"[%s]\"" m
+
 let ae exp got _test_ctxt = assert_equal ~printer exp got
 
 let tests = [
@@ -38,7 +41,7 @@ let tests = [
     (make_change ~target:94 ~coins:[5; 10]);
   "cannot find negative change values" >::
   ae (Error "target can't be negative") 
-    (make_change ~target:-5 ~coins:[1; 2; 5]);
+    (make_change ~target:(-5) ~coins:[1; 2; 5]);
 ]
 
 let () =

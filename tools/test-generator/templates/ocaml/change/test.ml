@@ -2,7 +2,10 @@ open Base
 open OUnit2
 open Change
 
-let printer = Option.value_map ~default:"None" ~f:(fun xs -> String.concat ~sep:";" (List.map ~f:Int.to_string xs))
+let printer = function
+  | Ok l -> l |> List.map ~f:Int.to_string |> String.concat ~sep:";" |> Printf.sprintf "Ok [%s]"
+  | Error m -> Printf.sprintf "Error \"[%s]\"" m
+
 let ae exp got _test_ctxt = assert_equal ~printer exp got
 
 let tests = [

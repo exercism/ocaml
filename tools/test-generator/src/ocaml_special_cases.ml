@@ -66,11 +66,6 @@ let edit_connect_expected = function
 | `String "" -> "None"
 | x -> failwith "Bad json value in connect " ^ json_to_string x
 
-let edit_change_expected (value: json) = match value with
-| `List xs -> "(Ok [" ^ (String.concat ~sep:"; " (List.map ~f:json_to_string xs)) ^ "])"
-| `Assoc [("error", v)] -> "(Error " ^ json_to_string v ^ ")"
-| x -> failwith "Bad json value in change " ^ json_to_string x
-
 let edit_bowling_expected (value: json) = match value with
 | `Int n -> "(Ok " ^ (Int.to_string n) ^ ")"
 | `Assoc [(k, v)] -> 
@@ -210,12 +205,22 @@ let rec edit_expected ~(f: json -> string) (parameters: (string * json) list) = 
   | ("expected", v) :: rest -> ("expected", f v) :: edit_expected ~f rest
   | (k, v) :: rest -> (k, json_to_string v) :: edit_expected ~f rest
 
+let edit_change (ps: (string * json) list): (string * string) list =
+  let edit = function
+  | ("target", `Int i) -> ("target", Printf.sprintf (if i < 0 then "(%i)" else "%i") i)
+  | ("expected", v) -> ("expected", match v with
+    | `List xs -> "(Ok [" ^ (String.concat ~sep:"; " (List.map ~f:json_to_string xs)) ^ "])"
+    | `Assoc [("error", v)] -> "(Error " ^ json_to_string v ^ ")"
+    | x -> failwith "Bad json value in change " ^ json_to_string x)
+  | (k, v) -> (k, json_to_string v) in
+  ps |> List.map ~f:edit
+
 let ocaml_edit_parameters ~(slug: string) (parameters: (string * json) list) = match (slug, parameters) with
 | ("all-your-base", ps) -> edit_all_your_base ps
 | ("binary-search", ps) -> edit_binary_search ps
 | ("beer-song", ps) -> edit_expected ~f:edit_beer_song_expected ps
 | ("bowling", ps) -> edit_bowling ps
-| ("change", ps) -> edit_expected ~f:edit_change_expected ps
+| ("change", ps) -> edit_change ps
 | ("connect", ps) -> edit_expected ~f:edit_connect_expected ps
 | ("dominoes", ps) -> edit_dominoes ps
 | ("etl", ps) -> edit_etl ps
