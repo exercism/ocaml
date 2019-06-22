@@ -74,7 +74,7 @@ let edit_bowling_expected (value: json) = match value with
 
 let edit_say (ps: (string * json) list) =
   let edit = function
-  | ("number", v) -> ("number", Printf.sprintf "%sL" (json_to_string v))
+  | ("number", v) -> ("number", Printf.sprintf "(%sL)" (json_to_string v))
   | ("expected", `Assoc [("error", v)]) -> ("expected", "(Error " ^ json_to_string v ^ ")")
   | ("expected", v) -> ("expected", "(Ok " ^ json_to_string v ^ ")")
   | (k, ps) -> (k, json_to_string ps) in
