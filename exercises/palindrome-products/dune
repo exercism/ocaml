@@ -10,3 +10,7 @@
   (:< test.exe))
  (action
   (run %{<})))
+
+(env
+  (dev
+  (flags (:standard -warn-error -A))))
