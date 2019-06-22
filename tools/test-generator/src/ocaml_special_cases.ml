@@ -175,7 +175,11 @@ let edit_binary_search (ps: (string * json) list): (string * string) list =
 
 let edit_triangle (ps: (string * json) list): (string * string) list =
   let edit = function
-  | ("sides", `List l) -> ("sides", l |> List.map ~f:json_to_string |> String.concat ~sep:" ")
+  | ("sides", `List l) -> ("sides", 
+    l 
+    |> List.map ~f:json_to_string 
+    |> List.map ~f:(fun i -> if String.contains i '.' then i else Printf.sprintf "%s.0" i)
+    |>  String.concat ~sep:" ")
   | (k, v) -> (k, json_to_string v) in
   List.map ps ~f:edit
 
