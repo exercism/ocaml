@@ -11,8 +11,7 @@ let format_board strings =
   "\n" ^ border_line ^ String.concat (List.map strings ~f:line) ^ border_line
 
 (* Assert Equals *)
-let ae exp got =
-  assert_equal exp got ~cmp:(List.equal ~equal:String.equal) ~printer:format_board
+let ae exp got = assert_equal exp got ~printer:format_board
 
 let tests = [
 (* TEST
