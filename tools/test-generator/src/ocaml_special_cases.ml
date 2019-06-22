@@ -196,8 +196,8 @@ let edit_phone_number_expected (value: json) = match value with
 | x -> failwith "Bad json value in change " ^ json_to_string x
 
 let edit_forth_expected (value: json) = match value with
-| `List xs -> "(Ok [" ^ (String.concat ~sep:"; " (List.map ~f:json_to_string xs)) ^ "])"
-| `Assoc [("error", v)] -> "(Error " ^ json_to_string v ^ ")"
+| `List xs -> "(Some [" ^ (String.concat ~sep:"; " (List.map ~f:json_to_string xs)) ^ "])"
+| `Assoc [("error", v)] -> "None"
 | x -> failwith "Bad json value in change " ^ json_to_string x
 
 let rec edit_expected ~(f: json -> string) (parameters: (string * json) list) = match parameters with
