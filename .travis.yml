@@ -2,8 +2,8 @@ services:
   - docker
 
 script:
-  - docker pull marionebl/ocaml-exercism-ci
-  - docker build -t marionebl/ocaml-exercism-ci -f .travis/Dockerfile .
+#  - docker pull marionebl/ocaml-exercism-ci
+#  - docker build -t marionebl/ocaml-exercism-ci -f .travis/Dockerfile .
   - docker run -w /repo -v $(pwd):/repo -it marionebl/ocaml-exercism-ci .travis/.travis-ci.sh
 
 after_script:
