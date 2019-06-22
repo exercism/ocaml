@@ -1,11 +1,10 @@
 services:
   - docker
 
-before_script:
-  - docker run -w /repo -v $(pwd):/repo --entrypoint "/bin/bash" -it ocaml/opam2:alpine-3.9-ocaml-4.06 .travis-ci.sh generate
-
 script:
-  - docker run -w /repo -v $(pwd):/repo --entrypoint "/bin/bash" -it ocaml/opam2:alpine-3.9-ocaml-4.07 .travis-ci.sh test
+  - docker pull marionebl/ocaml-exercism-ci
+  - docker build -t marionebl/ocaml-exercism-ci -f .travis/Dockerfile .
+  - docker run -w /repo -v $(pwd):/repo -it marionebl/ocaml-exercism-ci .travis/.travis-ci.sh
 
 after_script:
   - bin/fetch-configlet

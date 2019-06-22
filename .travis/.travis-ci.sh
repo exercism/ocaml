@@ -1,17 +1,13 @@
+#!/bin/bash
 set -e
 
-if [ $1 == "test" ]; then
+function prepare () {
   sudo apk add m4 linux-headers
-  opam pin add base v0.11.1
-  opam install dune ocamlfind core ounit qcheck react ppx_deriving 
+  opam install dune ocamlfind core ounit qcheck react ppx_deriving yojson ounit ocp-indent
   eval $(opam env)
-  make test
-fi
+}
 
-if [ $1 == "generate" ]; then
-  sudo apk add m4 linux-headers
-  opam install dune core yojson ounit ocp-indent ppx_deriving
-  eval $(opam env)
+function run_generator () {
   sudo git clone https://github.com/exercism/problem-specifications.git ../problem-specifications
   cd ../problem-specifications
   sudo git checkout 2af3c9b0074f16c62366c5c533eaacd3ff27b583 
@@ -27,4 +23,10 @@ if [ $1 == "generate" ]; then
     echo $output
     exit 1
   fi
-fi 
+}
+
+function run_tests () {
+  make test
+}
+
+prepare && run_generator && run_tests
