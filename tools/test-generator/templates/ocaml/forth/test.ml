@@ -118,10 +118,6 @@ let () =
         swap_tests; 
         over_tests; 
         user_defined_words_tests;
-<<<<<<< HEAD
         case_insensitivity;
-=======
-        case_insensitivity
->>>>>>> test-generator: prepare ci automation
         ]
   )
