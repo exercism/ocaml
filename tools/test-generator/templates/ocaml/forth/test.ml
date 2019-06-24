@@ -10,7 +10,7 @@ let ae exp got _test_ctxt = assert_equal ~printer:print_int_list_option exp got
 let (* SUITE parsing_and_numbers *)parsing_and_numbers_tests = [
 (* TEST
    "$description" >::
-     ae $expected (evaluate $input);
+     ae $expected (evaluate $instructions);
    END TEST *)
 ]
 (* END SUITE *)
@@ -18,7 +18,7 @@ let (* SUITE parsing_and_numbers *)parsing_and_numbers_tests = [
 let (* SUITE addition *)addition_tests = [
 (* TEST
    "$description" >::
-     ae $expected (evaluate $input);
+     ae $expected (evaluate $instructions);
    END TEST *)
 ]
 (* END SUITE *)
@@ -26,7 +26,7 @@ let (* SUITE addition *)addition_tests = [
 let (* SUITE subtraction *)subtraction_tests = [
 (* TEST
    "$description" >::
-     ae $expected (evaluate $input);
+     ae $expected (evaluate $instructions);
    END TEST *)
 ]
 (* END SUITE *)
@@ -34,7 +34,7 @@ let (* SUITE subtraction *)subtraction_tests = [
 let (* SUITE multiplication *)multiplication_tests = [
 (* TEST
    "$description" >::
-     ae $expected (evaluate $input);
+     ae $expected (evaluate $instructions);
    END TEST *)
 ]
 (* END SUITE *)
@@ -42,7 +42,7 @@ let (* SUITE multiplication *)multiplication_tests = [
 let (* SUITE division *)division_tests = [
 (* TEST
    "$description" >::
-     ae $expected (evaluate $input);
+     ae $expected (evaluate $instructions);
    END TEST *)
 ]
 (* END SUITE *)
@@ -50,7 +50,7 @@ let (* SUITE division *)division_tests = [
 let (* SUITE combined_arithmetic *)combined_arithmetic_tests = [
 (* TEST
    "$description" >::
-     ae $expected (evaluate $input);
+     ae $expected (evaluate $instructions);
    END TEST *)
 ]
 (* END SUITE *)
@@ -58,7 +58,7 @@ let (* SUITE combined_arithmetic *)combined_arithmetic_tests = [
 let (* SUITE dup *)dup_tests = [
 (* TEST
    "$description" >::
-     ae $expected (evaluate $input);
+     ae $expected (evaluate $instructions);
    END TEST *)
 ]
 (* END SUITE *)
@@ -66,7 +66,7 @@ let (* SUITE dup *)dup_tests = [
 let (* SUITE drop *)drop_tests = [
 (* TEST
    "$description" >::
-     ae $expected (evaluate $input);
+     ae $expected (evaluate $instructions);
    END TEST *)
 ]
 (* END SUITE *)
@@ -74,7 +74,7 @@ let (* SUITE drop *)drop_tests = [
 let (* SUITE swap *)swap_tests = [
 (* TEST
    "$description" >::
-     ae $expected (evaluate $input);
+     ae $expected (evaluate $instructions);
    END TEST *)
 ]
 (* END SUITE *)
@@ -82,7 +82,7 @@ let (* SUITE swap *)swap_tests = [
 let (* SUITE over *)over_tests = [
 (* TEST
    "$description" >::
-     ae $expected (evaluate $input);
+     ae $expected (evaluate $instructions);
    END TEST *)
 ]
 (* END SUITE *)
@@ -90,7 +90,15 @@ let (* SUITE over *)over_tests = [
 let (* SUITE user-defined_words *)user_defined_words_tests = [
 (* TEST
    "$description" >::
-     ae $expected (evaluate $input);
+     ae $expected (evaluate $instructions);
+   END TEST *)
+]
+(* END SUITE *)
+
+let (* SUITE case-insensitivity *)case_insensitivity = [
+(* TEST
+   "$description" >::
+     ae $expected (evaluate $instructions);
    END TEST *)
 ]
 (* END SUITE *)
@@ -109,6 +117,7 @@ let () =
         drop_tests;
         swap_tests; 
         over_tests; 
-        user_defined_words_tests
+        user_defined_words_tests;
+        case_insensitivity;
         ]
   )

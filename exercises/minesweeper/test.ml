@@ -12,7 +12,7 @@ let format_board strings =
 
 (* Assert Equals *)
 let ae exp got =
-  assert_equal exp got ~cmp:(List.equal ~equal:String.equal) ~printer:format_board
+  assert_equal exp got ~printer:format_board
 
 let tests = [
   "no rows" >:: (fun _ ->
