@@ -7,5 +7,5 @@ let anagrams target candidates =
   let target_sorted = to_sorted_list target_lc in
   List.map ~f:(fun c -> (c, String.lowercase c)) candidates
   |> List.filter ~f:(fun (_, lc) ->
-      List.equal ~equal:Char.equal (to_sorted_list lc) target_sorted && String.(lc <> target_lc))
+      List.equal Char.equal (to_sorted_list lc) target_sorted && String.(lc <> target_lc))
   |> List.map ~f:fst
