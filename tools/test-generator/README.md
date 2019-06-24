@@ -9,10 +9,18 @@ canonical data.
 
 ## Building
 
-In the folder tools/test-generator, type ```Make```
-This will build and run the unit tests
+```
+cd tools/test-generator
+dune build test_gen.exe --profile=release
+```
 
 ## Running
+
+```
+git clone https://github.com/exercism/problem-specifications.git ../problem-specifications
+cd tools/test-generator
+dune exec test_gen.exe --profile=release
+```
 
 The test generator should be run whenever test canonical data is updated.
 
