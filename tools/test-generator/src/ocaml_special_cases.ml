@@ -141,7 +141,8 @@ let edit_binary_search (ps: (string * json) list): (string * string) list =
     "[|" ^ String.concat ~sep:"; " xs ^ "|]" in
   let edit = function
   | ("array", v) -> ("array", as_array_string v) 
-  | ("expected", v) -> ("expected", optional_int ~none:(-1) v)
+  | ("expected", `Int i) -> ("expected", Printf.sprintf "(Ok %i)" i)
+  | ("expected", `Assoc [("error", `String m)]) -> ("expected", Printf.sprintf "(Error \"%s\")" m)
   | (k, v) -> (k, json_to_string v) in
   List.map ps ~f:edit
 
