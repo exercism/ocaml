@@ -27,7 +27,7 @@ let (* SUITE verse *)verse_tests = [
 (* TEST
    "$description" >::
      ae $expected 
-     (verse $number);
+     (recite $startBottles $takeDown);
    END TEST *)
 ]
 (* END SUITE *)
@@ -36,7 +36,7 @@ let (* SUITE lyrics *)lyrics_tests = [
 (* TEST
    "$description" >::
      ae $expected 
-     (lyrics ~from:$beginning ~until:$end);
+     (recite $startBottles $takeDown);
    END TEST *)
 ]
 (* END SUITE *)

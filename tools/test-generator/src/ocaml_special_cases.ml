@@ -68,6 +68,15 @@ let edit_bowling_expected (value: json) = match value with
     if k = "error" then "(Error " ^ json_to_string v ^ ")" else failwith ("Can only handle error value but got " ^ k)
 | _ -> failwith "Bad json value in bowling"
 
+let edit_beer_song_expected = function
+| `List xs -> xs 
+  |> List.map ~f:(function 
+    | `String s -> s 
+    | x -> json_to_string x) 
+  |> String.concat ~sep:(String.escaped "\n")
+  |> Printf.sprintf "\"%s\""
+| x -> json_to_string x |> Printf.sprintf "Bad json value in beer-song %s" |> failwith 
+
 let edit_say (ps: (string * json) list) =
   let edit = function
   | ("number", v) -> ("number", let v = json_to_string v in if Int.of_string v >= 0 then "(" ^ v ^ "L)" else v ^ "L")
@@ -143,6 +152,7 @@ let rec edit_expected ~(f: json -> string) (parameters: (string * json) list) = 
 
 let ocaml_edit_parameters ~(slug: string) (parameters: (string * json) list) = match (slug, parameters) with
 | ("all-your-base", ps) -> edit_all_your_base ps
+| ("beer-song", ps) -> edit_expected ~f:edit_beer_song_expected ps
 | ("binary-search", ps) -> edit_binary_search ps
 | ("bowling", ps) -> edit_bowling ps
 | ("change", ps) -> edit_expected ~f:edit_change_expected ps
