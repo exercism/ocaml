@@ -4,9 +4,9 @@ services:
   - docker
 
 script:
-  - docker run -w /repo -v $(pwd):/repo --entrypoint "/bin/bash" -it ocaml/opam2:alpine-3.9-ocaml-4.07 ".travis-ci.sh"
+  - docker build -t ci -f .travis/Dockerfile .
+  - docker run -w /repo -v $(pwd):/repo -it ci .travis/.travis-ci.sh
+
+after_script:
   - bin/fetch-configlet
   - bin/configlet lint .
-
-env:
-  - OCAML_VERSION=4.07.0 OPAM_VERSION=1.2.2

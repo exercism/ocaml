@@ -44,7 +44,7 @@ let option_of_null (value: json): string = match value with
 | `Null -> "None"
 | `String s -> "(Some \"" ^ s ^ "\")"
 | `List xs as l -> "(Some " ^ (json_to_string l) ^ ")"
-| _ -> failwith "cannot handle this type"
+| x -> failwith "cannot handle this type: " ^ json_to_string x
 
 let is_empty_string (value: json): bool = match value with
 | `String s -> String.is_empty s
@@ -58,6 +58,7 @@ let edit_connect_expected = function
 
 let edit_change_expected (value: json) = match value with
 | `List xs -> "(Some [" ^ (String.concat ~sep:"; " (List.map ~f:json_to_string xs)) ^ "])"
+| `Assoc [("error", _)] -> "None"
 | `Int (-1) -> "None"
 | _ -> failwith "Bad json value in change"
 
@@ -147,10 +148,10 @@ let ocaml_edit_parameters ~(slug: string) (parameters: (string * json) list) = m
 | ("change", ps) -> edit_expected ~f:edit_change_expected ps
 | ("connect", ps) -> edit_expected ~f:edit_connect_expected ps
 | ("dominoes", ps) -> edit_dominoes ps
-| ("forth", ps) -> edit_expected ~f:option_of_null ps
+(* | ("forth", ps) -> edit_expected ~f:option_of_null ps *)
 | ("hamming", ps) -> edit_expected ~f:(optional_int ~none:(-1)) ps
 | ("palindrome-products", ps) -> edit_palindrome_products ps
-| ("phone-number", ps) -> edit_expected ~f:option_of_null ps
+(* | ("phone-number", ps) -> edit_expected ~f:option_of_null ps *)
 | ("say", ps) -> edit_say ps
 | ("space-age", ps) -> edit_space_age ps
 | (_, ps) -> map_elements json_to_string ps
