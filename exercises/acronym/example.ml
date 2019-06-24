@@ -1,12 +1,12 @@
 open Base
 
-let (>|>) f g x = f (g x)
+let delimiters = [' '; '-'; '_']
+let is_relevant c = Char.is_alpha c || List.exists delimiters ~f:(Char.equal c)
 
-let acronym = 
-  let acronymChar = function 
-  | "" -> ""
-  | s when String.(uppercase s = s) -> Char.to_string s.[0]
-  | s -> Char.to_string (Char.uppercase s.[0]) ^ String.filter ~f:Char.is_uppercase (String.drop_prefix s 1) in
-  String.concat ~sep:""
-  >|> List.map ~f:acronymChar
-  >|> String.split_on_chars ~on:[' ';'-']
+let acronym input =
+  input
+  |> String.filter ~f:is_relevant
+  |> String.split_on_chars ~on:delimiters
+  |> List.filter ~f:(fun word -> String.length word > 0)
+  |> List.map ~f:(fun word -> String.get word 0 |> Char.uppercase) 
+  |> String.of_char_list
