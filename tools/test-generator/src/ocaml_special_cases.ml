@@ -62,6 +62,15 @@ let edit_bowling_expected (value: json) = match value with
     if k = "error" then "(Error " ^ json_to_string v ^ ")" else failwith ("Can only handle error value but got " ^ k)
 | _ -> failwith "Bad json value in bowling"
 
+let edit_beer_song_expected = function
+| `List xs -> xs 
+  |> List.map ~f:(function 
+    | `String s -> s 
+    | x -> json_to_string x) 
+  |> String.concat ~sep:(String.escaped "\n")
+  |> Printf.sprintf "\"%s\""
+| x -> json_to_string x |> Printf.sprintf "Bad json value in beer-song %s" |> failwith 
+
 let edit_say (ps: (string * json) list) =
   let edit = function
   | ("number", v) -> ("number", let v = json_to_string v in if Int.of_string v >= 0 then "(" ^ v ^ "L)" else v ^ "L")
@@ -117,7 +126,7 @@ let edit_bowling (ps: (string * json) list): (string * string) list =
   | ("roll", `Int n) -> ("roll", let s = Int.to_string n in if n < 0 then ("(" ^ s ^ ")") else s)
   | ("expected", v) -> ("expected", edit_bowling_expected v)
   | (k, v) -> (k, json_to_string v) in
-  List.map ps ~f:edit
+  (List.map ps ~f:edit) @ if List.exists ps ~f:(fun (k, _) -> String.equal "roll" k) then [] else [("roll", "")]
 
 let edit_binary_search (ps: (string * json) list): (string * string) list =
   let open Yojson.Basic.Util in
@@ -126,7 +135,8 @@ let edit_binary_search (ps: (string * json) list): (string * string) list =
     "[|" ^ String.concat ~sep:"; " xs ^ "|]" in
   let edit = function
   | ("array", v) -> ("array", as_array_string v) 
-  | ("expected", v) -> ("expected", optional_int ~none:(-1) v)
+  | ("expected", `Int i) -> ("expected", Printf.sprintf "(Ok %i)" i)
+  | ("expected", `Assoc [("error", `String m)]) -> ("expected", Printf.sprintf "(Error \"%s\")" m)
   | (k, v) -> (k, json_to_string v) in
   List.map ps ~f:edit
 
@@ -147,6 +157,7 @@ let rec edit_expected ~(f: json -> string) (parameters: (string * json) list) = 
 
 let ocaml_edit_parameters ~(slug: string) (parameters: (string * json) list) = match (slug, parameters) with
 | ("all-your-base", ps) -> edit_all_your_base ps
+| ("beer-song", ps) -> edit_expected ~f:edit_beer_song_expected ps
 | ("binary-search", ps) -> edit_binary_search ps
 | ("bowling", ps) -> edit_bowling ps
 | ("change", ps) -> edit_change ps

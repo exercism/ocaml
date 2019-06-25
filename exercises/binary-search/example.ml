@@ -2,7 +2,7 @@ open Base
 
 let find xs value = 
   let rec go lo hi = 
-    if lo > hi then None
+    if lo > hi then Error "value not in array"
     else begin 
       let mid = lo + (hi - lo) / 2 in
       let mid_val = xs.(mid) in
@@ -10,10 +10,10 @@ let find xs value =
       then go (mid + 1) hi
       else if mid_val > value
       then go lo (mid - 1)
-      else Some mid
+      else Ok mid
     end
   in
   if Array.is_empty xs
-  then None
+  then Error "value not in array"
   else go 0 (Array.length xs - 1) 
   
