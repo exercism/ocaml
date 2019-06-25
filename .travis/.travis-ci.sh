@@ -26,7 +26,7 @@ sudo git checkout -- exercises/connect/test.ml
 sudo git checkout -- exercises/difference-of-squares/test.ml
 sudo git checkout -- exercises/dominoes/test.ml
 sudo git checkout -- exercises/etl/test.ml
-sudo git checkout -- exercises/forth/test.ml
+# sudo git checkout -- exercises/forth/test.ml
 sudo git checkout -- exercises/hamming/test.ml
 sudo git checkout -- exercises/hello-world/test.ml
 sudo git checkout -- exercises/leap/test.ml

@@ -68,6 +68,11 @@ let edit_bowling_expected (value: json) = match value with
     if k = "error" then "(Error " ^ json_to_string v ^ ")" else failwith ("Can only handle error value but got " ^ k)
 | _ -> failwith "Bad json value in bowling"
 
+let edit_forth_expected (value: json) = match value with
+| `List xs -> "(Some [" ^ (String.concat ~sep:"; " (List.map ~f:json_to_string xs)) ^ "])"
+| `Assoc [("error", v)] -> "None"
+| x -> failwith "Bad json value in change " ^ json_to_string x
+
 let edit_say (ps: (string * json) list) =
   let edit = function
   | ("number", v) -> ("number", let v = json_to_string v in if Int.of_string v >= 0 then "(" ^ v ^ "L)" else v ^ "L")
@@ -148,7 +153,7 @@ let ocaml_edit_parameters ~(slug: string) (parameters: (string * json) list) = m
 | ("change", ps) -> edit_expected ~f:edit_change_expected ps
 | ("connect", ps) -> edit_expected ~f:edit_connect_expected ps
 | ("dominoes", ps) -> edit_dominoes ps
-(* | ("forth", ps) -> edit_expected ~f:option_of_null ps *)
+| ("forth", ps) -> edit_expected ~f:edit_forth_expected ps
 | ("hamming", ps) -> edit_expected ~f:(optional_int ~none:(-1)) ps
 | ("palindrome-products", ps) -> edit_palindrome_products ps
 (* | ("phone-number", ps) -> edit_expected ~f:option_of_null ps *)
