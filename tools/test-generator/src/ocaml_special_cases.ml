@@ -50,12 +50,6 @@ let is_empty_string (value: json): bool = match value with
 | `String s -> String.is_empty s
 | _ -> false
 
-let edit_connect_expected = function
-| `String "X" -> "(Some X)"
-| `String "O" -> "(Some O)"
-| `String "" -> "None"
-| x -> failwith "Bad json value in connect " ^ json_to_string x
-
 let edit_change_expected (value: json) = match value with
 | `List xs -> "(Some [" ^ (String.concat ~sep:"; " (List.map ~f:json_to_string xs)) ^ "])"
 | `Assoc [("error", _)] -> "None"
@@ -89,6 +83,22 @@ let edit_all_your_base (ps: (string * json) list): (string * string) list =
   | ("outputBase", v) -> let v = json_to_string v in ("outputBase", if Int.of_string v >= 0 then v else "(" ^ v ^ ")")
   | ("inputBase", v) -> let v = json_to_string v in ("inputBase", if Int.of_string v >= 0 then v else "(" ^ v ^ ")")
   | ("expected", v) -> ("expected", optional_int_list v)
+  | (k, v) -> (k, json_to_string v) in
+  List.map ps ~f:edit
+
+let edit_connect (ps: (string * json) list): (string * string) list =
+  let format_board l = 
+    if List.length l > 1 then
+      l |> List.map ~f:(json_to_string)
+        |> String.concat ~sep:";\n"
+        |> Printf.sprintf "[\n%s;\n]"
+    else json_to_string (`List l)
+  in
+  let edit = function
+  | ("expected", `String "X") -> ("expected", "(Some X)")
+  | ("expected", `String "O") -> ("expected", "(Some O)")
+  | ("expected", `String "" ) ->  ("expected", "None")
+  | ("board", `List l) -> ("board", format_board l)
   | (k, v) -> (k, json_to_string v) in
   List.map ps ~f:edit
 
@@ -132,7 +142,7 @@ let edit_bowling (ps: (string * json) list): (string * string) list =
   | ("roll", `Int n) -> ("roll", let s = Int.to_string n in if n < 0 then ("(" ^ s ^ ")") else s)
   | ("expected", v) -> ("expected", edit_bowling_expected v)
   | (k, v) -> (k, json_to_string v) in
-  List.map ps ~f:edit
+  (List.map ps ~f:edit) @ if List.exists ps ~f:(fun (k, _) -> String.equal "roll" k) then [] else [("roll", "")]
 
 let edit_binary_search (ps: (string * json) list): (string * string) list =
   let open Yojson.Basic.Util in
@@ -157,7 +167,7 @@ let ocaml_edit_parameters ~(slug: string) (parameters: (string * json) list) = m
 | ("binary-search", ps) -> edit_binary_search ps
 | ("bowling", ps) -> edit_bowling ps
 | ("change", ps) -> edit_expected ~f:edit_change_expected ps
-| ("connect", ps) -> edit_expected ~f:edit_connect_expected ps
+| ("connect", ps) -> edit_connect ps
 | ("dominoes", ps) -> edit_dominoes ps
 (* | ("forth", ps) -> edit_expected ~f:option_of_null ps *)
 | ("hamming", ps) -> edit_expected ~f:(optional_int ~none:(-1)) ps

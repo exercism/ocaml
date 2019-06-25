@@ -20,17 +20,17 @@ sudo git checkout -- exercises/atbash-cipher/test.ml
 # sudo git checkout -- exercises/beer-song/test.ml
 sudo git checkout -- exercises/binary-search/test.ml
 sudo git checkout -- exercises/bob/test.ml
-sudo git checkout -- exercises/bowling/test.ml
+# sudo git checkout -- exercises/bowling/test.ml
 sudo git checkout -- exercises/change/test.ml
-sudo git checkout -- exercises/connect/test.ml
+# sudo git checkout -- exercises/connect/test.ml
 sudo git checkout -- exercises/difference-of-squares/test.ml
 sudo git checkout -- exercises/dominoes/test.ml
 sudo git checkout -- exercises/etl/test.ml
 sudo git checkout -- exercises/forth/test.ml
 sudo git checkout -- exercises/hamming/test.ml
 sudo git checkout -- exercises/hello-world/test.ml
-sudo git checkout -- exercises/leap/test.ml
 # sudo git checkout -- exercises/luhn/test.ml
+# sudo git checkout -- exercises/leap/test.ml
 sudo git checkout -- exercises/minesweeper/test.ml
 sudo git checkout -- exercises/palindrome-products/test.ml
 sudo git checkout -- exercises/pangram/test.ml
