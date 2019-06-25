@@ -195,6 +195,19 @@ let edit_change (ps: (string * json) list): (string * string) list =
   | (k, v) -> (k, json_to_string v) in
   ps |> List.map ~f:edit
 
+let edit_rectangles (ps: (string * json) list): (string * string) list =
+  let format_field l = 
+    let sep = if List.length l > 1 then ";\n" else "" in
+    let fmt = if List.length l > 1 then Printf.sprintf  "[|\n%s;\n|]" else Printf.sprintf  "[|%s|]" in
+    l |> List.map ~f:json_to_string 
+      |> String.concat ~sep
+      |> fmt
+  in
+  let edit = function
+  | ("strings", `List l) -> ("strings", format_field l)
+  | (k, v) -> (k, json_to_string v) in
+  List.map ps ~f:edit
+
 let rec edit_expected ~(f: json -> string) (parameters: (string * json) list) = match parameters with
   | [] -> []
   | ("expected", v) :: rest -> ("expected", f v) :: edit_expected f rest
@@ -213,6 +226,7 @@ let ocaml_edit_parameters ~(slug: string) (parameters: (string * json) list) = m
 | ("minesweeper", ps) -> edit_minesweeper ps
 | ("palindrome-products", ps) -> edit_palindrome_products ps
 (* | ("phone-number", ps) -> edit_expected ~f:option_of_null ps *)
+| ("rectangles", ps) -> edit_rectangles ps
 | ("say", ps) -> edit_say ps
 | ("space-age", ps) -> edit_space_age ps
 | (_, ps) -> map_elements json_to_string ps
