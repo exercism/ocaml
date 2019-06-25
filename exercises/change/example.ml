@@ -12,11 +12,11 @@ let find_smallest_coins_list_meeting_target (cache: int list option array) (coin
   |> List.hd
 
 let make_change ~target ~coins = match target with
-| 0 -> Some []
-| _ when target < 0 -> None
+| 0 -> Ok []
+| _ when target < 0 -> Error "target can't be negative"
 | _ ->
   let cache = Array.create ~len:(target+1) None in
   for i = 1 to target do
     cache.(i) <- find_smallest_coins_list_meeting_target cache coins i
   done;
-  cache.(target)
+  cache.(target) |> Result.of_option ~error:"can't make target with given coins"
