@@ -89,6 +89,16 @@ let edit_say (ps: (string * json) list) =
   | (k, ps) -> (k, json_to_string ps) in
   List.map ps ~f:edit
 
+let edit_triangle (ps: (string * json) list): (string * string) list =
+  let edit = function
+  | ("sides", `List l) -> ("sides", 
+    l 
+    |> List.map ~f:json_to_string 
+    |> List.map ~f:(fun i -> if String.contains i '.' then i else Printf.sprintf "%s.0" i)
+    |>  String.concat ~sep:" ")
+  | (k, v) -> (k, json_to_string v) in
+  List.map ps ~f:edit
+
 let edit_all_your_base (ps: (string * json) list): (string * string) list =
   let edit = function
   | ("outputBase", v) -> let v = json_to_string v in ("outputBase", if Int.of_string v >= 0 then v else "(" ^ v ^ ")")
@@ -210,4 +220,5 @@ let ocaml_edit_parameters ~(slug: string) (parameters: (string * json) list) = m
 (* | ("phone-number", ps) -> edit_expected ~f:option_of_null ps *)
 | ("say", ps) -> edit_say ps
 | ("space-age", ps) -> edit_space_age ps
+| ("triangle", ps) -> edit_triangle ps
 | (_, ps) -> map_elements json_to_string ps
