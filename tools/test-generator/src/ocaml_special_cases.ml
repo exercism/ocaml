@@ -56,6 +56,12 @@ let edit_connect_expected = function
 | `String "" -> "None"
 | x -> failwith "Bad json value in connect " ^ json_to_string x
 
+let edit_change_expected (value: json) = match value with
+| `List xs -> "(Some [" ^ (String.concat ~sep:"; " (List.map ~f:json_to_string xs)) ^ "])"
+| `Assoc [("error", _)] -> "None"
+| `Int (-1) -> "None"
+| _ -> failwith "Bad json value in change"
+
 let edit_bowling_expected (value: json) = match value with
 | `Int n -> "(Ok " ^ (Int.to_string n) ^ ")"
 | `Assoc [(k, v)] -> 
@@ -83,6 +89,22 @@ let edit_all_your_base (ps: (string * json) list): (string * string) list =
   | ("outputBase", v) -> let v = json_to_string v in ("outputBase", if Int.of_string v >= 0 then v else "(" ^ v ^ ")")
   | ("inputBase", v) -> let v = json_to_string v in ("inputBase", if Int.of_string v >= 0 then v else "(" ^ v ^ ")")
   | ("expected", v) -> ("expected", optional_int_list v)
+  | (k, v) -> (k, json_to_string v) in
+  List.map ps ~f:edit
+
+let edit_connect (ps: (string * json) list): (string * string) list =
+  let format_board l = 
+    if List.length l > 1 then
+      l |> List.map ~f:(json_to_string)
+        |> String.concat ~sep:";\n"
+        |> Printf.sprintf "[\n%s;\n]"
+    else json_to_string (`List l)
+  in
+  let edit = function
+  | ("expected", `String "X") -> ("expected", "(Some X)")
+  | ("expected", `String "O") -> ("expected", "(Some O)")
+  | ("expected", `String "" ) ->  ("expected", "None")
+  | ("board", `List l) -> ("board", format_board l)
   | (k, v) -> (k, json_to_string v) in
   List.map ps ~f:edit
 
@@ -160,8 +182,8 @@ let ocaml_edit_parameters ~(slug: string) (parameters: (string * json) list) = m
 | ("beer-song", ps) -> edit_expected ~f:edit_beer_song_expected ps
 | ("binary-search", ps) -> edit_binary_search ps
 | ("bowling", ps) -> edit_bowling ps
-| ("change", ps) -> edit_change ps
 | ("connect", ps) -> edit_expected ~f:edit_connect_expected ps
+| ("change", ps) -> edit_expected ~f:edit_change_expected ps
 | ("dominoes", ps) -> edit_dominoes ps
 (* | ("forth", ps) -> edit_expected ~f:option_of_null ps *)
 | ("hamming", ps) -> edit_expected ~f:(optional_int ~none:(-1)) ps
