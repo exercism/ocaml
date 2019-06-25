@@ -132,7 +132,7 @@ let edit_bowling (ps: (string * json) list): (string * string) list =
   | ("roll", `Int n) -> ("roll", let s = Int.to_string n in if n < 0 then ("(" ^ s ^ ")") else s)
   | ("expected", v) -> ("expected", edit_bowling_expected v)
   | (k, v) -> (k, json_to_string v) in
-  List.map ps ~f:edit
+  (List.map ps ~f:edit) @ if List.exists ps ~f:(fun (k, _) -> String.equal "roll" k) then [] else [("roll", "")]
 
 let edit_binary_search (ps: (string * json) list): (string * string) list =
   let open Yojson.Basic.Util in
