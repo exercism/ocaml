@@ -183,7 +183,7 @@ let ocaml_edit_parameters ~(slug: string) (parameters: (string * json) list) = m
 | ("binary-search", ps) -> edit_binary_search ps
 | ("bowling", ps) -> edit_bowling ps
 | ("connect", ps) -> edit_expected ~f:edit_connect_expected ps
-| ("change", ps) -> edit_expected ~f:edit_change_expected ps
+| ("change", ps) -> edit_change ps
 | ("dominoes", ps) -> edit_dominoes ps
 (* | ("forth", ps) -> edit_expected ~f:option_of_null ps *)
 | ("hamming", ps) -> edit_expected ~f:(optional_int ~none:(-1)) ps
