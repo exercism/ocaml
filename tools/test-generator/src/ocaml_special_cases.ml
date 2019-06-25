@@ -89,8 +89,10 @@ let edit_beer_song_expected = function
 
 let edit_say (ps: (string * json) list) =
   let edit = function
-  | ("number", v) -> ("number", let v = json_to_string v in if Int.of_string v >= 0 then "(" ^ v ^ "L)" else v ^ "L")
-  | ("expected", v) -> ("expected", optional_int_or_string ~none:(-1) v)
+  | ("number", `Int v) when v >= 0 -> ("number", Printf.sprintf "%iL" v)
+  | ("number", `Int v) when v < 0 -> ("number", Printf.sprintf "(%iL)" v)
+  | ("expected", `Assoc [("error", v)]) -> ("expected", "(Error " ^ json_to_string v ^ ")")
+  | ("expected", v) -> ("expected", "(Ok " ^ json_to_string v ^ ")")
   | (k, ps) -> (k, json_to_string ps) in
   List.map ps ~f:edit
 
