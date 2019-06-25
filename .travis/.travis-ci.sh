@@ -32,7 +32,7 @@ sudo git checkout -- exercises/hello-world/test.ml
 # sudo git checkout -- exercises/luhn/test.ml
 # sudo git checkout -- exercises/leap/test.ml
 # sudo git checkout -- exercises/minesweeper/test.ml
-sudo git checkout -- exercises/palindrome-products/test.ml
+# sudo git checkout -- exercises/palindrome-products/test.ml
 sudo git checkout -- exercises/pangram/test.ml
 sudo git checkout -- exercises/phone-number/test.ml
 sudo git checkout -- exercises/prime-factors/test.ml
