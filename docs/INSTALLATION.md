@@ -1,36 +1,48 @@
-1. Install the OCaml compiler (`ocaml`) and package manager (`opam`).
+To work on the exercises, you will need these pieces of software:
 
-   The excellent [Real World OCaml](https://realworldocaml.org/) book has
-   [installation
-   instructions](https://github.com/realworldocaml/book/wiki/Installation-Instructions)
-   for a variety of operating systems.
+1. [`OPAM`, the OCaml Package manager](https://opam.ocaml.org/)
 
-2. If you followed the instructions from Real World OCaml, it is likely that
-   your system's OCaml compiler is not the latest version.
+   See [Real World Ocaml, 2nd Ed.: Installation Instructions](https://dev.realworldocaml.org/install.html)
+   for how to install and configure `OPAM` for your operating system.
 
-   To see a list of available versions and the one you have currently installed,
-   run:
+2. The OCaml compiler
+
+   See a list of available versions:
 
    ```bash
    opam switch
    ```
 
-   Note which version is the latest and install it by running:
+   Switch to that version. If, for example, the latest version is 4.08.0, you will run:
 
    ```bash
-   opam switch <version-number>
+   opam switch 4.08.0
    ```
 
-   For example, if the latest version is 4.07.0, you will run:
+3. Install extended standard libraries and test libraries
+
+   Some exercises use only the OCaml standard library, and some use the
+   extended libraries by Jane Street called Base and Core\_kernel.
+
+   The test library is called OUnit, and some exercises additionally use the
+   QCheck library for property-based tests.
 
    ```bash
-   opam switch 4.07.0
+   opam install base core_kernel ounit qcheck
    ```
 
-3. Install the Core_kernel, [Base](https://ocaml.janestreet.com/ocaml-core/latest/doc/base/Base/index.html) and [OUnit](http://ounit.forge.ocamlcore.org/) packages,
-   which are necessary in order to run the exercise tests:
+4. Install and use interactive shell
+
+   A summary of [Setting up and using `utop`](https://dev.realworldocaml.org/install.html):
 
    ```bash
-   opam install base core_kernel ounit
+   opam install utop
    ```
 
+   Place the following in the file `.ocamlinit` in your home directory should contain something like:
+
+   ```ocaml
+   #use "topfind";;
+   #require "base";;
+   open Base
+   ```

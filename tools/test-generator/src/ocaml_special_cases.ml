@@ -114,6 +114,19 @@ let edit_dominoes (ps: (string * json) list): (string * string) list =
   | (k, v) -> (k, json_to_string v) in
   List.map ps ~f:edit
 
+let edit_minesweeper (ps: (string * json) list): (string * string) list =
+  let format_board l =
+    if List.length l > 1 then
+      l |> List.map ~f:json_to_string |> String.concat ~sep:";\n" |> Printf.sprintf "[\n%s;\n]"
+    else
+      json_to_string (`List l)
+  in
+  let edit = function
+  | ("minefield", `List l) -> ("minefield", format_board l)
+  | ("expected", `List l) -> ("expected", format_board l)
+  | (k, v) -> (k, json_to_string v) in
+  List.map ps ~f:edit
+
 let edit_space_age (ps: (string * json) list): (string * string) list =
   let edit = function
   | ("planet", v) -> ("planet", json_to_string v |> strip_quotes) 
@@ -187,6 +200,7 @@ let ocaml_edit_parameters ~(slug: string) (parameters: (string * json) list) = m
 | ("dominoes", ps) -> edit_dominoes ps
 (* | ("forth", ps) -> edit_expected ~f:option_of_null ps *)
 | ("hamming", ps) -> edit_expected ~f:(optional_int ~none:(-1)) ps
+| ("minesweeper", ps) -> edit_minesweeper ps
 | ("palindrome-products", ps) -> edit_palindrome_products ps
 (* | ("phone-number", ps) -> edit_expected ~f:option_of_null ps *)
 | ("say", ps) -> edit_say ps
