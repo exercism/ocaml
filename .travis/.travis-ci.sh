@@ -19,7 +19,7 @@ sudo git checkout -- exercises/anagram/test.ml
 sudo git checkout -- exercises/atbash-cipher/test.ml
 sudo git checkout -- exercises/beer-song/test.ml
 sudo git checkout -- exercises/binary-search/test.ml
-sudo git checkout -- exercises/bob/test.ml
+# sudo git checkout -- exercises/bob/test.ml
 sudo git checkout -- exercises/bowling/test.ml
 sudo git checkout -- exercises/change/test.ml
 sudo git checkout -- exercises/connect/test.ml
