@@ -68,6 +68,11 @@ let edit_bowling_expected (value: json) = match value with
     if k = "error" then "(Error " ^ json_to_string v ^ ")" else failwith ("Can only handle error value but got " ^ k)
 | _ -> failwith "Bad json value in bowling"
 
+let edit_forth_expected (value: json) = match value with
+| `List xs -> "(Some [" ^ (String.concat ~sep:"; " (List.map ~f:json_to_string xs)) ^ "])"
+| `Assoc [("error", v)] -> "None"
+| x -> failwith "Bad json value in change " ^ json_to_string x
+
 let edit_beer_song_expected = function
 | `List xs -> xs 
   |> List.map ~f:(function 
@@ -198,7 +203,7 @@ let ocaml_edit_parameters ~(slug: string) (parameters: (string * json) list) = m
 | ("connect", ps) -> edit_expected ~f:edit_connect_expected ps
 | ("change", ps) -> edit_change ps
 | ("dominoes", ps) -> edit_dominoes ps
-(* | ("forth", ps) -> edit_expected ~f:option_of_null ps *)
+| ("forth", ps) -> edit_expected ~f:edit_forth_expected ps
 | ("hamming", ps) -> edit_expected ~f:(optional_int ~none:(-1)) ps
 | ("minesweeper", ps) -> edit_minesweeper ps
 | ("palindrome-products", ps) -> edit_palindrome_products ps
