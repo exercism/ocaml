@@ -14,18 +14,22 @@ let set_previous_frames (frames : int list): game =
 let score_printer = function
 | Ok n -> Int.to_string n
 | Error e -> e
-let assert_score exp game = assert_equal ~printer:score_printer exp (score game)
 
 let roll_printer = function
 | Ok _ -> "Ok <some game>"
 | Error e -> e
-let assert_roll exp frame game = assert_equal ~printer:roll_printer exp (roll frame game)
+
+let assert_score frames exp = 
+  assert_equal ~printer:score_printer exp (score (set_previous_frames frames))
+
+let assert_roll frames exp frame = 
+  assert_equal ~printer:roll_printer exp (roll frame (set_previous_frames frames))
 
 let tests = [
 (* TEST
    "$description" >:: (fun _ ->
-      let g = set_previous_frames $previous_rolls in
-      assert_$property $expected $roll g
+      let rolls = $previousRolls in
+      assert_$property rolls $expected $roll
    );
    END TEST *)
 ]

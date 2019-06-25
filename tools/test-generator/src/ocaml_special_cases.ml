@@ -50,12 +50,6 @@ let is_empty_string (value: json): bool = match value with
 | `String s -> String.is_empty s
 | _ -> false
 
-let edit_connect_expected = function
-| `String "X" -> "(Some X)"
-| `String "O" -> "(Some O)"
-| `String "" -> "None"
-| x -> failwith "Bad json value in connect " ^ json_to_string x
-
 let edit_change_expected (value: json) = match value with
 | `List xs -> "(Some [" ^ (String.concat ~sep:"; " (List.map ~f:json_to_string xs)) ^ "])"
 | `Assoc [("error", _)] -> "None"
@@ -67,6 +61,15 @@ let edit_bowling_expected (value: json) = match value with
 | `Assoc [(k, v)] -> 
     if k = "error" then "(Error " ^ json_to_string v ^ ")" else failwith ("Can only handle error value but got " ^ k)
 | _ -> failwith "Bad json value in bowling"
+
+let edit_beer_song_expected = function
+| `List xs -> xs 
+  |> List.map ~f:(function 
+    | `String s -> s 
+    | x -> json_to_string x) 
+  |> String.concat ~sep:(String.escaped "\n")
+  |> Printf.sprintf "\"%s\""
+| x -> json_to_string x |> Printf.sprintf "Bad json value in beer-song %s" |> failwith 
 
 let edit_say (ps: (string * json) list) =
   let edit = function
@@ -80,6 +83,22 @@ let edit_all_your_base (ps: (string * json) list): (string * string) list =
   | ("outputBase", v) -> let v = json_to_string v in ("outputBase", if Int.of_string v >= 0 then v else "(" ^ v ^ ")")
   | ("inputBase", v) -> let v = json_to_string v in ("inputBase", if Int.of_string v >= 0 then v else "(" ^ v ^ ")")
   | ("expected", v) -> ("expected", optional_int_list v)
+  | (k, v) -> (k, json_to_string v) in
+  List.map ps ~f:edit
+
+let edit_connect (ps: (string * json) list): (string * string) list =
+  let format_board l = 
+    if List.length l > 1 then
+      l |> List.map ~f:(json_to_string)
+        |> String.concat ~sep:";\n"
+        |> Printf.sprintf "[\n%s;\n]"
+    else json_to_string (`List l)
+  in
+  let edit = function
+  | ("expected", `String "X") -> ("expected", "(Some X)")
+  | ("expected", `String "O") -> ("expected", "(Some O)")
+  | ("expected", `String "" ) ->  ("expected", "None")
+  | ("board", `List l) -> ("board", format_board l)
   | (k, v) -> (k, json_to_string v) in
   List.map ps ~f:edit
 
@@ -123,7 +142,7 @@ let edit_bowling (ps: (string * json) list): (string * string) list =
   | ("roll", `Int n) -> ("roll", let s = Int.to_string n in if n < 0 then ("(" ^ s ^ ")") else s)
   | ("expected", v) -> ("expected", edit_bowling_expected v)
   | (k, v) -> (k, json_to_string v) in
-  List.map ps ~f:edit
+  (List.map ps ~f:edit) @ if List.exists ps ~f:(fun (k, _) -> String.equal "roll" k) then [] else [("roll", "")]
 
 let edit_binary_search (ps: (string * json) list): (string * string) list =
   let open Yojson.Basic.Util in
@@ -132,7 +151,8 @@ let edit_binary_search (ps: (string * json) list): (string * string) list =
     "[|" ^ String.concat ~sep:"; " xs ^ "|]" in
   let edit = function
   | ("array", v) -> ("array", as_array_string v) 
-  | ("expected", v) -> ("expected", optional_int ~none:(-1) v)
+  | ("expected", `Int i) -> ("expected", Printf.sprintf "(Ok %i)" i)
+  | ("expected", `Assoc [("error", `String m)]) -> ("expected", Printf.sprintf "(Error \"%s\")" m)
   | (k, v) -> (k, json_to_string v) in
   List.map ps ~f:edit
 
@@ -143,10 +163,11 @@ let rec edit_expected ~(f: json -> string) (parameters: (string * json) list) = 
 
 let ocaml_edit_parameters ~(slug: string) (parameters: (string * json) list) = match (slug, parameters) with
 | ("all-your-base", ps) -> edit_all_your_base ps
+| ("beer-song", ps) -> edit_expected ~f:edit_beer_song_expected ps
 | ("binary-search", ps) -> edit_binary_search ps
 | ("bowling", ps) -> edit_bowling ps
 | ("change", ps) -> edit_expected ~f:edit_change_expected ps
-| ("connect", ps) -> edit_expected ~f:edit_connect_expected ps
+| ("connect", ps) -> edit_connect ps
 | ("dominoes", ps) -> edit_dominoes ps
 (* | ("forth", ps) -> edit_expected ~f:option_of_null ps *)
 | ("hamming", ps) -> edit_expected ~f:(optional_int ~none:(-1)) ps
