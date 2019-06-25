@@ -34,6 +34,8 @@ descriptor calculate the date of the actual meetup.  For example, if given
 
 3. For library documentation, follow [Useful OCaml resources](https://exercism.io/tracks/ocaml/resources).
 
+4. For `CalendarLib` documentation, see [Calendar](http://calendar.forge.ocamlcore.org/)
+
 ## Running Tests
 A `Makefile` is provided with a default target to compile your solution and run the tests. At the command line, type:
 
