@@ -1,5 +1,5 @@
-val is_equilateral : float -> float -> float -> bool
+val is_equilateral : int -> int -> int -> bool
 
-val is_isosceles : float -> float -> float -> bool
+val is_isosceles : int -> int -> int -> bool
 
-val is_scalene : float -> float -> float -> bool
+val is_scalene : int -> int -> int -> bool
