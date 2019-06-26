@@ -143,6 +143,8 @@ let edit_space_age (ps: (string * json) list): (string * string) list =
   | (k, v) -> (k, json_to_string v) in
   List.map ps ~f:edit
   
+let null_to_option = function `Null -> "None" | x -> Printf.sprintf "(Some %s)" (json_to_string x)
+
 let edit_palindrome_products (ps: (string * json) list): (string * string) list =
   let edit = function
   | ("property", v) -> ("property", json_to_string v |> strip_quotes)
@@ -154,7 +156,7 @@ let edit_palindrome_products (ps: (string * json) list): (string * string) list 
         find "factors" >>= fun factors ->
         let factors = to_list factors in
         let factors_str = "[" ^ (List.map ~f:two_elt_list_to_tuple factors |> String.concat ~sep:"; ") ^ "]" in
-        let expected = sprintf "Ok {value=%s; factors=%s}" (json_to_string value) factors_str in
+        let expected = sprintf "Ok {value=%s; factors=%s}" (null_to_option value) factors_str in
         Some ("expected", expected) in
       if Option.is_some success_result
       then Option.value_exn success_result
