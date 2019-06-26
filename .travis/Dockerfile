@@ -11,7 +11,7 @@ RUN cd -
 RUN opam update
 RUN opam install dune ocamlfind core ounit qcheck react ppx_deriving yojson ounit ocp-indent calendar
 
-RUN sudo apt-get install net-tools
+RUN sudo apt-get install net-tools fswtach
 
 USER root
 RUN ln -s /home/opam/.opam /root/.opam

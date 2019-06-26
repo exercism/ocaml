@@ -1,4 +1,5 @@
-open Core
+open Base
+open Stdio
 open OUnit2
 open Generator
 open Generator.Parser
@@ -100,7 +101,7 @@ let parser_tests = [
       | Error e -> assert_failure ("failed to parse difference_of_squares.json: " ^ show_error e)
     );
 
-  "parses nested json in beer-song by dropping intermediate nesting levels" >::(fun ctxt ->
+  "parses nested json in beer-song by dropping intermediate nesting levels" >::(fun _ctxt ->
       match call_parser @@ In_channel.read_all "fixtures/beer-song.json" with
       | Ok (Suite p) -> assert_equal [
         "verse"; 
@@ -109,10 +110,10 @@ let parser_tests = [
       | Error e -> assert_failure ("failed to parse beer-song.json: " ^ show_error e)
     );
 
-  "parses json with a methods key for dynamic languages" >::(fun ctxt ->
+  "parses json with a methods key for dynamic languages" >::(fun _ctxt ->
       match call_parser @@ In_channel.read_all "fixtures/with-methods-key.json" with
-      | Ok (Suite p) -> assert_failure "was suite"
-      | Ok (Single p) -> ()
+      | Ok (Suite _) -> assert_failure "was suite"
+      | Ok (Single _) -> ()
       | Error e -> assert_failure ("failed to parse with-methods-key.json: " ^ show_error e)
     );
 ]

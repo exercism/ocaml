@@ -1,4 +1,4 @@
-open Core
+open Base
 open Yojson.Basic
 open Yojson.Basic.Util
 
@@ -42,8 +42,8 @@ let safe_to_int_option json =
 let member_note error m json =
   try Ok (member m json) with Type_error _ -> Error error
 
-let find_note (xs: ('a, 'b) List.Assoc.t) (key: 'a) (error: 'e): ('b, 'e) Result.t = 
-  match List.Assoc.find ~equal:(=) xs key with
+let find_note (xs: (string, 'b) List.Assoc.t) (key: string) (error: 'e): ('b, 'e) Result.t = 
+  match List.Assoc.find ~equal:(String.equal) xs key with
   | Some v -> Ok v
   | None -> Error error
 
@@ -55,3 +55,24 @@ let find_arrayi ?start:(start = 0) xs ~f =
     else if f xs.(i) then Some (i, xs.(i))
     else go (i + 1) in
   go start
+
+let file_exists dir =
+  try Unix.access dir [Unix.F_OK]; true
+  with Unix.Unix_error _ -> false
+
+let is_directory dir =
+  let s = Unix.stat dir in
+  phys_equal s.st_kind Unix.S_DIR
+
+let ls_dir dir =
+  let handle = Unix.opendir dir in
+  let result = ref [] in
+  let push i = result := !result @ [i] in
+  try 
+    while true do
+      push (Unix.readdir handle)
+    done;
+    !result
+  with _ -> 
+    Unix.closedir handle;
+    !result
