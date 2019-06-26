@@ -1,5 +1,6 @@
 open Core
-open Languages
+open Generator
+open Generator.Languages
 
 let is_directory =
   Command.Spec.Arg_type.create
@@ -22,8 +23,8 @@ let command =
     ~readme: (fun () -> "Generates test code from canonical data.")
     [%map_open
       let language = flag "l" (optional string) ~doc:"language to generate tests for"
-      and templates_folder = flag "t" (optional_with_default "./templates" is_directory) ~doc:"string Directory containing templates."
-      and canonical_data_folder = flag "c" (optional_with_default "../../../problem-specifications/exercises" is_directory) ~doc:"string Directory containing canonical data."
+      and templates_folder = flag "t" (optional_with_default "../templates" is_directory) ~doc:"string Directory containing templates."
+      and canonical_data_folder = flag "c" (optional_with_default "../../../../problem-specifications/exercises" is_directory) ~doc:"string Directory containing canonical data."
       and output_folder = flag "-o" (optional string) ~doc:"string Directory to output generated tests."
       and generated_folder = flag "-g" (optional string) ~doc:"string Directory to backup generated tests."
       and filter = flag "-f" (optional string) ~doc:"string Filter out files not matching this string."
@@ -33,7 +34,7 @@ let command =
         let lc = default_language_config language in
         let generated_folder = default_generated language generated_folder in
         let templates_folder = templates_folder ^ "/" ^ language in
-        let output_folder = Option.value output_folder ~default:(lc.default_base_folder ^ "/exercises") in
+        let output_folder = Option.value output_folder ~default:(lc.default_base_folder ^ "/../exercises") in
         Controller.run lc templates_folder canonical_data_folder output_folder generated_folder filter
     ]
 

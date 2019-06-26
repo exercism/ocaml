@@ -1,7 +1,6 @@
 open Core
 open OUnit2
-open Codegen
-open Utils
+open Generator.Utils
 
 let utils_tests = [
   "array findi is None if nothing in array matches predicate" >::(fun ctxt ->
