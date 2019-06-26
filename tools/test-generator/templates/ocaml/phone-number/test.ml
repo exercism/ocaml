@@ -2,12 +2,12 @@ open Base
 open OUnit2
 open Phone_number
 
-let option_to_string f = function
-  | None   -> "None"
-  | Some x -> "Some " ^ f x
+let result_to_string f = function
+  | Error m  -> Printf.sprintf "Error \"%s\"" m
+  | Ok x -> f x |> Printf.sprintf "Ok %s"
 
 let ae exp got _test_ctxt =
-  assert_equal ~printer:(option_to_string Fn.id) exp got
+  assert_equal ~printer:(result_to_string Fn.id) exp got
 
 let tests = [
 (* TEST

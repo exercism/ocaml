@@ -1,6 +1,6 @@
 open OUnit2
 open Meetup
-open Core_kernel
+open Base
 
 type case = {
   description: string;
@@ -12,7 +12,7 @@ type case = {
 }
 
 let ae exp got _test_ctxt = assert_equal
-  ~printer:(fun (y, m, d) -> sprintf "%d-%02d-%02d" y m d) exp got
+  ~printer:(fun (y, m, d) -> Printf.sprintf "%d-%02d-%02d" y m d) exp got
 
 let make_test (c: case) =
   c.description >::
