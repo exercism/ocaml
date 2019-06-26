@@ -50,6 +50,16 @@ let is_empty_string (value: json): bool = match value with
 | `String s -> String.is_empty s
 | _ -> false
 
+let edit_phone_number_expected (value: json) = match value with
+| `String s -> "(Ok \"" ^ s ^ "\")"
+| `Assoc [("error", v)] -> "(Error " ^ json_to_string v ^ ")"
+| x -> failwith "Bad json value in change " ^ json_to_string x
+
+let edit_hamming_expected = function
+| `Int n -> "(Ok " ^ Int.to_string n ^ ")"
+| `Assoc [("error", `String m)] ->" (Error \"" ^ m ^ "\")"
+| x -> json_to_string x
+
 let edit_connect_expected = function
 | `String "X" -> "(Some X)"
 | `String "O" -> "(Some O)"
@@ -84,8 +94,10 @@ let edit_beer_song_expected = function
 
 let edit_say (ps: (string * json) list) =
   let edit = function
-  | ("number", v) -> ("number", let v = json_to_string v in if Int.of_string v >= 0 then "(" ^ v ^ "L)" else v ^ "L")
-  | ("expected", v) -> ("expected", optional_int_or_string ~none:(-1) v)
+  | ("number", `Int v) when v >= 0 -> ("number", Printf.sprintf "%iL" v)
+  | ("number", `Int v) when v < 0 -> ("number", Printf.sprintf "(%iL)" v)
+  | ("expected", `Assoc [("error", v)]) -> ("expected", "(Error " ^ json_to_string v ^ ")")
+  | ("expected", v) -> ("expected", "(Ok " ^ json_to_string v ^ ")")
   | (k, ps) -> (k, json_to_string ps) in
   List.map ps ~f:edit
 
@@ -151,6 +163,8 @@ let edit_space_age (ps: (string * json) list): (string * string) list =
   | (k, v) -> (k, json_to_string v) in
   List.map ps ~f:edit
   
+let null_to_option = function `Null -> "None" | x -> Printf.sprintf "(Some %s)" (json_to_string x)
+
 let edit_palindrome_products (ps: (string * json) list): (string * string) list =
   let edit = function
   | ("property", v) -> ("property", json_to_string v |> strip_quotes)
@@ -162,7 +176,7 @@ let edit_palindrome_products (ps: (string * json) list): (string * string) list 
         find "factors" >>= fun factors ->
         let factors = to_list factors in
         let factors_str = "[" ^ (List.map ~f:two_elt_list_to_tuple factors |> String.concat ~sep:"; ") ^ "]" in
-        let expected = sprintf "Ok {value=%s; factors=%s}" (json_to_string value) factors_str in
+        let expected = sprintf "Ok {value=%s; factors=%s}" (null_to_option value) factors_str in
         Some ("expected", expected) in
       if Option.is_some success_result
       then Option.value_exn success_result
@@ -203,6 +217,19 @@ let edit_change (ps: (string * json) list): (string * string) list =
   | (k, v) -> (k, json_to_string v) in
   ps |> List.map ~f:edit
 
+let edit_rectangles (ps: (string * json) list): (string * string) list =
+  let format_field l = 
+    let sep = if List.length l > 1 then ";\n" else "" in
+    let fmt = if List.length l > 1 then Printf.sprintf  "[|\n%s;\n|]" else Printf.sprintf  "[|%s|]" in
+    l |> List.map ~f:json_to_string 
+      |> String.concat ~sep
+      |> fmt
+  in
+  let edit = function
+  | ("strings", `List l) -> ("strings", format_field l)
+  | (k, v) -> (k, json_to_string v) in
+  List.map ps ~f:edit
+
 let rec edit_expected ~(f: json -> string) (parameters: (string * json) list) = match parameters with
   | [] -> []
   | ("expected", v) :: rest -> ("expected", f v) :: edit_expected f rest
@@ -220,7 +247,7 @@ let ocaml_edit_parameters ~(slug: string) (parameters: (string * json) list) = m
 | ("hamming", ps) -> edit_expected ~f:(optional_int ~none:(-1)) ps |> Option.return
 | ("minesweeper", ps) -> edit_minesweeper ps |> Option.return
 | ("palindrome-products", ps) -> edit_palindrome_products ps |> Option.return
-(* | ("phone-number", ps) -> edit_expected ~f:option_of_null ps *)
+| ("phone-number", ps) -> edit_expected ~f:edit_phone_number_expected ps |> Option.return
 | ("say", ps) -> edit_say ps |> Option.return
 | ("space-age", ps) -> edit_space_age ps |> Option.return
 | ("triangle", ps) -> edit_triangle ps

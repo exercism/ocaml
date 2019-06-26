@@ -1,5 +1,4 @@
 open Base
-open List.Or_unequal_lengths
 
 type nucleotide = A | C | G | T
 
@@ -10,7 +9,15 @@ let equal (x,y) = match (x, y) with
 | (T, T) -> true
 | _ -> false
 
+let to_result (l: 'a List.Or_unequal_lengths.t): ('a, string) Result.t = 
+  let open List.Or_unequal_lengths in
+  match l with 
+  | Unequal_lengths -> Error "left and right strands must be of equal length" 
+  | Ok x -> Ok x
+
 let hamming_distance a b =
-  List.zip a b 
-  |> function Unequal_lengths -> None | Ok l -> Some l 
-  |> Option.map ~f:(List.count ~f:(Fn.non equal))
+  match (List.is_empty a, List.is_empty b) with
+  | (true, false) -> Error "left strand must not be empty" 
+  | (false, true) -> Error "right strand must not be empty"
+  | _ -> List.zip a b |> to_result |> Result.map ~f:(List.count ~f:(Fn.non equal))
+

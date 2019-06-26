@@ -1,8 +1,9 @@
 Because OCaml is a compiled language you need to compile your submission and the test code before you can run the tests. 
-We use [`jbuilder`](https://jbuilder.readthedocs.io/en/latest/) to build.
-Each folder has a jbuild file specifying how to build and also a Makefile which delegates to jbuild.
+We use [`dune`](https://dune.build/) to build.
+Each folder has a dune file specifying how to build and also a Makefile which delegates to dune.
 
 To compile and run the tests, simply type from the exercise folder:
+
 ```bash
 make
 ```

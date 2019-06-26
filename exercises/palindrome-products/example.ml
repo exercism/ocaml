@@ -1,26 +1,25 @@
 open Base
 
 type palindrome_products = {
-  value : int;
+  value : int option;
   factors : (int * int) list;
 } [@@deriving show, eq]
-
-let invalid_input_error min max =
-  Error (Printf.sprintf "invalid input: min is %d and max is %d" min max)
 
 let is_palindrome n =
   let n = Int.to_string n in String.(rev n = n)
 
 let to_palindrome_products (xs : (int * (int * int)) list): palindrome_products =
-  let value = fst (List.hd_exn xs) in
+  let value = List.hd xs |> Option.map ~f:fst in
   let factors = List.map ~f:snd xs in
   {value; factors}
 
 let seq stride = Sequence.range ~start:`inclusive ~stop:`inclusive ~stride
 
+let empty = Ok {value=None; factors=[]}
+
 let smallest ~min ~max =
   if min > max
-  then invalid_input_error min max
+  then Error "min must be <= max"
   else 
     let open Sequence.Monad_infix in
     let seq = seq 1 in
@@ -34,12 +33,11 @@ let smallest ~min ~max =
       |> List.sort ~compare:(fun (x,_) (y,_) -> Int.compare x y)
       |> List.group ~break:(fun (x, _) (y, _) -> x <> y)
       |> List.hd
-      |> Option.map ~f:to_palindrome_products
-      |> Result.of_option ~error:(Printf.sprintf "no palindrome with factors in the range %d to %d" min max)
+      |> Option.value_map ~default:(empty) ~f:(fun x -> Ok (to_palindrome_products x))
 
 let largest ~min ~max = 
   if min > max
-  then invalid_input_error min max
+  then Error "min must be <= max"
   else 
     let open Sequence.Monad_infix in
     let seq = seq (-1) in
@@ -53,7 +51,6 @@ let largest ~min ~max =
       |> List.sort ~compare:(fun (x,_) (y,_) -> Int.compare y x)
       |> List.group ~break:(fun (x, _) (y, _) -> x <> y)
       |> List.hd
-      |> Option.map ~f:to_palindrome_products
-      |> Result.of_option ~error:(Printf.sprintf "no palindrome with factors in the range %d to %d" min max)
+      |> Option.value_map ~default:(empty) ~f:(fun x -> Ok (to_palindrome_products x))
 
   

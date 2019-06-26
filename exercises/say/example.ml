@@ -49,4 +49,7 @@ let rec in_english_impl = let open Int64 in function
        if rem = 0L then "" else " " ^ in_english_impl rem
 
 let in_english n =
-  if Int64.(n < 0L || n >= 1_000_000_000_000L) then None else Some (in_english_impl n)
+  if Int64.(n < 0L || n >= 1_000_000_000_000L) then 
+    Error "input out of range" 
+  else 
+    Ok (in_english_impl n)
