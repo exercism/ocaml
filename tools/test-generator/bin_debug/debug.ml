@@ -1,5 +1,5 @@
 open Core
-open Controller
+open Generator
 
 let home_dir = Option.value_exn (Sys.getenv "HOME")
 

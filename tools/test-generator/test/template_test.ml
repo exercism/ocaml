@@ -1,7 +1,7 @@
 open Core
 open OUnit2
-open Codegen
-open Template
+open Generator.Codegen
+open Generator.Template
 
 let printer = Option.value_map ~f:show ~default:"None"
 let int_option_printer = Option.value_map ~f:Int.to_string ~default:"None"
@@ -13,7 +13,7 @@ let template_tests = [
     );
 
   "if there is a test marker in a string then find_template returns where it is" >:: (fun _ctx ->
-      let template_text = In_channel.read_all "test/sample_template.txt" in
+      let template_text = In_channel.read_all "fixtures/sample_template.txt" in
       let expected_single = Single {
         start = 7;
         finish = 9;
