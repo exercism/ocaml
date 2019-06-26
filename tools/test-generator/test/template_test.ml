@@ -1,11 +1,12 @@
-open Core
+open Base
+open Stdio
 open OUnit2
-open Generator.Codegen
 open Generator.Template
 
 let printer = Option.value_map ~f:show ~default:"None"
 let int_option_printer = Option.value_map ~f:Int.to_string ~default:"None"
 let find_template = find_template "(* TEST" "END TEST"
+
 
 let template_tests = [
   "if there is no test marker in a string then find_template returns None" >:: (fun _ctx ->
