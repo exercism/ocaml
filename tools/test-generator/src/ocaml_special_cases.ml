@@ -209,7 +209,7 @@ let ocaml_edit_parameters ~(slug: string) (parameters: (string * json) list) = m
 | ("change", ps) -> edit_change ps
 | ("dominoes", ps) -> edit_dominoes ps
 | ("forth", ps) -> edit_expected ~f:edit_forth_expected ps
-| ("hamming", ps) -> edit_expected ~f:(edit_hamming_expected) ps
+| ("hamming", ps) -> edit_expected ~f:edit_hamming_expected ps
 | ("minesweeper", ps) -> edit_minesweeper ps
 | ("palindrome-products", ps) -> edit_palindrome_products ps
 (* | ("phone-number", ps) -> edit_expected ~f:option_of_null ps *)
