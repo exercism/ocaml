@@ -89,15 +89,18 @@ let edit_say (ps: (string * json) list) =
   | (k, ps) -> (k, json_to_string ps) in
   List.map ps ~f:edit
 
-let edit_triangle (ps: (string * json) list): (string * string) list =
+let edit_triangle (ps: (string * json) list): (string * string) list option =
   let edit = function
-  | ("sides", `List l) -> ("sides", 
-    l 
-    |> List.map ~f:json_to_string 
-    |> List.map ~f:(fun i -> if String.contains i '.' then i else Printf.sprintf "%s.0" i)
-    |>  String.concat ~sep:" ")
+  | ("sides", `List l) -> ("sides", l |> List.map ~f:json_to_string |>  String.concat ~sep:" ")
   | (k, v) -> (k, json_to_string v) in
-  List.map ps ~f:edit
+  let int_sides = function
+  | ("sides", `List l) -> l |> List.for_all ~f:(function `Int _ -> true | _ -> false)
+  | (_, _) -> false
+  in
+  if List.exists ps ~f:int_sides then
+    List.map ps ~f:edit |> Option.return
+  else
+    None
 
 let edit_all_your_base (ps: (string * json) list): (string * string) list =
   let edit = function
@@ -206,19 +209,19 @@ let rec edit_expected ~(f: json -> string) (parameters: (string * json) list) = 
   | (k, v) :: rest -> (k, json_to_string v) :: edit_expected f rest
 
 let ocaml_edit_parameters ~(slug: string) (parameters: (string * json) list) = match (slug, parameters) with
-| ("all-your-base", ps) -> edit_all_your_base ps
-| ("beer-song", ps) -> edit_expected ~f:edit_beer_song_expected ps
-| ("binary-search", ps) -> edit_binary_search ps
-| ("bowling", ps) -> edit_bowling ps
-| ("connect", ps) -> edit_expected ~f:edit_connect_expected ps
-| ("change", ps) -> edit_change ps
-| ("dominoes", ps) -> edit_dominoes ps
-| ("forth", ps) -> edit_expected ~f:edit_forth_expected ps
-| ("hamming", ps) -> edit_expected ~f:(optional_int ~none:(-1)) ps
-| ("minesweeper", ps) -> edit_minesweeper ps
-| ("palindrome-products", ps) -> edit_palindrome_products ps
+| ("all-your-base", ps) -> edit_all_your_base ps |> Option.return
+| ("beer-song", ps) -> edit_expected ~f:edit_beer_song_expected ps |> Option.return
+| ("binary-search", ps) -> edit_binary_search ps |> Option.return
+| ("bowling", ps) -> edit_bowling ps |> Option.return
+| ("connect", ps) -> edit_expected ~f:edit_connect_expected ps |> Option.return
+| ("change", ps) -> edit_change ps |> Option.return
+| ("dominoes", ps) -> edit_dominoes ps |> Option.return
+| ("forth", ps) -> edit_expected ~f:edit_forth_expected ps |> Option.return
+| ("hamming", ps) -> edit_expected ~f:(optional_int ~none:(-1)) ps |> Option.return
+| ("minesweeper", ps) -> edit_minesweeper ps |> Option.return
+| ("palindrome-products", ps) -> edit_palindrome_products ps |> Option.return
 (* | ("phone-number", ps) -> edit_expected ~f:option_of_null ps *)
-| ("say", ps) -> edit_say ps
-| ("space-age", ps) -> edit_space_age ps
+| ("say", ps) -> edit_say ps |> Option.return
+| ("space-age", ps) -> edit_space_age ps |> Option.return
 | ("triangle", ps) -> edit_triangle ps
-| (_, ps) -> map_elements json_to_string ps
+| (_, ps) -> map_elements json_to_string ps |> Option.return
