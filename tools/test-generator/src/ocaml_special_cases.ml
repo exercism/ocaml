@@ -50,6 +50,11 @@ let is_empty_string (value: json): bool = match value with
 | `String s -> String.is_empty s
 | _ -> false
 
+let edit_hamming_expected = function
+| `Int n -> "(Ok " ^ Int.to_string n ^ ")"
+| `Assoc [("error", `String m)] ->" (Error \"" ^ m ^ "\")"
+| x -> json_to_string x
+
 let edit_connect_expected = function
 | `String "X" -> "(Some X)"
 | `String "O" -> "(Some O)"
@@ -204,7 +209,7 @@ let ocaml_edit_parameters ~(slug: string) (parameters: (string * json) list) = m
 | ("change", ps) -> edit_change ps
 | ("dominoes", ps) -> edit_dominoes ps
 | ("forth", ps) -> edit_expected ~f:edit_forth_expected ps
-| ("hamming", ps) -> edit_expected ~f:(optional_int ~none:(-1)) ps
+| ("hamming", ps) -> edit_expected ~f:edit_hamming_expected ps
 | ("minesweeper", ps) -> edit_minesweeper ps
 | ("palindrome-products", ps) -> edit_palindrome_products ps
 (* | ("phone-number", ps) -> edit_expected ~f:option_of_null ps *)

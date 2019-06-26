@@ -3,8 +3,8 @@ open OUnit2
 open Hamming
 
 let printer = function
-| None -> "None"
-| Some x -> Int.to_string x
+| Error m -> "Error \"" ^ m ^ "\""
+| Ok x -> "Some " ^ (Int.to_string x)
 
 let ae exp got _test_ctxt = assert_equal ~printer exp got
 
