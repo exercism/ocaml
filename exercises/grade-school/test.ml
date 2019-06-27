@@ -8,7 +8,7 @@ let assert_lists_equal exp got _ctx =
 
 let tests = [
   "an empty school has no children in grade 1" >::
-    assert_lists_equal [] (grade 1 empty_school);
+  assert_lists_equal [] (grade 1 empty_school);
   "an empty school has Emma in grade 1 after she's been added to grade 1" >::(
     let s = add "Emma" 1 empty_school in
     assert_lists_equal ["Emma"] (grade 1 s)

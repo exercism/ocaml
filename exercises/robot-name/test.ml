@@ -14,23 +14,23 @@ let assert_matches_spec name =
 
 let basic_tests = [
   "a robot has a name of 2 letters followed by 3 numbers" >:: (fun _ctxt ->
-    let n = name (new_robot ()) in
-    assert_matches_spec n
+      let n = name (new_robot ()) in
+      assert_matches_spec n
     );
 
   "resetting a robot's name gives it a different name" >:: (fun _ctxt ->
-    let r = new_robot () in
-    let n1 = name r in
-    reset r;
-    let n2 = name r in
-    assert_bool ("'" ^ n1 ^ "' was repeated") String.(n1 <> n2)
+      let r = new_robot () in
+      let n1 = name r in
+      reset r;
+      let n2 = name r in
+      assert_bool ("'" ^ n1 ^ "' was repeated") String.(n1 <> n2)
     );
 
   "after reset the robot's name still matches the specification" >:: (fun _ctxt ->
-    let r = new_robot () in
-    reset r;
-    let n = name r in
-    assert_matches_spec n
+      let r = new_robot () in
+      reset r;
+      let n = name r in
+      assert_matches_spec n
     );
 ]
 
@@ -47,17 +47,17 @@ line at the bottom of this module.
 *)
 let unique_name_tests = [
   "all possible robot names are distinct" >:: (fun _ctxt ->
-    let rs = Array.init (26 * 26 * 1000) ~f:(fun _ -> new_robot ()) in
-    let empty = Set.empty (module String) in
-    let (repeated, _) = Array.fold rs ~init:(empty, empty) ~f:(fun (repeated, seen) r ->
-      let n = name r in
-      if Set.mem seen n
-      then (Set.add repeated n, seen)
-      else (repeated, Set.add seen n)
-      ) in
-    let first_few_repeats = Array.sub (Set.to_array repeated) ~pos:0 ~len:(min 20 (Set.length repeated)) in
-    let failure_message = "first few repeats: " ^ (String.concat_array first_few_repeats ~sep:",") in
-    assert_bool failure_message (Set.is_empty repeated)
+      let rs = Array.init (26 * 26 * 1000) ~f:(fun _ -> new_robot ()) in
+      let empty = Set.empty (module String) in
+      let (repeated, _) = Array.fold rs ~init:(empty, empty) ~f:(fun (repeated, seen) r ->
+          let n = name r in
+          if Set.mem seen n
+          then (Set.add repeated n, seen)
+          else (repeated, Set.add seen n)
+        ) in
+      let first_few_repeats = Array.sub (Set.to_array repeated) ~pos:0 ~len:(min 20 (Set.length repeated)) in
+      let failure_message = "first few repeats: " ^ (String.concat_array first_few_repeats ~sep:",") in
+      assert_bool failure_message (Set.is_empty repeated)
     );
 ]
 

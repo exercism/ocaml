@@ -39,22 +39,22 @@ let uo o = Option.value_exn o
 
 let tests =
   ["data is retained">::
-     aet (Z.of_tree t1 |> Z.to_tree) t1;
+   aet (Z.of_tree t1 |> Z.to_tree) t1;
    "left, right and value">::
-     aei 3 (Z.of_tree t1 |> Z.left |> uo |> Z.right |> uo |> Z.value);
+   aei 3 (Z.of_tree t1 |> Z.left |> uo |> Z.right |> uo |> Z.value);
    "dead end">::
-     aezo None (Z.of_tree t1 |> Z.left |> uo |> Z.left);
+   aezo None (Z.of_tree t1 |> Z.left |> uo |> Z.left);
    "tree from deep focus">::
-     aet t1 (Z.of_tree t1 |> Z.left |> uo |> Z.right |> uo |> Z.to_tree);
+   aet t1 (Z.of_tree t1 |> Z.left |> uo |> Z.right |> uo |> Z.to_tree);
    "set_value">::
-     aet t2 (Z.of_tree t1 |> Z.left |> uo |> Z.set_value 5 |> Z.to_tree);
+   aet t2 (Z.of_tree t1 |> Z.left |> uo |> Z.set_value 5 |> Z.to_tree);
    "set_left with Some">::
-     aet t3 (Z.of_tree t1 |> Z.left |> uo |> Z.set_left (leaf 5) |> Z.to_tree);
+   aet t3 (Z.of_tree t1 |> Z.left |> uo |> Z.set_left (leaf 5) |> Z.to_tree);
    "set_right with None">::
-     aet t4 (Z.of_tree t1 |> Z.left |> uo |> Z.set_right None |> Z.to_tree);
+   aet t4 (Z.of_tree t1 |> Z.left |> uo |> Z.set_right None |> Z.to_tree);
    "different paths to same zipper">::
-     aezo (Z.of_tree t1 |> Z.right)
-       (Z.of_tree t1 |> Z.left |> uo |> Z.up |> uo |> Z.right);
+   aezo (Z.of_tree t1 |> Z.right)
+     (Z.of_tree t1 |> Z.left |> uo |> Z.up |> uo |> Z.right);
   ]
 
 let () =
