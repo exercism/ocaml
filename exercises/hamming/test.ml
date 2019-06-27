@@ -4,7 +4,7 @@ open Hamming
 
 let printer = function
 | Error m -> "Error \"" ^ m ^ "\""
-| Ok x -> "Some " ^ (Int.to_string x)
+| Ok x -> "Ok " ^ (Int.to_string x)
 
 let ae exp got _test_ctxt = assert_equal ~printer exp got
 
