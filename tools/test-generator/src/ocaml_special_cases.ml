@@ -224,6 +224,49 @@ let edit_rectangles (ps: (string * json) list): (string * string) list =
   | (k, v) -> (k, json_to_string v) in
   List.map ps ~f:edit
 
+let edit_etl (ps: (string * json) list): (string * string) list =
+  let edit = function
+  | ("expected", `Assoc l) -> 
+    let grouped = l
+      |> List.map ~f:(fun (k, v) -> Printf.sprintf "('%s', %s)" k (json_to_string v))
+      |> List.groupi ~break:(fun i _ _ -> Int.(i % 5 = 0))
+    in
+    if List.length grouped > 1 then
+      grouped
+      |> List.map ~f:(String.concat ~sep:"; ")
+      |> String.concat ~sep:";\n"
+      |> fun v -> ("expected", Printf.sprintf "[\n%s;\n]" v)
+    else
+      grouped
+      |> List.map ~f:(String.concat ~sep:"; ")
+      |> String.concat ~sep:"; "
+      |> fun v -> ("expected", Printf.sprintf "[%s]" v)
+  | (k, v) -> (k, json_to_string v) in
+  let s = List.map ps ~f:edit in
+  s @ (
+    ps 
+    |> List.filter_map  ~f:(fun (k, v) -> (
+      if String.equal k "expected" then
+        None
+      else
+        match v with 
+        | `List l -> 
+          l
+          |> List.filter_map ~f:(function
+            | `String s -> Some (Printf.sprintf "'%s'" s)
+            | _ -> None)
+          |> String.concat ~sep:"; "
+          |> fun s -> (k, Printf.sprintf "[%s]" s)
+          |> Option.return
+        | _ -> None
+    ))
+    |> (fun l -> 
+      if List.length l <= 2 then
+        [("input", "[" ^ (List.map l ~f:(fun (k, v) -> Printf.sprintf "(%s, %s)" k v) |> (String.concat ~sep:"; ")) ^ "]")]
+      else 
+        [("input", "[\n" ^ (List.map l ~f:(fun (k, v) -> Printf.sprintf "(%s, %s)" k v) |> (String.concat ~sep:";\n")) ^ ";\n]")]
+  ))
+
 let rec edit_expected ~(f: json -> string) (parameters: (string * json) list) = match parameters with
   | [] -> []
   | ("expected", v) :: rest -> ("expected", f v) :: edit_expected f rest
@@ -237,6 +280,7 @@ let ocaml_edit_parameters ~(slug: string) (parameters: (string * json) list) = m
 | ("connect", ps) -> edit_connect ps |> Option.return
 | ("change", ps) -> edit_change ps |> Option.return
 | ("dominoes", ps) -> edit_dominoes ps |> Option.return
+| ("etl", ps) -> edit_etl ps |> Option.return
 | ("forth", ps) -> edit_expected ~f:edit_forth_expected ps |> Option.return
 | ("hamming", ps) -> edit_expected ~f:edit_hamming_expected ps |> Option.return
 | ("minesweeper", ps) -> edit_minesweeper ps |> Option.return
