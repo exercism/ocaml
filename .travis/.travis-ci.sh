@@ -13,7 +13,7 @@ sudo ocp-indent -i exercises/**/test.ml
 
 # Remove checkout line for tests with adapted 
 # special cases and implementations
-sudo git checkout -- exercises/acronym/test.ml
+# sudo git checkout -- exercises/acronym/test.ml
 # sudo git checkout -- exercises/all-your-base/test.ml
 # sudo git checkout -- exercises/anagram/test.ml
 sudo git checkout -- exercises/atbash-cipher/test.ml
