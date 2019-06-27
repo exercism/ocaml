@@ -17,5 +17,5 @@ let rec edit_expected ~(f: json -> string) (parameters: (string * json) list) = 
 | (k, v) :: rest -> (k, json_to_string v) :: edit_expected f rest
 
 let purescript_edit_parameters ~(slug: string) (parameters: (string * json) list) = match (slug, parameters) with
-| ("hamming", ps) -> edit_expected ~f:(optional_int ~none:(-1)) ps
-| (_, ps) -> map_elements json_to_string ps
+| ("hamming", ps) -> edit_expected ~f:(optional_int ~none:(-1)) ps |> Option.return
+| (_, ps) -> map_elements json_to_string ps |> Option.return
