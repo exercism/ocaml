@@ -10,7 +10,7 @@ let ae ~delta:delta exp got _ctxt =
 let tests = [
 (* TEST
    "$description" >::
-      ae ~delta:0.005 $expected (age_on $planet $seconds);
+      ae ~delta:0.05 $expected (age_on $planet $seconds);
    END TEST *)
 ]
 
