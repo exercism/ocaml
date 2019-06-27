@@ -38,25 +38,25 @@ let tests =
     "DNA string with three Thymine nucleotides" >:: aire (Ok 3) (NC.count_nucleotide "CACTAGCTGCT" 'T');
 
     "Invalid DNA string has no nucleotides" >::
-      amre (Error 'X') (NC.count_nucleotides "ACGXT");
+    amre (Error 'X') (NC.count_nucleotides "ACGXT");
 
     "Empty DNA string has zero nucleotides" >::
-      amre (Ok (Map.empty (module Char))) (NC.count_nucleotides "");
+    amre (Ok (Map.empty (module Char))) (NC.count_nucleotides "");
 
     "DNA string with two Adenine nucleotides" >::
-      amre (Ok (Map.singleton (module Char) 'A' 2)) (NC.count_nucleotides "AA");
+    amre (Ok (Map.singleton (module Char) 'A' 2)) (NC.count_nucleotides "AA");
 
     "DNA string with one Adenine, two Cytosine nucleotides" >::
-      begin
-        let exp = Ok ((Map.of_alist_exn (module Char)) [('A', 1); ('C', 2)])
-        in amre exp (NC.count_nucleotides "ACC")
-      end;
+    begin
+      let exp = Ok ((Map.of_alist_exn (module Char)) [('A', 1); ('C', 2)])
+      in amre exp (NC.count_nucleotides "ACC")
+    end;
 
     "DNA string with one Adenine, two Cytosine, three Guanine, four Thymine nucleotides" >::
-      begin
-        let exp = Ok ((Map.of_alist_exn (module Char)) [('A', 1); ('C', 2); ('G', 3); ('T', 4)])
-        in amre exp (NC.count_nucleotides "CGTATGTCTG")
-      end;
+    begin
+      let exp = Ok ((Map.of_alist_exn (module Char)) [('A', 1); ('C', 2); ('G', 3); ('T', 4)])
+      in amre exp (NC.count_nucleotides "CGTATGTCTG")
+    end;
   ]
 
 let () =

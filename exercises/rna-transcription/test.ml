@@ -8,18 +8,18 @@ let ae exp got _test_ctxt = assert_equal ~printer exp got
 
 let tests =
   ["transcribes empty list">::
-    ae [] (Rna_transcription.to_rna []);
+   ae [] (Rna_transcription.to_rna []);
    "transcribes cytidine">::
-    ae [`G] (Rna_transcription.to_rna [`C]);
+   ae [`G] (Rna_transcription.to_rna [`C]);
    "transcribes guanosine">::
-    ae [`C] (Rna_transcription.to_rna [`G]);
+   ae [`C] (Rna_transcription.to_rna [`G]);
    "transcribes adenosie">::
-    ae [`U] (Rna_transcription.to_rna [`A]);
+   ae [`U] (Rna_transcription.to_rna [`A]);
    "transcribes thymidine">::
-    ae [`A] (Rna_transcription.to_rna [`T]);
+   ae [`A] (Rna_transcription.to_rna [`T]);
    "transcribes multiple">::
-    ae [`U; `G; `C; `A; `C; `C; `A; `G; `A; `A; `U; `U]
-       (Rna_transcription.to_rna [`A; `C; `G; `T; `G; `G; `T; `C; `T; `T; `A; `A])
+   ae [`U; `G; `C; `A; `C; `C; `A; `G; `A; `A; `U; `U]
+     (Rna_transcription.to_rna [`A; `C; `G; `T; `G; `G; `T; `C; `T; `T; `A; `A])
   ]
 
 let () =
