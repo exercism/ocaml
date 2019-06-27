@@ -60,12 +60,6 @@ let edit_hamming_expected = function
 | `Assoc [("error", `String m)] ->" (Error \"" ^ m ^ "\")"
 | x -> json_to_string x
 
-let edit_connect_expected = function
-| `String "X" -> "(Some X)"
-| `String "O" -> "(Some O)"
-| `String "" -> "None"
-| x -> failwith "Bad json value in connect " ^ json_to_string x
-
 let edit_change_expected (value: json) = match value with
 | `List xs -> "(Some [" ^ (String.concat ~sep:"; " (List.map ~f:json_to_string xs)) ^ "])"
 | `Assoc [("error", _)] -> "None"
@@ -123,7 +117,7 @@ let edit_all_your_base (ps: (string * json) list): (string * string) list =
   List.map ps ~f:edit
 
 let edit_connect (ps: (string * json) list): (string * string) list =
-  let format_board l = 
+  let format_board l =  
     if List.length l > 1 then
       l |> List.map ~f:(json_to_string)
         |> String.concat ~sep:";\n"
@@ -283,7 +277,7 @@ let ocaml_edit_parameters ~(slug: string) (parameters: (string * json) list) = m
 | ("beer-song", ps) -> edit_expected ~f:edit_beer_song_expected ps |> Option.return
 | ("binary-search", ps) -> edit_binary_search ps |> Option.return
 | ("bowling", ps) -> edit_bowling ps |> Option.return
-| ("connect", ps) -> edit_expected ~f:edit_connect_expected ps |> Option.return
+| ("connect", ps) -> edit_connect ps |> Option.return
 | ("change", ps) -> edit_change ps |> Option.return
 | ("dominoes", ps) -> edit_dominoes ps |> Option.return
 | ("etl", ps) -> edit_etl ps |> Option.return
