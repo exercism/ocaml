@@ -286,6 +286,7 @@ let ocaml_edit_parameters ~(slug: string) (parameters: (string * json) list) = m
 | ("minesweeper", ps) -> edit_minesweeper ps |> Option.return
 | ("palindrome-products", ps) -> edit_palindrome_products ps |> Option.return
 | ("phone-number", ps) -> edit_expected ~f:edit_phone_number_expected ps |> Option.return
+| ("rectangles", ps) -> edit_rectangles ps |> Option.return
 | ("say", ps) -> edit_say ps |> Option.return
 | ("space-age", ps) -> edit_space_age ps |> Option.return
 | ("triangle", ps) -> edit_triangle ps

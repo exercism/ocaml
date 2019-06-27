@@ -37,7 +37,7 @@ sudo git checkout -- exercises/pangram/test.ml
 # sudo git checkout -- exercises/phone-number/test.ml
 sudo git checkout -- exercises/prime-factors/test.ml
 sudo git checkout -- exercises/raindrops/test.ml
-sudo git checkout -- exercises/rectangles/test.ml
+# sudo git checkout -- exercises/rectangles/test.ml
 sudo git checkout -- exercises/roman-numerals/test.ml
 sudo git checkout -- exercises/run-length-encoding/test.ml
 # sudo git checkout -- exercises/say/test.ml
