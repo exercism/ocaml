@@ -1,5 +1,5 @@
 type palindrome_products = {
-  value : int;
+  value : int option;
   factors : (int * int) list;
 }
 
