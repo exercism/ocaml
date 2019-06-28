@@ -1,9 +1,9 @@
 default: clean test
 
 test:
-	jbuilder runtest
+	dune runtest
 
 clean:
-	jbuilder clean
+	dune clean
 
 .PHONY: clean

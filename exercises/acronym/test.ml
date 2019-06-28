@@ -19,6 +19,10 @@ let tests = [
     ae "ROTFLSHTMDCOALM" (acronym "Rolling On The Floor Laughing So Hard That My Dogs Came Over And Licked Me");
   "consecutive delimiters" >::
     ae "SIMUFTA" (acronym "Something - I made up from thin air");
+  "apostrophes" >::
+    ae "HC" (acronym "Halley's Comet");
+  "underscore emphasis" >::
+    ae "TRNT" (acronym "The Road _Not_ Taken");
 ]
 
 let () =

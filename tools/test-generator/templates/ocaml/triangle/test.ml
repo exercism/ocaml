@@ -4,21 +4,21 @@ open Triangle
 
 let ae exp got _test_ctxt = assert_equal exp got ~printer:Bool.to_string
 
-let (* SUITE returns_true_if_the_triangle_is_equilateral *)equilateral_tests = [
+let (* SUITE equilateral_triangle *)equilateral_tests = [
 (* TEST
    "$description" >::
      ae $expected (is_equilateral $sides);
    END TEST *)
 ]
 (* END SUITE *)
-let (* SUITE returns_true_if_the_triangle_is_isosceles *)isosceles_tests = [
+let (* SUITE isosceles_triangle *)isosceles_tests = [
 (* TEST
    "$description" >::
      ae $expected (is_isosceles $sides);
    END TEST *)
 ]
 (* END SUITE *)
-let (* SUITE returns_true_if_the_triangle_is_scalene *)scalene_tests = [
+let (* SUITE scalene_triangle *)scalene_tests = [
 (* TEST
    "$description" >::
      ae $expected (is_scalene $sides);

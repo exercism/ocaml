@@ -9,21 +9,21 @@ let ae ~delta:delta exp got _ctxt =
 
 let tests = [
    "age on Earth" >::
-      ae ~delta:0.005 31.69 (age_on Earth 1000000000);
+      ae ~delta:0.05 31.69 (age_on Earth 1000000000);
    "age on Mercury" >::
-      ae ~delta:0.005 280.88 (age_on Mercury 2134835688);
+      ae ~delta:0.05 280.88 (age_on Mercury 2134835688);
    "age on Venus" >::
-      ae ~delta:0.005 9.78 (age_on Venus 189839836);
+      ae ~delta:0.05 9.78 (age_on Venus 189839836);
    "age on Mars" >::
-      ae ~delta:0.005 39.25 (age_on Mars 2329871239);
+      ae ~delta:0.05 35.88 (age_on Mars 2129871239);
    "age on Jupiter" >::
-      ae ~delta:0.005 2.41 (age_on Jupiter 901876382);
+      ae ~delta:0.05 2.41 (age_on Jupiter 901876382);
    "age on Saturn" >::
-      ae ~delta:0.005 3.23 (age_on Saturn 3000000000);
+      ae ~delta:0.05 2.15 (age_on Saturn 2000000000);
    "age on Uranus" >::
-      ae ~delta:0.005 1.21 (age_on Uranus 3210123456);
+      ae ~delta:0.05 0.46 (age_on Uranus 1210123456);
    "age on Neptune" >::
-      ae ~delta:0.005 1.58 (age_on Neptune 8210123456);
+      ae ~delta:0.05 0.35 (age_on Neptune 1821023456);
 ]
 
 let () =
