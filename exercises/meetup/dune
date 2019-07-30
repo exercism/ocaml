@@ -6,3 +6,7 @@
   (name    runtest)
   (deps    (:x test.exe))
   (action  (run %{x})))
+
+(env
+  (dev
+    (flags (:standard -warn-error -A))))
