@@ -6,8 +6,8 @@ open Yojson.Basic
 
 let leap_template = "\"$description\" >:: ae $expected (leap_year $input);"
 
-let edit_parameters (j: (string * json) list): (string * string) list = 
-    List.map ~f:(fun (k,v) -> (k,to_string v)) j
+let edit_parameters (j: (string * json) list): (string * string) list option = 
+    Some (List.map ~f:(fun (k,v) -> (k,to_string v)) j)
 let assert_fill_in_template exp cases = assert_equal exp
     ~printer:(fun xs -> "[" ^ (String.concat ~sep:";" xs) ^ "]")
     (fill_in_template edit_parameters leap_template "suite-name" cases |> List.map ~f:subst_to_string)
