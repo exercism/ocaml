@@ -1,7 +1,6 @@
 open Core
 open OUnit2
-open Codegen
-open Model
+open Generator.Model
 
 let ae exp got _ctxt = assert_equal ~printer:Fn.id exp got
 

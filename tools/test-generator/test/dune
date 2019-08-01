@@ -1,0 +1,13 @@
+(dirs fixtures)
+(data_only_dirs fixtures)
+
+(test
+ (name all_tests)
+ (libraries core oUnit yojson generator)
+ (deps (glob_files fixtures/*))
+ (preprocess
+  (pps ppx_deriving.eq ppx_deriving.show ppx_let)))
+
+(env
+  (dev
+    (flags (:standard -warn-error -A))))

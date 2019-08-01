@@ -1,4 +1,5 @@
 open Core
+open Generator
 
 let is_directory =
   Command.Spec.Arg_type.create

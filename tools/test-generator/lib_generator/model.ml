@@ -36,8 +36,8 @@ let json_assoc_to_string (xs: (string * json) list): string =
   List.map xs ~f:(fun (k, j) -> k ^ ": " ^ (json_to_string j))
   |> list_to_string
 
-let case_to_string {description; parameters}: string =
-  "{description: " ^ description ^ "; parameters: " ^ (json_assoc_to_string parameters) ^ "}"
+let case_to_string {description; parameters; property}: string =
+  "{description: " ^ description ^ "; parameters: " ^ (json_assoc_to_string parameters) ^ "; property: " ^ (property) ^ "}"
 
 let cases_to_string cases = list_to_string (List.map ~f:case_to_string cases)
 

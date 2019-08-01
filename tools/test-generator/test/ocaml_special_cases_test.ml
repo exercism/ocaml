@@ -1,8 +1,8 @@
 open Core
 open OUnit2
-open Model
-open Codegen
-open Ocaml_special_cases
+open Generator.Model
+open Generator.Codegen
+open Generator.Ocaml_special_cases
 open Yojson.Basic
 
 let ae exp got _ctxt = assert_equal ~printer:Fn.id exp got
