@@ -1,5 +1,2 @@
-let verse _ = 
-    failwith "'verse' is missing"
-
-let lyrics ~from ~until =
-    failwith "'lyrics' is missing"
+let recite ~from ~until =
+    failwith "'recite' is missing"
