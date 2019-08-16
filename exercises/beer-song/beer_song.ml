@@ -1,2 +1,2 @@
-let recite ~from ~until =
+let recite from until =
     failwith "'recite' is missing"
