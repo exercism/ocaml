@@ -1,6 +1,6 @@
 # assignments
 ASSIGNMENT ?= ""
-ASSIGNMENTS = $(shell find ./exercises -maxdepth 1 -mindepth 1 -type d | awk -F/ '{print $$NF}' | sort)
+ASSIGNMENTS = $(shell git ls-tree --name-only HEAD -- exercises/ | awk -F/ '{print $$NF}' | sort)
 
 default: testgenerator test
 
