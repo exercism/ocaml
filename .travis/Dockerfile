@@ -9,7 +9,7 @@ RUN git checkout c23c1a7071910f235d5bc173cbadb97cd450e9fb
 RUN cd -
 
 RUN opam update
-RUN opam install dune ocamlfind ounit qcheck react ppx_deriving yojson ounit ocp-indent calendar
+RUN opam install dune ocamlfind ounit qcheck react ppx_deriving ppx_let yojson ounit ocp-indent calendar
 
 RUN sudo apt-get install net-tools fswatch -y
 
