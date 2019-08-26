@@ -1,4 +1,4 @@
-open Core
+open Base
 open Parser
 open Model
 open Utils
@@ -6,13 +6,14 @@ open Codegen
 open Template
 open Files
 open Languages
+open Stdio
 
 type content = string
 
 let find_nested_files (name: string) (base: string): (string * content) list =
-  Sys.ls_dir base
-  |> List.filter ~f:(fun slug -> Sys.is_directory_exn (base ^ "/" ^ slug))
-  |> List.filter ~f:(fun slug -> Sys.file_exists_exn (base ^ "/" ^ slug ^ "/" ^ name))
+  ls_dir base
+  |> List.filter ~f:(fun slug -> is_directory (base ^ "/" ^ slug))
+  |> List.filter ~f:(fun slug -> file_exists (base ^ "/" ^ slug ^ "/" ^ name))
   |> List.map ~f:(fun slug -> (slug, In_channel.read_all (base ^ "/" ^ slug ^ "/" ^ name)))
 
 let find_template_files base filter template_filename = 

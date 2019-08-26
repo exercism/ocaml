@@ -1,12 +1,13 @@
-open Core
+open Base
 open Generator
 
-let home_dir = Option.value_exn (Sys.getenv "HOME")
+let home_dir = Unix.getenv "HOME"
 
 let () =
   Controller.run
-    ~templates_folder:"./templates"
-    ~canonical_data_folder:"../../../x-common/exercises"
+    ~templates_folder:"../templates/ocaml"
+    ~canonical_data_folder:"../../../../problem-specifications/exercises"
     ~output_folder:"../../exercises"
-    ~generated_folder:(home_dir ^ "/.xocaml-generated")
+    ~generated_folder:(home_dir ^ "/.ocaml-generated")
+    ~language_config:(Languages.default_language_config "ocaml")
     (Some "beer-song")

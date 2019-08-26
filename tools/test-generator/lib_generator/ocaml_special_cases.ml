@@ -1,4 +1,4 @@
-open Core
+open Base
 
 open Model
 open Yojson.Basic
@@ -7,7 +7,7 @@ open Yojson.Basic.Util
 let strip_quotes s = String.drop_prefix s 1 |> Fn.flip String.drop_suffix 1
 
 let two_elt_list_to_tuple (j: json): string = match j with
-| `List [`Int x1; `Int x2] -> sprintf "(%d,%d)" x1 x2
+| `List [`Int x1; `Int x2] -> Printf.sprintf "(%d,%d)" x1 x2
 | _ -> failwith "two element list expected, but got " ^ (json_to_string j)
 
 let map_elements (to_str: json -> string) (parameters: (string * json) list): (string * string) list =
@@ -28,7 +28,7 @@ let optional_int_or_string ~(none: int) = function
 | x -> json_to_string x
 
 let default_value ~(key: string) ~(value: string) (parameters: (string * string) list): (string * string) list =
-  if List.exists ~f:(fun (k, _) -> k = key) parameters
+  if List.exists ~f:(fun (k, _) -> String.(k = key)) parameters
   then parameters
   else (key, value) :: parameters
 
@@ -43,7 +43,7 @@ let optional_strings ~(f: string -> bool) (parameters: (string * json) list): (s
 let option_of_null (value: json): string = match value with
 | `Null -> "None"
 | `String s -> "(Some \"" ^ s ^ "\")"
-| `List xs as l -> "(Some " ^ (json_to_string l) ^ ")"
+| `List _ as l -> "(Some " ^ (json_to_string l) ^ ")"
 | x -> failwith "cannot handle this type: " ^ json_to_string x
 
 let is_empty_string (value: json): bool = match value with
@@ -69,12 +69,12 @@ let edit_change_expected (value: json) = match value with
 let edit_bowling_expected (value: json) = match value with
 | `Int n -> "(Ok " ^ (Int.to_string n) ^ ")"
 | `Assoc [(k, v)] -> 
-    if k = "error" then "(Error " ^ json_to_string v ^ ")" else failwith ("Can only handle error value but got " ^ k)
+    if String.(k = "error") then "(Error " ^ json_to_string v ^ ")" else failwith ("Can only handle error value but got " ^ k)
 | _ -> failwith "Bad json value in bowling"
 
 let edit_forth_expected (value: json) = match value with
 | `List xs -> "(Some [" ^ (String.concat ~sep:"; " (List.map ~f:json_to_string xs)) ^ "])"
-| `Assoc [("error", v)] -> "None"
+| `Assoc [("error", _)] -> "None"
 | x -> failwith "Bad json value in change " ^ json_to_string x
 
 let edit_beer_song_expected = function
@@ -170,7 +170,7 @@ let edit_palindrome_products (ps: (string * json) list): (string * string) list 
         find "factors" >>= fun factors ->
         let factors = to_list factors in
         let factors_str = "[" ^ (List.map ~f:two_elt_list_to_tuple factors |> String.concat ~sep:"; ") ^ "]" in
-        let expected = sprintf "Ok {value=%s; factors=%s}" (null_to_option value) factors_str in
+        let expected = Printf.sprintf "Ok {value=%s; factors=%s}" (null_to_option value) factors_str in
         Some ("expected", expected) in
       if Option.is_some success_result
       then Option.value_exn success_result
@@ -269,8 +269,8 @@ let edit_etl (ps: (string * json) list): (string * string) list =
 
 let rec edit_expected ~(f: json -> string) (parameters: (string * json) list) = match parameters with
   | [] -> []
-  | ("expected", v) :: rest -> ("expected", f v) :: edit_expected f rest
-  | (k, v) :: rest -> (k, json_to_string v) :: edit_expected f rest
+  | ("expected", v) :: rest -> ("expected", f v) :: edit_expected ~f rest
+  | (k, v) :: rest -> (k, json_to_string v) :: edit_expected ~f rest
 
 let ocaml_edit_parameters ~(slug: string) (parameters: (string * json) list) = match (slug, parameters) with
 | ("all-your-base", ps) -> edit_all_your_base ps |> Option.return
