@@ -3,6 +3,9 @@ set -e
 
 eval $(opam env)
 
+cd /repo
+dune build @buildtest
+
 cd /repo/tools/test-generator
 dune runtest 
 
