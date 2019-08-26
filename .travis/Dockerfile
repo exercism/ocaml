@@ -9,9 +9,9 @@ RUN git checkout c23c1a7071910f235d5bc173cbadb97cd450e9fb
 RUN cd -
 
 RUN opam update
-RUN opam install dune ocamlfind core ounit qcheck react ppx_deriving yojson ounit ocp-indent calendar
+RUN opam install dune ocamlfind ounit qcheck react ppx_deriving ppx_let ppx_sexp_conv yojson ounit ocp-indent calendar getopts
 
-RUN sudo apt-get install net-tools
+RUN sudo apt-get install net-tools fswatch -y
 
 USER root
 RUN ln -s /home/opam/.opam /root/.opam

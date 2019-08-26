@@ -1,4 +1,4 @@
-open Core
+open Base
 open Yojson.Basic
 include Ocaml_special_cases 
 include Purescript_special_cases 
