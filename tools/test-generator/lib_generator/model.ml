@@ -3,6 +3,8 @@ open Base
 open Utils
 open Yojson.Basic
 
+type json = Yojson.Basic.t
+
 type case = {
   description: string;
   parameters: (string * json) list;

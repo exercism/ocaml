@@ -17,7 +17,7 @@ let extract_parameters case =
   | Ok input -> Ok (("expected", expected) :: input)
   | e -> e
     
-let parse_case_assoc (parameters: (string * json) list): (case, error) Result.t =
+let parse_case_assoc (parameters: (string * Yojson.Basic.t) list): (case, error) Result.t =
   let find name e = List.Assoc.find parameters ~equal:String.equal name |> Result.of_option ~error:e in
   let test_parameters = List.Assoc.remove parameters ~equal:String.equal "description" in
   let open Result.Monad_infix in
@@ -27,11 +27,11 @@ let parse_case_assoc (parameters: (string * json) list): (case, error) Result.t 
   find "property" NoProperty >>= to_string_note BadProperty >>= fun property ->
   Ok {description = description; parameters = test_parameters; property = property}
 
-let parse_case (s: json): (case, error) Result.t = match s with
+let parse_case (s: Yojson.Basic.t): (case, error) Result.t = match s with
   | `Assoc assoc -> parse_case_assoc assoc
   | _ -> Error ExpectingMapForCase
 
-let parse_cases (text: string) (cases_key: string): (json, error) Result.t =
+let parse_cases (text: string) (cases_key: string): (Yojson.Basic.t, error) Result.t =
   match from_string text |> member cases_key with
   | `Null -> Error (TestMustHaveKeyCalledCases cases_key)
   | json -> Ok json
@@ -70,7 +70,7 @@ let suite_case json: (test, error) Result.t =
   List.map cases ~f:to_cases |> sequence >>= fun cases ->
   Result.return {name = convert_cases_description_to_name desc; cases = List.concat cases}
 
-let suite_cases (json: json) (cases_key: string): (test list, error) Result.t = 
+let suite_cases (json: Yojson.Basic.t) (cases_key: string): (test list, error) Result.t = 
   let open Result.Monad_infix in
   (member cases_key json |> to_list_note ExpectingListOfCases) >>= fun assoc_cases ->
   List.map ~f:suite_case assoc_cases |> sequence

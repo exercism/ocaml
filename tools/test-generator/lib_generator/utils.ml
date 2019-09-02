@@ -2,6 +2,8 @@ open Base
 open Yojson.Basic
 open Yojson.Basic.Util
 
+type json = Yojson.Basic.t
+
 let map2 (f: 'a -> 'b -> 'c) (r1: ('a, 'e) Result.t) (r2: ('b, 'e) Result.t): ('c, 'e) Result.t = match (r1, r2) with
   | (Error x, _) -> Error x
   | (_, Error x) -> Error x
