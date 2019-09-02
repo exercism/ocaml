@@ -1,5 +1,7 @@
 open Yojson.Basic
 
+type json = Yojson.Basic.t
+
 type language_config = {
   template_file_name: string;
   default_base_folder: string;
