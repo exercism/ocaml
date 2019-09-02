@@ -3,9 +3,6 @@ set -e
 
 eval $(opam env)
 
-git submodule init
-git submodule update
-
 cd /repo
 dune build @buildtest
 
