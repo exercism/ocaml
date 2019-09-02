@@ -2,8 +2,8 @@
     "name": "ocaml",
     "dockerFile": "../.travis/Dockerfile",
     "extensions": [
-        "freebroccolo.reasonml",
         "maelvalais.dune",
+        "hackwaly.ocaml",
         "hackwaly.ocaml-debugger",
         "editorconfig.editorconfig",
         "ms-azuretools.vscode-docker"

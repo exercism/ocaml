@@ -27,10 +27,8 @@ module Files = struct
   include Files
 end
 
-module Languages = struct
-  include Languages
-end
-
 module Ocaml_special_cases = struct
   include Ocaml_special_cases
 end
+
+include Types
