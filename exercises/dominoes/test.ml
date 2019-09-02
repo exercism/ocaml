@@ -42,29 +42,29 @@ let assert_chain input hasChain =
 
 let tests = [
   "empty input = empty output" >::
-    assert_chain [] true;
+  assert_chain [] true;
   "singleton input = singleton output" >::
-    assert_chain [(1,1)] true;
+  assert_chain [(1,1)] true;
   "singleton that can't be chained" >::
-    assert_chain [(1,2)] false;
+  assert_chain [(1,2)] false;
   "three elements" >::
-    assert_chain [(1,2); (3,1); (2,3)] true;
+  assert_chain [(1,2); (3,1); (2,3)] true;
   "can reverse dominoes" >::
-    assert_chain [(1,2); (1,3); (2,3)] true;
+  assert_chain [(1,2); (1,3); (2,3)] true;
   "can't be chained" >::
-    assert_chain [(1,2); (4,1); (2,3)] false;
+  assert_chain [(1,2); (4,1); (2,3)] false;
   "disconnected - simple" >::
-    assert_chain [(1,1); (2,2)] false;
+  assert_chain [(1,1); (2,2)] false;
   "disconnected - double loop" >::
-    assert_chain [(1,2); (2,1); (3,4); (4,3)] false;
+  assert_chain [(1,2); (2,1); (3,4); (4,3)] false;
   "disconnected - single isolated" >::
-    assert_chain [(1,2); (2,3); (3,1); (4,4)] false;
+  assert_chain [(1,2); (2,3); (3,1); (4,4)] false;
   "need backtrack" >::
-    assert_chain [(1,2); (2,3); (3,1); (2,4); (2,4)] true;
+  assert_chain [(1,2); (2,3); (3,1); (2,4); (2,4)] true;
   "separate loops" >::
-    assert_chain [(1,2); (2,3); (3,1); (1,1); (2,2); (3,3)] true;
+  assert_chain [(1,2); (2,3); (3,1); (1,1); (2,2); (3,3)] true;
   "nine elements" >::
-    assert_chain [(1,2); (5,3); (3,1); (1,2); (2,4); (1,6); (2,3); (3,4); (5,6)] true;
+  assert_chain [(1,2); (5,3); (3,1); (1,2); (2,4); (1,6); (2,3); (3,4); (5,6)] true;
 ]
 
 let () =
