@@ -4,6 +4,8 @@ open Model
 open Yojson.Basic
 open Yojson.Basic.Util
 
+type json = Yojson.Basic.t
+
 let strip_quotes s = String.drop_prefix s 1 |> Fn.flip String.drop_suffix 1
 
 let two_elt_list_to_tuple (j: json): string = match j with

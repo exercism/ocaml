@@ -3,6 +3,8 @@ open Base
 open Model
 open Yojson.Basic
 
+type json = Yojson.Basic.t
+
 type edit_parameters_function = (string * json) list -> (string * string) list option
 
 type subst = Subst of string [@@deriving eq, show]
