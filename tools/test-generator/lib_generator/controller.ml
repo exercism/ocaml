@@ -5,8 +5,8 @@ open Utils
 open Codegen
 open Template
 open Files
-open Languages
 open Stdio
+open Types
 
 type content = string
 

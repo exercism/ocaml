@@ -1,6 +1,6 @@
 (executable
  (name test_gen)
- (libraries base getopts oUnit yojson generator)
+ (libraries base fpath getopts oUnit yojson generator)
  (preprocess
   (pps ppx_deriving.eq ppx_deriving.show ppx_let)))
 
