@@ -6,11 +6,13 @@ let ae exp got _test_ctxt =
   assert_equal exp got ~printer
 
 let tests = [
-(* TEST
-   "$description" >::
-      ae $expected 
-         (transform $input);
-   END TEST *)
+{{#cases}}
+  {{#cases}}
+    "{{description}}" >::
+      ae {{#input}}{{expected}} 
+        ({{property}} {{input}});{{/input}}
+  {{/cases}}
+{{/cases}}
 ]
 
 let () =

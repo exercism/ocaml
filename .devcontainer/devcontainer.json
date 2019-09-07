@@ -2,6 +2,7 @@
     "name": "ocaml",
     "dockerFile": "../.travis/Dockerfile",
     "extensions": [
+        "dawhite.mustache",
         "maelvalais.dune",
         "hackwaly.ocaml",
         "hackwaly.ocaml-debugger",

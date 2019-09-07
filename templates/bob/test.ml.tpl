@@ -4,10 +4,10 @@ open Bob
 let ae exp got _test_ctxt = assert_equal ~printer:(fun x -> x) exp got
 
 let tests = [
-(* TEST
-   "$description" >::
-      ae $expected (response_for $heyBob);
-   END TEST *)
+  {{#cases}}
+  "{{description}}" >::
+    ae {{#input}}{{expected}} (response_for {{heyBob}}){{/input}};
+  {{/cases}}
 ]
 
 let () =

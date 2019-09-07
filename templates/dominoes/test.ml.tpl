@@ -41,10 +41,10 @@ let assert_chain input hasChain =
   if hasChain then assert_valid_chain input else assert_no_chain input
 
 let tests = [
-(* TEST
-  "$description" >::
-    assert_chain $dominoes $expected;
-END TEST *)
+{{#cases}}
+  "{{description}}" >::
+    assert_chain {{#input}}{{dominoes}} {{expected}}{{/input}};
+{{/cases}}
 ]
 
 let () =

@@ -26,12 +26,14 @@ let assert_roll frames exp frame =
   assert_equal ~printer:roll_printer exp (roll frame (set_previous_frames frames))
 
 let tests = [
-(* TEST
-   "$description" >:: (fun _ ->
-      let rolls = $previousRolls in
-      assert_$property rolls $expected $roll
-   );
-   END TEST *)
+  {{#cases}}
+    "{{description}}" >:: (fun _ ->
+        {{#input}}
+        let rolls = {{previousRolls}} in
+        assert_{{property}} rolls {{expected}} {{roll}}
+        {{/input}}
+    );
+  {{/cases}}
 ]
 
 let () =

@@ -1,3 +1,4 @@
+(* {{name}} - {{version}} *)
 open OUnit2
 open Binary_search
 
@@ -9,10 +10,10 @@ let ae exp got _test_ctxt =
   assert_equal ~printer:(result_to_string string_of_int) exp got
 
 let tests = [
-(* TEST
-  "$description" >::
-    ae $expected (find $array $value);
-END TEST *)
+  {{#cases}}
+  "{{description}}" >::
+    ae {{#input}}{{expected}} (find {{array}} {{value}}){{/input}};
+  {{/cases}}
 ]
 
 let () =

@@ -1,6 +1,6 @@
 (library
  (name generator)
- (libraries base stdio yojson)
+ (libraries ezjsonm mustache base fpath stdio yojson ocp-indent.lib)
  (preprocess
   (pps ppx_deriving.eq ppx_deriving.show ppx_let)))
 

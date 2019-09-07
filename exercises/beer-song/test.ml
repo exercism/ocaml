@@ -1,3 +1,4 @@
+(* beer-song - 2.1.0 *)
 open Base
 open OUnit2
 open Beer_song
@@ -54,8 +55,10 @@ let lyrics_tests = [
     (recite 99 100);
 ]
 
+
+
 let () =
   run_test_tt_main (
     "beer song tests" >:::
-    List.concat [verse_tests; lyrics_tests]
+    List.concat [verse; lyrics; ]
   )

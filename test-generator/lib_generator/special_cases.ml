@@ -274,22 +274,38 @@ let rec edit_expected ~(f: json -> string) (parameters: (string * json) list) = 
   | ("expected", v) :: rest -> ("expected", f v) :: edit_expected ~f rest
   | (k, v) :: rest -> (k, json_to_string v) :: edit_expected ~f rest
 
-let ocaml_edit_parameters ~(slug: string) (parameters: (string * json) list) = match (slug, parameters) with
-| ("all-your-base", ps) -> edit_all_your_base ps |> Option.return
-| ("beer-song", ps) -> edit_expected ~f:edit_beer_song_expected ps |> Option.return
-| ("binary-search", ps) -> edit_binary_search ps |> Option.return
-| ("bowling", ps) -> edit_bowling ps |> Option.return
-| ("connect", ps) -> edit_connect ps |> Option.return
-| ("change", ps) -> edit_change ps |> Option.return
-| ("dominoes", ps) -> edit_dominoes ps |> Option.return
-| ("etl", ps) -> edit_etl ps |> Option.return
-| ("forth", ps) -> edit_expected ~f:edit_forth_expected ps |> Option.return
-| ("hamming", ps) -> edit_expected ~f:edit_hamming_expected ps |> Option.return
-| ("minesweeper", ps) -> edit_minesweeper ps |> Option.return
-| ("palindrome-products", ps) -> edit_palindrome_products ps |> Option.return
-| ("phone-number", ps) -> edit_expected ~f:edit_phone_number_expected ps |> Option.return
-| ("rectangles", ps) -> edit_rectangles ps |> Option.return
-| ("say", ps) -> edit_say ps |> Option.return
-| ("space-age", ps) -> edit_space_age ps |> Option.return
-| ("triangle", ps) -> edit_triangle ps
-| (_, ps) -> map_elements json_to_string ps |> Option.return
+let edit_parameters ~(slug: string) (parameters: (string * json) list) = match (slug, parameters) with
+  | ("all-your-base", ps) -> edit_all_your_base ps |> Option.return
+  | ("beer-song", ps) -> edit_expected ~f:edit_beer_song_expected ps |> Option.return
+  | ("binary-search", ps) -> edit_binary_search ps |> Option.return
+  | ("bowling", ps) -> edit_bowling ps |> Option.return
+  | ("connect", ps) -> edit_connect ps |> Option.return
+  | ("change", ps) -> edit_change ps |> Option.return
+  | ("dominoes", ps) -> edit_dominoes ps |> Option.return
+  | ("etl", ps) -> edit_etl ps |> Option.return
+  | ("forth", ps) -> edit_expected ~f:edit_forth_expected ps |> Option.return
+  | ("hamming", ps) -> edit_expected ~f:edit_hamming_expected ps |> Option.return
+  | ("minesweeper", ps) -> edit_minesweeper ps |> Option.return
+  | ("palindrome-products", ps) -> edit_palindrome_products ps |> Option.return
+  | ("phone-number", ps) -> edit_expected ~f:edit_phone_number_expected ps |> Option.return
+  | ("rectangles", ps) -> edit_rectangles ps |> Option.return
+  | ("say", ps) -> edit_say ps |> Option.return
+  | ("space-age", ps) -> edit_space_age ps |> Option.return
+  | ("triangle", ps) -> edit_triangle ps
+  | (_, ps) -> map_elements json_to_string ps |> Option.return
+
+let edit_difference_of_squares_case (case: json): json =
+  let f = function
+    | ("property", `String "squareOfSum") -> ("property", `String "square_of_sum")
+    | ("property", `String "sumOfSquares") -> ("property", `String "sum_of_squares")
+    | ("property", `String "differenceOfSquares") -> ("property", `String "difference_of_squares")
+    | ("slug", `String "square_the_sum_of_the_numbers_up_to_the_given_number") -> ("slug", `String "square_of_sum")
+    | ("slug", `String "sum_the_squares_of_the_numbers_up_to_the_given_number") -> ("slug", `String "sum_of_squares")
+    | ("slug", `String "subtract_sum_of_squares_from_square_of_sums") -> ("slug", `String "difference_of_squares")
+    | p -> p
+   in
+  `Assoc (case |> Util.to_assoc |> List.map ~f)
+
+let edit_case ~(slug: string) (case: json) = match (slug, case) with
+  | ("difference-of-squares", case) -> edit_difference_of_squares_case case
+  | (_, case) -> case

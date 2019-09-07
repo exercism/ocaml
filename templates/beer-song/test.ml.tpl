@@ -1,3 +1,4 @@
+(* {{name}} - {{version}} *)
 open Base
 open OUnit2
 open Beer_song
@@ -23,26 +24,22 @@ let zip s1 s2 =
     then ()
     else failwith @@ "Expected differs from actual: " ^ (diff_message exp got)
 
-let (* SUITE verse *)verse_tests = [
-(* TEST
-   "$description" >::
-     ae $expected 
-     (recite $startBottles $takeDown);
-   END TEST *)
+{{#cases}}
+let {{{description}}}_tests = [
+  {{#cases}}
+    {{#cases}}
+      "{{description}}" >::
+      ae {{#input}}{{expected}} 
+      ({{property}} {{startBottles}} {{takeDown}}){{/input}};
+    {{/cases}}
+  {{/cases}}
 ]
-(* END SUITE *)
 
-let (* SUITE lyrics *)lyrics_tests = [
-(* TEST
-   "$description" >::
-     ae $expected 
-     (recite $startBottles $takeDown);
-   END TEST *)
-]
-(* END SUITE *)
+
+{{/cases}}
 
 let () =
   run_test_tt_main (
     "beer song tests" >:::
-      List.concat [verse_tests; lyrics_tests]
+      List.concat [{{#cases}}{{{description}}}; {{/cases}}]
   )

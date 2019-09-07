@@ -42,7 +42,7 @@ let language_config = {
   default_base_folder = "../..";
   test_start_marker = "(* TEST"; 
   test_end_marker = "END TEST";
-  edit_parameters = Ocaml_special_cases.ocaml_edit_parameters
+  edit_parameters = Special_cases.edit_parameters
 }
 
 let () =
@@ -52,10 +52,11 @@ let () =
   let output_folder = get_path output_folder_value "./exercises" in
   let generated_folder = get_path generated_folder_value (home_dir ^ "/.exercism-ocaml-generated") in
   let filter = !filter_value in
-  Controller.run 
+  ignore (Controller.run 
     ~language_config 
     ~templates_folder
     ~canonical_data_folder 
     ~output_folder 
     ~generated_folder 
-    filter;
+    filter
+  |> Result.ok_exn);

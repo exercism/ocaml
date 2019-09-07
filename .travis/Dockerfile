@@ -13,6 +13,9 @@ RUN opam install dune fpath ocamlfind ounit qcheck react ppx_deriving ppx_let pp
 RUN opam install merlin
 
 RUN sudo apt-get install net-tools fswatch -y
+RUN sudo apt-get install pkg-config
+
+RUN opam install yaml
 
 USER root
 RUN ln -s /home/opam/.opam /root/.opam

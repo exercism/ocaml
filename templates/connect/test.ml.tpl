@@ -9,14 +9,13 @@ let show_player = function
 let ae exp got = assert_equal ~printer:show_player exp got
 
 let tests = [
-(* TEST
-  "$description" >::(fun _ctxt ->
-    let board = $board 
+{{#cases}}
+  "{{description}}" >::(fun _ctxt ->
+    {{#input}}let board = {{board}} 
     in
-    ae $expected (connect board)
+    ae {{expected}} (connect board){{/input}}
   );
-END TEST *)
-]
+{{/cases}}]
 
 let () =
   run_test_tt_main ("connect tests" >::: tests)

@@ -1,7 +1,6 @@
 open Base
 
 open Model
-open Yojson.Basic
 
 type json = Yojson.Basic.t
 
@@ -18,7 +17,7 @@ let replace_key (key: string) (value: string) (target: string): string =
   let replace = String.substr_replace_all ~with_:value in
   replace ~pattern:("$" ^ key) target |> replace ~pattern:("$(" ^ key ^ ")")
 
-let rec replace_keys (s: string) (suite_name: string) (c: case) (parameter_strings: (string * string) list): subst =
+let replace_keys (s: string) (suite_name: string) (c: case) (parameter_strings: (string * string) list): subst =
   let s = replace_key "description" c.description s in
   let s = replace_key "suite-name" suite_name s in
   let s = replace_key "property" c.property s in

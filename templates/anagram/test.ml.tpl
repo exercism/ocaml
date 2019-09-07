@@ -1,3 +1,4 @@
+(* {{name}} - {{version}} *)
 open Base
 open OUnit2
 open Anagram
@@ -7,10 +8,10 @@ let ae exp got _test_ctxt =
   assert_equal exp got ~printer
 
 let tests = [
-(* TEST
-  "$description" >::
-    ae $expected (anagrams $subject $candidates);
-   END TEST *)
+  {{#cases}}
+    "{{description}}" >::
+    ae {{#input}}{{expected}} (anagrams {{subject}} {{candidates}}){{/input}};
+  {{/cases}}
 ]
 
 let () =

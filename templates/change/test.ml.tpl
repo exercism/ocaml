@@ -9,12 +9,12 @@ let printer = function
 let ae exp got _test_ctxt = assert_equal ~printer exp got
 
 let tests = [
-(* TEST
-   "$description" >::
-     ae $expected 
-       (make_change ~target:$target ~coins:$coins);
-   END TEST *)
+{{#cases}}
+   "{{description}}" >::
+     {{#input}}ae {{expected}} 
+       (make_change ~target:{{target}} ~coins:{{coins}}){{/input}};
+{{/cases}}
 ]
 
 let () =
-  run_test_tt_main ("change tests" >::: tests)
+  run_test_tt_main ("{{name}} tests" >::: tests)

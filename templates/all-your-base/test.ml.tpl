@@ -1,3 +1,4 @@
+(* {{name}} - {{version}} *)
 open OUnit2
 open All_your_base
 
@@ -9,10 +10,10 @@ let ae exp got _test_ctxt =
   assert_equal exp got ~printer:option_printer
 
 let tests = [
-(* TEST
-  "$description" >::
-    ae $expected (convert_bases ~from:$inputBase ~digits:$digits ~target:$outputBase);
-END TEST *)
+  {{#cases}}
+    "{{description}}" >::
+      {{#input}}ae {{expected}} (convert_bases ~from:{{inputBase}} ~digits:{{digits}} ~target:{{outputBase}}){{/input}};
+  {{/cases}}
 ]
 
 let () =
