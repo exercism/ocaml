@@ -1,6 +1,6 @@
 open Base
 open OUnit2
-open Generator.Ocaml_special_cases
+open Generator.Special_cases
 
 let ae exp got _ctxt = assert_equal ~printer:Fn.id exp got
 
@@ -11,7 +11,7 @@ let stringify = function
   | `Bool true -> "stringified"
   | _ -> failwith "Bad type for stringify"
 
-let ocaml_special_cases_tests = [
+let special_cases_test = [
   "an optional int parameter is converted to none if it matches the special value" >:: (fun _ctx ->
       assert_equal "None" @@ optional_int ~none:88 (`Int 88)
     );
