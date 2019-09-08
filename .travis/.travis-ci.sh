@@ -6,10 +6,10 @@ eval $(opam env)
 cd /repo
 dune build @buildtest
 
-cd /repo/tools/test-generator
+cd /repo/test-generator
 dune runtest 
 
-cd /repo/tools/test-generator/bin_test_gen
+cd /repo/test-generator/bin_test_gen
 dune exec ./test_gen.exe --profile=release -- -w ../../../../
 
 cd /repo
