@@ -1,8 +1,29 @@
 open Base
 open Stdio
 
+let file_exists dir =
+  try Unix.access dir [Unix.F_OK]; true
+  with Unix.Unix_error _ -> false
+
+let is_directory dir =
+  let s = Unix.stat dir in
+  phys_equal s.st_kind Unix.S_DIR
+
+let ls_dir dir =
+  let handle = Unix.opendir dir in
+  let result = ref [] in
+  let push i = result := !result @ [i] in
+  try 
+    while true do
+      push (Unix.readdir handle)
+    done;
+    !result
+  with _ -> 
+    Unix.closedir handle;
+    !result
+
 let mkdir_if_not_present dir =
-  if not (Utils.file_exists dir)
+  if not (file_exists dir)
   then begin
     Unix.mkdir dir 0o640;
     print_endline @@ "Storing generated files in " ^ dir
@@ -29,11 +50,11 @@ let path_exn (p: string): Fpath.t =
 
 let rec find_files (base: string) ~(glob: string list): string list =
   base
-  |> Utils.ls_dir
+  |> ls_dir
   |> List.filter ~f:(fun p -> String.(p <> ".") && String.(p <> "..")) 
   |> List.map ~f:(fun p -> base ^ "/" ^ p)
   |> List.concat_map ~f:(fun p ->
-    if Utils.is_directory p then 
+    if is_directory p then 
       find_files p ~glob
     else if List.for_all glob ~f:(fun g -> Glob.matches g p) then 
       [p]
