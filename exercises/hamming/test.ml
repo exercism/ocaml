@@ -1,3 +1,4 @@
+(* hamming - 2.3.0 *)
 open Base
 open OUnit2
 open Hamming

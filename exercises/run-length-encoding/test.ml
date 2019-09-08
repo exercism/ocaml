@@ -1,3 +1,4 @@
+(* run-length-encoding - 1.1.0 *)
 open Base
 open OUnit2
 open Run_length_encoding
@@ -6,43 +7,44 @@ let ae exp got _test_ctxt = assert_equal exp got ~printer:Fn.id
 
 let encode_tests = [
   "empty string" >::
-  ae "" (encode "");
+  ae "" ("" |> encode );
   "single characters only are encoded without count" >::
-  ae "XYZ" (encode "XYZ");
+  ae "XYZ" ("XYZ" |> encode );
   "string with no single characters" >::
-  ae "2A3B4C" (encode "AABBBCCCC");
+  ae "2A3B4C" ("AABBBCCCC" |> encode );
   "single characters mixed with repeated characters" >::
-  ae "12WB12W3B24WB" (encode "WWWWWWWWWWWWBWWWWWWWWWWWWBBBWWWWWWWWWWWWWWWWWWWWWWWWB");
+  ae "12WB12W3B24WB" ("WWWWWWWWWWWWBWWWWWWWWWWWWBBBWWWWWWWWWWWWWWWWWWWWWWWWB" |> encode );
   "multiple whitespace mixed in string" >::
-  ae "2 hs2q q2w2 " (encode "  hsqq qww  ");
+  ae "2 hs2q q2w2 " ("  hsqq qww  " |> encode );
   "lowercase characters" >::
-  ae "2a3b4c" (encode "aabbbcccc");
+  ae "2a3b4c" ("aabbbcccc" |> encode );
 ]
-
-
 let decode_tests = [
   "empty string" >::
-  ae "" (decode "");
+  ae "" ("" |> decode );
   "single characters only" >::
-  ae "XYZ" (decode "XYZ");
+  ae "XYZ" ("XYZ" |> decode );
   "string with no single characters" >::
-  ae "AABBBCCCC" (decode "2A3B4C");
+  ae "AABBBCCCC" ("2A3B4C" |> decode );
   "single characters with repeated characters" >::
-  ae "WWWWWWWWWWWWBWWWWWWWWWWWWBBBWWWWWWWWWWWWWWWWWWWWWWWWB" (decode "12WB12W3B24WB");
+  ae "WWWWWWWWWWWWBWWWWWWWWWWWWBBBWWWWWWWWWWWWWWWWWWWWWWWWB" ("12WB12W3B24WB" |> decode );
   "multiple whitespace mixed in string" >::
-  ae "  hsqq qww  " (decode "2 hs2q q2w2 ");
+  ae "  hsqq qww  " ("2 hs2q q2w2 " |> decode );
   "lower case string" >::
-  ae "aabbbcccc" (decode "2a3b4c");
+  ae "aabbbcccc" ("2a3b4c" |> decode );
 ]
-
-
 let encode_and_then_decode_tests = [
   "encode followed by decode gives original string" >::
-  ae "zzz ZZ  zZ" (encode "zzz ZZ  zZ" |> decode);
+  ae "zzz ZZ  zZ" ("zzz ZZ  zZ" |> encode |> decode );
 ]
+
 
 let () =
   run_test_tt_main (
     "run length encoding tests" >:::
-    List.concat [encode_tests; decode_tests; encode_and_then_decode_tests]
+    List.concat [
+      encode_tests; 
+      decode_tests; 
+      encode_and_then_decode_tests; 
+    ]
   )

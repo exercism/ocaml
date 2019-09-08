@@ -1,3 +1,4 @@
+(* {{name}} - {{version}} *)
 open OUnit
 open Palindrome_products
 
@@ -14,11 +15,11 @@ let ae exp got _test_ctxt =
   assert_equal ~printer:(show_result show_palindrome_products) ~cmp:(eq_results equal_palindrome_products) exp got
 
 let tests = [
-(* TEST
-   "$description" >::
-      ae ($expected)
-         ($property ~min:$min ~max:$max);
-   END TEST *)
+{{#cases}}
+   "{{description}}" >::
+      ae ({{#input}}{{expected}})
+         ({{property}} ~min:{{min}} ~max:{{max}}){{/input}};
+   {{/cases}}
 ]
 
 let () =

@@ -1,3 +1,4 @@
+(* {{name}} - {{version}} *)
 open Base
 open OUnit2
 open Minesweeper
@@ -15,13 +16,15 @@ let ae exp got =
   assert_equal exp got ~printer:format_board
 
 let tests = [
-(* TEST
-  "$description" >:: (fun _ ->
-    let b = $minefield in
-    let expected = $expected in
+{{#cases}}
+  "{{description}}" >:: (fun _ ->
+    {{#input}}
+    let b = {{minefield}} in
+    let expected = {{expected}} in
     ae expected (annotate b)
+    {{/input}}
   );
-END TEST *)
+{{/cases}}
 ]
 
 let () =

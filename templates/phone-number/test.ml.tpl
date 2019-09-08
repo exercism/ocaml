@@ -1,3 +1,4 @@
+(* {{name}} - {{version}} *)
 open Base
 open OUnit2
 open Phone_number
@@ -10,10 +11,12 @@ let ae exp got _test_ctxt =
   assert_equal ~printer:(result_to_string Fn.id) exp got
 
 let tests = [
-(* TEST
-  "$description" >::
-    ae $expected (number $phrase);
-END TEST *)
+  {{#cases}}
+    {{#cases}}
+      "{{description}}" >::
+        ae {{#input}}{{expected}} (number {{phrase}}){{/input}};
+    {{/cases}}
+  {{/cases}}
 ]
 
 let () =

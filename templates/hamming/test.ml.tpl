@@ -1,3 +1,4 @@
+(* {{name}} - {{version}} *)
 open Base
 open OUnit2
 open Hamming
@@ -20,10 +21,10 @@ let dna_of_string s =
 let hamdist a b = hamming_distance (dna_of_string a) (dna_of_string b)
 
 let tests = [
-(* TEST
-   "$description" >::
-      ae $expected (hamdist $strand1 $strand2);
-   END TEST *)
+  {{#cases}}
+    "{{description}}" >::
+    ae {{#input}}{{expected}} (hamdist {{strand1}} {{strand2}}){{/input}};
+  {{/cases}}
 ]
 
 let () =

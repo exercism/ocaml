@@ -306,6 +306,18 @@ let edit_difference_of_squares_case (case: json): json =
    in
   `Assoc (case |> Util.to_assoc |> List.map ~f)
 
+let edit_run_length_encoding_case (case: json): json =
+  let f = function
+    | ("property", `String "encode") -> ("property", `List [`String "encode"])
+    | ("property", `String "decode") -> ("property", `List [`String "decode"])
+    | ("property", `String "consistency") -> ("property", `List [`String "encode"; `String "decode"])
+    | ("slug", `String "run_length_encode_a_string") -> ("slug", `String "encode")
+    | ("slug", `String "run_length_decode_a_string") -> ("slug", `String "decode")
+    | p -> p
+   in
+  `Assoc (case |> Util.to_assoc |> List.map ~f)
+
 let edit_case ~(slug: string) (case: json) = match (slug, case) with
   | ("difference-of-squares", case) -> edit_difference_of_squares_case case
+  | ("run-length-encoding", case) -> edit_run_length_encoding_case case
   | (_, case) -> case

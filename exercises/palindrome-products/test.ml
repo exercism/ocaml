@@ -1,3 +1,4 @@
+(* palindrome-products - 1.2.0 *)
 open OUnit
 open Palindrome_products
 

@@ -1,12 +1,13 @@
+(* {{name}} - {{version}} *)
 open OUnit2
 open Hello_world
 
 let ae exp got _test_ctxt = assert_equal ~printer:(fun x -> x) exp got
 
 let tests = [
-  (* TEST
-     "$description" >:: ae $expected hello;
-     END TEST *)
+  {{#cases}}
+    "{{description}}" >:: ae {{#input}}{{expected}}{{/input}} {{property}};
+  {{/cases}}
 ]
 
 let () =

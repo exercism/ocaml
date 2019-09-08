@@ -97,6 +97,8 @@ module Template = struct
       |> String.substr_replace_all ~pattern:"&quot;" ~with_:"\""
       |> String.substr_replace_all ~pattern:"&apos;" ~with_:"\'"
       |> String.substr_replace_all ~pattern:"&amp;" ~with_:"&"
+      |> String.substr_replace_all ~pattern:"&lt;" ~with_:"<"
+      |> String.substr_replace_all ~pattern:"&gt;" ~with_:">"
     with exn ->
       Printf.printf "%s\n======\n%s" (t.relative_path) (t.content);
       raise exn

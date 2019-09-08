@@ -1,3 +1,4 @@
+(* {{name}} - {{version}} *)
 open Base
 open OUnit2
 open Prime_factors
@@ -15,10 +16,12 @@ let to_int64s = List.map ~f:Int64.of_int
  * works for everybody.
  *)
 let tests = [
-(* TEST
-   "$description" >::
-      ae (to_int64s $expected) (factors_of $(value)L);
-   END TEST *)
+   {{#cases}}
+      {{#cases}}
+         "{{description}}" >::
+            ae (to_int64s {{#input}}{{expected}}) (factors_of {{value}}L){{/input}};
+      {{/cases}}
+   {{/cases}}
 ]
 
 let () =

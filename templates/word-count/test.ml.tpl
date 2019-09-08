@@ -1,3 +1,4 @@
+(* {{name}} - {{version}} *)
 open Base
 open OUnit2
 open Word_count
@@ -9,11 +10,11 @@ let ae exp got _test_ctxt =
   assert_equal ((Map.of_alist_exn (module String)) exp) got ~cmp ~printer
 
 let tests = [
-(* TEST
-   "$description" >::
-      ae $expected
-         (word_count $sentence);
-   END TEST *)
+{{#cases}}
+   "{{description}}" >::
+      ae {{#input}}{{expected}}
+         (word_count {{sentence}}){{/input}};
+   {{/cases}}
 ]
 
 let () =

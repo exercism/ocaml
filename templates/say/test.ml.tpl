@@ -1,3 +1,4 @@
+(* {{name}} - {{version}} *)
 open Base
 open OUnit2
 open Say
@@ -9,10 +10,10 @@ let printer = function
 let ae exp got _ctx = assert_equal ~printer exp got
 
 let tests = [
-(* TEST
-   "$description" >::
-      ae $expected (in_english $number);
-   END TEST *)
+{{#cases}}
+   "{{description}}" >::
+      ae {{#input}}{{expected}} (in_english {{number}}){{/input}};
+   {{/cases}}
   "all numbers from 1 to 10_000 can be spelt">::(fun _ ->
       assert_bool "range test" (Sequence.range 0 10_000
                                 |> Sequence.map ~f:(fun n -> Int64.of_int n |> in_english)
