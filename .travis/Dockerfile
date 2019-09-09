@@ -17,6 +17,7 @@ RUN sudo apt-get install pkg-config -y
 
 RUN opam install yaml
 RUN opam install ezjsonm
+RUN opam install mustache
 
 USER root
 RUN ln -s /home/opam/.opam /root/.opam
