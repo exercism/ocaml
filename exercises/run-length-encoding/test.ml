@@ -7,35 +7,35 @@ let ae exp got _test_ctxt = assert_equal exp got ~printer:Fn.id
 
 let encode_tests = [
   "empty string" >::
-  ae "" ("" |> encode );
+  ae "" ("" |> encode);
   "single characters only are encoded without count" >::
-  ae "XYZ" ("XYZ" |> encode );
+  ae "XYZ" ("XYZ" |> encode);
   "string with no single characters" >::
-  ae "2A3B4C" ("AABBBCCCC" |> encode );
+  ae "2A3B4C" ("AABBBCCCC" |> encode);
   "single characters mixed with repeated characters" >::
-  ae "12WB12W3B24WB" ("WWWWWWWWWWWWBWWWWWWWWWWWWBBBWWWWWWWWWWWWWWWWWWWWWWWWB" |> encode );
+  ae "12WB12W3B24WB" ("WWWWWWWWWWWWBWWWWWWWWWWWWBBBWWWWWWWWWWWWWWWWWWWWWWWWB" |> encode);
   "multiple whitespace mixed in string" >::
-  ae "2 hs2q q2w2 " ("  hsqq qww  " |> encode );
+  ae "2 hs2q q2w2 " ("  hsqq qww  " |> encode);
   "lowercase characters" >::
-  ae "2a3b4c" ("aabbbcccc" |> encode );
+  ae "2a3b4c" ("aabbbcccc" |> encode);
 ]
 let decode_tests = [
   "empty string" >::
-  ae "" ("" |> decode );
+  ae "" ("" |> decode);
   "single characters only" >::
-  ae "XYZ" ("XYZ" |> decode );
+  ae "XYZ" ("XYZ" |> decode);
   "string with no single characters" >::
-  ae "AABBBCCCC" ("2A3B4C" |> decode );
+  ae "AABBBCCCC" ("2A3B4C" |> decode);
   "single characters with repeated characters" >::
-  ae "WWWWWWWWWWWWBWWWWWWWWWWWWBBBWWWWWWWWWWWWWWWWWWWWWWWWB" ("12WB12W3B24WB" |> decode );
+  ae "WWWWWWWWWWWWBWWWWWWWWWWWWBBBWWWWWWWWWWWWWWWWWWWWWWWWB" ("12WB12W3B24WB" |> decode);
   "multiple whitespace mixed in string" >::
-  ae "  hsqq qww  " ("2 hs2q q2w2 " |> decode );
+  ae "  hsqq qww  " ("2 hs2q q2w2 " |> decode);
   "lower case string" >::
-  ae "aabbbcccc" ("2a3b4c" |> decode );
+  ae "aabbbcccc" ("2a3b4c" |> decode);
 ]
 let encode_and_then_decode_tests = [
   "encode followed by decode gives original string" >::
-  ae "zzz ZZ  zZ" ("zzz ZZ  zZ" |> encode |> decode );
+  ae "zzz ZZ  zZ" ("zzz ZZ  zZ" |> encode |> decode);
 ]
 
 

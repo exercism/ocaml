@@ -9,7 +9,7 @@ let ae exp got _test_ctxt = assert_equal exp got ~printer:Fn.id
 let {{slug}}_tests = [
   {{#cases}}
    "{{description}}" >::
-     ae {{#input}}{{expected}} ({{string}} {{#property}}|> {{.}} {{/property}}){{/input}};
+     ae {{#input}}{{expected}} ({{string}} |> {{property}}){{/input}};
    {{/cases}}
 ]
 {{/cases}}
@@ -20,7 +20,7 @@ let () =
     "run length encoding tests" >:::
       List.concat [
         {{#cases}}
-          {{slug}}_tests; 
+          {{slug}}_tests;
         {{/cases}}
       ]
   )

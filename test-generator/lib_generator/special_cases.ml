@@ -70,7 +70,7 @@ let edit_change_expected (value: json) = match value with
 
 let edit_bowling_expected (value: json) = match value with
 | `Int n -> "(Ok " ^ (Int.to_string n) ^ ")"
-| `Assoc [(k, v)] -> 
+| `Assoc [(k, v)] ->
     if String.(k = "error") then "(Error " ^ json_to_string v ^ ")" else failwith ("Can only handle error value but got " ^ k)
 | _ -> failwith "Bad json value in bowling"
 
@@ -80,13 +80,13 @@ let edit_forth_expected (value: json) = match value with
 | x -> failwith "Bad json value in change " ^ json_to_string x
 
 let edit_beer_song_expected = function
-| `List xs -> xs 
-  |> List.map ~f:(function 
-    | `String s -> s 
-    | x -> json_to_string x) 
+| `List xs -> xs
+  |> List.map ~f:(function
+    | `String s -> s
+    | x -> json_to_string x)
   |> String.concat ~sep:(String.escaped "\n")
   |> Printf.sprintf "\"%s\""
-| x -> json_to_string x |> Printf.sprintf "Bad json value in beer-song %s" |> failwith 
+| x -> json_to_string x |> Printf.sprintf "Bad json value in beer-song %s" |> failwith
 
 let edit_say (ps: (string * json) list) =
   let edit = function
@@ -119,7 +119,7 @@ let edit_all_your_base (ps: (string * json) list): (string * string) list =
   List.map ps ~f:edit
 
 let edit_connect (ps: (string * json) list): (string * string) list =
-  let format_board l =  
+  let format_board l =
     if List.length l > 1 then
       l |> List.map ~f:(json_to_string)
         |> String.concat ~sep:";\n"
@@ -155,19 +155,19 @@ let edit_minesweeper (ps: (string * json) list): (string * string) list =
 
 let edit_space_age (ps: (string * json) list): (string * string) list =
   let edit = function
-  | ("planet", v) -> ("planet", json_to_string v |> strip_quotes) 
+  | ("planet", v) -> ("planet", json_to_string v |> strip_quotes)
   | (k, v) -> (k, json_to_string v) in
   List.map ps ~f:edit
-  
+
 let null_to_option = function `Null -> "None" | x -> Printf.sprintf "(Some %s)" (json_to_string x)
 
 let edit_palindrome_products (ps: (string * json) list): (string * string) list =
   let edit = function
   | ("property", v) -> ("property", json_to_string v |> strip_quotes)
-  | ("expected", `Assoc kvs) -> 
+  | ("expected", `Assoc kvs) ->
       let find = List.Assoc.find kvs ~equal:String.equal in
       let open Option.Monad_infix in
-      let success_result = 
+      let success_result =
         find "value" >>= fun value ->
         find "factors" >>= fun factors ->
         let factors = to_list factors in
@@ -176,16 +176,16 @@ let edit_palindrome_products (ps: (string * json) list): (string * string) list 
         Some ("expected", expected) in
       if Option.is_some success_result
       then Option.value_exn success_result
-      else 
+      else
         let error = List.Assoc.find_exn kvs ~equal:String.equal "error" in
         ("expected", "Error " ^ json_to_string error)
   | (k, v) -> (k, json_to_string v)
   in
   List.map ps ~f:edit
-  
+
 let edit_bowling (ps: (string * json) list): (string * string) list =
   let edit = function
-  | ("property", v) -> ("property", json_to_string v |> strip_quotes) 
+  | ("property", v) -> ("property", json_to_string v |> strip_quotes)
   | ("roll", `Int n) -> ("roll", let s = Int.to_string n in if n < 0 then ("(" ^ s ^ ")") else s)
   | ("expected", v) -> ("expected", edit_bowling_expected v)
   | (k, v) -> (k, json_to_string v) in
@@ -193,11 +193,11 @@ let edit_bowling (ps: (string * json) list): (string * string) list =
 
 let edit_binary_search (ps: (string * json) list): (string * string) list =
   let open Yojson.Basic.Util in
-  let as_array_string xs = 
+  let as_array_string xs =
     let xs = to_list xs |> List.map ~f:to_int |> List.map ~f:Int.to_string in
     "[|" ^ String.concat ~sep:"; " xs ^ "|]" in
   let edit = function
-  | ("array", v) -> ("array", as_array_string v) 
+  | ("array", v) -> ("array", as_array_string v)
   | ("expected", `Int i) -> ("expected", Printf.sprintf "(Ok %i)" i)
   | ("expected", `Assoc [("error", `String m)]) -> ("expected", Printf.sprintf "(Error \"%s\")" m)
   | (k, v) -> (k, json_to_string v) in
@@ -214,10 +214,10 @@ let edit_change (ps: (string * json) list): (string * string) list =
   ps |> List.map ~f:edit
 
 let edit_rectangles (ps: (string * json) list): (string * string) list =
-  let format_field l = 
+  let format_field l =
     let sep = if List.length l > 1 then ";\n" else "" in
     let fmt = if List.length l > 1 then Printf.sprintf  "[|\n%s;\n|]" else Printf.sprintf  "[|%s|]" in
-    l |> List.map ~f:json_to_string 
+    l |> List.map ~f:json_to_string
       |> String.concat ~sep
       |> fmt
   in
@@ -228,7 +228,7 @@ let edit_rectangles (ps: (string * json) list): (string * string) list =
 
 let edit_etl (ps: (string * json) list): (string * string) list =
   let edit = function
-  | ("expected", `Assoc l) -> 
+  | ("expected", `Assoc l) ->
     let grouped = l
       |> List.map ~f:(fun (k, v) -> Printf.sprintf "('%s', %s)" k (json_to_string v))
       |> List.groupi ~break:(fun i _ _ -> Int.(i % 5 = 0))
@@ -246,13 +246,13 @@ let edit_etl (ps: (string * json) list): (string * string) list =
   | (k, v) -> (k, json_to_string v) in
   let s = List.map ps ~f:edit in
   s @ (
-    ps 
+    ps
     |> List.filter_map  ~f:(fun (k, v) -> (
       if String.equal k "expected" then
         None
       else
-        match v with 
-        | `List l -> 
+        match v with
+        | `List l ->
           l
           |> List.filter_map ~f:(function
             | `String s -> Some (Printf.sprintf "'%s'" s)
@@ -262,10 +262,10 @@ let edit_etl (ps: (string * json) list): (string * string) list =
           |> Option.return
         | _ -> None
     ))
-    |> (fun l -> 
+    |> (fun l ->
       if List.length l <= 2 then
         [("input", "[" ^ (List.map l ~f:(fun (k, v) -> Printf.sprintf "(%s, %s)" k v) |> (String.concat ~sep:"; ")) ^ "]")]
-      else 
+      else
         [("input", "[\n" ^ (List.map l ~f:(fun (k, v) -> Printf.sprintf "(%s, %s)" k v) |> (String.concat ~sep:";\n")) ^ ";\n]")]
   ))
 
@@ -308,9 +308,7 @@ let edit_difference_of_squares_case (case: json): json =
 
 let edit_run_length_encoding_case (case: json): json =
   let f = function
-    | ("property", `String "encode") -> ("property", `List [`String "encode"])
-    | ("property", `String "decode") -> ("property", `List [`String "decode"])
-    | ("property", `String "consistency") -> ("property", `List [`String "encode"; `String "decode"])
+    | ("property", `String "consistency") -> ("property", `String "encode |> decode")
     | ("slug", `String "run_length_encode_a_string") -> ("slug", `String "encode")
     | ("slug", `String "run_length_decode_a_string") -> ("slug", `String "decode")
     | p -> p
