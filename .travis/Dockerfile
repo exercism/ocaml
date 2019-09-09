@@ -16,6 +16,7 @@ RUN sudo apt-get install net-tools fswatch -y
 RUN sudo apt-get install pkg-config -y
 
 RUN opam install yaml
+RUN opam install ezjsonm
 
 USER root
 RUN ln -s /home/opam/.opam /root/.opam
