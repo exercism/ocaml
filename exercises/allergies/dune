@@ -1,6 +1,6 @@
 (executable
  (name test)
- (libraries base qcheck))
+ (libraries base qcheck oUnit))
 
 (alias
   (name    runtest)

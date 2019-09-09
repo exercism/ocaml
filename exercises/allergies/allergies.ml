@@ -7,8 +7,19 @@ type allergen = Eggs
               | Pollen
               | Cats
 
-let allergic_to _ _ =
-    failwith "'allergic_to' is missing"
+let allergy_score = function
+  | Eggs         ->   1
+  | Peanuts      ->   2
+  | Shellfish    ->   4
+  | Strawberries ->   8
+  | Tomatoes     ->  16
+  | Chocolate    ->  32
+  | Pollen       ->  64
+  | Cats         -> 128
 
-let allergies _ =
-    failwith "'allergies' is missing"
+let allergic_to score allergen =
+  score land allergy_score allergen > 0
+
+let allergies score =
+  List.filter (allergic_to score)
+  [ Eggs; Peanuts; Shellfish; Strawberries; Tomatoes; Chocolate; Pollen; Cats ]

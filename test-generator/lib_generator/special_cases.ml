@@ -118,6 +118,24 @@ let edit_all_your_base (ps: (string * json) list): (string * string) list =
   | (k, v) -> (k, json_to_string v) in
   List.map ps ~f:edit
 
+let edit_allergies (ps: (string * json) list): (string * string) list =
+  let has_key key (k, _) = String.(k = key) in
+  let filtered = List.filter ps ~f:(fun p -> has_key "score" p || has_key "item" p) in
+  let by_key k = List.find filtered ~f:(has_key k) in
+  let params = ["score"; "item"]
+    |> List.filter_map ~f:by_key
+    |> List.filter_map ~f:(function
+      | ("score", `Int v) -> Some (Int.to_string v)
+      | ("item", `String i) -> Some (String.capitalize i)
+      | _ -> None)
+    |> String.concat ~sep:" " in
+  let edit = function
+    | ("item", _) -> None
+    | ("score", _) -> None
+    | ("expected", `List l) -> Some ("expected", List.map l ~f:(function `String s -> String.capitalize s | t -> json_to_string t) |> String.concat ~sep:"; " |> Printf.sprintf "[%s]")
+    | (k, v) -> Some (k, json_to_string v) in
+  ("params", params) :: (List.filter_map ps ~f:edit)
+
 let edit_connect (ps: (string * json) list): (string * string) list =
   let format_board l =
     if List.length l > 1 then
@@ -276,6 +294,7 @@ let rec edit_expected ~(f: json -> string) (parameters: (string * json) list) = 
 
 let edit_parameters ~(slug: string) (parameters: (string * json) list) = match (slug, parameters) with
   | ("all-your-base", ps) -> edit_all_your_base ps |> Option.return
+  | ("allergies", ps) -> edit_allergies ps |> Option.return
   | ("beer-song", ps) -> edit_expected ~f:edit_beer_song_expected ps |> Option.return
   | ("binary-search", ps) -> edit_binary_search ps |> Option.return
   | ("bowling", ps) -> edit_bowling ps |> Option.return
@@ -315,7 +334,16 @@ let edit_run_length_encoding_case (case: json): json =
    in
   `Assoc (case |> Util.to_assoc |> List.map ~f)
 
+let edit_allergies_case (case: json): json =
+  let f = function
+    | ("property", `String "allergicTo") -> [("property", `String "allergic_to"); ("assertion", `String "aeb")]
+    | ("property", `String "list") -> [("property", `String "allergies"); ("assertion", `String "aea")]
+    | p -> [p]
+   in
+  `Assoc (case |> Util.to_assoc |> List.concat_map ~f)
+
 let edit_case ~(slug: string) (case: json) = match (slug, case) with
+  | ("allergies", case) -> edit_allergies_case case
   | ("difference-of-squares", case) -> edit_difference_of_squares_case case
   | ("run-length-encoding", case) -> edit_run_length_encoding_case case
   | (_, case) -> case
