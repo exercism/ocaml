@@ -61,7 +61,7 @@ let () =
   run_test_tt_main (
     "beer song tests" >:::
     List.concat [
-      verse;
-      lyrics;
+      verse_tests;
+      lyrics_tests;
     ]
   )
