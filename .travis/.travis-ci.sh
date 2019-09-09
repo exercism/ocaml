@@ -7,10 +7,10 @@ cd /repo
 dune build @buildtest
 
 cd /repo/test-generator
-dune runtest 
+dune runtest
 
 cd /repo/test-generator/bin_test_gen
-dune exec ./test_gen.exe --profile=release -- -w ../../../../
+dune exec ./test_gen.exe --profile=release -- -w ../../../
 
 cd /repo
 
