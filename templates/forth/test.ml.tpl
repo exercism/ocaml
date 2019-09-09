@@ -23,7 +23,7 @@ let () =
     "forth tests" >:::
       List.concat [
         {{#cases}}
-          {{slug}}_tests; 
+          {{slug}}_tests;
         {{/cases}}
       ]
   )
