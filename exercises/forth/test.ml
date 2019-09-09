@@ -152,17 +152,17 @@ let () =
   run_test_tt_main (
     "forth tests" >:::
     List.concat [
-      parsing_and_numbers_tests; 
-      addition_tests; 
-      subtraction_tests; 
-      multiplication_tests; 
-      division_tests; 
-      combined_arithmetic_tests; 
-      dup_tests; 
-      drop_tests; 
-      swap_tests; 
-      over_tests; 
-      user_defined_words_tests; 
-      case_insensitivity_tests; 
+      parsing_and_numbers_tests;
+      addition_tests;
+      subtraction_tests;
+      multiplication_tests;
+      division_tests;
+      combined_arithmetic_tests;
+      dup_tests;
+      drop_tests;
+      swap_tests;
+      over_tests;
+      user_defined_words_tests;
+      case_insensitivity_tests;
     ]
   )

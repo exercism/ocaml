@@ -7,13 +7,13 @@ let ae exp got _test_ctxt =
 
 let tests = [
   "single letter" >::
-  ae [('a', 1)] 
+  ae [('a', 1)]
     (transform [(1, ['A'])]);
   "single score with multiple letters" >::
-  ae [('a', 1); ('e', 1); ('i', 1); ('o', 1); ('u', 1)] 
+  ae [('a', 1); ('e', 1); ('i', 1); ('o', 1); ('u', 1)]
     (transform [(1, ['A'; 'E'; 'I'; 'O'; 'U'])]);
   "multiple scores with multiple letters" >::
-  ae [('a', 1); ('d', 2); ('e', 1); ('g', 2)] 
+  ae [('a', 1); ('d', 2); ('e', 1); ('g', 2)]
     (transform [(1, ['A'; 'E']); (2, ['D'; 'G'])]);
   "multiple scores with differing numbers of letters" >::
   ae [
@@ -23,7 +23,7 @@ let tests = [
     ('p', 3); ('q', 10); ('r', 1); ('s', 1); ('t', 1);
     ('u', 1); ('v', 4); ('w', 4); ('x', 8); ('y', 4);
     ('z', 10);
-  ] 
+  ]
     (transform [
         (1, ['A'; 'E'; 'I'; 'O'; 'U'; 'L'; 'N'; 'R'; 'S'; 'T']);
         (2, ['D'; 'G']);

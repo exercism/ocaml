@@ -3,7 +3,7 @@ open Base
 open OUnit2
 open Luhn
 
-let assert_valid expected input _test_ctxt = 
+let assert_valid expected input _test_ctxt =
   assert_equal ~printer:Bool.to_string expected (valid input)
 
 let tests = [

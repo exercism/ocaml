@@ -41,5 +41,9 @@ let {{{description}}}_tests = [
 let () =
   run_test_tt_main (
     "beer song tests" >:::
-      List.concat [{{#cases}}{{{description}}}; {{/cases}}]
+      List.concat [
+        {{#cases}}
+          {{{description}}};
+        {{/cases}}
+      ]
   )

@@ -15,10 +15,14 @@ let of_path (path: string) ~(tpl: string): t =
   }
 
 let format (c: string): string =
+  let open Base in
   let b = Buffer.create (String.length c) in
   let o = { IndentPrinter.std_output with kind=(Print (fun s () -> Buffer.add_string b s)) } in
   IndentPrinter.proceed o (Nstream.of_string c) IndentBlock.empty ();
-  Buffer.contents b
+  (Buffer.contents b
+  |> String.split_lines
+  |> List.map ~f:String.rstrip
+  |> String.concat ~sep:"\n") ^ "\n"
 
 let render (t: t) ~(data: Canonical_data.t): string =
   try 

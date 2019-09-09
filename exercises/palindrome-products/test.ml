@@ -11,7 +11,7 @@ let eq_results eq x y = match (x, y) with
   | (Ok x, Ok y) -> eq x y
   | _ -> false
 
-let ae exp got _test_ctxt = 
+let ae exp got _test_ctxt =
   assert_equal ~printer:(show_result show_palindrome_products) ~cmp:(eq_results equal_palindrome_products) exp got
 
 let tests = [

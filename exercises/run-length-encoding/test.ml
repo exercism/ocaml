@@ -43,8 +43,8 @@ let () =
   run_test_tt_main (
     "run length encoding tests" >:::
     List.concat [
-      encode_tests; 
-      decode_tests; 
-      encode_and_then_decode_tests; 
+      encode_tests;
+      decode_tests;
+      encode_and_then_decode_tests;
     ]
   )
