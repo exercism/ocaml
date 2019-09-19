@@ -1,10 +1,11 @@
+(* triangle - 1.2.1 *)
 open Base
 open OUnit2
 open Triangle
 
 let ae exp got _test_ctxt = assert_equal exp got ~printer:Bool.to_string
 
-let equilateral_tests = [
+let equilateral_triangle_tests = [
   "all sides are equal" >::
   ae true (is_equilateral 2 2 2);
   "any side is unequal" >::
@@ -14,9 +15,7 @@ let equilateral_tests = [
   "all zero sides is not a triangle" >::
   ae false (is_equilateral 0 0 0);
 ]
-
-
-let isosceles_tests = [
+let isosceles_triangle_tests = [
   "last two sides are equal" >::
   ae true (is_isosceles 3 4 4);
   "first two sides are equal" >::
@@ -34,9 +33,7 @@ let isosceles_tests = [
   "third triangle inequality violation" >::
   ae false (is_isosceles 3 1 1);
 ]
-
-
-let scalene_tests = [
+let scalene_triangle_tests = [
   "no sides are equal" >::
   ae true (is_scalene 5 4 6);
   "all sides are equal" >::
@@ -50,5 +47,9 @@ let scalene_tests = [
 let () =
   run_test_tt_main (
     "triangle tests" >:::
-    List.concat [equilateral_tests; isosceles_tests; scalene_tests]
+    List.concat [
+      equilateral_triangle_tests;
+      isosceles_triangle_tests;
+      scalene_triangle_tests;
+    ]
   )

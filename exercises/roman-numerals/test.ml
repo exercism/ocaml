@@ -1,3 +1,4 @@
+(* roman-numerals - 1.2.0 *)
 open OUnit2
 open Roman_numerals
 
@@ -45,4 +46,4 @@ let tests = [
 ]
 
 let () =
-  run_test_tt_main ("roman-numerals test" >::: tests) 
+  run_test_tt_main ("roman-numerals test" >::: tests)

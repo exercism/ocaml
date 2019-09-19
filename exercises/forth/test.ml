@@ -131,7 +131,7 @@ let user_defined_words_tests = [
 ]
 
 
-let case_insensitivity = [
+let case_insensitivity_tests = [
   "DUP is case-insensitive" >::
   ae (Some [1; 1; 1; 1]) (evaluate ["1 DUP Dup dup"]);
   "DROP is case-insensitive" >::
@@ -146,21 +146,23 @@ let case_insensitivity = [
   ae (Some [1; 1; 1; 1]) (evaluate [": SWAP DUP Dup dup ;"; "1 swap"]);
 ]
 
+
+
 let () =
   run_test_tt_main (
     "forth tests" >:::
     List.concat [
-      parsing_and_numbers_tests; 
-      addition_tests; 
-      subtraction_tests; 
-      multiplication_tests; 
+      parsing_and_numbers_tests;
+      addition_tests;
+      subtraction_tests;
+      multiplication_tests;
       division_tests;
-      combined_arithmetic_tests; 
-      dup_tests; 
+      combined_arithmetic_tests;
+      dup_tests;
       drop_tests;
-      swap_tests; 
-      over_tests; 
+      swap_tests;
+      over_tests;
       user_defined_words_tests;
-      case_insensitivity;
+      case_insensitivity_tests;
     ]
   )

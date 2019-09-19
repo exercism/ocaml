@@ -1,5 +1,7 @@
+(* allergies - 2.0.0 *)
 open Base
 open Allergies
+open OUnit2
 
 (* Pretty-printer for allergen. *)
 let print_allergen = function
@@ -120,7 +122,66 @@ let prop_allergies_multiple_allergens =
     (QCheck.make allergens_gen ~print:print_allergies_fail)
     (fun (allergens, score) -> Poly.equal (allergies score) allergens)
 
+let aeb exp got _test_ctxt =
+  assert_equal exp got ~printer:Bool.to_string
+
+let aea exp got _test_ctxt =
+  assert_equal exp got ~printer:print_allergens
+
+let tests = [
+  "not allergic to anything" >:: aeb false (allergic_to 0 Eggs);
+  "allergic only to eggs" >:: aeb true (allergic_to 1 Eggs);
+  "allergic to eggs and something else" >:: aeb true (allergic_to 3 Eggs);
+  "allergic to something, but not eggs" >:: aeb false (allergic_to 2 Eggs);
+  "allergic to everything" >:: aeb true (allergic_to 255 Eggs);
+  "not allergic to anything" >:: aeb false (allergic_to 0 Peanuts);
+  "allergic only to peanuts" >:: aeb true (allergic_to 2 Peanuts);
+  "allergic to peanuts and something else" >:: aeb true (allergic_to 7 Peanuts);
+  "allergic to something, but not peanuts" >:: aeb false (allergic_to 5 Peanuts);
+  "allergic to everything" >:: aeb true (allergic_to 255 Peanuts);
+  "not allergic to anything" >:: aeb false (allergic_to 0 Shellfish);
+  "allergic only to shellfish" >:: aeb true (allergic_to 4 Shellfish);
+  "allergic to shellfish and something else" >:: aeb true (allergic_to 14 Shellfish);
+  "allergic to something, but not shellfish" >:: aeb false (allergic_to 10 Shellfish);
+  "allergic to everything" >:: aeb true (allergic_to 255 Shellfish);
+  "not allergic to anything" >:: aeb false (allergic_to 0 Strawberries);
+  "allergic only to strawberries" >:: aeb true (allergic_to 8 Strawberries);
+  "allergic to strawberries and something else" >:: aeb true (allergic_to 28 Strawberries);
+  "allergic to something, but not strawberries" >:: aeb false (allergic_to 20 Strawberries);
+  "allergic to everything" >:: aeb true (allergic_to 255 Strawberries);
+  "not allergic to anything" >:: aeb false (allergic_to 0 Tomatoes);
+  "allergic only to tomatoes" >:: aeb true (allergic_to 16 Tomatoes);
+  "allergic to tomatoes and something else" >:: aeb true (allergic_to 56 Tomatoes);
+  "allergic to something, but not tomatoes" >:: aeb false (allergic_to 40 Tomatoes);
+  "allergic to everything" >:: aeb true (allergic_to 255 Tomatoes);
+  "not allergic to anything" >:: aeb false (allergic_to 0 Chocolate);
+  "allergic only to chocolate" >:: aeb true (allergic_to 32 Chocolate);
+  "allergic to chocolate and something else" >:: aeb true (allergic_to 112 Chocolate);
+  "allergic to something, but not chocolate" >:: aeb false (allergic_to 80 Chocolate);
+  "allergic to everything" >:: aeb true (allergic_to 255 Chocolate);
+  "not allergic to anything" >:: aeb false (allergic_to 0 Pollen);
+  "allergic only to pollen" >:: aeb true (allergic_to 64 Pollen);
+  "allergic to pollen and something else" >:: aeb true (allergic_to 224 Pollen);
+  "allergic to something, but not pollen" >:: aeb false (allergic_to 160 Pollen);
+  "allergic to everything" >:: aeb true (allergic_to 255 Pollen);
+  "not allergic to anything" >:: aeb false (allergic_to 0 Cats);
+  "allergic only to cats" >:: aeb true (allergic_to 128 Cats);
+  "allergic to cats and something else" >:: aeb true (allergic_to 192 Cats);
+  "allergic to something, but not cats" >:: aeb false (allergic_to 64 Cats);
+  "allergic to everything" >:: aeb true (allergic_to 255 Cats);
+  "no allergies" >:: aea [] (allergies 0);
+  "just eggs" >:: aea [Eggs] (allergies 1);
+  "just peanuts" >:: aea [Peanuts] (allergies 2);
+  "just strawberries" >:: aea [Strawberries] (allergies 8);
+  "eggs and peanuts" >:: aea [Eggs; Peanuts] (allergies 3);
+  "more than eggs but not peanuts" >:: aea [Eggs; Shellfish] (allergies 5);
+  "lots of stuff" >:: aea [Strawberries; Tomatoes; Chocolate; Pollen; Cats] (allergies 248);
+  "everything" >:: aea [Eggs; Peanuts; Shellfish; Strawberries; Tomatoes; Chocolate; Pollen; Cats] (allergies 255);
+  "no allergen score parts" >:: aea [Eggs; Shellfish; Strawberries; Tomatoes; Chocolate; Pollen; Cats] (allergies 509);
+]
+
 let _ =
+  run_test_tt_main ("allergies tests" >::: tests);
   QCheck_runner.run_tests ~verbose:true ~colors:true
     [ prop_allergic_to_single_allergens
     ; prop_allergic_to_negative_single_allergens

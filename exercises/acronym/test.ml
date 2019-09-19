@@ -1,3 +1,4 @@
+(* acronym - 1.7.0 *)
 open OUnit2
 open Acronym
 

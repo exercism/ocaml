@@ -16,17 +16,17 @@ let tests = [
         "  . . . . .";
         "   . . . . .";
         "    . . . . .";
-      ] 
+      ]
       in
       ae None (connect board)
     );
   "X can win on a 1x1 board" >::(fun _ctxt ->
-      let board = ["X"] 
+      let board = ["X"]
       in
       ae (Some X) (connect board)
     );
   "O can win on a 1x1 board" >::(fun _ctxt ->
-      let board = ["O"] 
+      let board = ["O"]
       in
       ae (Some O) (connect board)
     );
@@ -36,7 +36,7 @@ let tests = [
         " X . . X";
         "  X . . X";
         "   X O O O";
-      ] 
+      ]
       in
       ae None (connect board)
     );
@@ -47,7 +47,7 @@ let tests = [
         "  O X O .";
         "   . O X .";
         "    X X O O";
-      ] 
+      ]
       in
       ae None (connect board)
     );
@@ -58,7 +58,7 @@ let tests = [
         "  O . X O";
         "   . O . X";
         "    . . O .";
-      ] 
+      ]
       in
       ae None (connect board)
     );
@@ -69,7 +69,7 @@ let tests = [
         "  O X O .";
         "   X X O X";
         "    . O X .";
-      ] 
+      ]
       in
       ae (Some X) (connect board)
     );
@@ -80,7 +80,7 @@ let tests = [
         "  O O O .";
         "   X X O X";
         "    . O X .";
-      ] 
+      ]
       in
       ae (Some O) (connect board)
     );
@@ -91,7 +91,7 @@ let tests = [
         "  . X . X .";
         "   . X X . .";
         "    O O O O O";
-      ] 
+      ]
       in
       ae (Some X) (connect board)
     );
@@ -106,7 +106,7 @@ let tests = [
         "      O X X X X X O X O";
         "       O O O O O O O X O";
         "        X X X X X X X X O";
-      ] 
+      ]
       in
       ae (Some X) (connect board)
     );

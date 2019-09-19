@@ -11,8 +11,6 @@ let square_of_sum_tests = [
   "square of sum 100" >::
   ae 25502500 (square_of_sum 100);
 ]
-
-
 let sum_of_squares_tests = [
   "sum of squares 1" >::
   ae 1 (sum_of_squares 1);
@@ -21,8 +19,6 @@ let sum_of_squares_tests = [
   "sum of squares 100" >::
   ae 338350 (sum_of_squares 100);
 ]
-
-
 let difference_of_squares_tests = [
   "difference of squares 1" >::
   ae 0 (difference_of_squares 1);
@@ -35,5 +31,9 @@ let difference_of_squares_tests = [
 let () =
   run_test_tt_main (
     "difference of squares tests" >:::
-    List.concat [square_of_sum_tests; sum_of_squares_tests; difference_of_squares_tests]
+    List.concat [
+      square_of_sum_tests;
+      sum_of_squares_tests;
+      difference_of_squares_tests;
+    ]
   )
