@@ -13,18 +13,18 @@ let of_string (s: string): t =
   let mem = fun k -> Util.member k (from_string s) in
   let version = (mem "version") |> Util.to_string in
   let exercise = (mem "exercise") |> Util.to_string in
-  let rec sanitize_cases (c: Yojson.Basic.t list): Yojson.Basic.t list = 
+  let rec sanitize_cases (c: Yojson.Basic.t list): Yojson.Basic.t list =
     if List.for_all c ~f:(fun c -> Util.keys c |> List.exists ~f:(fun k -> String.(k = "cases"))) then
-      c 
+      c
       |> List.map ~f:(fun group -> `Assoc [
-        ("description", Util.member "description" group); 
+        ("description", Util.member "description" group);
         ("slug", `String ((Util.member "description" group) |> Util.to_string |> String.lowercase |> String.substr_replace_all ~pattern:" " ~with_:"_" |> String.substr_replace_all ~pattern:"-" ~with_:"_"));
         ("cases", `List (Util.member "cases" group |> Util.to_list |> sanitize_cases))
       ])
       |> List.map ~f:(Special_cases.edit_case ~slug:exercise)
-    else 
+    else
       c
-      |> List.filter_map ~f:(fun c -> 
+      |> List.filter_map ~f:(fun c ->
         let c = Special_cases.edit_case ~slug:exercise c in
       (Util.member "input" c)
         |> (fun a -> try Some (Util.to_assoc a) with Util.Type_error _ -> None)
@@ -33,8 +33,7 @@ let of_string (s: string): t =
         |> Option.map ~f:(fun l -> `Assoc (List.map l ~f:(fun (k, v) -> (k, `String v))))
         |> Option.map ~f:(fun i -> `Assoc (("input", i) :: (Util.to_assoc c |> List.filter ~f:(fun (k, _) -> String.(k <> "input" && k <> "expected"))))
       )
-  )    
-  in
+  ) in
   {
     version;
     exercise;
@@ -55,7 +54,7 @@ let rec yo_to_ez (j: Yojson.Basic.t): Ezjsonm.value =
 
 let to_json (d: t): Mustache.Json.t =
   let open Base in
-  `O [ 
+  `O [
     ("name", `String d.exercise);
     ("version", `String d.version);
     ("comments", `A (List.map d.comments ~f:(fun c -> `String c)));
@@ -63,4 +62,4 @@ let to_json (d: t): Mustache.Json.t =
   ]
 
 let to_string (d: t): string =
-  to_json d |> Ezjsonm.to_string ~minify:true 
+  to_json d |> Ezjsonm.to_string ~minify:true
