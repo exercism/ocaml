@@ -318,6 +318,7 @@ let edit_parameters ~(slug: string) (parameters: (string * json) list) = match (
   | ("space-age", ps) -> edit_space_age ps |> Option.return
   | ("triangle", ps) -> edit_triangle ps
   | ("custom-set", ps) -> unwrap_strings ps
+  | ("grade-school", ps) -> unwrap_strings ps
   | (_, ps) -> map_elements json_to_string ps |> Option.return
 
 let edit_difference_of_squares_case (case: json): json =
@@ -426,9 +427,31 @@ let edit_custom_set_case (case: json): json =
     ]
   | _ -> case
 
+let edit_grade_school_case (case: json): json =
+  let string_of_students () = Util.member "input" case
+    |> Util.member "students"
+    |> Util.to_list
+    |> List.filter_map ~f:(fun student ->
+      match student with
+      | `List ((`String name)::(`Int grade)::_) -> Some (Printf.sprintf "add \"%s\" %i" name grade)
+      | _ -> None
+    )
+    |> fun l -> match l with
+       | [] -> ""
+       | _::_ when List.length l <= 3 -> Printf.sprintf " |> %s" (String.concat l ~sep:" |> ")
+       | _::_ -> Printf.sprintf "\n|> %s" (String.concat l ~sep:"\n|> ") in
+  let input = Util.member "input" case in
+  Util.combine (`Assoc [
+    ("setup", `String (string_of_students ()));
+    ("input", Util.combine (`Assoc [
+      ("params", match Util.member "desiredGrade" input |> Util.to_int_option with Some grade -> `String (Int.to_string grade) | None -> `String "")
+    ]) input)
+  ]) case
+
 let edit_case ~(slug: string) (case: json) = match (slug, case) with
   | ("allergies", case) -> edit_allergies_case case
   | ("custom-set", case) -> edit_custom_set_case case
+  | ("grade-school", case) -> edit_grade_school_case case
   | ("difference-of-squares", case) -> edit_difference_of_squares_case case
   | ("run-length-encoding", case) -> edit_run_length_encoding_case case
   | (_, case) -> case
