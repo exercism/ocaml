@@ -11,3 +11,6 @@ val grade : int -> school -> string list
 
 (** Sort the list of students in a grade, if necessary *)
 val sorted : school -> school
+
+(** Get all students sorted by grade **)
+val roster : school -> string list
