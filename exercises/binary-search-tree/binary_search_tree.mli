@@ -14,4 +14,3 @@ val insert : int -> bst -> bst
 
 val to_list : bst -> int list
 
-

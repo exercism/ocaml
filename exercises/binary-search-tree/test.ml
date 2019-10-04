@@ -1,3 +1,4 @@
+(* binary-search-tree - 1.3.0 *)
 open Base
 open OUnit2
 open Binary_search_tree
