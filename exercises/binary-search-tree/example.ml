@@ -1,26 +1,26 @@
 open Base
 
-type 'a bst = Leaf | Node of 'a bst * 'a * 'a bst
+type bst = Leaf | Node of bst * int * bst
 
 let empty = Leaf
 
 let value = function
   | Leaf -> Error "empty tree"
-  | Node(_, v, _) -> v
+  | Node(_, v, _) -> Ok v
 
 let left = function
   | Leaf -> Error "empty tree"
-  | Node(l, _, _) -> l
+  | Node(l, _, _) -> Ok l
 
 let right = function
   | Leaf -> Error "empty tree"
-  | Node(_, _, r) -> r
+  | Node(_, _, r) -> Ok r
 
-let insert v = function
+let rec insert v = function
   | Leaf -> Node(Leaf, v, Leaf)
   | Node(l, v', r) when v <= v' -> Node(insert v l, v', r)
   | Node(l, v', r) -> Node(l, v', insert v r)
 
-let to_list = function
+let rec to_list = function
 | Leaf -> []
 | Node(l, v, r) -> to_list(l) @ [v] @ to_list(r)
