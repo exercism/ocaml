@@ -447,6 +447,18 @@
       "difficulty": 0,
       "topics": null,
       "deprecated": true
+    },
+    {
+      "slug": "binary-search-tree",
+      "uuid": "ce05137f-d4e5-40f2-ae6b-6c43e00d458f",
+      "core": false,
+      "unlocked_by": null,
+      "difficulty": 3,
+      "topics": [
+        "recursion",
+        "searching",
+        "trees"
+      ]
     }
   ]
 }
