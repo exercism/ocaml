@@ -9,7 +9,7 @@ RUN git checkout c23c1a7071910f235d5bc173cbadb97cd450e9fb
 RUN cd -
 
 RUN opam update
-RUN opam install dune fpath ocamlfind ounit qcheck react ppx_deriving ppx_let ppx_sexp_conv yojson ocp-indent calendar getopts
+RUN make install_deps
 RUN opam install merlin
 
 RUN sudo apt-get install net-tools fswatch -y

@@ -1,4 +1,4 @@
-# xOCaml
+# OCaml
 
 Exercism Exercises in OCaml
 
@@ -9,66 +9,112 @@ Contributions to the OCaml track (or any other part of Exercism) are very welcom
 Please see the [contributing guide](https://github.com/exercism/docs/blob/master/contributing-to-language-tracks/README.md) for overall guidance. The below
 notes contain a few details specific to Ocaml.
 
-## Prerequisites
+## Getting started
 
-The OCaml track assumes installation of OCaml version 4.07.0, and installation of Core_kernel, OUnit, and React (for the Hangman exercise).
-Assuming you have opam, these can be installed with
-```bash
-opam install core_kernel ounit react
+### Local setup
+
+**Prerequesites**
+
+* OCaml `4.07`
+* opam
+* make
+
+```sh
+git clone https://github.com/exercism/ocaml.git
+cd ocaml
+git submodule update --init --recursive
+
+# see https://github.com/exercism/ocaml/blob/master/.travis/Dockerfile#L12
+# might take a while
+make install_deps
+
+# Run generator tests
+make test_generator
+
+# Execute generator
+make generate_exercises
+
+# Run exercise tests
+make test
 ```
 
-## Notes on prerequisite libraries
+<details>
+    <summary>Container setup</summary>
 
-Core_kernel is a standard library replacement. If you prefer to write your exercises using the standard library distributed with OCaml,
-or to use other standard library replacements (such as Batteries), that is also an option. If you find any difficulties doing so please raise
-an issue.
 
-OUnit is a unit testing library.
+**Prerequesites**
 
-React is a reactive library, just used in the hangman exercise.
+* VSCode
+* VSCode Remote Containers extension
+* Docker
 
-## Running Tests
+```sh
+git clone https://github.com/exercism/ocaml.git
+cd ocaml
+git submodule update --init --recursive
 
-To run all the tests, type `make` from the top level ocaml directory.
+vscode .
 
-To run tests for an individual exercise, `make test-assignment ASSIGNMENT=luhn`
+# Inside container
 
-The Makefile is a slim wrapper around [dune](https://github.com/ocaml/dune). Each exercise has a dune file which describes how to build it.
+# Run generator tests
+make test_generator
+
+# Execute generator
+make generate_exercises
+
+# Run exercise tests
+make test
+```
+
+</details>
 
 ## Adding an Exercise
 
 The [contributing guide](https://github.com/exercism/docs/blob/master/contributing-to-language-tracks/README.md) provides guidance on
-how to add a new exercise, or port an existing exercise from another language track. This is a brief guide, with specifics for the OCaml stream.
+how to add a new exercise, or port an existing exercise from another language track.
+
+This is a brief guide, with specifics for the OCaml track.
 
 Firstly, register the exercise in [config json](https://github.com/exercism/docs/blob/master/contributing-to-language-tracks/README.md#configjson). The name of the exercise should go in the "slug" entry.
 
-Then, write the exercise tests & proof of concept implementation.
+Then, write the exercise tests and proof of concept implementation.
 A folder layout for an exercise called "ocaml-exercise" is below.
 
 ```
-└── exercises
+└── templates
     └── ocaml-exercise
-        ├── .merlin (provided IDE assistance - copy this from any of the other Ocaml exercises)
-        ├── example.ml (a proof of concept implementation)
-        ├── ocaml_exercise.mli (the interface definition for the exercise)
-        ├── HINTS.md (additional hints to anyone trying the exercise - optional)
-        ├── Makefile (standard - copy this from any of the other Ocaml exercises)
-        ├── test.ml (unit tests)
+        ├── example.ml.tpl           (a proof of concept implementation)
+        ├── ocaml_exercise.mli.tpl   (the interface definition for the exercise)
+        ├── HINTS.md.tpl             (additional hints to anyone trying the exercise - optional)
+        ├── Makefile                 (standard - copy this from any of the other Ocaml exercises)
+        └── test.ml.tpl              (unit tests)
 ```
-In this example, the Makefile would look for an implementation in ocaml_exercise.ml - as it matches the .mli file name. When developing it is easier to create and edit ocaml_exercise.ml, but the code should be copied to example.ml prior to submitting a pull request (and ocaml_exercise.ml should not be submitted).  
 
-All pull requests are run through a Travis CI build, which compiles and runs tests.
+You can build your exercises from `templates/ocaml-exercise` to `exercises/ocaml-exercise` via the test generator:
+
+```sh
+make generate_exercises
+```
+
+This creates a folder `exercises/ocaml-exercises` that mirrors `templates/ocaml-exercises` and strips the `.tpl` extension:
+
+```
+└── templates
+    └── ocaml-exercise
+        ├── example.ml
+        ├── ocaml_exercise.mli
+        ├── HINTS.md
+        ├── Makefile
+        └── test.ml
+```
 
 ## Canonical test data
 
-If you are implementing an existing test, there may be "canonical data" for it in the [x-common](https://github.com/exercism/x-common) repository.
-An example: https://github.com/exercism/x-common/blob/master/exercises/bracket-push/canonical-data.json
+If you are implementing an existing test, there may be "canonical data" for it in the [problem-specifications](https://github.com/exercism/problem-specifications) repository.
+An example: https://github.com/exercism/problem-specifications/blob/4531f54300f2a9f485a91a5dc0228be448b46b97/exercises/hello-world/canonical-data.json#L1-L12
 
 You should base your tests off this data, in order to provide consistency across different language tracks.
-
-There is a test generator which can create test code from these json files and an OCaml template file that you 
-would need to create. It is a work in progress, so may not work for every exercise. If you wish to use it, there
-is documentation [here](tools/test-generator/README.md).
 
 ## Feedback
 
