@@ -9,6 +9,8 @@ RUN git checkout c23c1a7071910f235d5bc173cbadb97cd450e9fb
 RUN cd -
 
 RUN opam update
+
+ADD Makefile .
 RUN make install_deps
 RUN opam install merlin
 
