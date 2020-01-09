@@ -27,19 +27,31 @@ test-assignment:
 	@make -C $(OUTDIR)
 	@rm -rf $(OUTDIR)
 
-testgenerator:
-	make -C ./tools/test-generator
-
 # all tests
 test:
 	@for assignment in $(ASSIGNMENTS); do \
 		ASSIGNMENT=$$assignment $(MAKE) -s test-assignment || exit 1;\
 	done
 
+build_test:
+	dune build @buildtest
+
+generator:
+	dune build --root=./test-generator/
+
+test_generator:
+	dune runtest --root=./test-generator/
+
+generate_exercises:
+	dune exec ./bin_test_gen/test_gen.exe --root=./test-generator/
+
+install_deps:
+	opam install dune fpath ocamlfind ounit qcheck react ppx_deriving ppx_let ppx_sexp_conv yojson ocp-indent calendar getopts
+
 clean:
-	make -C ./tools/test-generator clean
+	dune clean --root=./test-generator/
 	@for assignment in $(ASSIGNMENTS); do \
-		make -C ./exercises/$$assignment clean;\
+		dune clean --root=./exercises/$$assignment;\
 	done
 
 .PHONY: clean
