@@ -449,6 +449,17 @@
       "deprecated": true
     },
     {
+      "slug": "linked-list",
+      "uuid": "840f4011-029a-4f5c-970f-f8e585cd4fdf",
+      "core": false,
+      "unlocked_by": "null",
+      "difficulty": 8,
+      "topics": [
+        "data_structures",
+        "lists",
+        "recursion"
+    },
+    {
       "slug": "binary-search-tree",
       "uuid": "ce05137f-d4e5-40f2-ae6b-6c43e00d458f",
       "core": false,
