@@ -12,6 +12,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+        with:
+          submodules: true
 
       - name: Build ocaml-ci docker image
         run: docker build -t ocaml-ci -f .gha/Dockerfile .
