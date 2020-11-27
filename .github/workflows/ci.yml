@@ -17,4 +17,4 @@ jobs:
         run: docker build -t ocaml-ci -f .gha/Dockerfile .
 
       - name: Run exercism/ocaml ci (runs tests) for all exercises
-        run: docker run -w /repo $(pwd):/repo -it ocaml-ci .gha/.gha-ci.sh
+        run: docker run -w /repo -v $(pwd):/repo -it ocaml-ci .gha/.gha-ci.sh
