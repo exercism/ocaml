@@ -1,9 +1,9 @@
 FROM ocaml/opam2:ubuntu-18.04-ocaml-4.07
 
+USER root
+
 RUN apt-get update \
- && apt-get install -y m4 bmake cpio \
-     net-tools fswatch \
-     pkg-config \
+ && apt-get install -y m4 bmake cpio net-tools fswatch pkg-config \
  && rm -rf /var/lib/apt/lists/*
 
 RUN cd /home/opam/opam-repository
@@ -17,7 +17,6 @@ RUN opam update \
 ADD Makefile .
 RUN make install_deps
 
-USER root
 RUN ln -s /home/opam/.opam /root/.opam
 SHELL ["/bin/bash", "--login" , "-c"]
 ENV OPAM_SWITCH_PREFIX='/home/opam/.opam/4.07'
