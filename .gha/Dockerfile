@@ -1,25 +1,21 @@
 FROM ocaml/opam2:ubuntu-18.04-ocaml-4.07
 
-RUN sudo apt-get update
-RUN sudo apt-get install m4 bmake cpio -y
+RUN apt-get update \
+ && apt-get install -y m4 bmake cpio \
+     net-tools fswatch \
+     pkg-config \
+ && rm -rf /var/lib/apt/lists/*
 
 RUN cd /home/opam/opam-repository
 RUN git pull
 RUN git checkout c23c1a7071910f235d5bc173cbadb97cd450e9fb
 RUN cd -
 
-RUN opam update
+RUN opam update \
+ && opam install merlin yaml ezjsonm mustache
 
 ADD Makefile .
 RUN make install_deps
-RUN opam install merlin
-
-RUN sudo apt-get install net-tools fswatch -y
-RUN sudo apt-get install pkg-config -y
-
-RUN opam install yaml
-RUN opam install ezjsonm
-RUN opam install mustache
 
 USER root
 RUN ln -s /home/opam/.opam /root/.opam
