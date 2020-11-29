@@ -16,7 +16,7 @@ jobs:
           submodules: true
 
       - name: Build ocaml-ci docker image
-        run: docker build -t ocaml-ci -f .gha/Dockerfile .
+        run: docker build -t ocaml-ci -f .github/Dockerfile .
 
       - name: Run exercism/ocaml ci (runs tests) for all exercises
-        run: docker run -w /repo -v $(pwd):/repo ocaml-ci .gha/.gha-ci.sh
+        run: docker run -w /repo -v $(pwd):/repo ocaml-ci .github/.gha-ci.sh
