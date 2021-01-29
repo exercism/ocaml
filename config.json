@@ -1,5 +1,6 @@
 {
   "language": "OCaml",
+  "slug": "ocaml",
   "active": true,
   "status": {
     "concept_exercises": false,
