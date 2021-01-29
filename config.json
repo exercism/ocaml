@@ -2,6 +2,7 @@
   "language": "OCaml",
   "active": true,
   "blurb": "OCaml is a functional and object-oriented language, used both in industry and as a teaching language to elegantly solve problems. The strong type system, with type inference, is useful for catching mistakes.",
+  "version": 3,
   "exercises": [
     {
       "slug": "hello-world",
