@@ -1,4 +1,4 @@
-## [@@deriving sexp]
+# [@@deriving sexp]
 The file `tree.ml` uses the following expression: `[@@deriving sexp]`. This
 is described in (https://github.com/janestreet/pa_sexp_conv).
 
