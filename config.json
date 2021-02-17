@@ -14,6 +14,20 @@
     "indent_style": "space",
     "indent_size": 4
   },
+  "files": {
+    "solution": [
+      "%{snake_slug}.ml"
+    ],
+    "test": [
+      "test.ml"
+    ],
+    "example": [
+      "example.ml"
+    ],
+    "exemplar": [
+      ".meta/exemplar.ml"
+    ]
+  },
   "exercises": {
     "concept": [],
     "practice": [
