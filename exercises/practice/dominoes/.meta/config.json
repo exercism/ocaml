@@ -1,6 +1,17 @@
 {
   "blurb": "Make a chain of dominoes.",
-  "authors": [],
+  "authors": [
+    "stevejb71"
+  ],
+  "contributors": [
+    "dvberkel",
+    "iHiD",
+    "marionebl",
+    "Peaupote",
+    "petertseng",
+    "sbl",
+    "sshine"
+  ],
   "files": {
     "solution": [],
     "test": [],
