@@ -2,8 +2,14 @@
   "blurb": "Implement basic list operations",
   "authors": [],
   "files": {
-    "solution": [],
-    "test": [],
-    "example": []
+    "solution": [
+      "list_ops.ml"
+    ],
+    "test": [
+      "test.ml"
+    ],
+    "example": [
+      "example.ml"
+    ]
   }
 }

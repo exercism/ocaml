@@ -2,8 +2,14 @@
   "blurb": "Implement the logic of the hangman game using functional reactive programming.",
   "authors": [],
   "files": {
-    "solution": [],
-    "test": [],
-    "example": []
+    "solution": [
+      "hangman.ml"
+    ],
+    "test": [
+      "test.ml"
+    ],
+    "example": [
+      "example.ml"
+    ]
   }
 }
