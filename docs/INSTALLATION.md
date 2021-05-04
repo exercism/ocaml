@@ -1,3 +1,5 @@
+# Installation
+
 To work on the exercises, you will need these pieces of software:
 
 1. [`OPAM`, the OCaml Package manager](https://opam.ocaml.org/)
