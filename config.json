@@ -12,7 +12,9 @@
   "version": 3,
   "online_editor": {
     "indent_style": "space",
-    "indent_size": 4
+    "indent_size": 4,
+    "ace_editor_language": "ocaml",
+    "highlightjs_language": "ocaml"
   },
   "test_runner": {
     "average_run_time": 2.0
