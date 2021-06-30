@@ -1,0 +1,17 @@
+{
+  "blurb": "Detect palindrome products in a given range.",
+  "authors": [],
+  "files": {
+    "solution": [
+      "palindrome_products.ml"
+    ],
+    "test": [
+      "test.ml"
+    ],
+    "example": [
+      "example.ml"
+    ]
+  },
+  "source": "Problem 4 at Project Euler",
+  "source_url": "http://projecteuler.net/problem=4"
+}

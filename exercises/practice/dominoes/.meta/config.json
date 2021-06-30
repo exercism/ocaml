@@ -1,0 +1,15 @@
+{
+  "blurb": "Make a chain of dominoes.",
+  "authors": [],
+  "files": {
+    "solution": [
+      "dominoes.ml"
+    ],
+    "test": [
+      "test.ml"
+    ],
+    "example": [
+      "example.ml"
+    ]
+  }
+}

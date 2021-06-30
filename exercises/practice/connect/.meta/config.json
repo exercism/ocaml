@@ -1,0 +1,15 @@
+{
+  "blurb": "Compute the result for a game of Hex / Polygon",
+  "authors": [],
+  "files": {
+    "solution": [
+      "connect.ml"
+    ],
+    "test": [
+      "test.ml"
+    ],
+    "example": [
+      "example.ml"
+    ]
+  }
+}

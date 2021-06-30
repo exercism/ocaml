@@ -1,3 +1,5 @@
+# Readme
+
 ## What does it do
 
 The test generator takes canonical-data.json files from the x-common folder, and

@@ -1,0 +1,17 @@
+{
+  "blurb": "Implement run-length encoding and decoding.",
+  "authors": [],
+  "files": {
+    "solution": [
+      "run_length_encoding.ml"
+    ],
+    "test": [
+      "test.ml"
+    ],
+    "example": [
+      "example.ml"
+    ]
+  },
+  "source": "Wikipedia",
+  "source_url": "https://en.wikipedia.org/wiki/Run-length_encoding"
+}

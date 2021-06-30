@@ -1,0 +1,17 @@
+{
+  "blurb": "Score a bowling game",
+  "authors": [],
+  "files": {
+    "solution": [
+      "bowling.ml"
+    ],
+    "test": [
+      "test.ml"
+    ],
+    "example": [
+      "example.ml"
+    ]
+  },
+  "source": "The Bowling Game Kata at but UncleBob",
+  "source_url": "http://butunclebob.com/ArticleS.UncleBob.TheBowlingGameKata"
+}

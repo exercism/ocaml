@@ -1,3 +1,5 @@
+# About
+
 [OCaml](https://ocaml.org/) is an industrial strength programming language supporting functional, imperative and object-oriented styles - but don't worry if you're not familiar with these, as it's used as a teaching language by a lot of institutions (including Cornell and Princeton). 
 
 One of the best features of OCaml is the rich and powerful [type system](https://en.wikipedia.org/wiki/Type_system) - this is useful to catch some mistakes early on saving developers a huge amount of frustration. 

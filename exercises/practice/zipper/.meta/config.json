@@ -1,0 +1,15 @@
+{
+  "blurb": "Creating a zipper for a binary tree.",
+  "authors": [],
+  "files": {
+    "solution": [
+      "zipper.ml"
+    ],
+    "test": [
+      "test.ml"
+    ],
+    "example": [
+      "example.ml"
+    ]
+  }
+}

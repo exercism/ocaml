@@ -1,0 +1,15 @@
+{
+  "blurb": "Implement a basic reactive system.",
+  "authors": [],
+  "files": {
+    "solution": [
+      "react.ml"
+    ],
+    "test": [
+      "test.ml"
+    ],
+    "example": [
+      "example.ml"
+    ]
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "blurb": "Create a custom set type.",
+  "authors": [],
+  "files": {
+    "solution": [
+      "custom_set.ml"
+    ],
+    "test": [
+      "test.ml"
+    ],
+    "example": [
+      "example.ml"
+    ]
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "blurb": "Implement a binary search algorithm.",
+  "authors": [],
+  "files": {
+    "solution": [
+      "binary_search.ml"
+    ],
+    "test": [
+      "test.ml"
+    ],
+    "example": [
+      "example.ml"
+    ]
+  },
+  "source": "Wikipedia",
+  "source_url": "http://en.wikipedia.org/wiki/Binary_search_algorithm"
+}

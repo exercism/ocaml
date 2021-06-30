@@ -1,0 +1,17 @@
+{
+  "blurb": "Determine if a sentence is a pangram.",
+  "authors": [],
+  "files": {
+    "solution": [
+      "pangram.ml"
+    ],
+    "test": [
+      "test.ml"
+    ],
+    "example": [
+      "example.ml"
+    ]
+  },
+  "source": "Wikipedia",
+  "source_url": "https://en.wikipedia.org/wiki/Pangram"
+}
