@@ -1,6 +1,17 @@
 {
   "blurb": "Implement run-length encoding and decoding.",
-  "authors": [],
+  "authors": [
+    "stevejb71"
+  ],
+  "contributors": [
+    "daveyarwood",
+    "iHiD",
+    "kytrinyx",
+    "marionebl",
+    "Peaupote",
+    "sbl",
+    "sshine"
+  ],
   "files": {
     "solution": [
       "run_length_encoding.ml"

@@ -1,6 +1,17 @@
 {
   "blurb": "Implement a basic reactive system.",
-  "authors": [],
+  "authors": [
+    "stevejb71"
+  ],
+  "contributors": [
+    "daveyarwood",
+    "iHiD",
+    "kytrinyx",
+    "marionebl",
+    "Peaupote",
+    "sbl",
+    "sshine"
+  ],
   "files": {
     "solution": [
       "react.ml"

@@ -1,6 +1,20 @@
 {
   "blurb": "Create a custom set type.",
-  "authors": [],
+  "authors": [
+    "pminten"
+  ],
+  "contributors": [
+    "bcc32",
+    "dvberkel",
+    "iHiD",
+    "kytrinyx",
+    "marionebl",
+    "Peaupote",
+    "rootulp",
+    "sbl",
+    "sshine",
+    "stevejb71"
+  ],
   "files": {
     "solution": [
       "custom_set.ml"

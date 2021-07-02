@@ -1,6 +1,11 @@
 {
   "blurb": "Insert and search for numbers in a binary tree.",
-  "authors": [],
+  "authors": [
+    "voila"
+  ],
+  "contributors": [
+    "iHiD"
+  ],
   "files": {
     "solution": [
       "binary_search_tree.ml"

@@ -1,6 +1,22 @@
 {
   "blurb": "Bob is a lackadaisical teenager. In conversation, his responses are very limited.",
   "authors": [],
+  "contributors": [
+    "austinlyons",
+    "daveyarwood",
+    "dvberkel",
+    "iHiD",
+    "ismaelga",
+    "kevgathuku",
+    "kytrinyx",
+    "marionebl",
+    "Peaupote",
+    "pminten",
+    "sbl",
+    "sshine",
+    "stevejb71",
+    "tmcgilchrist"
+  ],
   "files": {
     "solution": [
       "bob.ml"
