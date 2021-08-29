@@ -29,6 +29,7 @@ RUN opam update \
                  ocp-indent \
                  calendar \
                  getopts \
+                 stdio \
  && ln -s /home/opam/.opam /root/.opam
 
 SHELL ["/bin/bash", "--login" , "-c"]
