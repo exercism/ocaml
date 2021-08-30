@@ -23,7 +23,7 @@
       "test.ml"
     ],
     "example": [
-      "example.ml"
+      ".meta/example.ml"
     ]
   },
   "source": "Learn to Program by Chris Pine",

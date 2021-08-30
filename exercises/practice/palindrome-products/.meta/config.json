@@ -19,7 +19,7 @@
       "test.ml"
     ],
     "example": [
-      "example.ml"
+      ".meta/example.ml"
     ]
   },
   "source": "Problem 4 at Project Euler",

@@ -20,7 +20,7 @@
       "test.ml"
     ],
     "example": [
-      "example.ml"
+      ".meta/example.ml"
     ]
   },
   "source": "Software Craftsmanship - Coin Change Kata",
