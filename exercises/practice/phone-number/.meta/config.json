@@ -23,7 +23,7 @@
       "test.ml"
     ],
     "example": [
-      "example.ml"
+      ".meta/example.ml"
     ]
   },
   "source": "Event Manager by JumpstartLab",

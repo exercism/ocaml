@@ -24,7 +24,7 @@
       "test.ml"
     ],
     "example": [
-      "example.ml"
+      ".meta/example.ml"
     ]
   },
   "source": "All of Computer Science",

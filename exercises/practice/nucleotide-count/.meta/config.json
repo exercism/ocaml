@@ -23,7 +23,7 @@
       "test.ml"
     ],
     "example": [
-      "example.ml"
+      ".meta/example.ml"
     ]
   },
   "source": "The Calculating DNA Nucleotides_problem at Rosalind",

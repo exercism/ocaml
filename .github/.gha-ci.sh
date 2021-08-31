@@ -9,7 +9,7 @@ make build_test
 make test_generator
 make generate_exercises
 
-if output=$(git status --porcelain -- "exercises/**/test.ml") && [ -z "$output" ]; then
+if output=$(git status --porcelain -- "exercises/practice/**/test.ml") && [ -z "$output" ]; then
  echo "Tests are in sync."
 else
  echo "Checked in test files diverged from generated files:"

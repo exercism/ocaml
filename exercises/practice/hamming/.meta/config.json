@@ -21,7 +21,7 @@
       "test.ml"
     ],
     "example": [
-      "example.ml"
+      ".meta/example.ml"
     ]
   },
   "source": "The Calculating Point Mutations problem at Rosalind",
