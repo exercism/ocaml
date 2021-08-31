@@ -1,6 +1,6 @@
 # assignments
 ASSIGNMENT ?= ""
-ASSIGNMENTS = $(shell git ls-tree --name-only HEAD -- exercises/ | awk -F/ '{print $$NF}' | sort)
+ASSIGNMENTS = $(shell git ls-tree --name-only HEAD -- exercises/practice/ | awk -F/ '{print $$NF}' | sort)
 
 default: testgenerator test
 
@@ -10,7 +10,7 @@ OUTDIR := $(shell mktemp -d "$(TMPDIR)$(ASSIGNMENT).XXXXXXXXXX")
 
 # language specific config (tweakable per language)
 FILEEXT := "ml"
-EXAMPLE := "example.$(FILEEXT)"
+EXAMPLE := ".meta/example.$(FILEEXT)"
 SRCFILE := "$(shell echo $(ASSIGNMENT) | sed 's/-/_/g')"
 TSTFILE := "$(SRCFILE)_test.$(FILEEXT)"
 # Any additional arguments, such as -p for pretty output and others
@@ -22,8 +22,8 @@ test-assignment:
 	@echo ""
 	@echo "----------------------------------------------------------------"
 	@echo "running tests for: $(ASSIGNMENT)"
-	@cp -r ./exercises/$(ASSIGNMENT)/* $(OUTDIR)
-	@cp ./exercises/$(ASSIGNMENT)/$(EXAMPLE) $(OUTDIR)/$(SRCFILE).$(FILEEXT)
+	@cp -r ./exercises/practice/$(ASSIGNMENT)/* $(OUTDIR)
+	@cp ./exercises/practice/$(ASSIGNMENT)/$(EXAMPLE) $(OUTDIR)/$(SRCFILE).$(FILEEXT)
 	@make -C $(OUTDIR)
 	@rm -rf $(OUTDIR)
 
@@ -51,7 +51,7 @@ install_deps:
 clean:
 	dune clean --root=./test-generator/
 	@for assignment in $(ASSIGNMENTS); do \
-		dune clean --root=./exercises/$$assignment;\
+		dune clean --root=./exercises/practice/$$assignment;\
 	done
 
 .PHONY: clean
