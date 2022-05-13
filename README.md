@@ -1,4 +1,4 @@
-# OCaml
+# Exercism OCaml Track
 
 Exercism Exercises in OCaml
 
