@@ -1,5 +1,4 @@
 {
-  "blurb": "Count the rectangles in an ASCII diagram.",
   "authors": [
     "stevejb71"
   ],
@@ -22,5 +21,6 @@
     "example": [
       ".meta/example.ml"
     ]
-  }
+  },
+  "blurb": "Count the rectangles in an ASCII diagram."
 }
