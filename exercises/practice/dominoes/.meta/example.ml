@@ -1,4 +1,4 @@
-(* Based off the Haskell solution by Tarmean at http://exercism.org/submissions/6dc2eef7e7eb469d8657111fc4389fc0 *)
+(* Based off the Haskell solution by Tarmean at https://exercism.org/tracks/haskell/exercises/dominoes/solutions/457a1115cdd141c0a8dea14af57c7e46 *)
 
 open Base
 
