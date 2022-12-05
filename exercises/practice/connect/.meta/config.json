@@ -1,5 +1,4 @@
 {
-  "blurb": "Compute the result for a game of Hex / Polygon.",
   "authors": [
     "stevejb71"
   ],
@@ -20,5 +19,6 @@
     "example": [
       ".meta/example.ml"
     ]
-  }
+  },
+  "blurb": "Compute the result for a game of Hex / Polygon."
 }

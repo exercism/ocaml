@@ -1,5 +1,4 @@
 {
-  "blurb": "Create a custom set type.",
   "authors": [
     "pminten"
   ],
@@ -25,5 +24,6 @@
     "example": [
       ".meta/example.ml"
     ]
-  }
+  },
+  "blurb": "Create a custom set type."
 }
