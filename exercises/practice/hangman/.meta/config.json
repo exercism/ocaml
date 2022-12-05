@@ -1,5 +1,4 @@
 {
-  "blurb": "Implement the logic of the hangman game using functional reactive programming.",
   "authors": [],
   "contributors": [
     "daveyarwood",
@@ -25,5 +24,6 @@
     "example": [
       ".meta/example.ml"
     ]
-  }
+  },
+  "blurb": "Implement the logic of the hangman game using functional reactive programming."
 }
