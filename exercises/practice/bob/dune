@@ -1,6 +1,6 @@
 (executable
  (name test)
- (libraries base oUnit))
+ (libraries base oUnit re re2))
 
 (alias
   (name    runtest)
