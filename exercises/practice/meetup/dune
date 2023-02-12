@@ -1,6 +1,6 @@
 (executable
  (name test)
- (libraries base calendar oUnit))
+ (libraries base calendar ounit2))
 
 (alias
   (name    runtest)
