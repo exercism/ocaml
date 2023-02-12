@@ -180,12 +180,15 @@ let tests = [
   "no allergen score parts" >:: aea [Eggs; Shellfish; Strawberries; Tomatoes; Chocolate; Pollen; Cats] (allergies 509);
 ]
 
+let qcheck_tests = List.map ~f:QCheck_ounit.to_ounit2_test [ prop_allergic_to_single_allergens
+                                                           ; prop_allergic_to_negative_single_allergens
+                                                           ; prop_allergic_to_multiple_allergens
+                                                           ; prop_allergies_single_allergens
+                                                           ; prop_allergies_multiple_allergens
+                                                           ]
+
 let _ =
-  run_test_tt_main ("allergies tests" >::: tests);
-  QCheck_runner.run_tests ~verbose:true ~colors:true
-    [ prop_allergic_to_single_allergens
-    ; prop_allergic_to_negative_single_allergens
-    ; prop_allergic_to_multiple_allergens
-    ; prop_allergies_single_allergens
-    ; prop_allergies_multiple_allergens
-    ]
+  run_test_tt_main ("allergies tests" >::: [
+      "ounit_tests" >::: tests;
+      "qcheck_tests" >::: qcheck_tests;
+    ])
