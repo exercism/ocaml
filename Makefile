@@ -1,6 +1,7 @@
 # assignments
 ASSIGNMENT ?= ""
 ASSIGNMENTS = $(shell git ls-tree --name-only HEAD -- exercises/practice/ | awk -F/ '{print $$NF}' | sort)
+ASSIGNMENTS_DOCKER = $(ASSIGNMENTS:=.docker)
 
 default: testgenerator test
 
@@ -34,6 +35,12 @@ test:
 	done
 
 build_test: test test_generator
+
+$(ASSIGNMENTS_DOCKER):
+	@echo "running tests for: $(@:.docker=)"
+	@./bin/run-in-docker.sh $(@:.docker=)
+
+test-docker: $(ASSIGNMENTS_DOCKER)
 
 generator:
 	dune build --root=./test-generator/
