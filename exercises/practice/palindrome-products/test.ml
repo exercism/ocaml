@@ -1,5 +1,5 @@
 (* palindrome-products - 1.2.0 *)
-open OUnit
+open OUnit2
 open Palindrome_products
 
 let show_result printer = function
