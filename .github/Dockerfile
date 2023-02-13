@@ -1,4 +1,4 @@
-FROM ocaml/opam2:ubuntu-18.04-ocaml-4.07
+FROM ocaml/opam:debian-11-ocaml-4.14-afl
 
 USER root
 
@@ -6,13 +6,14 @@ RUN apt-get update \
  && apt-get install -y m4 bmake cpio net-tools fswatch pkg-config \
  && rm -rf /var/lib/apt/lists/*
 
+RUN git config --global --add safe.directory "*"
+
 RUN cd /home/opam/opam-repository \
- && git pull \
- && git checkout a7fc137299d8c9e0fa8cfbfe8c902698c7ec5628 \
- && cd -
+ && git pull origin master
 
 RUN opam update \
- && opam install merlin \
+ && opam install core \
+                 merlin \
                  yaml \
                  ezjsonm \
                  mustache \
@@ -20,6 +21,7 @@ RUN opam update \
                  fpath \
                  ocamlfind \
                  ounit \
+                 ounit2 \
                  qcheck \
                  react \
                  ppx_deriving \
@@ -29,12 +31,7 @@ RUN opam update \
                  ocp-indent \
                  calendar \
                  getopts \
-                 stdio \
- && ln -s /home/opam/.opam /root/.opam
+                 stdio
 
-SHELL ["/bin/bash", "--login" , "-c"]
-ENV OPAM_SWITCH_PREFIX='/home/opam/.opam/4.07' \
-    CAML_LD_LIBRARY_PATH='/home/opam/.opam/4.07/lib/stublibs:/home/opam/.opam/4.07/lib/ocaml/stublibs:/home/opam/.opam/4.07/lib/ocaml' \
-    OCAML_TOPLEVEL_PATH='/home/opam/.opam/4.07/lib/toplevel' \
-    MANPATH=':/root/.opam/4.07.1/man:/home/opam/.opam/4.07/man' \
-    PATH='/home/opam/.opam/4.07/bin:/root/.opam/4.07.1/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+ENV PATH="/home/opam/.opam/4.14/bin:${PATH}" \
+    MAKESYSPATH=/usr/share/bmake/mk-bmake
