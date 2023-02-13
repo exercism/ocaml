@@ -33,13 +33,12 @@ test:
 		ASSIGNMENT=$$assignment $(MAKE) -s test-assignment || exit 1;\
 	done
 
-build_test:
-	dune build @buildtest
+build_test: test test_generator
 
 generator:
 	dune build --root=./test-generator/
 
-test_generator:
+test_generator: generator
 	dune runtest --root=./test-generator/
 
 generate_exercises:

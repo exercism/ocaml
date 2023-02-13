@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+set -ex
 
 eval $(opam env)
 
