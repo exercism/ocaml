@@ -11,7 +11,7 @@ type t = {
 let of_string (s: string): t =
   let open Yojson.Basic in
   let mem = fun k -> Util.member k (from_string s) in
-  let version = (mem "version") |> Util.to_string in
+  let version = (mem "version") |> Util.to_string_option |> function Some x -> x | None -> "1.0" in
   let exercise = (mem "exercise") |> Util.to_string in
   let rec sanitize_cases (c: Yojson.Basic.t list): Yojson.Basic.t list =
     if List.for_all c ~f:(fun c -> Util.keys c |> List.exists ~f:(fun k -> String.(k = "cases"))) then
