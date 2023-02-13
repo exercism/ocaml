@@ -1,3 +1,5 @@
+open Core
+
 type t = {
   name: string; (* unique name *)
   directory: string; (* target directory *)
@@ -7,7 +9,6 @@ type t = {
 }
 
 let of_candidate ~(tpl: string) ~(out: string) (c: Exercise_candidate.t): t =
-  let open Base in
   {
     name = c.name;
     directory = Files.append_path out c.name;
@@ -17,14 +18,13 @@ let of_candidate ~(tpl: string) ~(out: string) (c: Exercise_candidate.t): t =
   }
 
 let to_string (e: t): string =
-  let open Base in
   let print_description = function
     | None -> "None"
-    | Some d -> Caml.Printf.sprintf "%s" d 
+    | Some d -> Caml.Printf.sprintf "%s" d
   in
-  Printf.sprintf "ExerciseCandidate { name = \"%s\"; directory = \"%s\"; description = \"%s\"; canonical_data = %s; templates = %s }" 
-    e.name 
-    e.directory 
+  Printf.sprintf "ExerciseCandidate { name = \"%s\"; directory = \"%s\"; description = \"%s\"; canonical_data = %s; templates = %s }"
+    e.name
+    e.directory
     (print_description e.description)
     (Canonical_data.to_string e.canonical_data)
     (List.map e.templates ~f:Template.to_string |> String.concat ~sep:"; ")

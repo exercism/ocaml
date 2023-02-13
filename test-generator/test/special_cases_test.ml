@@ -1,4 +1,4 @@
-open Base
+open Core
 open OUnit2
 open Generator.Special_cases
 
@@ -37,7 +37,7 @@ let special_cases_test = [
   "option_of_null converts Null to None" >:: (fun _ctx ->
       assert_equal "None" @@ option_of_null `Null
     );
-  
+
   "option_of_null converts String to Some" >:: (fun _ctx ->
       assert_equal "(Some \"abc\")" @@ option_of_null (`String "abc")
     );

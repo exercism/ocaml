@@ -3,10 +3,8 @@
 
 (test
  (name all_tests)
- (libraries base stdio oUnit yojson generator)
- (deps (glob_files fixtures/*))
- (preprocess
-  (pps ppx_deriving.eq ppx_deriving.show ppx_let)))
+ (libraries core ounit2 yojson generator)
+ (deps (glob_files fixtures/*)))
 
 (env
   (dev

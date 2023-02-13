@@ -1,4 +1,4 @@
-open Base
+open Core
 
 type json = Yojson.Basic.t
 
@@ -29,7 +29,7 @@ let rec json_to_string (j: json): string = match j with
   | `Assoc xs -> "[" ^ String.concat ~sep:"; "
                          (List.map xs ~f:(fun (k,v) -> "(\"" ^ String.escaped k ^ "\", " ^ json_to_string v ^ ")")) ^ "]"
 
-let list_to_string = String.concat ~sep:"; " 
+let list_to_string = String.concat ~sep:"; "
 
 let json_assoc_to_string (xs: (string * json) list): string =
   List.map xs ~f:(fun (k, j) -> k ^ ": " ^ (json_to_string j))
@@ -45,7 +45,7 @@ let test_to_string {name; cases}: string =
 
 let tests_to_string tests: string =
   "[" ^ list_to_string (List.map tests ~f:test_to_string) ^ "]"
-  
+
 let tests_to_string = function
 | Single case -> cases_to_string case
 | Suite tests -> tests_to_string tests

@@ -1,8 +1,8 @@
 (executable
  (name debug)
- (libraries base oUnit yojson generator)
+ (libraries core generator)
  (preprocess
-  (pps ppx_deriving.eq ppx_deriving.show ppx_let)))
+  (pps ppx_jane)))
 
 (env
   (dev
