@@ -1,3 +1,4 @@
+open Core
 type json = Yojson.Basic.t
 
 type t = {
@@ -9,7 +10,6 @@ type t = {
 
 let of_string (s: string): t =
   let open Yojson.Basic in
-  let open Base in
   let mem = fun k -> Util.member k (from_string s) in
   let version = (mem "version") |> Util.to_string in
   let exercise = (mem "exercise") |> Util.to_string in
@@ -42,7 +42,6 @@ let of_string (s: string): t =
   }
 
 let rec yo_to_ez (j: Yojson.Basic.t): Ezjsonm.value =
-  let open Base in
   match j with
   | `Null -> `Null
   | `Bool b -> `Bool b
@@ -53,7 +52,6 @@ let rec yo_to_ez (j: Yojson.Basic.t): Ezjsonm.value =
   | `Assoc l -> `O (List.map l ~f:(fun (k, v) -> (k, yo_to_ez v)))
 
 let to_json (d: t): Mustache.Json.t =
-  let open Base in
   `O [
     ("name", `String d.exercise);
     ("version", `String d.version);

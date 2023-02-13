@@ -1,33 +1,32 @@
-open Base
+open Core
 open Stdio
 
 let file_exists dir =
-  try Unix.access dir [Unix.F_OK]; true
-  with Unix.Unix_error _ -> false
+  try
+    Core_unix.access_exn dir [ `Exists ];
+    true
+  with Core_unix.Unix_error _ -> false
 
 let is_directory dir =
-  let s = Unix.stat dir in
-  phys_equal s.st_kind Unix.S_DIR
+  let s = Core_unix.stat dir in
+  phys_equal s.st_kind Core_unix.S_DIR
 
 let ls_dir dir =
-  let handle = Unix.opendir dir in
-  let result = ref [] in
-  let push i = result := !result @ [i] in
-  try 
-    while true do
-      push (Unix.readdir handle)
-    done;
-    !result
-  with _ -> 
-    Unix.closedir handle;
-    !result
+  let rec f acc handle =
+    match Core_unix.readdir_opt handle with
+    | None ->
+        Core_unix.closedir handle;
+        acc
+    | Some x -> f (x :: acc) handle
+  in
+  f [] (Core_unix.opendir dir)
 
 let mkdir_if_not_present dir =
   if not (file_exists dir)
   then begin
-    Unix.mkdir dir 0o640;
+    Core_unix.mkdir dir ~perm:0o750;
     print_endline @@ "Storing generated files in " ^ dir
-  end 
+  end
   else ()
 
 let backup ~(base_folder: string) ~(slug: string) ~(contents: string): bool =
@@ -36,12 +35,12 @@ let backup ~(base_folder: string) ~(slug: string) ~(contents: string): bool =
   let matches_contents =
     Option.try_with (fun () -> In_channel.read_all path)
     |> Option.map ~f:(String.equal contents)
-    |> Option.value ~default:false 
+    |> Option.value ~default:false
   in
   if matches_contents
   then false
   else begin
-    Out_channel.write_all path ~data:contents; 
+    Out_channel.write_all path ~data:contents;
     true
   end
 
@@ -51,14 +50,14 @@ let path_exn (p: string): Fpath.t =
 let rec find_files (base: string) ~(glob: string list): string list =
   base
   |> ls_dir
-  |> List.filter ~f:(fun p -> String.(p <> ".") && String.(p <> "..")) 
+  |> List.filter ~f:(fun p -> String.(p <> ".") && String.(p <> ".."))
   |> List.map ~f:(fun p -> base ^ "/" ^ p)
   |> List.concat_map ~f:(fun p ->
-    if is_directory p then 
+    if is_directory p then
       find_files p ~glob
-    else if List.for_all glob ~f:(fun g -> Glob.matches g p) then 
+    else if List.for_all glob ~f:(fun g -> Glob.matches g p) then
       [p]
-    else 
+    else
       [])
 
 let get_parent (p: string): Fpath.t =
@@ -81,7 +80,7 @@ let relative_path (a: string) (b: string): string =
 
 let read_file (p: string): (string, exn) Result.t =
   let b = Buffer.create 0 in
-  try 
+  try
     let c = Stdio.In_channel.create p in
     while true do
       Buffer.add_string b (Caml.input_line c);
@@ -91,13 +90,13 @@ let read_file (p: string): (string, exn) Result.t =
   with End_of_file -> Ok (Buffer.contents b)
 
 let write_file ~(path: string) (data: string): (unit, exn) Result.t =
-  Result.try_with (fun () -> 
-    mkdir_if_not_present (get_parent_string path); 
+  Result.try_with (fun () ->
+    mkdir_if_not_present (get_parent_string path);
     Stdio.Out_channel.write_all path ~data
   )
 
 let strip_ext (path: string): string =
-  path_exn path |> Fpath.rem_ext |> Fpath.to_string 
+  path_exn path |> Fpath.rem_ext |> Fpath.to_string
 
 let ext (path: string): string =
   path_exn path |> Fpath.get_ext ~multi:true

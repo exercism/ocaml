@@ -1,12 +1,14 @@
+open Core
+
 let split c s =
 	let len = String.length s in
 	let rec loop acc last_pos pos =
 		if pos = -1 then
-		String.sub s 0 last_pos :: acc
+		Caml.String.sub s 0 last_pos :: acc
 		else
-		if s.[pos] = c then
+		if Char.equal (String.get s pos) c then
 			let pos1 = pos + 1 in
-			let sub_str = String.sub s pos1 (last_pos - pos1) in
+			let sub_str = Caml.String.sub s pos1 (last_pos - pos1) in
 			loop (sub_str :: acc) pos (pos - 1)
 		else loop acc last_pos (pos - 1)
 	in
@@ -19,7 +21,7 @@ let find_substrings ?(start_point=0) substr x =
 		if len_x - i < len_s
 		then acc
 		else
-			if String.sub x i len_s = substr
+			if String.equal (Caml.String.sub x i len_s) substr
 			then aux (i::acc) (i + 1)
 			else aux acc (i + 1)
 	in
@@ -27,16 +29,16 @@ let find_substrings ?(start_point=0) substr x =
 
 let matches glob x =
 	let rec contains_all_sections = function
-		| _, [] | _, [""] -> true 
+		| _, [] | _, [""] -> true
 		| i, [g] -> (* need to find a match that matches to end of string *)
 			find_substrings ~start_point:i g x
-			|> List.exists (fun j -> j + String.length g = String.length x)
+			|> List.exists ~f:(fun j -> j + String.length g = String.length x)
 		| 0, ""::g::gs ->
 			find_substrings g x
-			|> List.exists (fun j -> contains_all_sections ((j + (String.length g)), gs))
+			|> List.exists ~f:(fun j -> contains_all_sections ((j + (String.length g)), gs))
 		| i, g::gs ->
 			find_substrings ~start_point:i g x
-			|> List.exists (fun j ->
+			|> List.exists ~f:(fun j ->
 				(if i = 0 then j = 0 else true)
 				&& contains_all_sections ((j + (String.length g)), gs))
 	in

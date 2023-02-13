@@ -1,4 +1,4 @@
-open Base
+open Core
 open OUnit2
 open Generator.Model
 
