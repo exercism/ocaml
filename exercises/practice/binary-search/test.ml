@@ -1,4 +1,3 @@
-(* binary-search - 1.3.0 *)
 open OUnit2
 open Binary_search
 
