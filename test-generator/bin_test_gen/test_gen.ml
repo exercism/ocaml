@@ -30,6 +30,11 @@ let command =
         flag "e" (optional string)
           ~aliases:["--exercise"]
           ~doc:"exercise to work on"
+      and filter_broken =
+        flag_optional_with_default_doc "b" bool Bool.sexp_of_t
+          ~aliases:["--filter-broken"]
+          ~default:false
+          ~doc:"filter_broken Weather or not to process templates with .broken"
       in
       fun () ->
         Sys_unix.chdir cwd;
@@ -38,6 +43,7 @@ let command =
              ~templates_folder
              ~canonical_data_folder
              ?exercise
+             ~filter_broken
              output_folder
           |> Result.ok_exn)]
 
