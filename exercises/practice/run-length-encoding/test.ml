@@ -1,4 +1,3 @@
-(* run-length-encoding - 1.1.0 *)
 open Base
 open OUnit2
 open Run_length_encoding
@@ -30,7 +29,7 @@ let decode_tests = [
   ae "WWWWWWWWWWWWBWWWWWWWWWWWWBBBWWWWWWWWWWWWWWWWWWWWWWWWB" ("12WB12W3B24WB" |> decode);
   "multiple whitespace mixed in string" >::
   ae "  hsqq qww  " ("2 hs2q q2w2 " |> decode);
-  "lower case string" >::
+  "lowercase string" >::
   ae "aabbbcccc" ("2a3b4c" |> decode);
 ]
 let encode_and_then_decode_tests = [
