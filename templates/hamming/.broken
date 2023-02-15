@@ -1,0 +1,84 @@
+----------------------------------------------------------------
+running tests for: hamming
+File "dune", line 5, characters 0-76:
+5 | (alias
+6 |   (name    runtest)
+7 |   (deps    (:x test.exe))
+8 |   (action  (run %{x})))
+.F.FFF..F..F...
+==============================================================================
+Error: hamming tests:14:disallow empty second strand.
+
+File "/tmp/hamming.Hx110eQ9cL/_build/oUnit-hamming tests-#03.log", line 5, characters 1-1:
+Error: hamming tests:14:disallow empty second strand (in the log).
+
+Raised at OUnitAssert.assert_failure in file "src/lib/ounit2/advanced/oUnitAssert.ml", line 45, characters 2-27
+Called from OUnitRunner.run_one_test.(fun) in file "src/lib/ounit2/advanced/oUnitRunner.ml", line 83, characters 13-26
+
+expected: Error "strands must be of equal length"
+but got: Error "right strand must not be empty"
+------------------------------------------------------------------------------
+==============================================================================
+Error: hamming tests:13:disallow right empty strand.
+
+File "/tmp/hamming.Hx110eQ9cL/_build/oUnit-hamming tests-#07.log", line 26, characters 1-1:
+Error: hamming tests:13:disallow right empty strand (in the log).
+
+Raised at OUnitAssert.assert_failure in file "src/lib/ounit2/advanced/oUnitAssert.ml", line 45, characters 2-27
+Called from OUnitRunner.run_one_test.(fun) in file "src/lib/ounit2/advanced/oUnitRunner.ml", line 83, characters 13-26
+
+expected: Error "left and right strands must be of equal length"
+but got: Error "right strand must not be empty"
+------------------------------------------------------------------------------
+==============================================================================
+Error: hamming tests:11:disallow empty first strand.
+
+File "/tmp/hamming.Hx110eQ9cL/_build/oUnit-hamming tests-#02.log", line 5, characters 1-1:
+Error: hamming tests:11:disallow empty first strand (in the log).
+
+Raised at OUnitAssert.assert_failure in file "src/lib/ounit2/advanced/oUnitAssert.ml", line 45, characters 2-27
+Called from OUnitRunner.run_one_test.(fun) in file "src/lib/ounit2/advanced/oUnitRunner.ml", line 83, characters 13-26
+
+expected: Error "strands must be of equal length"
+but got: Error "left strand must not be empty"
+------------------------------------------------------------------------------
+==============================================================================
+Error: hamming tests:10:disallow left empty strand.
+
+File "/tmp/hamming.Hx110eQ9cL/_build/oUnit-hamming tests-#07.log", line 18, characters 1-1:
+Error: hamming tests:10:disallow left empty strand (in the log).
+
+Raised at OUnitAssert.assert_failure in file "src/lib/ounit2/advanced/oUnitAssert.ml", line 45, characters 2-27
+Called from OUnitRunner.run_one_test.(fun) in file "src/lib/ounit2/advanced/oUnitRunner.ml", line 83, characters 13-26
+
+expected: Error "left and right strands must be of equal length"
+but got: Error "left strand must not be empty"
+------------------------------------------------------------------------------
+==============================================================================
+Error: hamming tests:8:disallow second strand longer.
+
+File "/tmp/hamming.Hx110eQ9cL/_build/oUnit-hamming tests-#07.log", line 10, characters 1-1:
+Error: hamming tests:8:disallow second strand longer (in the log).
+
+Raised at OUnitAssert.assert_failure in file "src/lib/ounit2/advanced/oUnitAssert.ml", line 45, characters 2-27
+Called from OUnitRunner.run_one_test.(fun) in file "src/lib/ounit2/advanced/oUnitRunner.ml", line 83, characters 13-26
+
+expected: Error "strands must be of equal length"
+but got: Error "left and right strands must be of equal length"
+------------------------------------------------------------------------------
+==============================================================================
+Error: hamming tests:6:disallow first strand longer.
+
+File "/tmp/hamming.Hx110eQ9cL/_build/oUnit-hamming tests-#07.log", line 2, characters 1-1:
+Error: hamming tests:6:disallow first strand longer (in the log).
+
+Raised at OUnitAssert.assert_failure in file "src/lib/ounit2/advanced/oUnitAssert.ml", line 45, characters 2-27
+Called from OUnitRunner.run_one_test.(fun) in file "src/lib/ounit2/advanced/oUnitRunner.ml", line 83, characters 13-26
+
+expected: Error "strands must be of equal length"
+but got: Error "left and right strands must be of equal length"
+------------------------------------------------------------------------------
+Ran: 15 tests in: 0.10 seconds.
+FAILED: Cases: 15 Tried: 15 Errors: 0 Failures: 6 Skip:  0 Todo: 0 Timeouts: 0.
+make[1]: *** [Makefile:4: test] Error 1
+make: *** [Makefile:30: test-assignment] Error 2
