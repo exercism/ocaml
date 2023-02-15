@@ -1,4 +1,3 @@
-(* atbash-cipher - 1.2.0 *)
 open OUnit2
 open Atbash_cipher
 
