@@ -1,4 +1,3 @@
-(* rectangles - 1.1.0 *)
 open OUnit2
 open Rectangles
 
@@ -83,6 +82,16 @@ let tests = [
       "+---+--+--+-+";
       "+------+  | |";
       "          +-+";
+    |]);
+  "rectangles must have four sides" >::
+  ae 5 (count_rectangles [|
+      "+-+ +-+";
+      "| | | |";
+      "+-+-+-+";
+      "  | |  ";
+      "+-+-+-+";
+      "| | | |";
+      "+-+ +-+";
     |]);
 ]
 
