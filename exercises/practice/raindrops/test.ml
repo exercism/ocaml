@@ -1,4 +1,3 @@
-(* raindrops - 1.1.0 *)
 open OUnit2
 open Raindrops
 
