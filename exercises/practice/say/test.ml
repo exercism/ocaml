@@ -1,4 +1,3 @@
-(* say - 1.2.0 *)
 open Base
 open OUnit2
 open Say
@@ -20,10 +19,18 @@ let tests = [
   ae (Ok "twenty") (in_english 20L);
   "twenty-two" >::
   ae (Ok "twenty-two") (in_english 22L);
+  "thirty" >::
+  ae (Ok "thirty") (in_english 30L);
+  "ninety-nine" >::
+  ae (Ok "ninety-nine") (in_english 99L);
   "one hundred" >::
   ae (Ok "one hundred") (in_english 100L);
   "one hundred twenty-three" >::
   ae (Ok "one hundred twenty-three") (in_english 123L);
+  "two hundred" >::
+  ae (Ok "two hundred") (in_english 200L);
+  "nine hundred ninety-nine" >::
+  ae (Ok "nine hundred ninety-nine") (in_english 999L);
   "one thousand" >::
   ae (Ok "one thousand") (in_english 1000L);
   "one thousand two hundred thirty-four" >::
