@@ -74,6 +74,10 @@ let tests = [
       let rolls = [0; 0; 0; 0; 0; 0; 0; 0; 0; 0; 0; 0; 0; 0; 0; 0; 0; 0; 10; 10; 10] in
       assert_score rolls (Ok 30)
     );
+  "last two strikes followed by only last bonus with non strike points" >:: (fun _ ->
+      let rolls = [0; 0; 0; 0; 0; 0; 0; 0; 0; 0; 0; 0; 0; 0; 0; 0; 10; 10; 0; 1] in
+      assert_score rolls (Ok 31)
+    );
   "a strike with the one roll bonus after a spare in the last frame does not get a bonus" >:: (fun _ ->
       let rolls = [0; 0; 0; 0; 0; 0; 0; 0; 0; 0; 0; 0; 0; 0; 0; 0; 0; 0; 7; 3; 10] in
       assert_score rolls (Ok 20)
