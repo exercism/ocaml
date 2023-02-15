@@ -1,4 +1,3 @@
-(* beer-song - 2.1.0 *)
 open Base
 open OUnit2
 open Beer_song
