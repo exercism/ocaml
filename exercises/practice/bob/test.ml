@@ -17,11 +17,11 @@ let tests = [
   "asking gibberish" >::
   ae "Sure." (response_for "fffbbcbeab?");
   "talking forcefully" >::
-  ae "Whatever." (response_for "Let's go make out behind the gym!");
+  ae "Whatever." (response_for "Hi there!");
   "using acronyms in regular speech" >::
-  ae "Whatever." (response_for "It's OK if you don't want to go to the DMV.");
+  ae "Whatever." (response_for "It's OK if you don't want to go work for NASA.");
   "forceful question" >::
-  ae "Calm down, I know what I'm doing!" (response_for "WHAT THE HELL WERE YOU THINKING?");
+  ae "Calm down, I know what I'm doing!" (response_for "WHAT'S GOING ON?");
   "shouting numbers" >::
   ae "Whoa, chill out!" (response_for "1, 2, 3 GO!");
   "no letters" >::
@@ -31,7 +31,7 @@ let tests = [
   "shouting with special characters" >::
   ae "Whoa, chill out!" (response_for "ZOMG THE %^*@#$(*^ ZOMBIES ARE COMING!!11!!1!");
   "shouting with no exclamation mark" >::
-  ae "Whoa, chill out!" (response_for "I HATE THE DMV");
+  ae "Whoa, chill out!" (response_for "I HATE THE DENTIST");
   "statement containing question mark" >::
   ae "Whatever." (response_for "Ending with ? means a question.");
   "non-letters with question" >::
