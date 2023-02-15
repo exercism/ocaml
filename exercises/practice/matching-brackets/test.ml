@@ -32,10 +32,16 @@ let tests = [
   ae false (are_balanced "([{])");
   "paired and wrong nested brackets" >::
   ae false (are_balanced "[({]})");
+  "paired and wrong nested brackets but innermost are correct" >::
+  ae false (are_balanced "[({}])");
   "paired and incomplete brackets" >::
   ae false (are_balanced "{}[");
   "too many closing brackets" >::
   ae false (are_balanced "[]]");
+  "early unexpected brackets" >::
+  ae false (are_balanced ")()");
+  "early mismatched brackets" >::
+  ae false (are_balanced "{)()");
   "math expression" >::
   ae true (are_balanced "(((185 + 223.85) * 15) - 543)/2");
   "complex latex expression" >::
