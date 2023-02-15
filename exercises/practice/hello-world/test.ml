@@ -1,4 +1,3 @@
-(* hello-world - 1.1.0 *)
 open OUnit2
 open Hello_world
 
