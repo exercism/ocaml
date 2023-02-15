@@ -1,4 +1,3 @@
-(* custom-set - 1.3.0 *)
 open OUnit2
 
 module type EXPECTED = sig
