@@ -60,6 +60,11 @@ let rec find_files (base: string) ~(glob: string list): string list =
     else
       [])
 
+let is_broken (p: string): bool =
+  match find_files p ~glob:[".broken"] with
+  | [] -> false
+  | _ -> true
+
 let get_parent (p: string): Fpath.t =
   path_exn p |> Fpath.parent
 

@@ -4,8 +4,10 @@ let run
     ?(exercise: string option)
     ~(templates_folder: string)
     ~(canonical_data_folder: string)
+    ?(filter_broken: bool option)
     (output_folder: string) =
 
+    let filter_broken = match filter_broken with Some x -> x | None -> false in
     let exercise_filter = exercise |> function
       | Some x -> fun (canidate: Exercise_candidate.t) -> String.equal x canidate.name
       | None -> fun _ -> true
@@ -13,6 +15,7 @@ let run
     Files.find_files canonical_data_folder ~glob:["*canonical-data.json"]
     |> List.map ~f:Exercise_candidate.of_path
     |> List.filter ~f:exercise_filter
+    |> List.filter ~f:(fun (e: Exercise_candidate.t) -> match filter_broken with | true -> not(e.is_broken ~tpl:templates_folder) | false -> true)
     |> List.filter ~f:(fun (e: Exercise_candidate.t) -> e.is_implemented ~tpl:templates_folder)
     |> List.map ~f:(Exercise.of_candidate ~tpl:templates_folder ~out:output_folder)
     |> List.concat_map ~f:(fun (e: Exercise.t) ->
