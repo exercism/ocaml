@@ -1,4 +1,3 @@
-(* {{name}} - {{version}} *)
 open OUnit2
 open Palindrome_products
 
