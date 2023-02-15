@@ -1,4 +1,3 @@
-(* all-your-base - 2.3.0 *)
 open OUnit2
 open All_your_base
 
