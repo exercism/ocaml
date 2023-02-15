@@ -1,0 +1,9 @@
+----------------------------------------------------------------
+running tests for: space-age
+File "test.ml", line 28, characters 17-44:
+28 |   ae ~delta:0.05 [("error", "not a planet")] (age_on Sun 680804807);
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Error: This expression has type 'a list
+       but an expression was expected of type float
+make[1]: *** [Makefile:4: test] Error 1
+make: *** [Makefile:30: test-assignment] Error 2
