@@ -1,6 +1,8 @@
 # assignments
 ASSIGNMENT ?= ""
 ASSIGNMENTS = $(shell git ls-tree --name-only HEAD -- exercises/practice/ | awk -F/ '{print $$NF}' | sort)
+TEMPLATES = $(shell git ls-tree --name-only HEAD -- templates/ | awk -F/ '{print $$NF}' | sort)
+ASSIGNMENTS_GEN = $(TEMPLATES:=.gen)
 ASSIGNMENTS_DOCKER = $(ASSIGNMENTS:=.docker)
 
 default: testgenerator test
@@ -48,8 +50,10 @@ generator:
 test_generator: generator
 	dune runtest --root=./test-generator/
 
-generate_exercises:
-	dune exec ./bin_test_gen/test_gen.exe --root=./test-generator/
+$(ASSIGNMENTS_GEN): test_generator
+	dune exec ./bin_test_gen/test_gen.exe --root=./test-generator/ -- --exercise $(@:.gen=)
+	
+generate_exercises: $(ASSIGNMENTS_GEN)
 
 install_deps:
 	opam install dune fpath ocamlfind ounit qcheck react ppx_deriving ppx_let ppx_sexp_conv yojson ocp-indent calendar getopts
