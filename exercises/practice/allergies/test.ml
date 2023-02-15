@@ -1,4 +1,3 @@
-(* allergies - 2.0.0 *)
 open Base
 open Allergies
 open OUnit2
@@ -178,6 +177,7 @@ let tests = [
   "lots of stuff" >:: aea [Strawberries; Tomatoes; Chocolate; Pollen; Cats] (allergies 248);
   "everything" >:: aea [Eggs; Peanuts; Shellfish; Strawberries; Tomatoes; Chocolate; Pollen; Cats] (allergies 255);
   "no allergen score parts" >:: aea [Eggs; Shellfish; Strawberries; Tomatoes; Chocolate; Pollen; Cats] (allergies 509);
+  "no allergen score parts without highest valid score" >:: aea [Eggs] (allergies 257);
 ]
 
 let qcheck_tests = List.map ~f:QCheck_ounit.to_ounit2_test [ prop_allergic_to_single_allergens

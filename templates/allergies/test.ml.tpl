@@ -1,4 +1,3 @@
-(* {{name}} - {{version}} *)
 open Base
 open Allergies
 open OUnit2
