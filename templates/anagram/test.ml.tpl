@@ -1,4 +1,3 @@
-(* {{name}} - {{version}} *)
 open Base
 open OUnit2
 open Anagram
