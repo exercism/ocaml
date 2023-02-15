@@ -9,6 +9,9 @@ let printer = function
 let ae exp got _test_ctxt = assert_equal ~printer exp got
 
 let tests = [
+  "change for 1 cent" >::
+  ae (Ok [1])
+    (make_change ~target:1 ~coins:[1; 5; 10; 25]);
   "single coin change" >::
   ae (Ok [25])
     (make_change ~target:25 ~coins:[1; 5; 10; 25; 100]);
