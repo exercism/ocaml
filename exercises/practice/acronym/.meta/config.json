@@ -20,6 +20,9 @@
     ],
     "example": [
       ".meta/example.ml"
+    ],
+    "editor": [
+      "acronym.mli"
     ]
   },
   "blurb": "Convert a long phrase to its acronym.",

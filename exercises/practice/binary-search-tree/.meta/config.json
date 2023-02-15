@@ -14,6 +14,9 @@
     ],
     "example": [
       ".meta/example.ml"
+    ],
+    "editor": [
+      "binary_search_tree.mli"
     ]
   },
   "blurb": "Insert and search for numbers in a binary tree.",

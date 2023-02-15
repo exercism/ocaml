@@ -23,6 +23,9 @@
     ],
     "example": [
       ".meta/example.ml"
+    ],
+    "editor": [
+      "phone_number.mli"
     ]
   },
   "blurb": "Clean up user-entered phone numbers so that they can be sent SMS messages.",

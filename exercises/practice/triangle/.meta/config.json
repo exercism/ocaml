@@ -20,6 +20,9 @@
     ],
     "example": [
       ".meta/example.ml"
+    ],
+    "editor": [
+      "triangle.mli"
     ]
   },
   "blurb": "Determine if a triangle is equilateral, isosceles, or scalene.",

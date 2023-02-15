@@ -23,6 +23,9 @@
     ],
     "example": [
       ".meta/example.ml"
+    ],
+    "editor": [
+      "hangman.mli"
     ]
   },
   "blurb": "Implement the logic of the hangman game using functional reactive programming."

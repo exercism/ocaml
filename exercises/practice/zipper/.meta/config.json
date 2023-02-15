@@ -23,6 +23,9 @@
     ],
     "example": [
       ".meta/example.ml"
+    ],
+    "editor": [
+      "zipper.mli"
     ]
   },
   "blurb": "Creating a zipper for a binary tree."

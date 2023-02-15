@@ -20,6 +20,9 @@
     ],
     "example": [
       ".meta/example.ml"
+    ],
+    "editor": [
+      "binary_search.mli"
     ]
   },
   "blurb": "Implement a binary search algorithm.",

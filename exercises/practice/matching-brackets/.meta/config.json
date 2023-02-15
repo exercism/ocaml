@@ -19,6 +19,9 @@
     ],
     "example": [
       ".meta/example.ml"
+    ],
+    "editor": [
+      "matching_brackets.mli"
     ]
   },
   "blurb": "Make sure the brackets and braces all match.",

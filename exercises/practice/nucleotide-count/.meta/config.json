@@ -23,6 +23,9 @@
     ],
     "example": [
       ".meta/example.ml"
+    ],
+    "editor": [
+      "nucleotide_count.mli"
     ]
   },
   "blurb": "Given a DNA string, compute how many times each nucleotide occurs in the string.",

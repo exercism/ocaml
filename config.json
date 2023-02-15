@@ -22,6 +22,9 @@
     "solution": [
       "%{snake_slug}.ml"
     ],
+    "editor": [
+      "%{snake_slug}.mli"
+    ],
     "test": [
       "test.ml"
     ],

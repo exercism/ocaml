@@ -23,6 +23,9 @@
     ],
     "example": [
       ".meta/example.ml"
+    ],
+    "editor": [
+      "word_count.mli"
     ]
   },
   "blurb": "Given a phrase, count the occurrences of each word in that phrase.",

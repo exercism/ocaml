@@ -23,6 +23,9 @@
     ],
     "example": [
       ".meta/example.ml"
+    ],
+    "editor": [
+      "minesweeper.mli"
     ]
   },
   "blurb": "Add the numbers to a minesweeper board."

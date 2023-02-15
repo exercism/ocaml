@@ -23,6 +23,9 @@
     ],
     "example": [
       ".meta/example.ml"
+    ],
+    "editor": [
+      "custom_set.mli"
     ]
   },
   "blurb": "Create a custom set type."

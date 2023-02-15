@@ -19,6 +19,9 @@
     ],
     "example": [
       ".meta/example.ml"
+    ],
+    "editor": [
+      "palindrome_products.mli"
     ]
   },
   "blurb": "Detect palindrome products in a given range.",

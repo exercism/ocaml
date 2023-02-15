@@ -20,6 +20,9 @@
     ],
     "example": [
       ".meta/example.ml"
+    ],
+    "editor": [
+      "dominoes.mli"
     ]
   },
   "blurb": "Make a chain of dominoes."

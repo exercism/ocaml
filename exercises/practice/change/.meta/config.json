@@ -20,6 +20,9 @@
     ],
     "example": [
       ".meta/example.ml"
+    ],
+    "editor": [
+      "change.mli"
     ]
   },
   "blurb": "Correctly determine change to be given using the least number of coins.",

@@ -23,6 +23,9 @@
     ],
     "example": [
       ".meta/example.ml"
+    ],
+    "editor": [
+      "list_ops.mli"
     ]
   },
   "blurb": "Implement basic list operations."

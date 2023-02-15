@@ -22,6 +22,9 @@
     ],
     "example": [
       ".meta/example.ml"
+    ],
+    "editor": [
+      "bowling.mli"
     ]
   },
   "blurb": "Score a bowling game.",

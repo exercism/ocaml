@@ -24,6 +24,9 @@
     ],
     "example": [
       ".meta/example.ml"
+    ],
+    "editor": [
+      "rna_transcription.mli"
     ]
   },
   "blurb": "Given a DNA strand, return its RNA Complement Transcription.",
