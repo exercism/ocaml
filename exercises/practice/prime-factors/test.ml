@@ -1,4 +1,3 @@
-(* prime-factors - 1.1.0 *)
 open Base
 open OUnit2
 open Prime_factors
@@ -20,10 +19,284 @@ let tests = [
   ae (to_int64s []) (factors_of 1L);
   "prime number" >::
   ae (to_int64s [2]) (factors_of 2L);
+  "another prime number" >::
+  ae (to_int64s [3]) (factors_of 3L);
   "square of a prime" >::
   ae (to_int64s [3; 3]) (factors_of 9L);
+  "product of first prime" >::
+  ae (to_int64s [2; 2]) (factors_of 4L);
   "cube of a prime" >::
   ae (to_int64s [2; 2; 2]) (factors_of 8L);
+  "product of second prime" >::
+  ae (to_int64s [3; 3; 3]) (factors_of 27L);
+  "product of third prime" >::
+  ae (to_int64s [5; 5; 5; 5]) (factors_of 625L);
+  "product of first and second prime" >::
+  ae (to_int64s [2; 3]) (factors_of 6L);
+  "product of primes and non-primes" >::
+  ae (to_int64s [2; 2; 3]) (factors_of 12L);
+  "product of primes" >::
+  ae (to_int64s [5; 17; 23; 461]) (factors_of 901255L);
+  "factors include a large prime" >::
+  ae (to_int64s [11; 9539; 894119]) (factors_of 93819012551L);
+  "no factors" >::
+  ae (to_int64s []) (factors_of 1L);
+  "prime number" >::
+  ae (to_int64s [2]) (factors_of 2L);
+  "another prime number" >::
+  ae (to_int64s [3]) (factors_of 3L);
+  "square of a prime" >::
+  ae (to_int64s [3; 3]) (factors_of 9L);
+  "product of first prime" >::
+  ae (to_int64s [2; 2]) (factors_of 4L);
+  "cube of a prime" >::
+  ae (to_int64s [2; 2; 2]) (factors_of 8L);
+  "product of second prime" >::
+  ae (to_int64s [3; 3; 3]) (factors_of 27L);
+  "product of third prime" >::
+  ae (to_int64s [5; 5; 5; 5]) (factors_of 625L);
+  "product of first and second prime" >::
+  ae (to_int64s [2; 3]) (factors_of 6L);
+  "product of primes and non-primes" >::
+  ae (to_int64s [2; 2; 3]) (factors_of 12L);
+  "product of primes" >::
+  ae (to_int64s [5; 17; 23; 461]) (factors_of 901255L);
+  "factors include a large prime" >::
+  ae (to_int64s [11; 9539; 894119]) (factors_of 93819012551L);
+  "no factors" >::
+  ae (to_int64s []) (factors_of 1L);
+  "prime number" >::
+  ae (to_int64s [2]) (factors_of 2L);
+  "another prime number" >::
+  ae (to_int64s [3]) (factors_of 3L);
+  "square of a prime" >::
+  ae (to_int64s [3; 3]) (factors_of 9L);
+  "product of first prime" >::
+  ae (to_int64s [2; 2]) (factors_of 4L);
+  "cube of a prime" >::
+  ae (to_int64s [2; 2; 2]) (factors_of 8L);
+  "product of second prime" >::
+  ae (to_int64s [3; 3; 3]) (factors_of 27L);
+  "product of third prime" >::
+  ae (to_int64s [5; 5; 5; 5]) (factors_of 625L);
+  "product of first and second prime" >::
+  ae (to_int64s [2; 3]) (factors_of 6L);
+  "product of primes and non-primes" >::
+  ae (to_int64s [2; 2; 3]) (factors_of 12L);
+  "product of primes" >::
+  ae (to_int64s [5; 17; 23; 461]) (factors_of 901255L);
+  "factors include a large prime" >::
+  ae (to_int64s [11; 9539; 894119]) (factors_of 93819012551L);
+  "no factors" >::
+  ae (to_int64s []) (factors_of 1L);
+  "prime number" >::
+  ae (to_int64s [2]) (factors_of 2L);
+  "another prime number" >::
+  ae (to_int64s [3]) (factors_of 3L);
+  "square of a prime" >::
+  ae (to_int64s [3; 3]) (factors_of 9L);
+  "product of first prime" >::
+  ae (to_int64s [2; 2]) (factors_of 4L);
+  "cube of a prime" >::
+  ae (to_int64s [2; 2; 2]) (factors_of 8L);
+  "product of second prime" >::
+  ae (to_int64s [3; 3; 3]) (factors_of 27L);
+  "product of third prime" >::
+  ae (to_int64s [5; 5; 5; 5]) (factors_of 625L);
+  "product of first and second prime" >::
+  ae (to_int64s [2; 3]) (factors_of 6L);
+  "product of primes and non-primes" >::
+  ae (to_int64s [2; 2; 3]) (factors_of 12L);
+  "product of primes" >::
+  ae (to_int64s [5; 17; 23; 461]) (factors_of 901255L);
+  "factors include a large prime" >::
+  ae (to_int64s [11; 9539; 894119]) (factors_of 93819012551L);
+  "no factors" >::
+  ae (to_int64s []) (factors_of 1L);
+  "prime number" >::
+  ae (to_int64s [2]) (factors_of 2L);
+  "another prime number" >::
+  ae (to_int64s [3]) (factors_of 3L);
+  "square of a prime" >::
+  ae (to_int64s [3; 3]) (factors_of 9L);
+  "product of first prime" >::
+  ae (to_int64s [2; 2]) (factors_of 4L);
+  "cube of a prime" >::
+  ae (to_int64s [2; 2; 2]) (factors_of 8L);
+  "product of second prime" >::
+  ae (to_int64s [3; 3; 3]) (factors_of 27L);
+  "product of third prime" >::
+  ae (to_int64s [5; 5; 5; 5]) (factors_of 625L);
+  "product of first and second prime" >::
+  ae (to_int64s [2; 3]) (factors_of 6L);
+  "product of primes and non-primes" >::
+  ae (to_int64s [2; 2; 3]) (factors_of 12L);
+  "product of primes" >::
+  ae (to_int64s [5; 17; 23; 461]) (factors_of 901255L);
+  "factors include a large prime" >::
+  ae (to_int64s [11; 9539; 894119]) (factors_of 93819012551L);
+  "no factors" >::
+  ae (to_int64s []) (factors_of 1L);
+  "prime number" >::
+  ae (to_int64s [2]) (factors_of 2L);
+  "another prime number" >::
+  ae (to_int64s [3]) (factors_of 3L);
+  "square of a prime" >::
+  ae (to_int64s [3; 3]) (factors_of 9L);
+  "product of first prime" >::
+  ae (to_int64s [2; 2]) (factors_of 4L);
+  "cube of a prime" >::
+  ae (to_int64s [2; 2; 2]) (factors_of 8L);
+  "product of second prime" >::
+  ae (to_int64s [3; 3; 3]) (factors_of 27L);
+  "product of third prime" >::
+  ae (to_int64s [5; 5; 5; 5]) (factors_of 625L);
+  "product of first and second prime" >::
+  ae (to_int64s [2; 3]) (factors_of 6L);
+  "product of primes and non-primes" >::
+  ae (to_int64s [2; 2; 3]) (factors_of 12L);
+  "product of primes" >::
+  ae (to_int64s [5; 17; 23; 461]) (factors_of 901255L);
+  "factors include a large prime" >::
+  ae (to_int64s [11; 9539; 894119]) (factors_of 93819012551L);
+  "no factors" >::
+  ae (to_int64s []) (factors_of 1L);
+  "prime number" >::
+  ae (to_int64s [2]) (factors_of 2L);
+  "another prime number" >::
+  ae (to_int64s [3]) (factors_of 3L);
+  "square of a prime" >::
+  ae (to_int64s [3; 3]) (factors_of 9L);
+  "product of first prime" >::
+  ae (to_int64s [2; 2]) (factors_of 4L);
+  "cube of a prime" >::
+  ae (to_int64s [2; 2; 2]) (factors_of 8L);
+  "product of second prime" >::
+  ae (to_int64s [3; 3; 3]) (factors_of 27L);
+  "product of third prime" >::
+  ae (to_int64s [5; 5; 5; 5]) (factors_of 625L);
+  "product of first and second prime" >::
+  ae (to_int64s [2; 3]) (factors_of 6L);
+  "product of primes and non-primes" >::
+  ae (to_int64s [2; 2; 3]) (factors_of 12L);
+  "product of primes" >::
+  ae (to_int64s [5; 17; 23; 461]) (factors_of 901255L);
+  "factors include a large prime" >::
+  ae (to_int64s [11; 9539; 894119]) (factors_of 93819012551L);
+  "no factors" >::
+  ae (to_int64s []) (factors_of 1L);
+  "prime number" >::
+  ae (to_int64s [2]) (factors_of 2L);
+  "another prime number" >::
+  ae (to_int64s [3]) (factors_of 3L);
+  "square of a prime" >::
+  ae (to_int64s [3; 3]) (factors_of 9L);
+  "product of first prime" >::
+  ae (to_int64s [2; 2]) (factors_of 4L);
+  "cube of a prime" >::
+  ae (to_int64s [2; 2; 2]) (factors_of 8L);
+  "product of second prime" >::
+  ae (to_int64s [3; 3; 3]) (factors_of 27L);
+  "product of third prime" >::
+  ae (to_int64s [5; 5; 5; 5]) (factors_of 625L);
+  "product of first and second prime" >::
+  ae (to_int64s [2; 3]) (factors_of 6L);
+  "product of primes and non-primes" >::
+  ae (to_int64s [2; 2; 3]) (factors_of 12L);
+  "product of primes" >::
+  ae (to_int64s [5; 17; 23; 461]) (factors_of 901255L);
+  "factors include a large prime" >::
+  ae (to_int64s [11; 9539; 894119]) (factors_of 93819012551L);
+  "no factors" >::
+  ae (to_int64s []) (factors_of 1L);
+  "prime number" >::
+  ae (to_int64s [2]) (factors_of 2L);
+  "another prime number" >::
+  ae (to_int64s [3]) (factors_of 3L);
+  "square of a prime" >::
+  ae (to_int64s [3; 3]) (factors_of 9L);
+  "product of first prime" >::
+  ae (to_int64s [2; 2]) (factors_of 4L);
+  "cube of a prime" >::
+  ae (to_int64s [2; 2; 2]) (factors_of 8L);
+  "product of second prime" >::
+  ae (to_int64s [3; 3; 3]) (factors_of 27L);
+  "product of third prime" >::
+  ae (to_int64s [5; 5; 5; 5]) (factors_of 625L);
+  "product of first and second prime" >::
+  ae (to_int64s [2; 3]) (factors_of 6L);
+  "product of primes and non-primes" >::
+  ae (to_int64s [2; 2; 3]) (factors_of 12L);
+  "product of primes" >::
+  ae (to_int64s [5; 17; 23; 461]) (factors_of 901255L);
+  "factors include a large prime" >::
+  ae (to_int64s [11; 9539; 894119]) (factors_of 93819012551L);
+  "no factors" >::
+  ae (to_int64s []) (factors_of 1L);
+  "prime number" >::
+  ae (to_int64s [2]) (factors_of 2L);
+  "another prime number" >::
+  ae (to_int64s [3]) (factors_of 3L);
+  "square of a prime" >::
+  ae (to_int64s [3; 3]) (factors_of 9L);
+  "product of first prime" >::
+  ae (to_int64s [2; 2]) (factors_of 4L);
+  "cube of a prime" >::
+  ae (to_int64s [2; 2; 2]) (factors_of 8L);
+  "product of second prime" >::
+  ae (to_int64s [3; 3; 3]) (factors_of 27L);
+  "product of third prime" >::
+  ae (to_int64s [5; 5; 5; 5]) (factors_of 625L);
+  "product of first and second prime" >::
+  ae (to_int64s [2; 3]) (factors_of 6L);
+  "product of primes and non-primes" >::
+  ae (to_int64s [2; 2; 3]) (factors_of 12L);
+  "product of primes" >::
+  ae (to_int64s [5; 17; 23; 461]) (factors_of 901255L);
+  "factors include a large prime" >::
+  ae (to_int64s [11; 9539; 894119]) (factors_of 93819012551L);
+  "no factors" >::
+  ae (to_int64s []) (factors_of 1L);
+  "prime number" >::
+  ae (to_int64s [2]) (factors_of 2L);
+  "another prime number" >::
+  ae (to_int64s [3]) (factors_of 3L);
+  "square of a prime" >::
+  ae (to_int64s [3; 3]) (factors_of 9L);
+  "product of first prime" >::
+  ae (to_int64s [2; 2]) (factors_of 4L);
+  "cube of a prime" >::
+  ae (to_int64s [2; 2; 2]) (factors_of 8L);
+  "product of second prime" >::
+  ae (to_int64s [3; 3; 3]) (factors_of 27L);
+  "product of third prime" >::
+  ae (to_int64s [5; 5; 5; 5]) (factors_of 625L);
+  "product of first and second prime" >::
+  ae (to_int64s [2; 3]) (factors_of 6L);
+  "product of primes and non-primes" >::
+  ae (to_int64s [2; 2; 3]) (factors_of 12L);
+  "product of primes" >::
+  ae (to_int64s [5; 17; 23; 461]) (factors_of 901255L);
+  "factors include a large prime" >::
+  ae (to_int64s [11; 9539; 894119]) (factors_of 93819012551L);
+  "no factors" >::
+  ae (to_int64s []) (factors_of 1L);
+  "prime number" >::
+  ae (to_int64s [2]) (factors_of 2L);
+  "another prime number" >::
+  ae (to_int64s [3]) (factors_of 3L);
+  "square of a prime" >::
+  ae (to_int64s [3; 3]) (factors_of 9L);
+  "product of first prime" >::
+  ae (to_int64s [2; 2]) (factors_of 4L);
+  "cube of a prime" >::
+  ae (to_int64s [2; 2; 2]) (factors_of 8L);
+  "product of second prime" >::
+  ae (to_int64s [3; 3; 3]) (factors_of 27L);
+  "product of third prime" >::
+  ae (to_int64s [5; 5; 5; 5]) (factors_of 625L);
+  "product of first and second prime" >::
+  ae (to_int64s [2; 3]) (factors_of 6L);
   "product of primes and non-primes" >::
   ae (to_int64s [2; 2; 3]) (factors_of 12L);
   "product of primes" >::
