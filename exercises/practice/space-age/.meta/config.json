@@ -23,6 +23,9 @@
     ],
     "example": [
       ".meta/example.ml"
+    ],
+    "editor": [
+      "space_age.mli"
     ]
   },
   "blurb": "Given an age in seconds, calculate how old someone is in terms of a given planet's solar years.",

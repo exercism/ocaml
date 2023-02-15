@@ -18,6 +18,9 @@
     ],
     "example": [
       ".meta/example.ml"
+    ],
+    "editor": [
+      "pangram.mli"
     ]
   },
   "blurb": "Determine if a sentence is a pangram.",

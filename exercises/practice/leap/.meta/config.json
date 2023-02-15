@@ -24,6 +24,9 @@
     ],
     "example": [
       ".meta/example.ml"
+    ],
+    "editor": [
+      "leap.mli"
     ]
   },
   "blurb": "Given a year, report if it is a leap year.",

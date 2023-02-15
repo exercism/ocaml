@@ -20,6 +20,9 @@
     ],
     "example": [
       ".meta/example.ml"
+    ],
+    "editor": [
+      "meetup.mli"
     ]
   },
   "blurb": "Calculate the date of meetups.",

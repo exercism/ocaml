@@ -19,6 +19,9 @@
     ],
     "example": [
       ".meta/example.ml"
+    ],
+    "editor": [
+      "robot_name.mli"
     ]
   },
   "blurb": "Manage robot factory settings.",

@@ -20,6 +20,9 @@
     ],
     "example": [
       ".meta/example.ml"
+    ],
+    "editor": [
+      "forth.mli"
     ]
   },
   "blurb": "Implement an evaluator for a very simple subset of Forth."

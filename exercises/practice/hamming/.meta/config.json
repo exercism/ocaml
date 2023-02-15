@@ -21,6 +21,9 @@
     ],
     "example": [
       ".meta/example.ml"
+    ],
+    "editor": [
+      "hamming.mli"
     ]
   },
   "blurb": "Calculate the Hamming difference between two DNA strands.",

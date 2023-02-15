@@ -23,6 +23,9 @@
     ],
     "example": [
       ".meta/example.ml"
+    ],
+    "editor": [
+      "prime_factors.mli"
     ]
   },
   "blurb": "Compute the prime factors of a given natural number.",
