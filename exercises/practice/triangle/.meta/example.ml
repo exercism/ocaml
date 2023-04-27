@@ -12,4 +12,4 @@ let is_isosceles a b c =
 
 let is_scalene a b c =
   is_triangle a b c &&
-    (a <> b && b <> c)
+    (a <> b && b <> c && a <> c)
