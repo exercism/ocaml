@@ -1,4 +1,4 @@
-(* triangle - 1.2.1 *)
+(* triangle - 1.0 *)
 open Base
 open OUnit2
 open Triangle
@@ -38,8 +38,12 @@ let scalene_triangle_tests = [
   ae true (is_scalene 5 4 6);
   "all sides are equal" >::
   ae false (is_scalene 4 4 4);
-  "two sides are equal" >::
+  "first and second sides are equal" >::
   ae false (is_scalene 4 4 3);
+  "first and third sides are equal" >::
+  ae false (is_scalene 3 4 3);
+  "second and third sides are equal" >::
+  ae false (is_scalene 4 3 3);
   "may not violate triangle inequality" >::
   ae false (is_scalene 7 3 2);
 ]
