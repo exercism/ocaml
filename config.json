@@ -542,7 +542,38 @@
     ]
   },
   "concepts": [],
-  "key_features": [],
+  "key_features": [
+    {
+      "title": "Algebraic data types",
+      "content": "Powerful tools to define and manipulate complex data structures with ease.",
+      "icon": "powerful"
+    },
+    {
+      "title": "Strong support for immutable programming",
+      "content": "No need to make destructive updates to data structures or risk unintended consequences through accidental mutation.",
+      "icon": "functional"
+    },
+    {
+      "title": "Static typing",
+      "content": "Increased performance and reduced runtime errors.",
+      "icon": "statically-typed"
+    },
+    {
+      "title": "First class functions",
+      "content": "Can be passed like any value, used as arguments, and returned from other functions.",
+      "icon": "interop"
+    },
+    {
+      "title": "Type inference",
+      "content": "Automatic inference makes the code less verbose and developers more efficient.",
+      "icon": "fun"
+    },
+    {
+      "title": "Parametric polymorphism",
+      "content": "Allows the construction of abstractions that work across different dat types, like generics do in Java and templates do in C++.",
+      "icon": "extensible"
+    }
+  ],
   "tags": [
     "paradigm/functional",
     "typing/static",
