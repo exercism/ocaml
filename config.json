@@ -549,8 +549,8 @@
       "icon": "powerful"
     },
     {
-      "title": "Strong support for immutable programming",
-      "content": "No need to make destructive updates to data structures or risk unintended consequences through accidental mutation.",
+      "title": "Immutable programming",
+      "content": "No need for destructive updates to data structures or accidental mutation.",
       "icon": "functional"
     },
     {
@@ -570,7 +570,7 @@
     },
     {
       "title": "Parametric polymorphism",
-      "content": "Allows the construction of abstractions that work across different dat types, like generics do in Java and templates do in C++.",
+      "content": "Construct abstractions that work across data types, like generics in Java and templates in C++.",
       "icon": "extensible"
     }
   ],
