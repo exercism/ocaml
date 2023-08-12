@@ -76,7 +76,7 @@ how to add a new exercise, or port an existing exercise from another language tr
 
 This is a brief guide, with specifics for the OCaml track.
 
-Firstly, register the exercise in [config json](https://github.com/exercism/docs/blob/master/contributing-to-language-tracks/README.md#configjson). The name of the exercise should go in the "slug" entry.
+Firstly, register the exercise in [config json](https://exercism.org/docs/building/tracks/config-json). The name of the exercise should go in the "slug" entry.
 
 Then, write the exercise tests and proof of concept implementation.
 A folder layout for an exercise called "ocaml-exercise" is below.
