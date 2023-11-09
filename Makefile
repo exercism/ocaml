@@ -56,7 +56,7 @@ $(ASSIGNMENTS_GEN): test_generator
 generate_exercises: $(ASSIGNMENTS_GEN)
 
 install_deps:
-	open update
+	opam update
 	opam install core \
 		core_unix \
 		merlin \
