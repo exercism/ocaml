@@ -1,48 +1,62 @@
-(* roman-numerals - 1.2.0 *)
+(* roman-numerals - 1.0 *)
 open OUnit2
 open Roman_numerals
 
 let ae expected actual _ctx = assert_equal ~printer:(fun x -> x) expected actual
 
 let tests = [
-  "1 is a single I" >::
+  "1 is I" >::
   ae "I" (to_roman 1);
-  "2 is two I's" >::
+  "2 is II" >::
   ae "II" (to_roman 2);
-  "3 is three I's" >::
+  "3 is III" >::
   ae "III" (to_roman 3);
-  "4, being 5 - 1, is IV" >::
+  "4 is IV" >::
   ae "IV" (to_roman 4);
-  "5 is a single V" >::
+  "5 is V" >::
   ae "V" (to_roman 5);
-  "6, being 5 + 1, is VI" >::
+  "6 is VI" >::
   ae "VI" (to_roman 6);
-  "9, being 10 - 1, is IX" >::
+  "9 is IX" >::
   ae "IX" (to_roman 9);
-  "20 is two X's" >::
+  "16 is XVI" >::
+  ae "XVI" (to_roman 16);
+  "27 is XXVII" >::
   ae "XXVII" (to_roman 27);
-  "48 is not 50 - 2 but rather 40 + 8" >::
+  "48 is XLVIII" >::
   ae "XLVIII" (to_roman 48);
-  "49 is not 40 + 5 + 4 but rather 50 - 10 + 10 - 1" >::
+  "49 is XLIX" >::
   ae "XLIX" (to_roman 49);
-  "50 is a single L" >::
+  "59 is LIX" >::
   ae "LIX" (to_roman 59);
-  "90, being 100 - 10, is XC" >::
+  "66 is LXVI" >::
+  ae "LXVI" (to_roman 66);
+  "93 is XCIII" >::
   ae "XCIII" (to_roman 93);
-  "100 is a single C" >::
+  "141 is CXLI" >::
   ae "CXLI" (to_roman 141);
-  "60, being 50 + 10, is LX" >::
+  "163 is CLXIII" >::
   ae "CLXIII" (to_roman 163);
-  "400, being 500 - 100, is CD" >::
+  "166 is CLXVI" >::
+  ae "CLXVI" (to_roman 166);
+  "402 is CDII" >::
   ae "CDII" (to_roman 402);
-  "500 is a single D" >::
+  "575 is DLXXV" >::
   ae "DLXXV" (to_roman 575);
-  "900, being 1000 - 100, is CM" >::
+  "666 is DCLXVI" >::
+  ae "DCLXVI" (to_roman 666);
+  "911 is CMXI" >::
   ae "CMXI" (to_roman 911);
-  "1000 is a single M" >::
+  "1024 is MXXIV" >::
   ae "MXXIV" (to_roman 1024);
-  "3000 is three M's" >::
+  "1666 is MDCLXVI" >::
+  ae "MDCLXVI" (to_roman 1666);
+  "3000 is MMM" >::
   ae "MMM" (to_roman 3000);
+  "3001 is MMMI" >::
+  ae "MMMI" (to_roman 3001);
+  "3999 is MMMCMXCIX" >::
+  ae "MMMCMXCIX" (to_roman 3999);
 ]
 
 let () =

@@ -1,6 +1,6 @@
 
 let to_roman n = 
-  assert (n <= 3000);
+  assert (n < 4000);
 
   let build ones halves tens = function
     | 0 -> ""
