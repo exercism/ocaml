@@ -3,7 +3,7 @@ open Base
 type palindrome_products = {
   value : int option;
   factors : (int * int) list;
-} [@@deriving show, eq]
+}
 
 let is_palindrome n =
   let n = Int.to_string n in String.(rev n = n)
@@ -20,13 +20,13 @@ let empty = Ok {value=None; factors=[]}
 let smallest ~min ~max =
   if min > max
   then Error "min must be <= max"
-  else 
+  else
     let open Sequence.Monad_infix in
     let seq = seq 1 in
-    let products = 
-      seq min max >>= fun x -> 
-      seq x max >>= fun y -> 
-      Sequence.singleton (x * y, (x, y)) 
+    let products =
+      seq min max >>= fun x ->
+      seq x max >>= fun y ->
+      Sequence.singleton (x * y, (x, y))
       |> Sequence.filter ~f:(fun (n, _) -> is_palindrome n) in
     products
       |> Sequence.to_list
@@ -35,16 +35,16 @@ let smallest ~min ~max =
       |> List.hd
       |> Option.value_map ~default:(empty) ~f:(fun x -> Ok (to_palindrome_products x))
 
-let largest ~min ~max = 
+let largest ~min ~max =
   if min > max
   then Error "min must be <= max"
-  else 
+  else
     let open Sequence.Monad_infix in
     let seq = seq (-1) in
-    let products = 
-      seq max min >>= fun x -> 
-      seq x min >>= fun y -> 
-      Sequence.singleton (x * y, (y, x)) 
+    let products =
+      seq max min >>= fun x ->
+      seq x min >>= fun y ->
+      Sequence.singleton (x * y, (y, x))
       |> Sequence.filter ~f:(fun (n, _) -> is_palindrome n) in
     products
       |> Sequence.to_list
@@ -52,5 +52,3 @@ let largest ~min ~max =
       |> List.group ~break:(fun (x, _) (y, _) -> x <> y)
       |> List.hd
       |> Option.value_map ~default:(empty) ~f:(fun x -> Ok (to_palindrome_products x))
-
-  
