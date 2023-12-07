@@ -1,6 +1,15 @@
 open OUnit2
 open Palindrome_products
 
+module For_tests = struct
+  type palindrome_products = Palindrome_products.palindrome_products = {
+    value : int option;
+    factors : (int * int) list;
+  } [@@deriving eq, show]
+end
+
+open For_tests
+
 let show_result printer = function
   | Error e -> "Error " ^ e
   | Ok a -> "Ok " ^ printer a
