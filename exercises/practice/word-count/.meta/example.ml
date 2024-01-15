@@ -11,7 +11,7 @@ type position =
   | Start
   | End
 
-let quote_at s ~pos = 
+let quote_at s ~pos =
   let p = match pos with
   | Start -> 0
   | End -> String.length s - 1
@@ -20,12 +20,12 @@ let quote_at s ~pos =
 
 let word_count s =
   let s = String.map s ~f:normalize in
-  let split = 
+  let split =
     List.filter (String.split s ~on:' ') ~f:(Fn.non String.is_empty)
-    |> List.map ~f:(fun w -> 
+    |> List.map ~f:(fun w ->
       let len = String.length w in
-      if len >= 2 && quote_at w ~pos:Start && quote_at w ~pos:End 
-      then Caml.String.sub w 1 (len - 2)
+      if len >= 2 && quote_at w ~pos:Start && quote_at w ~pos:End
+      then String.sub w ~pos:1 ~len:(len - 2)
       else w)
   in
   List.fold ~init:(Map.empty (module String)) ~f:add_to_map split
