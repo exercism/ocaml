@@ -29,7 +29,7 @@
       "test.ml"
     ],
     "example": [
-      "example.ml"
+      ".meta/example.ml"
     ],
     "exemplar": [
       ".meta/exemplar.ml"
