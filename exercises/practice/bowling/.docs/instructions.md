@@ -23,9 +23,9 @@ There are three cases for the tabulation of a frame.
 
 Here is a three frame example:
 
-| Frame 1         | Frame 2       | Frame 3                |
-| :-------------: |:-------------:| :---------------------:|
-| X (strike)      | 5/ (spare)    | 9 0 (open frame)       |
+|  Frame 1   |  Frame 2   |     Frame 3      |
+| :--------: | :--------: | :--------------: |
+| X (strike) | 5/ (spare) | 9 0 (open frame) |
 
 Frame 1 is (10 + 5 + 5) = 20
 
@@ -36,7 +36,7 @@ Frame 3 is (9 + 0) = 9
 This means the current running total is 48.
 
 The tenth frame in the game is a special case.
-If someone throws a strike or a spare then they get a fill ball.
+If someone throws a spare or a strike then they get one or two fill balls respectively.
 Fill balls exist to calculate the total of the 10th frame.
 Scoring a strike or spare on the fill ball does not give the player more fill balls.
 The total value of the 10th frame is the total number of pins knocked down.
