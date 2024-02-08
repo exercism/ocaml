@@ -11,6 +11,9 @@
     ],
     "example": [
       ".meta/example.ml"
+    ],
+    "editor": [
+      "reverse_string.mli"
     ]
   },
   "blurb": "Reverse a given string.",
