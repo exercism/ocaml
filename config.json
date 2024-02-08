@@ -22,9 +22,6 @@
     "solution": [
       "%{snake_slug}.ml"
     ],
-    "editor": [
-      "%{snake_slug}.mli"
-    ],
     "test": [
       "test.ml"
     ],
@@ -33,106 +30,13 @@
     ],
     "exemplar": [
       ".meta/exemplar.ml"
+    ],
+    "editor": [
+      "%{snake_slug}.mli"
     ]
   },
   "exercises": {
-    "concept": [],
     "practice": [
-      {
-        "slug": "hexadecimal",
-        "name": "Hexadecimal",
-        "uuid": "d0c937ef-3c7b-40be-891d-3024129b443f",
-        "practices": [],
-        "prerequisites": [],
-        "difficulty": 1,
-        "topics": null,
-        "status": "deprecated"
-      },
-      {
-        "slug": "hello-world",
-        "name": "Hello World",
-        "uuid": "cda3b090-ae52-476b-a782-9cbf43953cf0",
-        "practices": [],
-        "prerequisites": [],
-        "difficulty": 1,
-        "topics": [
-          "setting_up_ocaml_dev_environment",
-          "strings"
-        ]
-      },
-      {
-        "slug": "leap",
-        "name": "Leap",
-        "uuid": "ea5ca675-e010-470b-8030-d4f84880d799",
-        "practices": [],
-        "prerequisites": [],
-        "difficulty": 1,
-        "topics": [
-          "booleans",
-          "integers"
-        ]
-      },
-      {
-        "slug": "difference-of-squares",
-        "name": "Difference of Squares",
-        "uuid": "7fbd4282-9e69-460d-a208-dfafb1850da0",
-        "practices": [],
-        "prerequisites": [],
-        "difficulty": 2,
-        "topics": [
-          "math"
-        ]
-      },
-      {
-        "slug": "hamming",
-        "name": "Hamming",
-        "uuid": "bff47b0f-4555-40b7-b422-64eaa37cb2f6",
-        "practices": [],
-        "prerequisites": [],
-        "difficulty": 2,
-        "topics": [
-          "iterating_over_two_lists_at_once"
-        ]
-      },
-      {
-        "slug": "nucleotide-count",
-        "name": "Nucleotide Count",
-        "uuid": "0d7a23a9-31a1-4d52-afd6-887d0fc898e2",
-        "practices": [],
-        "prerequisites": [],
-        "difficulty": 2,
-        "topics": [
-          "counting"
-        ]
-      },
-      {
-        "slug": "raindrops",
-        "name": "Raindrops",
-        "uuid": "dd066b62-c63e-467c-8dfb-435bcc81d532",
-        "practices": [],
-        "prerequisites": [],
-        "difficulty": 2,
-        "topics": null
-      },
-      {
-        "slug": "reverse-string",
-        "name": "Reverse String",
-        "uuid": "58c93fbe-5c57-41d0-9085-6007a488aaca",
-        "practices": [],
-        "prerequisites": [],
-        "difficulty": 2
-      },
-      {
-        "slug": "rna-transcription",
-        "name": "RNA Transcription",
-        "uuid": "bf9a0fe0-99b2-4a95-8d75-fc02d0c8433c",
-        "practices": [],
-        "prerequisites": [],
-        "difficulty": 2,
-        "topics": [
-          "transforming"
-        ]
-      },
       {
         "slug": "acronym",
         "name": "Acronym",
@@ -191,6 +95,17 @@
         ]
       },
       {
+        "slug": "difference-of-squares",
+        "name": "Difference of Squares",
+        "uuid": "7fbd4282-9e69-460d-a208-dfafb1850da0",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 2,
+        "topics": [
+          "math"
+        ]
+      },
+      {
         "slug": "etl",
         "name": "ETL",
         "uuid": "be29288a-fcb6-4dce-acc3-be8d86e5454e",
@@ -213,6 +128,61 @@
         ]
       },
       {
+        "slug": "hamming",
+        "name": "Hamming",
+        "uuid": "bff47b0f-4555-40b7-b422-64eaa37cb2f6",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 2,
+        "topics": [
+          "iterating_over_two_lists_at_once"
+        ]
+      },
+      {
+        "slug": "hello-world",
+        "name": "Hello World",
+        "uuid": "cda3b090-ae52-476b-a782-9cbf43953cf0",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 1,
+        "topics": [
+          "setting_up_ocaml_dev_environment",
+          "strings"
+        ]
+      },
+      {
+        "slug": "hexadecimal",
+        "name": "Hexadecimal",
+        "uuid": "d0c937ef-3c7b-40be-891d-3024129b443f",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 1,
+        "status": "deprecated"
+      },
+      {
+        "slug": "leap",
+        "name": "Leap",
+        "uuid": "ea5ca675-e010-470b-8030-d4f84880d799",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 1,
+        "topics": [
+          "booleans",
+          "integers"
+        ]
+      },
+      {
+        "slug": "nucleotide-count",
+        "name": "Nucleotide Count",
+        "uuid": "0d7a23a9-31a1-4d52-afd6-887d0fc898e2",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 2,
+        "topics": [
+          "counting"
+        ]
+      },
+      {
         "slug": "pangram",
         "name": "Pangram",
         "uuid": "ae5a4fac-84c4-4929-b37e-b0452f761bf8",
@@ -221,6 +191,33 @@
         "difficulty": 3,
         "topics": [
           "strings"
+        ]
+      },
+      {
+        "slug": "raindrops",
+        "name": "Raindrops",
+        "uuid": "dd066b62-c63e-467c-8dfb-435bcc81d532",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 2
+      },
+      {
+        "slug": "reverse-string",
+        "name": "Reverse String",
+        "uuid": "58c93fbe-5c57-41d0-9085-6007a488aaca",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 2
+      },
+      {
+        "slug": "rna-transcription",
+        "name": "RNA Transcription",
+        "uuid": "bf9a0fe0-99b2-4a95-8d75-fc02d0c8433c",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 2,
+        "topics": [
+          "transforming"
         ]
       },
       {
@@ -240,8 +237,7 @@
         "uuid": "a43c28f4-8f5c-40f7-90cb-79689c810f95",
         "practices": [],
         "prerequisites": [],
-        "difficulty": 3,
-        "topics": []
+        "difficulty": 3
       },
       {
         "slug": "all-your-base",
@@ -252,6 +248,17 @@
         "difficulty": 4,
         "topics": [
           "math"
+        ]
+      },
+      {
+        "slug": "atbash-cipher",
+        "name": "Atbash Cipher",
+        "uuid": "020aa7d8-9b4b-4348-9fea-9fbaece3ac66",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 7,
+        "topics": [
+          "transforming"
         ]
       },
       {
@@ -279,13 +286,58 @@
         ]
       },
       {
+        "slug": "bowling",
+        "name": "Bowling",
+        "uuid": "638b24d2-5288-4fc2-a70e-a178974f030e",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 7,
+        "topics": [
+          "algorithms"
+        ]
+      },
+      {
+        "slug": "change",
+        "name": "Change",
+        "uuid": "202e8a9a-7a5e-486f-883b-56be298ed665",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 6,
+        "topics": [
+          "algorithms",
+          "dynamic_programming"
+        ]
+      },
+      {
+        "slug": "dominoes",
+        "name": "Dominoes",
+        "uuid": "791c17d4-09b5-4e11-a433-b45f0c1c752e",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 7,
+        "topics": [
+          "algorithms",
+          "search"
+        ]
+      },
+      {
+        "slug": "list-ops",
+        "name": "List Ops",
+        "uuid": "ffde2a94-722a-4193-86b7-d2d591a7223d",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 6,
+        "topics": [
+          "functional_programming"
+        ]
+      },
+      {
         "slug": "luhn",
         "name": "Luhn",
         "uuid": "8d21e4be-5e9c-4c73-81c5-b4ee2517d9c7",
         "practices": [],
         "prerequisites": [],
-        "difficulty": 4,
-        "topics": []
+        "difficulty": 4
       },
       {
         "slug": "matching-brackets",
@@ -296,6 +348,29 @@
         "difficulty": 4,
         "topics": [
           "stacks"
+        ]
+      },
+      {
+        "slug": "minesweeper",
+        "name": "Minesweeper",
+        "uuid": "a0468f9b-55d1-45dd-9a2f-476aaf4d6c2e",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 7,
+        "topics": [
+          "arrays",
+          "transforming"
+        ]
+      },
+      {
+        "slug": "palindrome-products",
+        "name": "Palindrome Products",
+        "uuid": "8398d903-8208-4807-b735-b4cbf6976f29",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 6,
+        "topics": [
+          "math"
         ]
       },
       {
@@ -310,18 +385,6 @@
         ]
       },
       {
-        "slug": "word-count",
-        "name": "Word Count",
-        "uuid": "db90c208-b8ca-4c8c-8061-b9148c80abfe",
-        "practices": [],
-        "prerequisites": [],
-        "difficulty": 4,
-        "topics": [
-          "counting",
-          "strings"
-        ]
-      },
-      {
         "slug": "prime-factors",
         "name": "Prime Factors",
         "uuid": "67d4fa19-c387-47c4-9262-a6e63d5c0a19",
@@ -331,6 +394,29 @@
         "topics": [
           "algorithms",
           "math"
+        ]
+      },
+      {
+        "slug": "rectangles",
+        "name": "Rectangles",
+        "uuid": "1b491d7e-40db-4782-a8bb-7cb3746588f5",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 6,
+        "topics": [
+          "search"
+        ]
+      },
+      {
+        "slug": "robot-name",
+        "name": "Robot Name",
+        "uuid": "51f4aff9-6666-4097-a37e-e2e51fd8f286",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 6,
+        "topics": [
+          "mutable_state",
+          "randomness"
         ]
       },
       {
@@ -368,106 +454,15 @@
         ]
       },
       {
-        "slug": "change",
-        "name": "Change",
-        "uuid": "202e8a9a-7a5e-486f-883b-56be298ed665",
+        "slug": "word-count",
+        "name": "Word Count",
+        "uuid": "db90c208-b8ca-4c8c-8061-b9148c80abfe",
         "practices": [],
         "prerequisites": [],
-        "difficulty": 6,
+        "difficulty": 4,
         "topics": [
-          "algorithms",
-          "dynamic_programming"
-        ]
-      },
-      {
-        "slug": "list-ops",
-        "name": "List Ops",
-        "uuid": "ffde2a94-722a-4193-86b7-d2d591a7223d",
-        "practices": [],
-        "prerequisites": [],
-        "difficulty": 6,
-        "topics": [
-          "functional_programming"
-        ]
-      },
-      {
-        "slug": "palindrome-products",
-        "name": "Palindrome Products",
-        "uuid": "8398d903-8208-4807-b735-b4cbf6976f29",
-        "practices": [],
-        "prerequisites": [],
-        "difficulty": 6,
-        "topics": [
-          "math"
-        ]
-      },
-      {
-        "slug": "rectangles",
-        "name": "Rectangles",
-        "uuid": "1b491d7e-40db-4782-a8bb-7cb3746588f5",
-        "practices": [],
-        "prerequisites": [],
-        "difficulty": 6,
-        "topics": [
-          "search"
-        ]
-      },
-      {
-        "slug": "robot-name",
-        "name": "Robot Name",
-        "uuid": "51f4aff9-6666-4097-a37e-e2e51fd8f286",
-        "practices": [],
-        "prerequisites": [],
-        "difficulty": 6,
-        "topics": [
-          "mutable_state",
-          "randomness"
-        ]
-      },
-      {
-        "slug": "atbash-cipher",
-        "name": "Atbash Cipher",
-        "uuid": "020aa7d8-9b4b-4348-9fea-9fbaece3ac66",
-        "practices": [],
-        "prerequisites": [],
-        "difficulty": 7,
-        "topics": [
-          "transforming"
-        ]
-      },
-      {
-        "slug": "bowling",
-        "name": "Bowling",
-        "uuid": "638b24d2-5288-4fc2-a70e-a178974f030e",
-        "practices": [],
-        "prerequisites": [],
-        "difficulty": 7,
-        "topics": [
-          "algorithms"
-        ]
-      },
-      {
-        "slug": "dominoes",
-        "name": "Dominoes",
-        "uuid": "791c17d4-09b5-4e11-a433-b45f0c1c752e",
-        "practices": [],
-        "prerequisites": [],
-        "difficulty": 7,
-        "topics": [
-          "algorithms",
-          "search"
-        ]
-      },
-      {
-        "slug": "minesweeper",
-        "name": "Minesweeper",
-        "uuid": "a0468f9b-55d1-45dd-9a2f-476aaf4d6c2e",
-        "practices": [],
-        "prerequisites": [],
-        "difficulty": 7,
-        "topics": [
-          "arrays",
-          "transforming"
+          "counting",
+          "strings"
         ]
       },
       {
@@ -504,17 +499,6 @@
         ]
       },
       {
-        "slug": "meetup",
-        "name": "Meetup",
-        "uuid": "cd37ff33-d2c3-4420-9ad0-0121e2a04b61",
-        "practices": [],
-        "prerequisites": [],
-        "difficulty": 9,
-        "topics": [
-          "dates"
-        ]
-      },
-      {
         "slug": "hangman",
         "name": "Hangman",
         "uuid": "4a17796e-3faf-48e4-8db4-e39374fee716",
@@ -523,6 +507,17 @@
         "difficulty": 10,
         "topics": [
           "reactive_programming"
+        ]
+      },
+      {
+        "slug": "meetup",
+        "name": "Meetup",
+        "uuid": "cd37ff33-d2c3-4420-9ad0-0121e2a04b61",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 9,
+        "topics": [
+          "dates"
         ]
       },
       {
@@ -549,7 +544,6 @@
       }
     ]
   },
-  "concepts": [],
   "key_features": [
     {
       "title": "Algebraic data types",
@@ -583,14 +577,14 @@
     }
   ],
   "tags": [
+    "execution_mode/compiled",
     "paradigm/functional",
+    "platform/linux",
+    "platform/mac",
+    "platform/windows",
+    "runtime/language_specific",
     "typing/static",
     "typing/strong",
-    "execution_mode/compiled",
-    "platform/windows",
-    "platform/mac",
-    "platform/linux",
-    "runtime/language_specific",
     "used_for/financial_systems",
     "used_for/scientific_calculations"
   ]
