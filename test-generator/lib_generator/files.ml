@@ -31,7 +31,7 @@ let mkdir_if_not_present dir =
 
 let backup ~(base_folder: string) ~(slug: string) ~(contents: string): bool =
   mkdir_if_not_present base_folder;
-  let path = Caml.Filename.concat base_folder slug in
+  let path = Filename.concat base_folder slug in
   let matches_contents =
     Option.try_with (fun () -> In_channel.read_all path)
     |> Option.map ~f:(String.equal contents)
@@ -88,7 +88,7 @@ let read_file (p: string): (string, exn) Result.t =
   try
     let c = Stdio.In_channel.create p in
     while true do
-      Buffer.add_string b (Caml.input_line c);
+      Buffer.add_string b (In_channel.input_line_exn c);
       Buffer.add_char b '\n';
     done;
     failwith "unreachable"
