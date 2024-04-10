@@ -22,9 +22,6 @@
     "solution": [
       "%{snake_slug}.ml"
     ],
-    "editor": [
-      "%{snake_slug}.mli"
-    ],
     "test": [
       "test.ml"
     ],
@@ -33,10 +30,12 @@
     ],
     "exemplar": [
       ".meta/exemplar.ml"
+    ],
+    "editor": [
+      "%{snake_slug}.mli"
     ]
   },
   "exercises": {
-    "concept": [],
     "practice": [
       {
         "slug": "hexadecimal",
@@ -45,7 +44,6 @@
         "practices": [],
         "prerequisites": [],
         "difficulty": 1,
-        "topics": null,
         "status": "deprecated"
       },
       {
@@ -111,8 +109,7 @@
         "uuid": "dd066b62-c63e-467c-8dfb-435bcc81d532",
         "practices": [],
         "prerequisites": [],
-        "difficulty": 2,
-        "topics": null
+        "difficulty": 2
       },
       {
         "slug": "reverse-string",
@@ -240,8 +237,7 @@
         "uuid": "a43c28f4-8f5c-40f7-90cb-79689c810f95",
         "practices": [],
         "prerequisites": [],
-        "difficulty": 3,
-        "topics": []
+        "difficulty": 3
       },
       {
         "slug": "all-your-base",
@@ -284,8 +280,7 @@
         "uuid": "8d21e4be-5e9c-4c73-81c5-b4ee2517d9c7",
         "practices": [],
         "prerequisites": [],
-        "difficulty": 4,
-        "topics": []
+        "difficulty": 4
       },
       {
         "slug": "matching-brackets",
@@ -546,10 +541,17 @@
         "topics": [
           "functional_programming"
         ]
+      },
+      {
+        "slug": "sieve",
+        "name": "Sieve",
+        "uuid": "8157f71a-25ca-476c-8ac8-dcf660e5193b",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 2
       }
     ]
   },
-  "concepts": [],
   "key_features": [
     {
       "title": "Algebraic data types",
@@ -583,14 +585,14 @@
     }
   ],
   "tags": [
+    "execution_mode/compiled",
     "paradigm/functional",
+    "platform/linux",
+    "platform/mac",
+    "platform/windows",
+    "runtime/language_specific",
     "typing/static",
     "typing/strong",
-    "execution_mode/compiled",
-    "platform/windows",
-    "platform/mac",
-    "platform/linux",
-    "runtime/language_specific",
     "used_for/financial_systems",
     "used_for/scientific_calculations"
   ]
