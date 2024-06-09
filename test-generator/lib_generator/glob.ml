@@ -4,11 +4,11 @@ let split c s =
 	let len = String.length s in
 	let rec loop acc last_pos pos =
 		if pos = -1 then
-		Caml.String.sub s 0 last_pos :: acc
+		String.sub s ~pos:0 ~len:last_pos :: acc
 		else
 		if Char.equal (String.get s pos) c then
 			let pos1 = pos + 1 in
-			let sub_str = Caml.String.sub s pos1 (last_pos - pos1) in
+			let sub_str = String.sub s ~pos:pos1 ~len:(last_pos - pos1) in
 			loop (sub_str :: acc) pos (pos - 1)
 		else loop acc last_pos (pos - 1)
 	in
@@ -21,7 +21,7 @@ let find_substrings ?(start_point=0) substr x =
 		if len_x - i < len_s
 		then acc
 		else
-			if String.equal (Caml.String.sub x i len_s) substr
+			if String.equal (String.sub x ~pos:i ~len:len_s) substr
 			then aux (i::acc) (i + 1)
 			else aux acc (i + 1)
 	in
