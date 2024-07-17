@@ -292,6 +292,23 @@ let rec edit_expected ~(f: json -> string) (parameters: (string * json) list) = 
   | ("expected", v) :: rest -> ("expected", f v) :: edit_expected ~f rest
   | (k, v) :: rest -> (k, json_to_string v) :: edit_expected ~f rest
 
+let edit_knapsack (ps: (string * json) list): (string * string) list =
+  let item (i: json) : (string) = 
+    match i with
+    | `Assoc l -> "{" ^ (List.map l ~f:(fun (k, v) -> Printf.sprintf "%s = %s" k (json_to_string v)) |> (String.concat ~sep:"; ")) ^ "}" in
+  let spacer (v: 'a list): (string) =
+    match v with
+    | _i1 :: _i2 :: _rest -> "\n"
+    | _ -> "" in
+  let items_list (v: json): (string) = 
+    match v with
+    | `Assoc [] -> "[]"
+    | `List  l -> (spacer l) ^ "[" ^ (List.map l ~f:item |> (String.concat ~sep:";\n")) ^ "]" ^ (spacer l) in
+  let edit = function
+    | ("items", v) -> ("items", items_list v)
+    | (k, v) -> (k, json_to_string v) in
+  List.map ps ~f:edit
+
 let unwrap_strings (ps: (string * json) list): (string * string) list option =
   let edit = function
     | (_, `String s) -> ("params", s)
@@ -310,6 +327,7 @@ let edit_parameters ~(slug: string) (parameters: (string * json) list) = match (
   | ("etl", ps) -> edit_etl ps |> Option.return
   | ("forth", ps) -> edit_expected ~f:edit_forth_expected ps |> Option.return
   | ("hamming", ps) -> edit_expected ~f:edit_hamming_expected ps |> Option.return
+  | ("knapsack", ps) -> edit_knapsack ps |> Option.return
   | ("minesweeper", ps) -> edit_minesweeper ps |> Option.return
   | ("palindrome-products", ps) -> edit_palindrome_products ps |> Option.return
   | ("phone-number", ps) -> edit_expected ~f:edit_phone_number_expected ps |> Option.return
