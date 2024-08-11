@@ -1,6 +1,6 @@
 {
     "name": "ocaml",
-    "dockerFile": "../.travis/Dockerfile",
+    "dockerFile": "../.github/Dockerfile",
     "extensions": [
         "dawhite.mustache",
         "maelvalais.dune",
