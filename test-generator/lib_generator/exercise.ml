@@ -20,7 +20,7 @@ let of_candidate ~(tpl: string) ~(out: string) (c: Exercise_candidate.t): t =
 let to_string (e: t): string =
   let print_description = function
     | None -> "None"
-    | Some d -> Caml.Printf.sprintf "%s" d
+    | Some d -> Printf.sprintf "%s" d
   in
   Printf.sprintf "ExerciseCandidate { name = \"%s\"; directory = \"%s\"; description = \"%s\"; canonical_data = %s; templates = %s }"
     e.name

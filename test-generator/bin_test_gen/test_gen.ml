@@ -7,7 +7,7 @@ let command =
       let cwd =
         flag_optional_with_default_doc "w" string Sexp.of_string
           ~aliases:["--cwd"]
-          ~default:(Caml.Sys.getcwd ()) ~doc:"directory to assume as cwd"
+          ~default:(Core_unix.getcwd ()) ~doc:"directory to assume as cwd"
       and templates_folder =
         flag_optional_with_default_doc "t" string Sexp.of_string
           ~aliases:["--templates"]
