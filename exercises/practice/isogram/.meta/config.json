@@ -11,6 +11,9 @@
     ],
     "example": [
       ".meta/example.ml"
+    ],
+    "editor": [
+      "isogram.mli"
     ]
   },
   "blurb": "Determine if a word or phrase is an isogram.",
