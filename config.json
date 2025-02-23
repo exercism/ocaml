@@ -559,6 +559,14 @@
         "difficulty": 4
       },
       {
+        "slug": "eliuds-eggs",
+        "name": "Eliud's Eggs",
+        "uuid": "c25941d2-87cb-4558-a605-7d49829a1fc4",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 2
+      },
+      {
         "slug": "isogram",
         "name": "Isogram",
         "uuid": "fe419d81-481d-49af-8e24-80defb0692f2",
