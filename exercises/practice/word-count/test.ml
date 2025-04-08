@@ -1,4 +1,4 @@
-(* word-count - 1.3.0 *)
+(* word-count - 1.0 *)
 open Base
 open OUnit2
 open Word_count
@@ -37,15 +37,24 @@ let tests = [
   "with apostrophes" >::
   ae [("first", 1); ("don't", 2); ("laugh", 1); ("then", 1); ("cry", 1)]
     (word_count "First: don't laugh. Then: don't cry.");
+  "with apostrophes" >::
+  ae [("first", 1); ("don't", 2); ("laugh", 1); ("then", 1); ("cry", 1); ("you're", 1); ("getting", 1); ("it", 1)]
+    (word_count "First: don't laugh. Then: don't cry. You're getting it.");
   "with quotations" >::
   ae [("joe", 1); ("can't", 1); ("tell", 1); ("between", 1); ("large", 2); ("and", 1)]
     (word_count "Joe can't tell between 'large' and large.");
+  "substrings from the beginning" >::
+  ae [("joe", 1); ("can't", 1); ("tell", 1); ("between", 1); ("app", 1); ("apple", 1); ("and", 1); ("a", 1)]
+    (word_count "Joe can't tell between app, apple and a.");
   "multiple spaces not detected as a word" >::
   ae [("multiple", 1); ("whitespaces", 1)]
     (word_count " multiple   whitespaces");
   "alternating word separators not detected as a word" >::
   ae [("one", 1); ("two", 1); ("three", 1)]
     (word_count ",\n,one,\n ,two \n 'three'");
+  "quotation for word with apostrophe" >::
+  ae [("can", 1); ("can't", 2)]
+    (word_count "can, can't, 'can't'");
 ]
 
 let () =
