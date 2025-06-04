@@ -2,6 +2,9 @@
   "authors": [
     "BNAndras"
   ],
+  "contributors": [
+    "kahgoh"
+  ],
   "files": {
     "solution": [
       "darts.ml"
