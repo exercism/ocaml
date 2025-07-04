@@ -454,12 +454,21 @@
         ]
       },
       {
+        "slug": "flower-field",
+        "name": "Flower Field",
+        "uuid": "5e0945fe-1c46-4a2b-b66e-564330f3a92f",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 7
+      },
+      {
         "slug": "minesweeper",
         "name": "Minesweeper",
         "uuid": "a0468f9b-55d1-45dd-9a2f-476aaf4d6c2e",
         "practices": [],
         "prerequisites": [],
         "difficulty": 7,
+        "status": "deprecated",
         "topics": [
           "arrays",
           "transforming"
