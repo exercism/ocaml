@@ -14,7 +14,6 @@ RUN cd /home/opam/opam-repository \
 RUN opam update \
     && opam install core \
     core_unix \
-    merlin \
     yaml \
     ezjsonm \
     mustache \
