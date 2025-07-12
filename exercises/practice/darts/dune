@@ -1,0 +1,16 @@
+(executable
+ (name test)
+ (libraries base ounit2))
+
+(alias
+  (name    runtest)
+  (deps    (:x test.exe))
+  (action  (run %{x})))
+
+(alias
+  (name    buildtest)
+  (deps    (:x test.exe)))
+
+(env
+  (dev
+    (flags (:standard -warn-error -A))))
