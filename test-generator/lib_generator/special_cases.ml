@@ -466,9 +466,30 @@ let edit_grade_school_case (case: json): json =
     ]) input)
   ]) case
 
-let edit_case ~(slug: string) (case: json) = match (slug, case) with
+let edit_etl_case (case : Yojson.Basic.t) : Yojson.Basic.t =
+  let legacy_contents =
+    case
+    |> Util.member "input"
+    |> Util.member "legacy"
+    |> Util.to_assoc
+    |> fun l -> `Assoc l
+  in
+  let updated_case =
+    case
+    |> Util.to_assoc
+    |> List.map ~f:(fun (k, v) ->
+         if String.(k = "input") then (k, legacy_contents) else (k, v)
+       )
+    |> fun l -> `Assoc l
+  in
+  updated_case
+
+
+let edit_case ~(slug: string) (case: json) =
+  match (slug, case) with
   | ("allergies", case) -> edit_allergies_case case
   | ("custom-set", case) -> edit_custom_set_case case
+  | ("etl", case) -> edit_etl_case case
   | ("grade-school", case) -> edit_grade_school_case case
   | ("difference-of-squares", case) -> edit_difference_of_squares_case case
   | ("run-length-encoding", case) -> edit_run_length_encoding_case case
