@@ -1,1 +1,1 @@
-val collatz_conjecture : int -> int
+val collatz_conjecture : int -> (int, string) result
