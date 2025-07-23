@@ -231,6 +231,17 @@ let edit_change (ps: (string * json) list): (string * string) list =
     | (k, v) -> (k, json_to_string v) in
   ps |> List.map ~f:edit
 
+let edit_darts (ps: (string * json) list): (string * string) list =
+  let edit_float = function 
+    | v -> match (String.contains v '.') with
+      | true -> v
+      | false -> v ^ ".0" in
+  let edit = function
+    | ("x", v) -> ("x", (edit_float (json_to_string v)))
+    | ("y", v) -> ("y", (edit_float (json_to_string v)))
+    | (k, v) -> (k, json_to_string v) in
+  ps |> List.map ~f:edit
+
 let edit_rectangles (ps: (string * json) list): (string * string) list =
   let format_field l =
     let sep = if List.length l > 1 then ";\n" else "" in
@@ -323,6 +334,7 @@ let edit_parameters ~(slug: string) (parameters: (string * json) list) = match (
   | ("bowling", ps) -> edit_bowling ps |> Option.return
   | ("connect", ps) -> edit_connect ps |> Option.return
   | ("change", ps) -> edit_change ps |> Option.return
+  | ("darts", ps) -> edit_darts ps |> Option.return
   | ("dominoes", ps) -> edit_dominoes ps |> Option.return
   | ("etl", ps) -> edit_etl ps |> Option.return
   | ("forth", ps) -> edit_expected ~f:edit_forth_expected ps |> Option.return
