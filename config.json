@@ -582,6 +582,14 @@
         "practices": [],
         "prerequisites": [],
         "difficulty": 3
+      },
+      {
+        "slug": "collatz-conjecture",
+        "name": "Collatz Conjecture",
+        "uuid": "eedc9471-326b-4498-b763-5b1c8eedca88",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 3
       }
     ]
   },

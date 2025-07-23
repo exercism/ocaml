@@ -1,0 +1,22 @@
+{
+  "authors": [
+    "therealowenrees"
+  ],
+  "files": {
+    "solution": [
+      "collatz_conjecture.ml"
+    ],
+    "test": [
+      "test.ml"
+    ],
+    "example": [
+      ".meta/example.ml"
+    ],
+    "editor": [
+      "collatz_conjecture.mli"
+    ]
+  },
+  "blurb": "Calculate the number of steps to reach 1 using the Collatz conjecture.",
+  "source": "Wikipedia",
+  "source_url": "https://en.wikipedia.org/wiki/Collatz_conjecture"
+}
