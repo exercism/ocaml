@@ -2,9 +2,6 @@ open Base
 open OUnit2
 open Collatz_conjecture
 
-(* Assert Equals *)
-(* let ae exp got _test_ctxt =
-  assert_equal exp got *)
 let ae expected actual _ctx = assert_equal expected actual
 
 let tests = [
