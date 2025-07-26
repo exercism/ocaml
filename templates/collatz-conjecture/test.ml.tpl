@@ -1,15 +1,18 @@
-open Base
 open OUnit2
 open Collatz_conjecture
 
-let ae expected actual _ctx = assert_equal expected actual
+let option_printer = function
+  | Error m  -> Printf.sprintf "Error \"%s\"" m
+  | Ok n -> Printf.sprintf "Ok %d" n
+
+let ae exp got _test_ctxt = assert_equal ~printer:option_printer exp got
 
 let tests = [
   {{#cases}}
     "{{description}}" >::
-      {{#input}}ae {{expected}} (collatz_conjecture {{n}}){{/input}};
+      ae {{#input}}{{expected}} (collatz_conjecture ({{number}})){{/input}};
   {{/cases}}
 ]
 
 let () =
-  run_test_tt_main ("collatz_conjecture tests" >::: tests)
+  run_test_tt_main ("collatz-conjecture tests" >::: tests)

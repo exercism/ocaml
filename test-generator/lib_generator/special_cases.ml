@@ -309,6 +309,11 @@ let edit_knapsack (ps: (string * json) list): (string * string) list =
     | (k, v) -> (k, json_to_string v) in
   List.map ps ~f:edit
 
+let edit_collatz_conjecture_expected = function
+  | `Int n -> "(Ok " ^ Int.to_string n ^ ")"
+  | `Assoc [("error", `String m)] -> "(Error \"" ^ m ^ "\")"
+  | x -> Yojson.Basic.to_string x
+
 let unwrap_strings (ps: (string * json) list): (string * string) list option =
   let edit = function
     | (_, `String s) -> ("params", s)
@@ -321,6 +326,7 @@ let edit_parameters ~(slug: string) (parameters: (string * json) list) = match (
   | ("beer-song", ps) -> edit_expected ~f:edit_beer_song_expected ps |> Option.return
   | ("binary-search", ps) -> edit_binary_search ps |> Option.return
   | ("bowling", ps) -> edit_bowling ps |> Option.return
+  | ("collatz-conjecture", ps) -> edit_expected ~f:edit_collatz_conjecture_expected ps |> Option.return
   | ("connect", ps) -> edit_connect ps |> Option.return
   | ("change", ps) -> edit_change ps |> Option.return
   | ("dominoes", ps) -> edit_dominoes ps |> Option.return
