@@ -17,11 +17,7 @@ let tests = [
   "large number of even and odd steps" >::
   ae (Ok 152) (collatz_conjecture (1000000));
   "zero is an error" >::
-  ae (Error "Only positive numbers are allowed") (collatz_conjecture (0));
-  "zero is an error" >::
   ae (Error "Only positive integers are allowed") (collatz_conjecture (0));
-  "negative value is an error" >::
-  ae (Error "Only positive numbers are allowed") (collatz_conjecture (-15));
   "negative value is an error" >::
   ae (Error "Only positive integers are allowed") (collatz_conjecture (-15));
 ]

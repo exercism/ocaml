@@ -10,8 +10,6 @@ let tests = [
   "no matches" >::
   ae [] (anagrams "diaper" ["hello"; "world"; "zombies"; "pants"]);
   "detects two anagrams" >::
-  ae ["stream"; "maters"] (anagrams "master" ["stream"; "pigeon"; "maters"]);
-  "detects two anagrams" >::
   ae ["lemons"; "melons"] (anagrams "solemn" ["lemons"; "cherry"; "melons"]);
   "does not detect anagram subsets" >::
   ae [] (anagrams "good" ["dog"; "goody"]);
@@ -33,16 +31,12 @@ let tests = [
   ae [] (anagrams "go" ["go Go GO"]);
   "anagrams must use all letters exactly once" >::
   ae [] (anagrams "tapper" ["patter"]);
-  "words are not anagrams of themselves (case-insensitive)" >::
-  ae [] (anagrams "BANANA" ["BANANA"; "Banana"; "banana"]);
   "words are not anagrams of themselves" >::
   ae [] (anagrams "BANANA" ["BANANA"]);
   "words are not anagrams of themselves even if letter case is partially different" >::
   ae [] (anagrams "BANANA" ["Banana"]);
   "words are not anagrams of themselves even if letter case is completely different" >::
   ae [] (anagrams "BANANA" ["banana"]);
-  "words other than themselves can be anagrams" >::
-  ae ["Silent"] (anagrams "LISTEN" ["Listen"; "Silent"; "LISTEN"]);
   "words other than themselves can be anagrams" >::
   ae ["Silent"] (anagrams "LISTEN" ["LISTEN"; "Silent"]);
 ]
