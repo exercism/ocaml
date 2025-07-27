@@ -8,6 +8,13 @@ type t = {
   cases: json list;
 }
 
+let get_reimplemented_uuids (cases: Yojson.Basic.t list) : String.Set.t =
+  List.filter_map cases ~f:(fun c ->
+    match Yojson.Basic.Util.member "reimplements" c with
+    | `String s -> Some s
+    | _ -> None)
+  |> String.Set.of_list
+
 let of_string (s: string): t =
   let open Yojson.Basic in
   let mem = fun k -> Util.member k (from_string s) in
@@ -33,12 +40,26 @@ let of_string (s: string): t =
         |> Option.map ~f:(fun l -> `Assoc (List.map l ~f:(fun (k, v) -> (k, `String v))))
         |> Option.map ~f:(fun i -> `Assoc (("input", i) :: (Util.to_assoc c |> List.filter ~f:(fun (k, _) -> String.(k <> "input" && k <> "expected"))))
       )
-  ) in
+  ) 
+  in
+
+  let cases = (mem "cases") |> Util.to_list |> sanitize_cases in
+
+  (* filter original cases whose UUID is referenced in "reimplements" *)
+  let reimplemented_uuids = get_reimplemented_uuids cases in
+  let filtered_cases =
+    List.filter cases ~f:(fun c ->
+      match Util.member "uuid" c with
+      | `String uuid -> not (Set.mem reimplemented_uuids uuid)
+      | _ -> true
+    )
+  in
+
   {
     version;
     exercise;
     comments = (try (mem "comments") |> Util.to_list |> List.map ~f:Util.to_string with _ -> []);
-    cases = (mem "cases") |> Util.to_list |> sanitize_cases
+    cases = filtered_cases
   }
 
 let rec yo_to_ez (j: Yojson.Basic.t): Ezjsonm.value =
