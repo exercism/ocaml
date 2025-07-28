@@ -46,12 +46,12 @@ let of_string (s: string): t =
 
   (* filter original cases whose UUID is referenced in "reimplements" *)
   let reimplemented_uuids = get_reimplemented_uuids cases in
-let filtered_cases =
-  List.filter cases ~f:(fun c ->
-    match Util.member "uuid" c with
-    | `String uuid -> not (List.mem reimplemented_uuids uuid ~equal:String.equal)
-    | _ -> true
-  )
+  let filtered_cases =
+    List.filter cases ~f:(fun c ->
+      match Util.member "uuid" c with
+      | `String uuid -> not (List.mem reimplemented_uuids uuid ~equal:String.equal)
+      | _ -> true
+    )
   in
 
   {
