@@ -13,11 +13,11 @@ notes contain a few details specific to Ocaml.
 
 ### Local setup
 
-**Prerequesites**
+**Prerequisites**
 
-* OCaml `5.1`
-* opam
-* make
+- OCaml `5.1`
+- opam
+- make
 
 ```sh
 git clone https://github.com/exercism/ocaml.git
@@ -41,12 +41,11 @@ make test
 <details>
     <summary>Container setup</summary>
 
+**Prerequisites**
 
-**Prerequesites**
-
-* VSCode
-* VSCode Remote Containers extension
-* Docker
+- VSCode
+- VSCode Remote Containers extension
+- Docker
 
 ```sh
 git clone https://github.com/exercism/ocaml.git
@@ -120,6 +119,6 @@ You should base your tests off this data, in order to provide consistency across
 
 If you find this documentation is inaccurate or incomplete, or can be improved in any way, please don't hesitate to raise an [issue](https://github.com/exercism/ocaml/issues) or submit a pull request.
 
-
 ### OCaml icon
+
 The [OCaml](https://ocaml.org) logo is released under the [Attribution-ShareAlike 4.0 International](https://creativecommons.org/licenses/by-sa/4.0/) license.
