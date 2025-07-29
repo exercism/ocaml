@@ -6,7 +6,7 @@ let ae expected actual _test_ctxt =
 
 let tests = [
     {{#cases}}
-      "{{description}}" "">
+      "{{description}}" >::
         ae {{#input}}{{expected}} (square_root ({{radicand}})){{/input}};
     {{/cases}}
 ]
