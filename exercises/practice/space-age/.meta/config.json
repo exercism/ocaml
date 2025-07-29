@@ -1,19 +1,6 @@
 {
-  "authors": [],
-  "contributors": [
-    "daveyarwood",
-    "dvberkel",
-    "iHiD",
-    "ismaelga",
-    "kytrinyx",
-    "marionebl",
-    "Peaupote",
-    "pminten",
-    "sbl",
-    "sshine",
-    "stevejb71",
-    "tmcgilchrist"
-  ],
+  "authors": ["therealowenrees"],
+  "contributors": [],
   "files": {
     "solution": [
       "space_age.ml"
