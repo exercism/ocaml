@@ -1,5 +1,5 @@
 {
-  "authors": [],
+  "authors": ["therealowenrees"],
   "files": {
     "solution": [
       "isbn_verifier.ml"
@@ -9,6 +9,9 @@
     ],
     "example": [
       ".meta/example.ml"
+    ],
+    "editor": [
+      "isbn_verifier.mli"
     ]
   },
   "blurb": "Check if a given string is a valid ISBN-10 number.",
