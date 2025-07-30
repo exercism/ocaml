@@ -1,0 +1,1 @@
+val classify : int -> (string, string) result
