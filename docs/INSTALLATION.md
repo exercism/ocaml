@@ -28,7 +28,7 @@ To work on the exercises, you will need these pieces of software:
    Run the script to install the dependencies required by this track:
 
    ```bash
-   opam install dune fpath ocamlfind ounit qcheck react ppx_deriving ppx_let ppx_sexp_conv yojson ocp-indent calendar getopts
+   opam install base core_kernel ounit qcheck
    ```
 
    Some exercises use only the OCaml standard library, and some use the extended libraries by Jane Street called Base and Core_kernel.
