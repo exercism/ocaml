@@ -9,31 +9,31 @@ let ae exp got _test_ctxt = assert_equal ~printer:option_printer exp got
 
 let tests = [
   "Smallest perfect number is classified correctly" >::
-  ae (Ok "perfect") (classify 6);
+  ae (Ok "perfect") (classify (6));
   "Medium perfect number is classified correctly" >::
-  ae (Ok "perfect") (classify 28);
+  ae (Ok "perfect") (classify (28));
   "Large perfect number is classified correctly" >::
-  ae (Ok "perfect") (classify 33550336);
+  ae (Ok "perfect") (classify (33550336));
   "Smallest abundant number is classified correctly" >::
-  ae (Ok "abundant") (classify 12);
+  ae (Ok "abundant") (classify (12));
   "Medium abundant number is classified correctly" >::
-  ae (Ok "abundant") (classify 30);
+  ae (Ok "abundant") (classify (30));
   "Large abundant number is classified correctly" >::
-  ae (Ok "abundant") (classify 33550335);
+  ae (Ok "abundant") (classify (33550335));
   "Smallest prime deficient number is classified correctly" >::
-  ae (Ok "deficient") (classify 2);
+  ae (Ok "deficient") (classify (2));
   "Smallest non-prime deficient number is classified correctly" >::
-  ae (Ok "deficient") (classify 4);
+  ae (Ok "deficient") (classify (4));
   "Medium deficient number is classified correctly" >::
-  ae (Ok "deficient") (classify 32);
+  ae (Ok "deficient") (classify (32));
   "Large deficient number is classified correctly" >::
-  ae (Ok "deficient") (classify 33550337);
+  ae (Ok "deficient") (classify (33550337));
   "Edge case (no factors other than itself) is classified correctly" >::
-  ae (Ok "deficient") (classify 1);
+  ae (Ok "deficient") (classify (1));
   "Zero is rejected (as it is not a positive integer)" >::
-  ae (Error "Classification is only possible for positive integers.") (classify 0);
+  ae (Error "Classification is only possible for positive integers.") (classify (0));
   "Negative integer is rejected (as it is not a positive integer)" >::
-  ae (Error "Classification is only possible for positive integers.") (classify -1);
+  ae (Error "Classification is only possible for positive integers.") (classify (-1));
 ]
 
 let () =

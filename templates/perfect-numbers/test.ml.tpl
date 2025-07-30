@@ -11,7 +11,7 @@ let tests = [
   {{#cases}}
     {{#cases}}
       "{{description}}" >::
-        ae {{#input}}{{{expected}}} (classify {{{number}}}){{/input}};
+        ae {{#input}}{{{expected}}} (classify ({{number}})){{/input}};
     {{/cases}}
   {{/cases}}
 ]
