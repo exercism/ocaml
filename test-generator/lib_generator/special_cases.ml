@@ -325,6 +325,13 @@ let edit_collatz_conjecture_expected = function
   | `Assoc [("error", `String m)] -> "(Error \"" ^ m ^ "\")"
   | x -> Yojson.Basic.to_string x
 
+let edit_perfect_numbers (ps: (string * json) list): (string * string) list =
+  let edit = function
+    | ("expected", `Assoc [("error", v)]) -> ("expected", "(Error " ^ json_to_string v ^ ")")
+    | ("expected", `String s) -> ("expected", "(Ok \"" ^ s ^ "\")")
+    | (k, v) -> (k, json_to_string v) in
+  List.map ps ~f:edit
+  
 let unwrap_strings (ps: (string * json) list): (string * string) list option =
   let edit = function
     | (_, `String s) -> ("params", s)
@@ -348,6 +355,7 @@ let edit_parameters ~(slug: string) (parameters: (string * json) list) = match (
   | ("knapsack", ps) -> edit_knapsack ps |> Option.return
   | ("minesweeper", ps) -> edit_minesweeper ps |> Option.return
   | ("palindrome-products", ps) -> edit_palindrome_products ps |> Option.return
+  | ("perfect-numbers", ps) -> edit_perfect_numbers ps |> Option.return 
   | ("phone-number", ps) -> edit_expected ~f:edit_phone_number_expected ps |> Option.return
   | ("rectangles", ps) -> edit_rectangles ps |> Option.return
   | ("say", ps) -> edit_say ps |> Option.return

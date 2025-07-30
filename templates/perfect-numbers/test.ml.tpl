@@ -8,10 +8,12 @@ let option_printer = function
 let ae exp got _test_ctxt = assert_equal ~printer:option_printer exp got
 
 let tests = [
+  {{#cases}}
     {{#cases}}
       "{{description}}" >::
-        ae {{#input}}{{expected}} (perfect_numbers ({{number}})){{/input}};
+        ae {{#input}}{{{expected}}} (classify {{{number}}}){{/input}};
     {{/cases}}
+  {{/cases}}
 ]
 
 let () =
