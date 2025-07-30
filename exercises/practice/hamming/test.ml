@@ -1,4 +1,4 @@
-(* hamming - 2.3.0 *)
+(* hamming - 1.0 *)
 open Base
 open OUnit2
 open Hamming
@@ -32,13 +32,13 @@ let tests = [
   "long different strands" >::
   ae (Ok 9) (hamdist "GGACGGATTCTG" "AGGACGGATTCT");
   "disallow first strand longer" >::
-  ae  (Error "left and right strands must be of equal length") (hamdist "AATG" "AAA");
+  ae  (Error "strands must be of equal length") (hamdist "AATG" "AAA");
   "disallow second strand longer" >::
-  ae  (Error "left and right strands must be of equal length") (hamdist "ATA" "AGTG");
-  "disallow left empty strand" >::
-  ae  (Error "left strand must not be empty") (hamdist "" "G");
-  "disallow right empty strand" >::
-  ae  (Error "right strand must not be empty") (hamdist "G" "");
+  ae  (Error "strands must be of equal length") (hamdist "ATA" "AGTG");
+  "disallow empty first strand" >::
+  ae  (Error "strands must be of equal length") (hamdist "" "G");
+  "disallow empty second strand" >::
+  ae  (Error "strands must be of equal length") (hamdist "G" "");
 ]
 
 let () =
