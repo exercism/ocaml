@@ -598,6 +598,22 @@
         "practices": [],
         "prerequisites": [],
         "difficulty": 3
+      },
+      {
+        "slug": "square-root",
+        "name": "Square Root",
+        "uuid": "33360ed8-c49c-4c7f-a1fb-7e242b0794c0",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 3
+      },
+      {
+        "slug": "isbn-verifier",
+        "name": "ISBN Verifier",
+        "uuid": "408f5d5d-00f7-4dcb-bf57-8b8576ae903a",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 3
       }
     ]
   },
