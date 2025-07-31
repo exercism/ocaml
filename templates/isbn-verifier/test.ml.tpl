@@ -6,7 +6,7 @@ let ae exp got _test_ctxt = assert_equal ~printer:string_of_bool exp got
 let tests = [
   {{#cases}}
     "{{description}}" >::
-      ae {{#input}}{{expected}} (isValid {{isbn}}){{/input}};
+      ae {{#input}}{{expected}} (is_valid {{isbn}}){{/input}};
   {{/cases}}
 ]
 
