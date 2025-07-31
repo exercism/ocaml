@@ -608,6 +608,14 @@
         "difficulty": 3
       },
       {
+        "slug": "isbn-verifier",
+        "name": "ISBN Verifier",
+        "uuid": "408f5d5d-00f7-4dcb-bf57-8b8576ae903a",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 3
+      },
+      {
         "slug": "perfect-numbers",
         "name": "Perfect Numbers",
         "uuid": "d7d076c6-8ed4-4dcd-ae15-199dc4b28cf7",
