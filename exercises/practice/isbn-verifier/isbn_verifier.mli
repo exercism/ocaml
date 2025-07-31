@@ -1,1 +1,1 @@
-val isValid : string -> bool
+val is_valid : string -> bool

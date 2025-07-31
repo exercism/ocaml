@@ -1,4 +1,4 @@
-let isValid s =
+let is_valid s =
   let chars = List.init (String.length s) (String.get s) in
 
   let is_digit c = c >= '0' && c <= '9' in
