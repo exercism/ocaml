@@ -52,11 +52,32 @@ test_generator: generator
 
 $(ASSIGNMENTS_GEN): test_generator
 	dune exec ./bin_test_gen/test_gen.exe --root=./test-generator/ -- --exercise $(@:.gen=) --filter-broken true
-	
+
 generate_exercises: $(ASSIGNMENTS_GEN)
 
 install_deps:
-	opam install dune fpath ocamlfind ounit qcheck react ppx_deriving ppx_let ppx_sexp_conv yojson ocp-indent calendar getopts
+	opam update
+	opam install core \
+		core_unix \
+		merlin \
+		yaml \
+		ezjsonm \
+		mustache \
+		dune \
+		fpath \
+		ocamlfind \
+		ounit \
+		ounit2 \
+		qcheck \
+		react \
+		ppx_deriving \
+		ppx_let \
+		ppx_sexp_conv \
+		yojson \
+		ocp-indent \
+		calendar \
+		getopts \
+		stdio
 
 clean:
 	dune clean --root=./test-generator/
