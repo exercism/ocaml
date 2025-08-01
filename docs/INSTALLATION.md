@@ -15,25 +15,27 @@ To work on the exercises, you will need these pieces of software:
    opam switch
    ```
 
-   Switch to that version. If, for example, the latest version is 4.08.0, you will run:
+   If you already have a switch for OCaml 5.1, either load that by running `opam switch <switch-name>`, or create a new switch by running:
 
    ```bash
-   opam switch 4.08.0
+   opam switch create exercism 5.1.1
    ```
+
+   The name `exercism` here is optional, but naming your switches is a good practice.
 
 3. Install extended standard libraries and test libraries
 
-   Some exercises use only the OCaml standard library, and some use the
-   extended libraries by Jane Street called Base and Core\_kernel.
-
-   The test library is called OUnit, and some exercises additionally use the
-   QCheck library for property-based tests.
+   Run the following to install the dependencies required by this track:
 
    ```bash
    opam install base core_kernel ounit qcheck
    ```
 
-4. Install and use interactive shell
+   Some exercises use only the OCaml standard library, and some use the extended libraries by Jane Street called Base and Core_kernel.
+   The test library is called OUnit, and some exercises additionally use the QCheck library for property-based tests.
+   Running the above command will install these libraries.
+
+4. Install and use interactive shell (optional)
 
    A summary of [Setting up and using `utop`](https://dev.realworldocaml.org/install.html):
 
@@ -48,3 +50,10 @@ To work on the exercises, you will need these pieces of software:
    #require "base";;
    open Base
    ```
+
+5. Install tools in VS Code (optional)
+
+   If you use VS Code:
+
+   - Install the OCaml language server from [here](https://github.com/ocaml/ocaml-lsp).
+   - Install the OCaml VS Code extension from [here](https://marketplace.visualstudio.com/items?itemName=ocamllabs.ocaml-platform), or search for `OCaml Platform` by Ocaml Labs.
