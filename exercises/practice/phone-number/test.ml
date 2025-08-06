@@ -1,4 +1,4 @@
-(* phone-number - 1.7.0 *)
+(* phone-number - 1.0 *)
 open Base
 open OUnit2
 open Phone_number
@@ -18,7 +18,7 @@ let tests = [
   "cleans numbers with multiple spaces" >::
   ae (Ok "2234567890") (number "223 456   7890   ");
   "invalid when 9 digits" >::
-  ae (Error "incorrect number of digits") (number "123456789");
+  ae (Error "must not be fewer than 10 digits") (number "123456789");
   "invalid when 11 digits does not start with a 1" >::
   ae (Error "11 digits must start with 1") (number "22234567890");
   "valid when 11 digits and starting with 1" >::
@@ -26,11 +26,11 @@ let tests = [
   "valid when 11 digits and starting with 1 even with punctuation" >::
   ae (Ok "2234567890") (number "+1 (223) 456-7890");
   "invalid when more than 11 digits" >::
-  ae (Error "more than 11 digits") (number "321234567890");
+  ae (Error "must not be greater than 11 digits") (number "321234567890");
   "invalid with letters" >::
-  ae (Error "letters not permitted") (number "123-abc-7890");
+  ae (Error "letters not permitted") (number "523-abc-7890");
   "invalid with punctuations" >::
-  ae (Error "punctuations not permitted") (number "123-@:!-7890");
+  ae (Error "punctuations not permitted") (number "523-@:!-7890");
   "invalid if area code starts with 0" >::
   ae (Error "area code cannot start with zero") (number "(023) 456-7890");
   "invalid if area code starts with 1" >::

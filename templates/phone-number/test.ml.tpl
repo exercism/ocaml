@@ -12,10 +12,8 @@ let ae exp got _test_ctxt =
 
 let tests = [
   {{#cases}}
-    {{#cases}}
-      "{{description}}" >::
-        ae {{#input}}{{expected}} (number {{phrase}}){{/input}};
-    {{/cases}}
+    "{{description}}" >::
+      ae {{#input}}{{expected}} (number {{phrase}}){{/input}};
   {{/cases}}
 ]
 
