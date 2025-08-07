@@ -25,8 +25,9 @@ let number s =
   else
     let s = String.filter ~f:(Char.is_digit) s in
     match String.length s with
+    | x when x < 10                        -> Error "must not be fewer than 10 digits"
     | 10                                   -> check_valid_first_digits s
     | 11 when Char.(String.get s 0 = '1')  -> check_valid_first_digits (String.drop_prefix s 1)
     | 11                                   -> Error "11 digits must start with 1"
-    | x when x > 11                        -> Error "more than 11 digits"
+    | x when x > 11                        -> Error "must not be greater than 11 digits"
 | _ -> Error "incorrect number of digits"
