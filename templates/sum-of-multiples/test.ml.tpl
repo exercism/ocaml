@@ -7,7 +7,7 @@ let ae expected actual _test_ctxt =
 let tests = [
     {{#cases}}
       "{{description}}" >::
-        ae {{#input}}{{expected}} (sum_of_multiples ({{factors}}) ({{limit}})){{/input}};
+        ae {{#input}}{{expected}} (sum ({{factors}}) ({{limit}})){{/input}};
     {{/cases}}
 ]
 
