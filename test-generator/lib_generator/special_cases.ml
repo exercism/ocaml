@@ -359,7 +359,7 @@ let edit_parameters ~(slug: string) (parameters: (string * json) list) = match (
   | ("hamming", ps) -> edit_expected ~f:edit_hamming_expected ps |> Option.return
   | ("knapsack", ps) -> edit_knapsack ps |> Option.return
   | ("minesweeper", ps) -> edit_minesweeper ps |> Option.return
-  | ("nth-prime", ps) -> edit_nth_prime_expected ps |> Option.return
+  | ("nth-prime", ps) -> edit_expected  ~f:edit_nth_prime_expected ps |> Option.return
   | ("palindrome-products", ps) -> edit_palindrome_products ps |> Option.return
   | ("perfect-numbers", ps) -> edit_perfect_numbers ps |> Option.return 
   | ("phone-number", ps) -> edit_expected ~f:edit_phone_number_expected ps |> Option.return
