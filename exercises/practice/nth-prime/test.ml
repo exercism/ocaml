@@ -3,7 +3,7 @@ open Nth_prime
 
 let option_printer = function
   | Error m  -> Printf.sprintf "Error \"%s\"" m
-  | Ok m -> Printf.sprintf "Ok \"%s\"" m
+  | Ok m -> Printf.sprintf "Ok \"%d\"" m
 
 let ae exp got _test_ctxt = assert_equal ~printer:option_printer exp got
 
