@@ -1,0 +1,1 @@
+val nth_prime : int -> (int, string) result
