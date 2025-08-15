@@ -24,6 +24,9 @@
     ],
     "example": [
       ".meta/example.ml"
+    ],
+    "editor": [
+      "flower_field.mli"
     ]
   },
   "blurb": "Mark all the flowers in a garden."
