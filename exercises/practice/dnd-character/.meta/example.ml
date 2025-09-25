@@ -1,11 +1,11 @@
 type character = {
-  mutable charisma : int;
-  mutable constitution : int;
-  mutable dexterity : int;
-  mutable hitpoints : int;
-  mutable intelligence : int;
-  mutable strength : int;
-  mutable wisdom : int;
+  charisma : int;
+  constitution : int;
+  dexterity : int;
+  hitpoints : int;
+  intelligence : int;
+  strength : int;
+  wisdom : int;
 }
 
 let roll_dice ()  =

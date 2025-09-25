@@ -1,13 +1,3 @@
-type character = {
-  charisma : int;
-  constitution : int;
-  dexterity : int;
-  hitpoints : int;
-  intelligence : int;
-  strength : int;
-  wisdom : int;
-}
-
 let ability () =
   failwith "'ability' is missing"
 
