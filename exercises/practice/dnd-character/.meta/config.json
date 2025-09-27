@@ -9,6 +9,9 @@
     ],
     "example": [
       ".meta/example.ml"
+    ],
+    "editor": [
+      "dnd_character.mli"
     ]
   },
   "blurb": "Randomly generate Dungeons & Dragons characters.",
