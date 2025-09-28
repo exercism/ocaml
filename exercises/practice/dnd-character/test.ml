@@ -8,7 +8,7 @@ let ae_bool exp got _test_ctxt =
   assert_equal exp got ~printer:string_of_bool
 
 let tests = [
-  "ability modifier for score 2 is -4" >::
+  "ability modifier for score 3 is -4" >::
   ae (-4) (modifier ~score:3);
 
   "ability modifier for score 4 is -3" >::
