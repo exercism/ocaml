@@ -104,6 +104,14 @@
         ]
       },
       {
+        "slug": "two-fer",
+        "name": "Two-Fer",
+        "uuid": "870a40d5-63f5-4ef9-a8de-3ab5ed318376",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 2
+      },
+      {
         "slug": "raindrops",
         "name": "Raindrops",
         "uuid": "dd066b62-c63e-467c-8dfb-435bcc81d532",

@@ -1,0 +1,21 @@
+{
+  "authors": [
+    "khalidbelk"
+  ],
+  "files": {
+    "solution": [
+      "two_fer.ml"
+    ],
+    "test": [
+      "test.ml"
+    ],
+    "example": [
+      ".meta/example.ml"
+    ],
+    "editor": [
+      "two_fer.mli"
+    ]
+  },
+  "blurb": "Create a sentence of the form \"One for X, one for me.\".",
+  "source_url": "https://github.com/exercism/problem-specifications/issues/757"
+}
