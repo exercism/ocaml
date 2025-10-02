@@ -343,6 +343,15 @@ let unwrap_strings (ps: (string * json) list): (string * string) list option =
     | (k, v) -> (k, json_to_string v) in
   ps |> List.map ~f:edit |> Option.return
 
+let edit_two_fer ps =
+  let edit (k, v) =
+    match (k, v) with
+    | ("name", `Null) -> ("name", "None")
+    | ("name", `String s) -> ("name", "(Some \"" ^ s ^ "\")")
+    | (k, v) -> (k, json_to_string v)
+  in
+  List.map ps ~f:edit
+
 let edit_parameters ~(slug: string) (parameters: (string * json) list) = match (slug, parameters) with
   | ("all-your-base", ps) -> edit_all_your_base ps |> Option.return
   | ("allergies", ps) -> edit_allergies ps |> Option.return
@@ -367,6 +376,7 @@ let edit_parameters ~(slug: string) (parameters: (string * json) list) = match (
   | ("say", ps) -> edit_say ps |> Option.return
   | ("space-age", ps) -> edit_space_age ps |> Option.return
   | ("triangle", ps) -> edit_triangle ps
+  | ("two-fer", ps) -> edit_two_fer ps |> Option.return
   | ("custom-set", ps) -> unwrap_strings ps
   | ("grade-school", ps) -> unwrap_strings ps
   | (_, ps) -> map_elements json_to_string ps |> Option.return
