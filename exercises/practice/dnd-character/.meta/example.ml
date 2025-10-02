@@ -9,7 +9,7 @@ type character = {
 }
 
 let roll_dice ()  =
-  let results = List.init 4 (fun _ -> Random.int_in_range ~min:1 ~max:6)
+  let results = List.init 4 (fun _ -> 1 + Random.int 6)
   in results |> List.sort (compare) |> List.tl
 
 let ability () =
