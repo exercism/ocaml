@@ -325,6 +325,14 @@
         ]
       },
       {
+        "slug": "dnd-character",
+        "name": "D&D Character",
+        "uuid": "8fabd26a-9a2a-4afa-bcff-b5a89db7e4c3",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 5
+      },
+      {
         "slug": "prime-factors",
         "name": "Prime Factors",
         "uuid": "67d4fa19-c387-47c4-9262-a6e63d5c0a19",
