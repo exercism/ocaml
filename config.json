@@ -71,6 +71,14 @@
         ]
       },
       {
+        "slug": "darts",
+        "name": "Darts",
+        "uuid": "c6b23754-4410-4450-81fc-a7d53278cff5",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 2
+      },
+      {
         "slug": "difference-of-squares",
         "name": "Difference of Squares",
         "uuid": "7fbd4282-9e69-460d-a208-dfafb1850da0",
@@ -80,6 +88,14 @@
         "topics": [
           "math"
         ]
+      },
+      {
+        "slug": "eliuds-eggs",
+        "name": "Eliud's Eggs",
+        "uuid": "c25941d2-87cb-4558-a605-7d49829a1fc4",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 2
       },
       {
         "slug": "hamming",
@@ -102,14 +118,6 @@
         "topics": [
           "counting"
         ]
-      },
-      {
-        "slug": "two-fer",
-        "name": "Two-Fer",
-        "uuid": "870a40d5-63f5-4ef9-a8de-3ab5ed318376",
-        "practices": [],
-        "prerequisites": [],
-        "difficulty": 2
       },
       {
         "slug": "raindrops",
@@ -137,6 +145,22 @@
         "topics": [
           "transforming"
         ]
+      },
+      {
+        "slug": "sieve",
+        "name": "Sieve",
+        "uuid": "8157f71a-25ca-476c-8ac8-dcf660e5193b",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 2
+      },
+      {
+        "slug": "two-fer",
+        "name": "Two-Fer",
+        "uuid": "870a40d5-63f5-4ef9-a8de-3ab5ed318376",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 2
       },
       {
         "slug": "acronym",
@@ -196,6 +220,14 @@
         ]
       },
       {
+        "slug": "collatz-conjecture",
+        "name": "Collatz Conjecture",
+        "uuid": "eedc9471-326b-4498-b763-5b1c8eedca88",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 3
+      },
+      {
         "slug": "etl",
         "name": "ETL",
         "uuid": "be29288a-fcb6-4dce-acc3-be8d86e5454e",
@@ -218,6 +250,22 @@
         ]
       },
       {
+        "slug": "isbn-verifier",
+        "name": "ISBN Verifier",
+        "uuid": "408f5d5d-00f7-4dcb-bf57-8b8576ae903a",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 3
+      },
+      {
+        "slug": "isogram",
+        "name": "Isogram",
+        "uuid": "fe419d81-481d-49af-8e24-80defb0692f2",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 3
+      },
+      {
         "slug": "pangram",
         "name": "Pangram",
         "uuid": "ae5a4fac-84c4-4929-b37e-b0452f761bf8",
@@ -238,6 +286,14 @@
         "topics": [
           "floats"
         ]
+      },
+      {
+        "slug": "square-root",
+        "name": "Square Root",
+        "uuid": "33360ed8-c49c-4c7f-a1fb-7e242b0794c0",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 3
       },
       {
         "slug": "triangle",
@@ -283,6 +339,14 @@
         ]
       },
       {
+        "slug": "knapsack",
+        "name": "Knapsack",
+        "uuid": "c3bd5203-459c-4ea8-9b20-f4f5099808d8",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 4
+      },
+      {
         "slug": "luhn",
         "name": "Luhn",
         "uuid": "8d21e4be-5e9c-4c73-81c5-b4ee2517d9c7",
@@ -302,6 +366,14 @@
         ]
       },
       {
+        "slug": "perfect-numbers",
+        "name": "Perfect Numbers",
+        "uuid": "d7d076c6-8ed4-4dcd-ae15-199dc4b28cf7",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 4
+      },
+      {
         "slug": "phone-number",
         "name": "Phone Number",
         "uuid": "d9f93301-a8e8-4c90-bbff-e1ec65b435e5",
@@ -311,6 +383,14 @@
         "topics": [
           "strings"
         ]
+      },
+      {
+        "slug": "sum-of-multiples",
+        "name": "Sum of Multiples",
+        "uuid": "e127a984-ebb1-4709-9cc9-a740bceda94c",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 4
       },
       {
         "slug": "word-count",
@@ -328,6 +408,14 @@
         "slug": "dnd-character",
         "name": "D&D Character",
         "uuid": "8fabd26a-9a2a-4afa-bcff-b5a89db7e4c3",
+        "practices": [],
+        "prerequisites": [],
+        "difficulty": 5
+      },
+      {
+        "slug": "nth-prime",
+        "name": "Nth Prime",
+        "uuid": "21c2449c-390a-45d4-ab27-77a036aec631",
         "practices": [],
         "prerequisites": [],
         "difficulty": 5
@@ -566,94 +654,6 @@
         "topics": [
           "functional_programming"
         ]
-      },
-      {
-        "slug": "sieve",
-        "name": "Sieve",
-        "uuid": "8157f71a-25ca-476c-8ac8-dcf660e5193b",
-        "practices": [],
-        "prerequisites": [],
-        "difficulty": 2
-      },
-      {
-        "slug": "knapsack",
-        "name": "Knapsack",
-        "uuid": "c3bd5203-459c-4ea8-9b20-f4f5099808d8",
-        "practices": [],
-        "prerequisites": [],
-        "difficulty": 4
-      },
-      {
-        "slug": "eliuds-eggs",
-        "name": "Eliud's Eggs",
-        "uuid": "c25941d2-87cb-4558-a605-7d49829a1fc4",
-        "practices": [],
-        "prerequisites": [],
-        "difficulty": 2
-      },
-      {
-        "slug": "isogram",
-        "name": "Isogram",
-        "uuid": "fe419d81-481d-49af-8e24-80defb0692f2",
-        "practices": [],
-        "prerequisites": [],
-        "difficulty": 3
-      },
-      {
-        "slug": "darts",
-        "name": "Darts",
-        "uuid": "c6b23754-4410-4450-81fc-a7d53278cff5",
-        "practices": [],
-        "prerequisites": [],
-        "difficulty": 2
-      },
-      {
-        "slug": "collatz-conjecture",
-        "name": "Collatz Conjecture",
-        "uuid": "eedc9471-326b-4498-b763-5b1c8eedca88",
-        "practices": [],
-        "prerequisites": [],
-        "difficulty": 3
-      },
-      {
-        "slug": "square-root",
-        "name": "Square Root",
-        "uuid": "33360ed8-c49c-4c7f-a1fb-7e242b0794c0",
-        "practices": [],
-        "prerequisites": [],
-        "difficulty": 3
-      },
-      {
-        "slug": "isbn-verifier",
-        "name": "ISBN Verifier",
-        "uuid": "408f5d5d-00f7-4dcb-bf57-8b8576ae903a",
-        "practices": [],
-        "prerequisites": [],
-        "difficulty": 3
-      },
-      {
-        "slug": "perfect-numbers",
-        "name": "Perfect Numbers",
-        "uuid": "d7d076c6-8ed4-4dcd-ae15-199dc4b28cf7",
-        "practices": [],
-        "prerequisites": [],
-        "difficulty": 4
-      },
-      {
-        "slug": "sum-of-multiples",
-        "name": "Sum of Multiples",
-        "uuid": "e127a984-ebb1-4709-9cc9-a740bceda94c",
-        "practices": [],
-        "prerequisites": [],
-        "difficulty": 4
-      },
-      {
-        "slug": "nth-prime",
-        "name": "Nth Prime",
-        "uuid": "21c2449c-390a-45d4-ab27-77a036aec631",
-        "practices": [],
-        "prerequisites": [],
-        "difficulty": 5
       }
     ]
   },
