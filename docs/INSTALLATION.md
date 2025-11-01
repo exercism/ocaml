@@ -18,7 +18,7 @@ To work on the exercises, you will need these pieces of software:
    If you already have a switch for OCaml 5.1, either load that by running `opam switch <switch-name>`, or create a new switch by running:
 
    ```bash
-   opam switch create exercism 5.1.1
+   opam switch create exercism 5.4.0
    ```
 
    The name `exercism` here is optional, but naming your switches is a good practice.
