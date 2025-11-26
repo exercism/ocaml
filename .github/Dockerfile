@@ -1,4 +1,4 @@
-FROM ocaml/opam:debian-11-ocaml-5.1-afl
+FROM docker.io/ocaml/opam:debian-13-ocaml-5.4-no-flat-float-array
 
 USER root
 
@@ -33,5 +33,5 @@ RUN opam update \
     getopt \
     stdio
 
-ENV PATH="/home/opam/.opam/5.1/bin:${PATH}" \
+ENV PATH="/home/opam/.opam/5.4/bin:${PATH}" \
     MAKESYSPATH=/usr/share/bmake/mk-bmake
