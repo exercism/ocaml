@@ -38,7 +38,7 @@ let allergenScores =
   ]
 
 (* QCheck generator for (allergen, score) pair. *)
-let allergen_gen = QCheck.Gen.oneofl allergenScores
+let allergen_gen = QCheck.Gen.oneof_list allergenScores
 
 (* QCheck generator for all allergens except `allergens`. *)
 let complements allergens =
@@ -50,10 +50,10 @@ let complements allergens =
    arbitrary allergen that isn't contained in `score`. *)
 let allergen_complement_gen = QCheck.Gen.(
     allergen_gen                    >>= fun (allergen, score) ->
-    oneofl (complements [allergen]) >>= fun complement ->
+    oneof_list (complements [allergen]) >>= fun complement ->
     return (complement, score))
 
-(* Combinator like `QCheck.Gen.oneofl` that generates an arbitrary sublist
+(* Combinator like `QCheck.Gen.oneof_list` that generates an arbitrary sublist
    of its input. For each `x` in `xs` of `manyofl xs`, include `x` with a
    50% probability. *)
 let rec manyofl =
