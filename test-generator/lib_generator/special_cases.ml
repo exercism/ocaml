@@ -306,15 +306,20 @@ let rec edit_expected ~(f: json -> string) (parameters: (string * json) list) = 
 let edit_knapsack (ps: (string * json) list): (string * string) list =
   let item (i: json) : (string) = 
     match i with
-    | `Assoc l -> "{" ^ (List.map l ~f:(fun (k, v) -> Printf.sprintf "%s = %s" k (json_to_string v)) |> (String.concat ~sep:"; ")) ^ "}" in
+    | `Assoc l -> 
+      "{" ^ (List.map l ~f:(fun (k, v) -> Printf.sprintf "%s = %s" k (json_to_string v)) |> (String.concat ~sep:"; ")) ^ "}" 
+    | other -> json_to_string other in
   let spacer (v: 'a list): (string) =
     match v with
     | _i1 :: _i2 :: _rest -> "\n"
     | _ -> "" in
-  let items_list (v: json): (string) = 
+  let items_list (v: json): string = 
     match v with
-    | `Assoc [] -> "[]"
-    | `List  l -> (spacer l) ^ "[" ^ (List.map l ~f:item |> (String.concat ~sep:";\n")) ^ "]" ^ (spacer l) in
+    | `List l -> 
+        let s = spacer l in
+        s ^ "[" ^ (List.map l ~f:item |> String.concat ~sep:";\n") ^ "]" ^ s
+    | _ -> json_to_string v 
+  in
   let edit = function
     | ("items", v) -> ("items", items_list v)
     | (k, v) -> (k, json_to_string v) in
