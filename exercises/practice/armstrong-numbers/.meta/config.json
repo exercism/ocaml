@@ -11,6 +11,9 @@
     ],
     "example": [
       ".meta/example.ml"
+    ],
+    "editor": [
+      "armstrong_numbers.mli"
     ]
   },
   "blurb": "Determine if a number is an Armstrong number.",
