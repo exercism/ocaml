@@ -25,6 +25,7 @@ jobs:
         run: opam exec -- dune build @fmt --root test-generator
 
   ci:
+    needs: lint
     runs-on: ubuntu-24.04
 
     steps:
