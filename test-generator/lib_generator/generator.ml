@@ -16,7 +16,6 @@ end
 
 module Exercise_candidate = struct
   include Exercise_candidate
-
 end
 
 module Exercise = Exercise

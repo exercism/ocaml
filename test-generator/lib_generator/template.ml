@@ -1,30 +1,26 @@
 open Core
 
-type t = {
-  path: string;
-  relative_path: string;
-  content: string;
-}
+type t = { path : string; relative_path : string; content : string }
 
-let of_path (path: string) ~(tpl: string): t =
+let of_path (path : string) ~(tpl : string) : t =
   let content = Files.read_file path |> Result.ok_exn in
   let relative_path = Files.relative_path tpl path in
-  {
-    path;
-    relative_path;
-    content
-  }
+  { path; relative_path; content }
 
-let format (c: string): string =
+let format (c : string) : string =
   let b = Buffer.create (String.length c) in
-  let o = { IndentPrinter.std_output with kind=(Print (fun s () -> Buffer.add_string b s)) } in
+  let o =
+    {
+      IndentPrinter.std_output with
+      kind = Print (fun s () -> Buffer.add_string b s);
+    }
+  in
   IndentPrinter.proceed o (Nstream.of_string c) IndentBlock.empty ();
-  (Buffer.contents b
-  |> String.split_lines
-  |> List.map ~f:String.rstrip
-  |> String.concat ~sep:"\n") ^ "\n"
+  (Buffer.contents b |> String.split_lines |> List.map ~f:String.rstrip
+ |> String.concat ~sep:"\n")
+  ^ "\n"
 
-let render (t: t) ~(data: Canonical_data.t): string =
+let render (t : t) ~(data : Canonical_data.t) : string =
   try
     Mustache.render (Mustache.of_string t.content) (Canonical_data.to_json data)
     |> String.substr_replace_all ~pattern:"&quot;" ~with_:"\""
@@ -33,11 +29,9 @@ let render (t: t) ~(data: Canonical_data.t): string =
     |> String.substr_replace_all ~pattern:"&lt;" ~with_:"<"
     |> String.substr_replace_all ~pattern:"&gt;" ~with_:">"
   with exn ->
-    Printf.printf "%s\n======\n%s" (t.relative_path) (t.content);
+    Printf.printf "%s\n======\n%s" t.relative_path t.content;
     raise exn
 
-let to_string (t: t): string =
+let to_string (t : t) : string =
   Printf.sprintf "Template { path = %s; relative_path = %s; content = %s }"
-  t.path
-  t.relative_path
-  t.content
+    t.path t.relative_path t.content
