@@ -19,7 +19,7 @@ jobs:
           ocaml-compiler: 5.4
 
       - name: Install dependencies
-        run: opam install ocamlformat dune
+        run: opam install ocamlformat.0.28.1 dune
 
       - name: Check formatting
         run: opam exec -- dune build @fmt --root test-generator
