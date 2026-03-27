@@ -55,6 +55,7 @@ $(ASSIGNMENTS_GEN): test_generator
 	
 generate_exercises: $(ASSIGNMENTS_GEN)
 
+# check formatting of test generator files only
 check-formatting:
 	opam exec -- dune build @fmt --root test-generator
 
