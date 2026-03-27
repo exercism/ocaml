@@ -1,11 +1,14 @@
 (dirs fixtures)
+
 (data_only_dirs fixtures)
 
 (test
  (name all_tests)
  (libraries core ounit2 yojson generator)
- (deps (glob_files fixtures/*)))
+ (deps
+  (glob_files fixtures/*)))
 
 (env
-  (dev
-    (flags (:standard -warn-error -A))))
+ (dev
+  (flags
+   (:standard -warn-error -A))))
