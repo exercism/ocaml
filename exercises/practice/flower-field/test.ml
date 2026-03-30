@@ -16,17 +16,17 @@ let ae exp got =
 
 let tests = [
   "no rows" >:: (fun _ ->
-      let b = [] in
+      let garden = [] in
       let expected = [] in
-      ae expected (annotate b)
+      ae expected (annotate garden)
     );
   "no columns" >:: (fun _ ->
-      let b = [""] in
+      let garden = [""] in
       let expected = [""] in
-      ae expected (annotate b)
+      ae expected (annotate garden)
     );
   "no flowers" >:: (fun _ ->
-      let b = [
+      let garden = [
         "   ";
         "   ";
         "   ";
@@ -36,10 +36,10 @@ let tests = [
         "   ";
         "   ";
       ] in
-      ae expected (annotate b)
+      ae expected (annotate garden)
     );
-  "garden with only flowers" >:: (fun _ ->
-      let b = [
+  "garden full of flowers" >:: (fun _ ->
+      let garden = [
         "***";
         "***";
         "***";
@@ -49,10 +49,10 @@ let tests = [
         "***";
         "***";
       ] in
-      ae expected (annotate b)
+      ae expected (annotate garden)
     );
   "flower surrounded by spaces" >:: (fun _ ->
-      let b = [
+      let garden = [
         "   ";
         " * ";
         "   ";
@@ -62,10 +62,10 @@ let tests = [
         "1*1";
         "111";
       ] in
-      ae expected (annotate b)
+      ae expected (annotate garden)
     );
   "space surrounded by flowers" >:: (fun _ ->
-      let b = [
+      let garden = [
         "***";
         "* *";
         "***";
@@ -75,20 +75,20 @@ let tests = [
         "*8*";
         "***";
       ] in
-      ae expected (annotate b)
+      ae expected (annotate garden)
     );
   "horizontal line" >:: (fun _ ->
-      let b = [" * * "] in
+      let garden = [" * * "] in
       let expected = ["1*2*1"] in
-      ae expected (annotate b)
+      ae expected (annotate garden)
     );
   "horizontal line, flowers at edges" >:: (fun _ ->
-      let b = ["*   *"] in
+      let garden = ["*   *"] in
       let expected = ["*1 1*"] in
-      ae expected (annotate b)
+      ae expected (annotate garden)
     );
   "vertical line" >:: (fun _ ->
-      let b = [
+      let garden = [
         " ";
         "*";
         " ";
@@ -102,10 +102,10 @@ let tests = [
         "*";
         "1";
       ] in
-      ae expected (annotate b)
+      ae expected (annotate garden)
     );
   "vertical line, flowers at edges" >:: (fun _ ->
-      let b = [
+      let garden = [
         "*";
         " ";
         " ";
@@ -119,10 +119,10 @@ let tests = [
         "1";
         "*";
       ] in
-      ae expected (annotate b)
+      ae expected (annotate garden)
     );
   "cross" >:: (fun _ ->
-      let b = [
+      let garden = [
         "  *  ";
         "  *  ";
         "*****";
@@ -136,10 +136,10 @@ let tests = [
         "25*52";
         " 2*2 ";
       ] in
-      ae expected (annotate b)
+      ae expected (annotate garden)
     );
   "large garden" >:: (fun _ ->
-      let b = [
+      let garden = [
         " *  * ";
         "  *   ";
         "    * ";
@@ -155,7 +155,12 @@ let tests = [
         "1*22*2";
         "111111";
       ] in
-      ae expected (annotate b)
+      ae expected (annotate garden)
+    );
+  "multiple adjacent flowers" >:: (fun _ ->
+      let garden = [" ** "] in
+      let expected = ["1**1"] in
+      ae expected (annotate garden)
     );
 ]
 

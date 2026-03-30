@@ -158,6 +158,19 @@ let edit_dominoes (ps: (string * json) list): (string * string) list =
     | (k, v) -> (k, json_to_string v) in
   List.map ps ~f:edit
 
+let edit_flower_field (ps: (string * json) list): (string * string) list =
+  let format_board l =
+    if List.length l > 1 then
+      l |> List.map ~f:json_to_string |> String.concat ~sep:";\n" |> Printf.sprintf "[\n%s;\n]"
+    else
+      json_to_string (`List l)
+  in
+  let edit = function
+    | ("garden", `List l) -> ("garden", format_board l)
+    | ("expected", `List l) -> ("expected", format_board l)
+    | (k, v) -> (k, json_to_string v) in
+  List.map ps ~f:edit
+
 let edit_minesweeper (ps: (string * json) list): (string * string) list =
   let format_board l =
     if List.length l > 1 then
@@ -379,6 +392,7 @@ let edit_parameters ~(slug: string) (parameters: (string * json) list) = match (
   | ("darts", ps) -> edit_darts ps |> Option.return
   | ("dominoes", ps) -> edit_dominoes ps |> Option.return
   | ("etl", ps) -> edit_etl ps |> Option.return
+  | ("flower-field", ps) -> edit_flower_field ps |> Option.return
   | ("forth", ps) -> edit_expected ~f:edit_forth_expected ps |> Option.return
   | ("hamming", ps) -> edit_expected ~f:edit_hamming_expected ps |> Option.return
   | ("knapsack", ps) -> edit_knapsack ps |> Option.return
