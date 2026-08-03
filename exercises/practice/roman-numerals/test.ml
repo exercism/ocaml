@@ -55,6 +55,8 @@ let tests = [
   ae "MMM" (to_roman 3000);
   "3001 is MMMI" >::
   ae "MMMI" (to_roman 3001);
+  "3888 is MMMDCCCLXXXVIII" >::
+  ae "MMMDCCCLXXXVIII" (to_roman 3888);
   "3999 is MMMCMXCIX" >::
   ae "MMMCMXCIX" (to_roman 3999);
 ]
