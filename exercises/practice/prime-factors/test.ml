@@ -13,7 +13,7 @@ let to_int64s = List.map ~f:Int64.of_int
  *
  * If you happen to use a 64 bits machine normal ints would do as well, but this
  * works for everybody.
-*)
+ *)
 let tests = [
   "no factors" >::
   ae (to_int64s []) (factors_of 1L);
