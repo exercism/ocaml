@@ -1,4 +1,4 @@
-FROM docker.io/ocaml/opam:debian-13-ocaml-5.4-no-flat-float-array
+FROM docker.io/ocaml/opam:debian-13-ocaml-5.5-no-flat-float-array@sha256:913e4694f4acdaa5b183ab45a3b099c64b9e96bdbbf4ced4e5cae937dee8f92f
 
 USER root
 
@@ -33,5 +33,5 @@ RUN opam update \
     getopt \
     stdio
 
-ENV PATH="/home/opam/.opam/5.4/bin:${PATH}" \
+ENV PATH="/home/opam/.opam/5.5/bin:${PATH}" \
     MAKESYSPATH=/usr/share/bmake/mk-bmake

@@ -15,7 +15,7 @@ notes contain a few details specific to Ocaml.
 
 **Prerequisites**
 
-- OCaml `5.4`
+- OCaml `5.5`
 - opam
 - make
 
