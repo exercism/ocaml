@@ -1,0 +1,10 @@
+let most_common_word text =
+  let counts = Hashtbl.create 16 in
+  let count word = Option.value (Hashtbl.find_opt counts word) ~default:0 in
+  let best = ref "" in
+  String.lowercase_ascii text
+  |> String.split_on_char ' '
+  |> List.iter (fun word ->
+         Hashtbl.replace counts word (count word + 1);
+         if count word > count !best then best := word);
+  Printf.sprintf "\"%s\" appears %d times" !best (count !best)
