@@ -11,9 +11,9 @@ let ae ~delta exp_result got_result _test_ctxt =
       assert_bool msg (Float.(diff <= delta))
   | Error exp_msg, Error got_msg ->
       assert_equal exp_msg got_msg ~printer:Fn.id
-  | Ok _, Error m -> 
+  | Ok _, Error m ->
       assert_failure (Printf.sprintf "Expected Ok, but got Error: %s" m)
-  | Error m, Ok _ -> 
+  | Error m, Ok _ ->
       assert_failure (Printf.sprintf "Expected Error: %s, but got Ok" m)
 
 let tests = [

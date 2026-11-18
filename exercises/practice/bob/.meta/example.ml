@@ -8,8 +8,8 @@ let is_shouting s =
 
 let is_question s = Char.(s.[String.length s - 1] = '?')
 
-let response_for s = 
-  let s = String.strip s in 
+let response_for s =
+  let s = String.strip s in
   match s with
   | s when is_empty s    -> "Fine. Be that way!"
   | s when is_shouting s -> if is_question s then "Calm down, I know what I'm doing!" else "Whoa, chill out!"

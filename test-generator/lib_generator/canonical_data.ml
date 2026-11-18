@@ -39,7 +39,7 @@ let of_string (s: string): t =
         |> Option.map ~f:(fun l -> `Assoc (List.map l ~f:(fun (k, v) -> (k, `String v))))
         |> Option.map ~f:(fun i -> `Assoc (("input", i) :: (Util.to_assoc c |> List.filter ~f:(fun (k, _) -> String.(k <> "input" && k <> "expected"))))
       )
-  ) 
+  )
   in
 
   let cases = (mem "cases") |> Util.to_list |> sanitize_cases in

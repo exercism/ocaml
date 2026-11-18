@@ -19,10 +19,10 @@ let roll_printer = function
 | Ok _ -> "Ok <some game>"
 | Error e -> e
 
-let assert_score frames exp = 
+let assert_score frames exp =
   assert_equal ~printer:score_printer exp (score (set_previous_frames frames))
 
-let assert_roll frames exp frame = 
+let assert_roll frames exp frame =
   assert_equal ~printer:roll_printer exp (roll frame (set_previous_frames frames))
 
 let tests = [

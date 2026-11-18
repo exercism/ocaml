@@ -11,7 +11,7 @@ let ae exp got _test_ctxt = assert_equal ~printer exp got
 let tests = [
 {{#cases}}
    "{{description}}" >::
-     {{#input}}ae {{expected}} 
+     {{#input}}ae {{expected}}
        (make_change ~target:{{target}} ~coins:{{coins}}){{/input}};
 {{/cases}}
 ]

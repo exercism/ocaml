@@ -3,7 +3,7 @@ armstrong-numbers/test.ml.tpl
 open OUnit2
 open Armstrong_numbers
 
-let ae exp got _test_ctxt = 
+let ae exp got _test_ctxt =
   assert_equal ~printer:string_of_bool exp got
 
 let tests = [
@@ -15,9 +15,9 @@ let tests = [
 
 let () =
   run_test_tt_main ("armstrong tests" >::: tests)
-  
-Uncaught exception:                 
-  
+
+Uncaught exception:
+
   Yojson__Common.Json_error("Line 94, bytes 17-51:\nInt overflow '186709961001538790100634132976990'")
 
 Raised at Yojson__Common.json_error in file "lib/common.ml", line 5, characters 19-39

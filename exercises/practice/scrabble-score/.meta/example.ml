@@ -9,7 +9,7 @@ let letter_scores = function
     | _ -> 0
 
 
-let score s = 
+let score s =
   let chars = s |> String.to_seq |> List.of_seq |> List.map (fun c -> Char.uppercase_ascii c) in
   let rec aux charlist acc =
     match charlist with

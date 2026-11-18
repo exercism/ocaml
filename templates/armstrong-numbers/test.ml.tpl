@@ -2,7 +2,7 @@
 open OUnit2
 open Armstrong_numbers
 
-let ae exp got _test_ctxt = 
+let ae exp got _test_ctxt =
   assert_equal ~printer:string_of_bool exp got
 
 let tests = [

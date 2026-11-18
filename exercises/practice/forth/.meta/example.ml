@@ -8,7 +8,7 @@ let emptyStringMap = Map.empty (module String)
 let string_to_int (s: string): int option =
   Option.try_with (fun () -> Int.of_string s)
 
-type sentence = 
+type sentence =
 | Def of string
 | Normal of string list
 
@@ -22,7 +22,7 @@ let handle_binary_op f = function
 | _ -> None
 
 let std_vocabulary: vocabulary =
-  emptyStringMap 
+  emptyStringMap
   |> Map.set ~key:"+" ~data:(handle_binary_op (+))
   |> Map.set ~key:"-" ~data:(handle_binary_op (-))
   |> Map.set ~key:"*" ~data:(handle_binary_op ( * ))
@@ -45,10 +45,10 @@ let string_last = function
 let evaluate_number (word: string) (stack: stack): stack option =
   Option.map (string_to_int word) ~f:(fun n -> n :: stack)
 
-let evaluate_word (word: string) (vocabulary: vocabulary) (stack: stack): stack option = 
-  evaluate_number word stack <|> 
+let evaluate_word (word: string) (vocabulary: vocabulary) (stack: stack): stack option =
+  evaluate_number word stack <|>
   Option.bind (Map.find vocabulary word) ~f:(apply stack) <|>
-  None 
+  None
 
 let rec eval_all (stack: 'a) (fs: ('a -> 'a option) list): 'a option = match fs with
 | [] -> Some stack
@@ -68,7 +68,7 @@ let rec handle_def vocabulary stack words: (vocabulary * stack) option =
   let words = List.take words (List.length words - 1) in
   if List.length words < 2
   then None
-  else 
+  else
     let new_vocab = List.hd_exn words in
     if Option.is_some (string_to_int new_vocab)
     then None
@@ -81,8 +81,8 @@ and evaluate_sentence_or_fail (vocabulary: vocabulary) (stack: stack) (sentence:
 | Normal words -> eval_all (vocabulary, stack) (List.map words ~f:(fun w -> fun (v,s) -> Option.map (evaluate_word w v s) ~f:(fun s -> (v,s))))
 | Def def -> handle_def vocabulary stack def
 
-and evaluate_stack (stack: stack) (vocabulary: vocabulary) (words: string list): (vocabulary * stack) option = 
-  List.fold words ~init:(Some (vocabulary, stack)) 
+and evaluate_stack (stack: stack) (vocabulary: vocabulary) (words: string list): (vocabulary * stack) option =
+  List.fold words ~init:(Some (vocabulary, stack))
         ~f:(fun mvs w -> (match mvs with
           | None -> None
           | Some (v, s) -> evaluate_sentence_or_fail v s (to_sentence w)

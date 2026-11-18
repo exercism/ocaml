@@ -1,4 +1,4 @@
-let square_of_sum _ = 
+let square_of_sum _ =
     failwith "'square_of_sum' is missing"
 
 let sum_of_squares _ =

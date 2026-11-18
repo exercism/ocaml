@@ -1,2 +1,2 @@
-let collatz_conjecture _ = 
+let collatz_conjecture _ =
   failwith "'collatz_conjecture' is missing"

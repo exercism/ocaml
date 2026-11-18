@@ -11,7 +11,7 @@ OCaml's documentation is spread over multiple projects and can be hard to find b
 
 Confusingly the standard library is sometimes referred to as the core library (though rarely as the Core library).
 
-The Core library from Jane Street is required for a few exercises, but can be useful for all. It's divided into three - Base, Core_kernel, and Core - each extending the previous. 
+The Core library from Jane Street is required for a few exercises, but can be useful for all. It's divided into three - Base, Core_kernel, and Core - each extending the previous.
 Base is all you'll need for most exercises, but for a few (using dates for instance, Core_kernel is needed).
 To use Core, put `open Base` or `open Core_kernel` at the top of your code.
 
