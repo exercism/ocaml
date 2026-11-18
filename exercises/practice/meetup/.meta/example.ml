@@ -38,7 +38,7 @@ let schedule_to_int = function
   | Last -> 5
 
 let add_days base days =
-  Date.Period.day days |> Date.add base 
+  Date.Period.day days |> Date.add base
 
 let meetup_day schedule weekday ~year ~month =
   let base = Date.make year month 1 in

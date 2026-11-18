@@ -1,5 +1,5 @@
 
-let to_roman n = 
+let to_roman n =
   assert (n < 4000);
 
   let build ones halves tens = function

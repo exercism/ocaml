@@ -30,7 +30,7 @@ val create : string -> t
 (** Feed a letter into the game. *)
 val feed : char -> t -> unit
 
-(** 
+(**
 Get a signal that contains the word to be guessed with all not yet guessed
 letters replaced by underscores.
 *)

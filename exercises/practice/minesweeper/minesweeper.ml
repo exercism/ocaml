@@ -1,2 +1,2 @@
-let annotate _ = 
+let annotate _ =
     failwith "'annotate' is missing"

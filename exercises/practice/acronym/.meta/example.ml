@@ -8,5 +8,5 @@ let acronym input =
   |> String.filter ~f:is_relevant
   |> String.split_on_chars ~on:delimiters
   |> List.filter ~f:(fun word -> String.length word > 0)
-  |> List.map ~f:(fun word -> String.get word 0 |> Char.uppercase) 
+  |> List.map ~f:(fun word -> String.get word 0 |> Char.uppercase)
   |> String.of_char_list

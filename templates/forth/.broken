@@ -30,7 +30,7 @@ let () =
       ]
   )
 Uncaught exception:
-  
+
   Mustache_types.Missing_variable("instructions")
 
 Raised at Mustache.Lookup.dotted_name.(fun) in file "lib/mustache.ml", line 176, characters 25-51

@@ -11,7 +11,7 @@ let ae exp got = assert_equal ~printer:show_player exp got
 let tests = [
 {{#cases}}
   "{{description}}" >::(fun _ctxt ->
-    {{#input}}let board = {{board}} 
+    {{#input}}let board = {{board}}
     in
     ae {{expected}} (connect board){{/input}}
   );

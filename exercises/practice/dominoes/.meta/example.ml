@@ -6,7 +6,7 @@ type dominoe = int * int
 
 (* Functions from Haskell that I can't find in Core! *)
 
-let zip_with (xs: 'a list) (ys: 'b list) ~(f: 'a -> 'b -> 'c) = 
+let zip_with (xs: 'a list) (ys: 'b list) ~(f: 'a -> 'b -> 'c) =
   let rec go xs ys acc = match (xs,ys) with
   | (x::xs,y::ys) -> go xs ys @@ (f x y)::acc
   | _ -> acc
@@ -43,7 +43,7 @@ and go stones path = match stones with
 | [] -> if left path = right path then [path] else []
 | _ -> let open List.Monad_infix in choose_from stones >>= attach_to path
 
-let chain_non_empty (first: dominoe) (rest: dominoe list): (dominoe list) option = 
+let chain_non_empty (first: dominoe) (rest: dominoe list): (dominoe list) option =
   listToOption @@ go rest [first]
 
 let chain = function

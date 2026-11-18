@@ -186,7 +186,7 @@ let edit_minesweeper (ps: (string * json) list): (string * string) list =
 
   let edit_space_age (ps: (string * json) list): (string * string) list =
     let edit = function
-      | ("planet", v) -> 
+      | ("planet", v) ->
           ("planet", json_to_string v |> strip_quotes)
       | ("expected", v) ->
           let wrapped = match v with
@@ -196,7 +196,7 @@ let edit_minesweeper (ps: (string * json) list): (string * string) list =
             | _ -> json_to_string v
           in
           ("expected", wrapped)
-      | (k, v) -> (k, json_to_string v) 
+      | (k, v) -> (k, json_to_string v)
   in
   List.map ps ~f:edit
 
@@ -255,7 +255,7 @@ let edit_change (ps: (string * json) list): (string * string) list =
   ps |> List.map ~f:edit
 
 let edit_darts (ps: (string * json) list): (string * string) list =
-  let edit_float = function 
+  let edit_float = function
     | v -> match (String.contains v '.') with
       | true -> v
       | false -> v ^ ".0" in
@@ -327,21 +327,21 @@ let rec edit_expected ~(f: json -> string) (parameters: (string * json) list) = 
   | (k, v) :: rest -> (k, json_to_string v) :: edit_expected ~f rest
 
 let edit_knapsack (ps: (string * json) list): (string * string) list =
-  let item (i: json) : (string) = 
+  let item (i: json) : (string) =
     match i with
-    | `Assoc l -> 
-      "{" ^ (List.map l ~f:(fun (k, v) -> Printf.sprintf "%s = %s" k (json_to_string v)) |> (String.concat ~sep:"; ")) ^ "}" 
+    | `Assoc l ->
+      "{" ^ (List.map l ~f:(fun (k, v) -> Printf.sprintf "%s = %s" k (json_to_string v)) |> (String.concat ~sep:"; ")) ^ "}"
     | other -> json_to_string other in
   let spacer (v: 'a list): (string) =
     match v with
     | _i1 :: _i2 :: _rest -> "\n"
     | _ -> "" in
-  let items_list (v: json): string = 
+  let items_list (v: json): string =
     match v with
-    | `List l -> 
+    | `List l ->
         let s = spacer l in
         s ^ "[" ^ (List.map l ~f:item |> String.concat ~sep:";\n") ^ "]" ^ s
-    | _ -> json_to_string v 
+    | _ -> json_to_string v
   in
   let edit = function
     | ("items", v) -> ("items", items_list v)
@@ -364,7 +364,7 @@ let edit_nth_prime_expected = function
   | `Int n -> "(Ok " ^ Int.to_string n ^ ")"
   | `Assoc [("error", `String m)] -> "(Error \"" ^ m ^ "\")"
   | x -> Yojson.Basic.to_string x
-  
+
 let unwrap_strings (ps: (string * json) list): (string * string) list option =
   let edit = function
     | (_, `String s) -> ("params", s)
@@ -399,7 +399,7 @@ let edit_parameters ~(slug: string) (parameters: (string * json) list) = match (
   | ("minesweeper", ps) -> edit_minesweeper ps |> Option.return
   | ("nth-prime", ps) -> edit_expected  ~f:edit_nth_prime_expected ps |> Option.return
   | ("palindrome-products", ps) -> edit_palindrome_products ps |> Option.return
-  | ("perfect-numbers", ps) -> edit_perfect_numbers ps |> Option.return 
+  | ("perfect-numbers", ps) -> edit_perfect_numbers ps |> Option.return
   | ("phone-number", ps) -> edit_expected ~f:edit_phone_number_expected ps |> Option.return
   | ("rectangles", ps) -> edit_rectangles ps |> Option.return
   | ("say", ps) -> edit_say ps |> Option.return

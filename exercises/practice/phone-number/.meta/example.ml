@@ -2,23 +2,23 @@
 open Base
 
 let check_valid_first_digits s =
-  if Char.(s.[0] = '0') then 
+  if Char.(s.[0] = '0') then
     Error "area code cannot start with zero"
   else if Char.(s.[0] = '1') then
     Error "area code cannot start with one"
-  else if Char.(s.[3] = '0') then 
+  else if Char.(s.[3] = '0') then
     Error "exchange code cannot start with zero"
   else if Char.(s.[3] = '1') then
     Error "exchange code cannot start with one"
   else Ok s
 
 let is_punctuation = function
-  | '@' -> true 
+  | '@' -> true
   | '!' -> true
   | _ -> false
 
 let number s =
-  if not @@ String.is_empty (String.filter ~f:(Char.is_alpha) s) then 
+  if not @@ String.is_empty (String.filter ~f:(Char.is_alpha) s) then
     Error "letters not permitted"
   else if not @@ String.is_empty (String.filter ~f:(is_punctuation) s) then
     Error "punctuations not permitted"

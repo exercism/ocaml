@@ -1,9 +1,9 @@
 open Base
 
-let find xs value = 
-  let rec go lo hi = 
+let find xs value =
+  let rec go lo hi =
     if lo > hi then Error "value not in array"
-    else begin 
+    else begin
       let mid = lo + (hi - lo) / 2 in
       let mid_val = xs.(mid) in
       if mid_val < value
@@ -15,5 +15,4 @@ let find xs value =
   in
   if Array.is_empty xs
   then Error "value not in array"
-  else go 0 (Array.length xs - 1) 
-  
+  else go 0 (Array.length xs - 1)

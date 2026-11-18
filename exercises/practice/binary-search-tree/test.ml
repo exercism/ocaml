@@ -10,23 +10,23 @@ let result_to_string f = function
 let ae exp got _test_ctxt =
   assert_equal ~printer:(result_to_string Int.to_string) exp got
 
-let intlist_to_string l = 
+let intlist_to_string l =
   List.map l ~f:Int.to_string
   |> List.intersperse ~sep:"; "
-  |> List.fold ~init:"" ~f:(^) 
+  |> List.fold ~init:"" ~f:(^)
   |> fun s -> "[" ^ s ^ "]"
 
 let ael exp got _test_ctxt =
   assert_equal ~printer:intlist_to_string exp got
 
-let tests = 
-  let t4 = empty |> insert 4 in 
-  let t42 = t4 |> insert 2 in  
-  let l2 =  t42 |> left in  
-  let t44 = t4 |> insert 4 in 
-  let l4 =  t44 |> left in 
+let tests =
+  let t4 = empty |> insert 4 in
+  let t42 = t4 |> insert 2 in
+  let l2 =  t42 |> left in
+  let t44 = t4 |> insert 4 in
+  let l4 =  t44 |> left in
   let t45 = t4 |> insert 5 in
-  let r5 = t45 |> right in  
+  let r5 = t45 |> right in
   let t4261357 = t42 |> insert 6 |> insert 1 |> insert 3 |> insert 5 |> insert 7 in
   let t2 = empty |> insert 2 in
   let t21 = t2 |> insert 1 in

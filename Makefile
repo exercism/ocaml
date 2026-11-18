@@ -52,7 +52,7 @@ test_generator: generator
 
 $(ASSIGNMENTS_GEN): test_generator
 	dune exec ./bin_test_gen/test_gen.exe --root=./test-generator/ -- --exercise $(@:.gen=) --filter-broken true
-	
+
 generate_exercises: $(ASSIGNMENTS_GEN)
 
 install_deps:

@@ -1,6 +1,6 @@
-let validate candidate = 
+let validate candidate =
   let rec armstrong ~candidate ~num ~sum =
-    if num <= 0 then sum = candidate 
+    if num <= 0 then sum = candidate
     else
       let num_digits = int_of_float (floor (log10 (float_of_int candidate)) +. 1.) in
       let digit = num mod 10 in

@@ -3,7 +3,7 @@ open OUnit2
 
 let ael exp got _test_ctxt =
     let sort = List.sort ~compare:Int.compare in
-        assert_equal (sort exp) (sort got) ~printer:(fun xs -> String.concat ~sep:";" (List.map ~f:Int.to_string xs)) 
+        assert_equal (sort exp) (sort got) ~printer:(fun xs -> String.concat ~sep:";" (List.map ~f:Int.to_string xs))
 
 let tests = [
 {{#cases}}

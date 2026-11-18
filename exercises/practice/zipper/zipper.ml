@@ -6,7 +6,7 @@ let equal _ _ _ =
 let t_of_sexp _ _ =
     failwith "'t_of_sexp' is missing"
 
-let sexp_of_t _ _ = 
+let sexp_of_t _ _ =
     failwith "'sexp_of_t' is missing"
 
 let of_tree _ =
